@@ -1,0 +1,40 @@
+Basic demangling of C function names
+Demangling of C function names with basic types (int, char, float, double, etc.)
+Demangling of C function names with pointer types
+Demangling of C function names with array types
+Demangling of C function names with const and volatile qualifiers
+Demangling of C function names with static and extern storage classes
+Demangling of C function names with inline specifier
+Demangling of C function names with attribute annotations
+Demangling of C function names with calling conventions (__cdecl, __stdcall, etc.)
+Demangling of C function names with variable arguments (varargs)
+Demangling of C function names with struct types
+Demangling of C function names with union types
+Demangling of C function names with enum types
+Demangling of C function names with typedefs
+Demangling of C function names with complex types (e.g., pointers to functions, arrays of pointers, etc.)
+Demangling of C variable names with basic types
+Demangling of C variable names with pointer types
+Demangling of C variable names with array types
+Demangling of C variable names with const and volatile qualifiers
+Demangling of C variable names with struct types
+Demangling of C variable names with union types
+Demangling of C variable names with enum types
+Demangling of C global variable names
+Demangling of C static variable names within a function
+Demangling of C macros and preprocessor definitions
+Handling of C++ name mangling schemes applied to C code (if applicable)
+Demangling of C function names with no parameters (void)
+Demangling of C function names with fixed number of parameters
+Demangling of C function names returning basic types
+Demangling of C function names returning pointer types
+Demangling of C function names returning complex types (e.g., pointer to function)
+Handling of unnamed parameters in C function demangling
+Handling of C function pointers including demangling of the function signature
+Handling of C function names with __restrict qualifier
+Demangling of C function names with size_t and ptrdiff_t types
+Handling of inline functions and their demangling in C
+Demangling of C function names with static inline specifier
+Handling of GCC's _builtin prefixed functions
+Demangling of C symbols with linkage specifications (extern "C")
+Demangling of C symbols from different linkage sections (e.g., .text, .data)

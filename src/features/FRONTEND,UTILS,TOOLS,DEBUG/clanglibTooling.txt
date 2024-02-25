@@ -1,0 +1,100 @@
+Source Code Parsing
+Abstract Syntax Tree (AST) Generation
+AST Matchers
+Syntax Tree Pattern Matching
+Code Refactoring Operations
+Source-to-Source Transformation
+Code Formatting
+Tokenization
+Lexical Analysis
+Preprocessing Directives Handling
+Macro Expansion
+Identifier Resolution
+Type Checking
+Semantic Analysis
+Symbol Table Construction
+Dependency Analysis
+Include File Resolution
+Diagnostic Generation
+Error Reporting
+Warning Reporting
+Fix-it Hints Generation
+Code Completion
+Code Navigation
+Declaration Lookup
+Identifier Renaming
+Code Injection
+Code Extraction
+Dead Code Detection
+Code Simplification
+Constant Folding
+Inlining Functions
+Loop Transformations
+Conditional Operator Simplification
+Switch Statement Simplification
+Array to Pointer Decaying
+Function Pointer Handling
+Struct and Union Handling
+Enum Handling
+Type Aliasing
+Variable Shadowing
+Automatic Variable and Function Declaration Insertion
+Comment Handling
+Attribute Parsing
+Pragma Handling
+Inline Assembly Handling
+Goto Statements Handling
+Label Handling
+Compound Statement Handling
+Expression Statement Handling
+Selection Statement Handling (if, switch)
+Iteration Statement Handling (for, while, do-while)
+Jump Statement Handling (break, continue, return, goto)
+Function Definition Handling
+External Declaration Handling
+Storage Class Specifiers Handling
+Type Qualifiers Handling
+Function Specifiers Handling
+Alignment Specifiers Handling
+Block Scope Handling
+File Scope Handling
+Linkage Specifications Handling
+Initialization (static, automatic, dynamic)
+Array Initialization
+Structure and Union Initialization
+Designated Initializers Handling
+Compound Literals Handling
+C99 Variable-Length Arrays
+C11 _Generic Expressions
+C11 _Static_assert
+C11 _Alignas and _Alignof
+C11 _Noreturn
+C11 _Thread_local
+C11 Anonymous Structures and Unions
+C11 Atomics Handling
+C11 _Atomic Qualifier and Operations
+C11 Threading and Mutex Handling
+C11 Condition Variable Handling
+Preprocessor Conditionals Handling (_Ifdef, _Ifndef)
+Preprocessor Error and Warning Directives Handling
+Preprocessor Line Control Handling
+Preprocessor Pragma Operator Handling
+Preprocessor _Pragma Directive Handling
+Universal Character Names Handling
+Trigraph Sequences Handling
+Digraphs Handling
+Hexadecimal Floating Constants Handling
+Floating-Point Precision Handling
+Imaginary and Complex Numbers Handling
+Wide and Multibyte Character Handling
+Wide and Multibyte String Literal Handling
+Variable Length Argument Lists Handling
+Inline Functions Handling
+External Variable Handling
+File and Line Predefined Macros Handling
+Date and Time Predefined Macros Handling
+Function Names Predefined Macros Handling
+func Predefined Identifier Handling
+Compiler Specific Built-ins and Extensions Handling
+Attribute Syntax Handling
+Asm Labels Handling

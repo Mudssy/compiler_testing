@@ -1,0 +1,30 @@
+Instruction Throughput
+Instruction Latency
+Resource Usage
+Pipeline Hazards
+Instruction Dispatch and Issue
+Instruction Execution
+Dependency Analysis
+Instruction Retirement
+Buffers and Queues (e.g., Reorder Buffer, Load/Store Buffers)
+Branch Prediction Accuracy
+Cache Utilization and Misses
+Functional Unit Utilization
+Instruction Mix Analysis
+Loop Analysis
+Micro-Op Queue Behavior
+Register File Pressure
+Memory Hierarchy Latencies
+Port Pressure and Usage
+Instruction Fetch and Decode
+Instruction Scheduling and Reordering
+Parallel Execution Units
+Vectorization Efficiency
+Out-of-Order Execution Efficiency
+Simulation of Different CPU Microarchitectures
+Hardware Event Counters Simulation
+Analysis of Compiler Optimization Effects on Code
+Impact of Compiler Flags on Performance Metrics
+Interplay Between Compiler IR Transformations and MCA Metrics
+Code Path Analysis Under Different Optimization Levels
+Analysis of Assembly Code Generated from C Code Snippets

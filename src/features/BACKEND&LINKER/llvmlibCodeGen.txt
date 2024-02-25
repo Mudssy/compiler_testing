@@ -1,0 +1,30 @@
+Instruction Selection: Conversion of LLVM IR to target-specific instructions.
+Register Allocation: Allocation of physical registers to virtual registers.
+Instruction Scheduling: Ordering of machine instructions for optimal execution.
+Machine IR (MIR) Generation: Testing the generation and correctness of MIR.
+Control Flow Graph (CFG) Construction: Construction and management of CFGs for functions.
+Peephole Optimizations: Small, local optimizations on machine instructions.
+Loop Optimization: Testing loop-related optimizations at the machine level.
+Function Prologue/Epilogue Generation: Handling function entry and exit sequences.
+Inline Assembly Handling: Support for inline assembly within C code.
+Calling Conventions: Adherence to target-specific calling conventions.
+Instruction Encoding: Correct encoding of machine instructions for the target.
+Debug Information Generation: Generation of debug information in the target code.
+Exception Handling: Code generation for try-catch blocks and unwinding.
+Global Variable Handling: Testing the handling and optimization of global variables.
+Constant Pool Management: Management of constant values within the generated code.
+Target-Specific Intrinsics: Generation and optimization of target-specific intrinsic functions.
+Data Layout Handling: Respect for the target's data layout specifications.
+Vectorization and SIMD Support: Utilization of vector instructions and SIMD capabilities.
+Linkage and Visibility: Handling of symbol linkage and visibility for external and static functions and variables.
+Target Features and Extensions: Utilization of target-specific features and instruction set extensions.
+Conditional Execution and Predication: Code generation for conditional execution paths.
+Addressing Modes: Utilization of the target's addressing modes for memory accesses.
+Stack Frame Management: Stack frame setup, including local variable allocation and stack alignment.
+Atomic Operations and Concurrency: Support for atomic operations and concurrent execution models.
+Floating-Point Operations: Handling of floating-point operations and related optimizations.
+Cross-Module Optimization: Testing optimizations that span multiple compilation units.
+ABI Compliance: Ensuring compliance with the Application Binary Interface specifications of the target.
+Profile-Guided Optimizations: Utilization of profiling information for optimizations.
+Custom Passes and Extensions: Support for custom LLVM passes and extensions specific to lib/CodeGen.
+Interoperability with Frontend: Ensuring seamless integration with the LLVM frontend components.

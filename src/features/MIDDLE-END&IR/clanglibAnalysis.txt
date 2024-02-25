@@ -1,0 +1,50 @@
+Control Flow Analysis
+Data Flow Analysis
+Type Checking
+Static Analysis Checks
+Memory Leak Detection
+Uninitialized Variables
+Dead Code Elimination
+Array Bound Checks
+Null Pointer Dereferences
+Use-After-Free Detection
+Lock Concurrency Analysis
+Cross-Function Analysis
+Interprocedural Analysis
+Taint Analysis
+Symbolic Execution
+Pointer Analysis
+Alias Analysis
+CFG (Control Flow Graph) Construction
+AST (Abstract Syntax Tree) Based Checks
+Semantic Analysis
+Div-by-Zero Checks
+Reachability Analysis
+Exception Safety Analysis
+Variable Capture Analysis (in closures and lambdas)
+Resource Leak Checks
+Retain Cycle Detection in Objective-C
+Objective-C Messaging Checks
+C++ Class Invariant Checks
+C++11 and newer feature checks (move semantics, lambdas, etc.)
+Function Attribute Inference
+Thread Safety Analysis
+Undefined Behavior Detection
+Constant Evaluation
+Security Vulnerability Checks
+API Usage Errors
+Misuse of Library/API Functions
+Compiler Diagnostics Enhancement
+Code Complexity Analysis
+Loop Analysis
+Performance Anti-Patterns
+Code Path Analysis
+Generic Coding Standard Checks (e.g., MISRA, CERT)
+Format String Vulnerabilities
+Inefficient Algorithm Detection
+Overlapping Memory Access
+Implicit Type Conversion Checks
+C11 and C18 Features and Compatibility
+Inline Assembly Analysis
+Macro Usage and Expansion Analysis
+Attributes and Pragmas Handling

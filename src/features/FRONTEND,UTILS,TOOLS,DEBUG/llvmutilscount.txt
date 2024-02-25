@@ -1,0 +1,93 @@
+Function definitions
+Function declarations
+External variable declarations
+Static variable declarations inside functions
+Global variable declarations
+Local variable declarations
+Pointer variable declarations
+Array declarations
+Struct declarations
+Union declarations
+Enum declarations
+Typedef declarations
+Inline functions
+Automatic variables
+Register variables
+Constant expressions
+Integer constants
+Floating point constants
+Character constants
+String literals
+Arithmetic operations
+Relational operations
+Logical operations
+Bitwise operations
+Assignment operations
+Increment and decrement operations
+Conditional expressions
+Implicit type conversions
+Explicit type casts
+Compound statements (blocks)
+Expression statements
+If statements
+If-else statements
+Switch statements
+Case labels
+Default label
+While loops
+Do-while loops
+For loops
+Break statement
+Continue statement
+Goto statement
+Labels
+Function calls
+Argument passing in functions
+Return statement
+Array indexing
+Pointer dereferencing
+Address-of operator
+Sizeof operator
+Pointer arithmetic
+Struct member access
+Struct pointer member access (->)
+Union member access
+Enum usage
+Typedef usage
+Static function usage
+Extern keyword usage
+Volatile keyword usage
+Const keyword usage
+Restrict keyword usage
+Inline keyword usage
+No-op statements (semicolon alone)
+Multidimensional array usage
+Variable length arrays
+Static array indices in function parameters
+Recursive function calls
+Nested function definitions
+Function pointers
+Function pointer calls
+Variable scope shadowing
+Global variable usage in functions
+Static variable usage in recursive functions
+Compound literals
+Initializer lists for arrays
+Initializer lists for structs
+Initializer lists for unions
+Designated initializers for arrays
+Designated initializers for structs
+Preprocessor directives
+Macro definitions
+Macro function definitions
+Conditional compilation directives
+Header file inclusion
+Pragma directives
+_Static_assert usage
+Anonymous structs and unions
+Flexible array members in structs
+Alignment specifiers (e.g., _Alignas)
+Alignment queries (e.g., _Alignof)
+Atomic types and operations
+Thread-local storage (_Thread_local)
+Noreturn function specifier (_Noreturn)

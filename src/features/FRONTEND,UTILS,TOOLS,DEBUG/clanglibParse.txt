@@ -1,0 +1,65 @@
+Syntax correctness of basic C data types (int, char, float, double, etc.)
+Syntax correctness of derived types (pointers, arrays, structs, unions, enums)
+Declaration and initialization of variables
+Function declarations and definitions
+Correct parsing of function parameters and return types
+Handling of inline assembly code
+Parsing of typedef declarations
+Correct interpretation of const and volatile qualifiers
+Handling of static and extern storage class specifiers
+Parsing of control flow statements (if, else, switch, case, default)
+Parsing of loop constructs (for, while, do-while)
+Handling of break and continue statements
+Correct interpretation of goto and labeled statements
+Parsing of compound statements and block scopes
+Expression parsing and operator precedence
+Parsing of arithmetic, logical, bitwise, and assignment operators
+Correct handling of increment and decrement operators
+Parsing of conditional expressions (ternary operator)
+Handling of cast expressions
+Parsing of sizeof operator
+Correct parsing of array subscripting
+Handling of function calls and argument passing
+Parsing of pointer and address operations
+Handling of struct and union member access
+Parsing of enum constants
+Correct interpretation of typedef names as types
+Handling of compound literals
+Parsing of initializer lists for arrays, structs, and unions
+Correct handling of designated initializers
+Parsing of attribute specifiers
+Handling of attribute syntax
+Parsing of pragma directives
+Handling of _Static_assert declarations
+Correct interpretation of inline keyword
+Parsing of variable length arrays
+Handling of alignment specifiers (_Alignas)
+Parsing of _Atomic type qualifier
+Handling of _Generic expressions
+Correct parsing of _Noreturn function specifier
+Parsing of _Thread_local storage class specifier
+Handling of _Alignof operator
+Parsing of compound statement expressions (GNU extension)
+Correct interpretation of asm labels (GNU extension)
+Handling of __builtin functions and other compiler intrinsics
+Parsing of __typeof operator (GNU extension)
+Correct handling of label declarations (GNU extension)
+Parsing of statement expressions (GNU extension)
+Handling of zero-length arrays and flexible array members (GNU extension)
+Parsing of hexadecimal floating-point constants
+Correct handling of universal character names in identifiers
+Parsing of anonymous structs and unions
+Handling of transparent unions (GNU extension)
+Parsing of __imag and __real operators (GNU extension)
+Correct interpretation of extension keyword (GNU extension)
+Handling of __declspec specifiers (Microsoft extension)
+Parsing of __cdecl, __stdcall, and other calling convention keywords (Microsoft extension)
+Correct handling of non-standard escape sequences
+Parsing of #include directives
+Handling of #define macros and macro expansion
+Parsing of #if, #ifdef, #ifndef, #else, #elif, #endif preprocessor directives
+Handling of #error and #pragma preprocessor directives
+Parsing of #line and #file directives
+Correct interpretation of token concatenation and stringification in macros
+Handling of variadic macros
+Parsing of _Pragma operator

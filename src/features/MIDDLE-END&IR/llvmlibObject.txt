@@ -1,0 +1,30 @@
+Object file format parsing (e.g., ELF, COFF, Mach-O)
+Symbol table extraction and manipulation
+Section and segment iteration and manipulation
+Relocation entries parsing and handling
+Symbol resolution and lookup
+Handling of different architectures (e.g., x86, ARM, MIPS)
+Debug information extraction (e.g., DWARF, PDB)
+Handling of special sections (e.g., .bss, .text, .data)
+Archive file (.a) handling and extraction
+Handling of common and local symbols
+Dynamic symbol table handling
+Section attributes and flags handling
+Parsing and handling of section-specific data (e.g., relocations, line numbers)
+Handling of object file specific metadata (e.g., headers, file format version)
+Creation and manipulation of object files from scratch
+Endianness handling for data in object files
+Parsing and manipulation of auxiliary structures (e.g., symbol versioning)
+Error handling and reporting for malformed object files
+Handling of platform-specific features (e.g., Windows resources in COFF)
+Interoperability with other LLVM libraries (e.g., MC layer, Bitcode)
+Handling of object file containers (e.g., Universal binaries in Mach-O)
+Address and offset calculation within sections and segments
+Handling of link-time optimization (LTO) sections
+Extraction and handling of embedded bitcode
+Handling of thread-local storage sections
+Parsing and handling of constructor and destructor lists
+Handling of symbol binding and visibility
+Handling of weak and alias symbols
+Extraction and handling of code and data sections for disassembly or analysis
+Integration with LLVM's build and linking tools

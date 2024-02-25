@@ -1,0 +1,58 @@
+Source code indexing
+Symbol identification
+Function declarations indexing
+Variable declarations indexing
+Type declarations indexing
+Enumeration declarations indexing
+Macro definitions indexing
+Reference identification
+Function calls identification
+Variable references identification
+Type references identification
+Enumeration references identification
+Macro usage identification
+Indexing of declarations within namespaces
+Indexing of template instantiations
+Identification of overloaded functions
+Indexing of class/struct members
+Indexing of base classes in inheritance hierarchies
+Indexing of virtual function declarations
+Indexing of function parameters
+Indexing of lambda expressions
+Identification of typedefs and type aliases
+Indexing of constructors and destructors
+Indexing of operator overloads
+Identification of external symbols usage
+Indexing of namespace aliasing
+Indexing of using-directives and using-declarations
+Identification of explicit and implicit type conversions
+Indexing of friend declarations
+Identification of compile-time constant expressions
+Indexing of static_assert declarations
+Indexing of attribute annotations
+Identification of pragma directives
+Indexing of initializer lists
+Indexing of enum class and enum struct
+Indexing of template specialization and partial specialization
+Identification of dependent names in templates
+Indexing of template type parameters
+Indexing of template non-type parameters
+Indexing of template template parameters
+Identification of pack expansions in templates
+Indexing of default arguments in function parameters
+Identification of noexcept specifications
+Indexing of deleted and defaulted functions
+Identification of alignment specifiers
+Indexing of conditional operator usage
+Indexing of designated initializers
+Indexing of compound statements
+Indexing of range-based for loops
+Indexing of static and thread-local variables
+Identification of constexpr variables and functions
+Identification of inline variables and functions
+Indexing of structured bindings
+Identification of attributes in C++17 and later
+Indexing of concepts and constraints (C++20)
+Identification of module import and export declarations (C++20)
+Indexing of coroutine components (co_await, co_yield, co_return)
+Identification of contract conditions (expects, ensures, assert) - C++20 Contracts (if supported)

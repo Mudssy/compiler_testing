@@ -1,0 +1,51 @@
+Function stub generation
+External symbol resolution
+Interface stub ELF section generation
+Weak symbol support in stubs
+Stub generation for global variables
+Alias symbol handling in interface stubs
+Linkage type handling for symbols in stubs
+Symbol versioning support in stubs
+Stub generation for C standard library functions
+Handling of undefined symbols in stubs
+Support for different calling conventions in function stubs
+Inline function stub support
+Stub generation for variadic functions
+Stub generation for function pointers
+Conditional compilation in stubs based on macros
+Attribute handling in stub generation (e.g., noreturn, const)
+Stub generation for static and inline functions
+Support for _Thread_local storage class specifier in stubs
+Generation of stubs for functions with __attribute__((used))
+Handling of __attribute__((visibility("default"))) in stubs
+Handling of __attribute__((visibility("hidden"))) in stubs
+Stub generation for functions with __attribute__((alias("target")))
+Handling of __attribute__((weak)) in stubs
+Handling of __attribute__((weak_import)) in stubs
+Support for __attribute__((stdcall)) in function stubs
+Support for __attribute__((cdecl)) in function stubs
+Handling of __attribute__((noreturn)) in function stubs
+Stub generation for functions using __attribute__((deprecated))
+Handling of __attribute__((warn_unused_result)) in function stubs
+Generation of stubs for functions with __attribute__((format))
+Support for __attribute__((nonnull)) in function stubs
+Handling of __attribute__((pure)) in function stubs
+Support for __attribute__((const)) in function stubs
+Stub generation for functions with __attribute__((malloc))
+Handling of __attribute__((returns_nonnull)) in function stubs
+Support for __attribute__((sentinel)) in function stubs
+Handling of __attribute__((section)) in stubs
+Support for __attribute__((constructor)) in function stubs
+Support for __attribute__((destructor)) in function stubs
+Handling of __attribute__((aligned)) in stubs for global variables
+Generation of stubs for functions with __attribute__((cold))
+Support for __attribute__((hot)) in function stubs
+Handling of __attribute__((no_icf)) in function stubs
+Stub generation for functions with __attribute__((optimize))
+Support for __attribute__((no_instrument_function)) in function stubs
+Handling of __attribute__((no_sanitize)) in function stubs
+Generation of stubs for functions with __attribute__((noclone))
+Support for __attribute__((nothrow)) in function stubs
+Handling of __attribute__((flatten)) in function stubs
+Stub generation for functions with __attribute__((gnu_inline))
+Support for __attribute__((artificial)) in function stubs

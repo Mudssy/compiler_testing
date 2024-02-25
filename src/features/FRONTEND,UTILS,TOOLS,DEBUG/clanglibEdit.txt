@@ -1,0 +1,54 @@
+
+Code Completion
+Syntax Checking
+Source Code Formatting
+Renaming Symbols
+Generating Documentation Comments
+Fix-It Hints and Auto-Corrections
+Refactoring Operations
+Extract Function
+Extract Variable
+Inline Function
+Inline Variable
+Change Signature
+Rename
+Move
+Code Templating and Snippets
+Semantic Highlighting
+Code Folding
+Code Navigation
+Go to Definition
+Go to Declaration
+Find References
+Go to Symbol
+Code Analysis and Diagnostics
+Static Analysis
+Dynamic Analysis
+Integrated Debugging Support
+Cross-Referencing
+Code Indexing
+Integration with Build Systems
+File and Project Management
+Language Standard Upgrades
+Preprocessor Support
+Attribute Insertion
+Code Injection and Rewriting
+Dependency Management and Resolution
+Automatic Header File Inclusion
+Error Recovery and Suggestion
+Comment Handling and Manipulation
+Code Serialization and Deserialization
+AST (Abstract Syntax Tree) Transformations
+Type Deduction and Inference
+Template Instantiation and Specialization
+Overload Resolution
+Macro Expansion and Handling
+Namespace Management and Resolution
+Exception Handling Constructs
+Linkage Specifications Handling
+Operator Overloading
+Lambda Expressions and Functional Constructs
+Constant Expression Evaluation
+Compile-time Assertions
+Unified Symbol Resolution
+Modular Compilation Support

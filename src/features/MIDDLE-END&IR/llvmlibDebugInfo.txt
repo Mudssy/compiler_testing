@@ -1,0 +1,45 @@
+Source Line Mapping
+Variable Declarations
+Variable Assignments
+Function Declarations
+Function Calls
+Function Parameters
+Scope Information
+Lexical Blocks
+Type Information for Variables
+Type Information for Functions
+Enumerations
+Structures and Unions
+Class Members
+Inheritance Information
+Namespaces
+Templates and Generic Types
+Dynamic Type Information
+Optimization Information
+Inline Functions
+Macros and Preprocessor Directives
+Conditional Compilation
+Module and Compilation Unit Information
+Global Variables
+Static Variables
+Local Variables
+Constant Expressions
+Array Types and Their Dimensions
+Pointer and Reference Types
+Volatile and Constant Qualifiers
+Custom Attributes
+Exception Handling and Unwinding
+Debugging Symbols and Their Visibility
+File and Directory Information
+Source Language Specification
+Producer Information
+Checksums and Content of Source Files
+Command Line Options
+Optimization Passes and Their Effects on Debug Info
+Dead Code Elimination Effects
+Cross-Module Debug Info
+Debug Info Versioning
+Debug Info for Different Target Architectures
+Platform-Specific Debugging Features
+Integration with External Debugging Tools and Formats (e.g., GDB, LLDB, DWARF)
+Non-standard Extensions and Custom Debug Info

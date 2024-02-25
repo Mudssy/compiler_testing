@@ -1,0 +1,49 @@
+Constant Propagation and Folding
+Dead Code Elimination
+Function Inlining
+Loop Unrolling and Loop Unswitching
+Global Value Numbering
+Control Flow Graph Simplification
+Scalar Replacement of Aggregates
+Memory to Register Promotion
+Tail Call Optimization
+Indirect Call Promotion
+Aggressive Dead Code Elimination
+Sparse Conditional Constant Propagation
+Interprocedural Constant Propagation
+Loop Invariant Code Motion
+Loop Strength Reduction
+Loop Vectorization and Loop Interchange
+Basic Alias Analysis
+Call Graph and Pointer Analysis
+Type-Based Alias Analysis
+Dominator Tree Construction and Updates
+Scalar Evolution Analysis
+Memory Dependence Analysis
+Instruction Combining
+Redundant Load Elimination
+Machine Code Sinking
+Machine Instruction Combining
+Global Optimizer
+Module Level Optimizations
+Profile Guided Optimizations
+Safe Point Insertion for Garbage Collection
+Exception Handling Optimizations
+Cross Module Function Import
+Auto Parallelization and Vectorization
+Stack Slot Coloring and Stack Protector
+Code Generation and Emission Optimizations
+Register Allocation and Spilling
+Instruction Scheduling
+Debug Information Preservation
+IR Instrumentation for Profiling and Coverage
+AddressSanitizer, MemorySanitizer, ThreadSanitizer, and UndefinedBehaviorSanitizer Passes
+Whole Program Devirtualization
+Merge Functions to Reduce Code Size
+Block Frequency and Branch Probability Analysis
+Machine Block Placement and Bundling
+Link Time Optimization (LTO) Passes
+Interprocedural Register Allocation
+Coroutine Transformations and Optimizations
+Speculative Execution Side Channel Mitigations
+Floating Point Exception Behavior Modeling

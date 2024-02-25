@@ -1,0 +1,30 @@
+Magic Number Recognition: Test recognition of different binary format magic numbers.
+Section Headers: Verify correct parsing and generation of section headers.
+Symbol Tables: Test handling of symbol tables, including local and global symbols.
+Relocation Entries: Verify parsing and application of relocation entries.
+Program Headers: Test handling of program headers for executable segments.
+Dynamic Linking Tables: Verify handling of dynamic linking information.
+Debug Information: Test parsing and generation of debug information sections.
+String Tables: Verify correct handling of string tables for symbol names and other string data.
+Symbol Resolution: Test resolution of symbols within and across object files.
+Endianness Support: Verify correct handling of endianness for different binary formats.
+Architectural Specifics: Test handling of architecture-specific features and sections.
+File Attributes: Verify parsing and generation of file attributes like executable, writable, etc.
+Thread-Local Storage: Test handling of thread-local storage sections.
+Segment Alignment: Verify correct alignment of segments as per binary format specifications.
+Entry Point Specification: Test specification and recognition of the entry point in executables.
+Section Grouping: Verify correct grouping and linking of related sections.
+Versioning Information: Test handling of versioning information for dynamic libraries.
+Compression: Verify handling of compressed sections or segments.
+Archive File Format: Test parsing and generation of archive file format (e.g., Unix archive files).
+Object File Type Recognition: Verify correct recognition of object file types (e.g., relocatable, executable, shared).
+Checksums and Hashes: Test handling of checksums and hashes for sections or entire binary.
+Interoperability: Verify interoperability with standard tools (e.g., linkers, loaders).
+Metadata: Test handling of metadata sections.
+Binary Annotations: Verify parsing and application of annotations within binary formats.
+Foreign Symbols: Test handling of foreign symbols imported from other binaries.
+Subsection Splitting: Verify correct splitting and handling of subsections within a section.
+Overlay Management: Test handling of overlays for binary formats that support them.
+Exception Handling Sections: Verify correct handling of exception handling information.
+DWARF Debug Info: Test parsing and generation of DWARF debug information sections.
+Machine Code Specifics: Verify handling of machine code specifics like instruction encodings.

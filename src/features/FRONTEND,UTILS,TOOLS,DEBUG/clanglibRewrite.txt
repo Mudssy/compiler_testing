@@ -1,0 +1,41 @@
+
+Source-to-source transformation capabilities
+Code formatting and style changes
+Automated correction of common coding errors
+Insertion of instrumentation code for profiling and debugging
+Code refactoring for improved readability and maintainability
+Conversion of legacy syntax to modern C standards (e.g., C99, C11)
+Injection of additional diagnostics or logging code
+Rewriting of deprecated API usages to current standards
+Transformation for cross-compilation targets
+Macro expansion to inline code
+Loop unrolling and optimization rewrites
+Function inlining or outlining transformations
+Variable renaming for consistency or conflict resolution
+Comment manipulation and documentation updates
+Conditional compilation handling based on predefined macros
+Pragma handling for compiler-specific optimizations or directives
+Automated generation of getter/setter functions for data encapsulation
+Refactoring of global variables into scoped blocks
+Conversion of function pointers to direct calls where possible
+Rewriting of recursive functions into iterative versions
+Simplification of complex expressions for readability
+Inline assembly code manipulation and optimization
+Conversion between different data types or structures for compatibility
+Optimization of memory allocation and deallocation patterns
+Error handling code transformation to newer paradigms (e.g., from errno to exceptions in C++)
+Introduction or optimization of parallelism constructs
+Code specialization based on runtime or compile-time profiling information
+Removal of unreachable or dead code
+Conversion of fixed-size arrays to dynamic memory management
+Refactoring switch-case statements into more efficient data structures or algorithms
+Rewriting of I/O operations for efficiency or modernization (e.g., from C-style to C++ streams)
+Handling of volatile qualifiers for memory-mapped I/O or signal handlers
+Alignment specifications for data structures to meet platform requirements
+Optimization of bit-field operations and storage
+Rewriting of inline functions to standard function definitions or vice versa
+Conversion of enums to type-safe enum classes (in C++)
+Struct and union manipulation for packing or layout changes
+Rewriting of goto statements to structured programming constructs
+Manipulation of typedefs for clarity or abstraction
+Handling of static and external linkage specifications for symbols

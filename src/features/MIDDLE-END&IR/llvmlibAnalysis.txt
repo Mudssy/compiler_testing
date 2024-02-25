@@ -1,0 +1,42 @@
+Call Graph Analysis
+Points-to Analysis (Alias Analysis)
+Basic Alias Analysis
+Advanced Alias Analysis (e.g., Scoped NoAlias, Type-Based, Object-Size, etc.)
+Control Flow Graph (CFG) Analysis
+Loop Analysis
+Dominator Tree Analysis
+Post-Dominator Tree Analysis
+Memory Dependence Analysis
+Scalar Evolution Analysis
+Global Value Numbering
+Interval Partitioning
+Memory SSA Analysis
+Instruction Simplification Analysis
+Dead Code Elimination Analysis
+Range Analysis
+Interprocedural Analysis
+Branch Prediction Analysis
+Block Frequency Analysis
+Profile Summary Analysis
+Dependence Analysis
+Cost Model Analysis (for target-specific cost)
+Value Tracking Analysis
+Module Summary Analysis
+Call Graph SCC Analysis
+Cross-DSO CFI Analysis
+Stack Safety Analysis
+Structured Loop Analysis
+Demanded Bits Analysis
+Hot Cold Splitting Analysis
+Indirect Call Promotion Analysis
+Machine Module Analysis
+Optimization Remark Emitter Analysis
+Physical Register Usage Information Analysis
+Profile Guided Size Optimization Analysis
+Retained Knowledge Analysis
+Safepoint Analysis
+Sync Region Analysis
+Target Library Information Analysis
+Target Pass Configuration Analysis
+Target Transform Information Analysis
+Type-Based Alias Analysis
