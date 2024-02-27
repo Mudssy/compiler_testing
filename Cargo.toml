@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 llama_cpp_rs = {path = "./rust-llama.cpp"}
+walkdir = "2"

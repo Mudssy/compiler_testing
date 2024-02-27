@@ -4,6 +4,9 @@ use llama_cpp_rs::{
 };
 use std::fs;
 
+extern crate walkdir;
+use walkdir::WalkDir;
+
 struct LLM{
     model: LLama,
     model_options: ModelOptions,
@@ -48,7 +51,35 @@ fn create_model_options() -> ModelOptions{
         
         ..Default::default()
     }
-} 
+}
+
+fn list_feature_files() -> Vec<String> {
+    let mut paths = Vec::new();
+    for file in WalkDir::new("./src/features").into_iter().filter_map(|file| file.ok()) {
+        if file.metadata().unwrap().is_file() {
+            paths.push(file.path().display().to_string());
+        }
+    }
+    paths
+}
+
+fn get_features_from_file(file_path: &str) -> Vec<String>{
+    let contents = fs::read_to_string(file_path).expect("should read file");
+    let features: Vec<String> = contents.split("\n").map(|s| s.to_string()).collect();
+    features
+}
+
+fn get_filename_from_path(path: &str) -> String{
+    let split_path: Vec<&str> = path.split("/").collect();
+    let filename = split_path[split_path.len()-1].to_string();
+    filename
+}
+
+fn remove_extension(filename: &str) -> String{
+    let split_filename: Vec<&str> = filename.split(".").collect();
+    let filename_no_extension = split_filename[0].to_string();
+    filename_no_extension
+}
 
 fn create_predict_options() -> PredictOptions{
     PredictOptions {
@@ -79,34 +110,8 @@ fn generate_prompt(compiler_section: &str, feature_to_test: &str) -> String{
     
 }
 
-fn create_model() -> LLama{
-    let model_options = create_model_options();
-    LLama::new(
-        "./models/phind-codellama/phind-codellama-34b-v2.Q4_K_M.gguf".into(),
-
-        &model_options,
-
-    )
-    .unwrap()
-}
-
-fn generate_output(prompt: String, llama: &LLama) -> String{
-    let out = 
-    llama
-        .predict(
-            prompt,
-            create_predict_options(),
-
-        ).unwrap();
-    out
-}
 
 fn main() {
-    // let llama = create_model();
-    // let feature_to_test = "clang/lib/CodeGen";
-    // let prompt = generate_prompt(feature_to_test);
-    // let out = generate_output(prompt, &llama);
-    // println!("{}", out);
 
     let generator = LLM::new(
         "./models/phind-codellama/phind-codellama-34b-v2.Q4_K_M.gguf",
@@ -116,8 +121,17 @@ fn main() {
         "./models/phind-codellama/prompt-template-end.txt",
     );
 
-    println!("{}", generator.generate_output(generate_prompt("llvmlibAsmParser", "Syntax Validation: Ensuring the parser correctly identifies valid and invalid assembly syntax."), create_predict_options()));
-
+    let feature_paths = list_feature_files();
+    //println!("{:?}", feature_paths);
+    for feature_path in &feature_paths{
+        let features = get_features_from_file(&feature_path);
+        for feature in features{
+            let section = remove_extension(&get_filename_from_path(&feature_path));
+            println!("Section: {}, Feature: {}", &section, &feature);
+            println!("{}", generator.generate_output(generate_prompt(&section, &feature), create_predict_options()));
+        }
+    }
+    
 
 
 }
