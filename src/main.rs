@@ -106,10 +106,32 @@ fn generate_prompt(compiler_section: &str, feature_to_test: &str) -> String{
     I can then run these programs through different compilers to see if they are supported and compare the outputs for each compiler.
     I want to test the {} feature for the C programming language for the {} section of the compiler.
     Generate a main function for the C programming language which prints out some specific output based on that feature which I could then use to compare the outputs of.
-    Do not include any explanation or and writing, just the program to be run ",feature_to_test,compiler_section)
+    Do not include any explanation or and writing, just the program to be run. Also do not include any non standard libraries that will need to be added",feature_to_test,compiler_section)
     
 }
 
+fn extract_code_block(input: &str) -> Option<&str> {
+    // Find the start of the code block, marked by "```c"
+    if let Some(start) = input.find("```c") {
+        // Calculate the start index of the actual code, skipping "```c\n"
+        let code_start = start + 4;
+        
+        // Find the end of the code block, marked by "```", starting from code_start
+        if let Some(end) = input[code_start..].find("```") {
+            // Calculate the actual end index of the code within the input
+            let code_end = code_start + end;
+
+            // Return the slice of the input that corresponds to the code block
+            Some(&input[code_start..code_end])
+        } else {
+            // If there's no closing "```", return None
+            None
+        }
+    } else {
+        // If there's no opening "```c", return None
+        None
+    }
+}
 
 fn main() {
 
@@ -127,8 +149,14 @@ fn main() {
         let features = get_features_from_file(&feature_path);
         for feature in features{
             let section = remove_extension(&get_filename_from_path(&feature_path));
+
+            let out = generator.generate_output(generate_prompt(&section, &feature), create_predict_options());
             println!("Section: {}, Feature: {}", &section, &feature);
-            println!("{}", generator.generate_output(generate_prompt(&section, &feature), create_predict_options()));
+            println!("{}", &out);
+            match extract_code_block(&out) {
+                Some(code) => println!("Extracted code:\n{}", code),
+                None => println!("Input does not contain a valid code block."),
+            }
         }
     }
     
