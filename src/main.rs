@@ -48,6 +48,7 @@ fn create_model_options() -> ModelOptions{
         f16_memory: false,
         m_map: true,
         context_size: 10000,
+        n_gpu_layers: 12,
         
         ..Default::default()
     }
@@ -88,7 +89,7 @@ fn create_predict_options() -> PredictOptions{
 
         //     true
         // })),
-        m_map: true,
+        m_map: false,
         threads: 10,
         debug_mode:false,
         tokens: 1000,
