@@ -46,7 +46,7 @@ impl LLM{
 fn create_model_options() -> ModelOptions{
     ModelOptions{
         f16_memory: false,
-        m_map: false,
+        m_map: true,
         context_size: 10000,
         
         ..Default::default()
@@ -88,7 +88,7 @@ fn create_predict_options() -> PredictOptions{
 
         //     true
         // })),
-        m_map: false,
+        m_map: true,
         threads: 10,
         debug_mode:false,
         tokens: 1000,
