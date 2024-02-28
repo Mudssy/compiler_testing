@@ -49,6 +49,7 @@ fn create_model_options() -> ModelOptions{
         m_map: true,
         context_size: 10000,
         n_gpu_layers: 12,
+        low_vram: true,
         
         ..Default::default()
     }
