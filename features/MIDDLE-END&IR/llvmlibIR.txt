@@ -1,0 +1,44 @@
+Basic Blocks and Control Flow
+Function Definitions and Declarations
+Global Variables
+Constants, including scalar, composite, and symbolic constants
+Arithmetic Operations (add, sub, mul, div, etc.)
+Bitwise Operations (and, or, xor, shift, etc.)
+Comparison Operations (equal, not equal, greater than, etc.)
+Type System (integer, floating-point, vector, array, pointer, structure, function types)
+Memory Access Instructions (load, store, alloca, etc.)
+Casting Instructions (bitcast, inttoptr, ptrtoint, etc.)
+Aggregate Operations (extractvalue, insertvalue)
+Terminator Instructions (ret, br, switch, indirectbr, invoke, resume, unreachable)
+Call and Invoke Instructions
+Phi Nodes for SSA Form
+Metadata and Debug Information
+Atomic Operations and Memory Model (fence, cmpxchg, atomicrmw)
+Vector Operations
+Exception Handling Constructs (landingpad, catchswitch, catchpad, cleanuppad)
+Inline Assembly
+Attributes (function attributes, parameter attributes, etc.)
+Module-Level Inline Assembly
+Linkage Types (external, internal, private, etc.)
+Calling Conventions
+Garbage Collection Strategies and Read/Write Barriers
+Target-Specific Intrinsics
+Optimization Hints and Annotations
+Loop and Branch Metadata for Optimizations
+Address Space Qualifiers
+Indirect Function Calls and Pointers to Functions
+Variable Argument Lists (varargs)
+Data Layout and Target Triple Information
+Thread Local Storage
+Global Initializers and Constructors/Destructors
+Alias and IFunc (indirect function)
+Comdat Groups for Linkage
+Discriminators for Precise Debug Information
+Named Metadata and Module Flags
+Use-list Orders for Stable IR Output
+Constant Expressions
+Structure Padding and Alignment
+Endianness and Data Representation
+Floating Point Environment Operations
+Non-trapping Floating-Point Math Intrinsics
+Predicated Vector Operations

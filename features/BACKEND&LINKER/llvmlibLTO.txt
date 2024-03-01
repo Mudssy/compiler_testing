@@ -1,0 +1,35 @@
+Function inlining across translation units
+Interprocedural constant propagation
+Dead code elimination across translation units
+Cross-module function attribute propagation
+Interprocedural dead argument elimination
+Link-time identification and elimination of duplicate code (function or variable)
+Global variable optimization and merging
+Whole program optimization
+Interprocedural register allocation
+Cross-module virtual function call optimization
+Link-time code generation optimizations
+Profile-guided optimizations (PGO) at link time
+ThinLTO and FullLTO modes
+Module summary index generation and usage
+Symbol resolution and redefinition in LTO context
+Handling of weak and link once symbols
+Optimization of static and dynamic libraries
+Interprocedural optimization of inline assembly
+LTO with different optimization levels (-O0, -O1, -O2, -O3, -Os, -Oz)
+Debug information preservation and generation during LTO
+Linker plugin interface and compatibility
+Incremental LTO and caching mechanisms
+Parallel code generation in LTO
+Handling of target-specific intrinsics and built-ins during LTO
+Compatibility and interoperability with various target architectures and platforms
+Handling of external and internal linkage during LTO
+LTO impact on exception handling and RTTI (Run-time Type Information)
+Interprocedural optimization of language-specific features (e.g., C++ virtual tables)
+Handling and optimization of thread-local storage in LTO
+Integration and interoperability with other LLVM tools and front-ends
+LTO-driven code size reduction techniques
+Impact of LTO on dynamic linking and shared libraries
+Handling of compiler-generated artifacts (e.g., profiling counters) during LTO
+Security features and hardening optimizations during LTO
+Custom optimization passes and plugins in the LTO pipeline

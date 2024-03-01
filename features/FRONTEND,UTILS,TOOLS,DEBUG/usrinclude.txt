@@ -1,0 +1,233 @@
+Standard Input and Output (stdio.h)
+printf
+scanf
+fopen
+fclose
+fread
+fwrite
+fprintf
+fscanf
+fgetc
+fputc
+fgets
+fputs
+fseek
+ftell
+rewind
+fgetpos
+fsetpos
+fflush
+setbuf
+setvbuf
+tmpfile
+tmpnam
+perror
+remove
+rename
+printf variants (e.g., sprintf, snprintf)
+scanf variants (e.g., sscanf)
+Character Type Functions (ctype.h)
+isalpha
+isdigit
+isalnum
+iscntrl
+isgraph
+islower
+isprint
+ispunct
+isspace
+isupper
+isxdigit
+tolower
+toupper
+String Manipulation (string.h)
+strcpy
+strncpy
+strcat
+strncat
+memcmp
+strcmp
+strcoll
+strncmp
+strxfrm
+memchr
+strchr
+strcspn
+strpbrk
+strrchr
+strspn
+strstr
+strtok
+memset
+strerror
+strlen
+General Utilities (stdlib.h)
+atof
+atoi
+atol
+strtod
+strtol
+strtoul
+rand
+srand
+calloc
+free
+malloc
+realloc
+abort
+exit
+atexit
+system
+getenv
+bsearch
+qsort
+abs
+div
+labs
+ldiv
+Mathematical Functions (math.h)
+acos
+asin
+atan
+atan2
+ceil
+cos
+cosh
+exp
+fabs
+floor
+fmod
+frexp
+ldexp
+log
+log10
+modf
+pow
+sin
+sinh
+sqrt
+tan
+tanh
+Date and Time (time.h)
+clock
+difftime
+mktime
+time
+asctime
+ctime
+gmtime
+localtime
+strftime
+Assert Macro (assert.h)
+assert
+Variable Argument Lists (stdarg.h)
+va_start
+va_arg
+va_end
+va_copy
+Non-local Jumps (setjmp.h)
+setjmp
+longjmp
+Signal Handling (signal.h)
+signal
+raise
+Floating-Point Environment (fenv.h)
+feclearexcept
+fegetexceptflag
+feraiseexcept
+fesetexceptflag
+fetestexcept
+fegetround
+fesetround
+fegetenv
+fesetenv
+feholdexcept
+feupdateenv
+Complex Arithmetic (complex.h)
+cacos
+casin
+catan
+ccos
+csin
+ctan
+cacosh
+casinh
+catanh
+ccosh
+csinh
+ctanh
+cexp
+clog
+cabs
+cpow
+csqrt
+carg
+cimag
+creal
+Standard Macros and Constants
+Data Types
+Primitive Types (int, char, etc.)
+Structured Types (struct, union, enum)
+Typedefs
+Fixed-width Integer Types (stdint.h)
+Standard Functions
+Memory Management (malloc, free, etc.)
+String Manipulation (strcpy, strcat, strlen, etc.)
+Character Type Functions (isalpha, isdigit, etc.)
+Math Functions (sin, cos, sqrt, etc.)
+File and Stream Operations
+fopen, fclose
+fread, fwrite
+fprintf, fscanf
+fgets, fputs
+Error Handling
+errno
+perror, strerror
+Environment Access
+getenv, setenv
+Time and Date Functions
+time, clock
+localtime, gmtime
+Dynamic Loading
+dlopen, dlclose
+dlsym, dlerror
+Process Control
+system
+execve, fork, wait, exit
+Signal Handling
+signal, raise
+Locale-specific Functions
+setlocale, localeconv
+Multithreading (POSIX Threads)
+pthread_create, pthread_join
+pthread_mutex_lock, pthread_mutex_unlock
+Atomic Operations (stdatomic.h)
+Sockets and Network
+socket, bind
+connect, accept
+send, recv
+Regular Expressions (regex.h)
+Non-Blocking I/O (fcntl.h, select)
+Memory Mapping and Management
+mmap, munmap
+Inter-Process Communication (IPC)
+pipe, fifo
+message queues, semaphores, shared memory
+System Configuration
+sysconf, pathconf
+Directories and File System Operations
+opendir, readdir, closedir
+stat, fstat
+Command Line Arguments Parsing
+getopt
+Floating Point Environment (fenv.h)
+Complex Numbers (complex.h)
+Assertions (assert.h)
+Non-Local Jumps (setjmp.h, longjmp)
+Variadic Functions (stdarg.h)
+Program Termination
+abort, atexit
+Byte Manipulation
+memset, memcpy, memmove
+Bit Manipulation Functions
+C Preprocessor Directives (for test setup, not runtime)

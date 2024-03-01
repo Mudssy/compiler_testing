@@ -1,0 +1,40 @@
+Basic code generation
+Data type support (primitive, structured, user-defined)
+Arithmetic operations
+Logical operations
+Control structures (if-else, loops, switch-case)
+Function calls and parameter passing
+Recursion support
+Pointer and array handling
+Struct, union, and enumeration handling
+Inline assembly code generation
+Optimization levels (O0, O1, O2, O3, Os, Oz)
+Floating-point operations and consistency
+Exception handling and unwinding
+Thread local storage
+Global variables initialization and usage
+Volatile and atomic operations
+SIMD and vectorization support
+Cross-module optimization (LTO - Link Time Optimization)
+Debug information generation (DWARF, PDB)
+Target-specific code generation (architecture, ABI)
+Inline functions and macros expansion
+Template instantiation and code bloat
+Constant expression evaluation and folding
+Attributes and pragma handling
+Language extensions and intrinsics
+Linkage and visibility of symbols
+Stack and heap memory management
+Interoperability with other languages (C, C++, Objective-C)
+Conformance to language standards (ISO C11, C++17, etc.)
+Warnings and diagnostics generation
+Profile-guided optimizations (PGO)
+Address sanitizer, undefined behavior sanitizer, and other runtime checks
+Conditional compilation and preprocessor directives
+Dead code elimination and unreachable code
+Loop transformations and optimizations (unrolling, vectorization)
+Dependency analysis and scheduling
+Inter-procedural optimizations (IPO)
+Security features (stack protectors, safe stack)
+Code generation for different calling conventions
+Metadata and annotations handling

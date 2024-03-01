@@ -1,0 +1,50 @@
+Variable Declarations - Test with global, local, static, and extern variables.
+Function Declarations - Create functions with various return types and parameter lists.
+Struct Declarations - Define structs with various fields and nested structs.
+Union Declarations - Define unions with different data types.
+Enum Declarations - Create enums with different enumerators.
+Typedef Declarations - Use typedef to create new type names for existing types.
+Array Declarations - Declare arrays with fixed and variable sizes.
+Pointer Declarations - Test pointers, pointer arithmetic, and pointer dereferencing.
+Function Pointers - Declare and use function pointers with different signatures.
+Arithmetic Expressions - Test all arithmetic operators with various data types.
+Logical Expressions - Create logical expressions using &&, ||, and !.
+Bitwise Expressions - Use bitwise operators like &, |, ^, <<, and >>.
+Conditional Expressions - Test ternary operator for different conditions.
+Assignment Expressions - Test all assignment operators, including compound assignments.
+Cast Expressions - Perform explicit type casting between various types.
+Sizeof Expressions - Use sizeof operator with different types and expressions.
+Array Subscripting - Access array elements with constant and variable indices.
+Function Calls - Call functions with different numbers and types of arguments.
+Struct and Union Access - Access members of structs and unions using . and -> operators.
+Enum Usage - Use enum values in expressions and assignments.
+Compound Statements - Create blocks of statements within { }.
+If Statements - Test if, if-else, and nested if statements.
+Switch Statements - Create switch statements with various cases and default.
+While Loops - Write while loops with different termination conditions.
+Do-While Loops - Test do-while loops with varying conditions.
+For Loops - Implement for loops with different initializers, conditions, and increments.
+Goto Statements - Use goto with labeled statements to alter control flow.
+Continue and Break - Test continue and break within loops and switch cases.
+Return Statements - Return from functions with and without values.
+Inline Assembly - Use inline assembly blocks within C code.
+Variable Length Arrays - Declare arrays with sizes determined at runtime.
+Static Assertions - Use _Static_assert to validate compile-time conditions.
+Complex Types - Test _Complex and _Imaginary types in expressions.
+Atomic Types - Use _Atomic qualifier for variables in multithreaded code.
+Block Expressions (Clang extension) - Test blocks and their capture lists.
+Attributes - Apply attribute to variables, functions, and types.
+Pragmas - Use #pragma directives for compiler-specific behavior.
+Designated Initializers - Initialize structs, unions, and arrays with designated initializers.
+Compound Literals - Use compound literals to create anonymous objects.
+Statement Expressions (GNU extension) - Test expressions consisting of a compound statement.
+Builtin Functions - Test compiler builtin functions like __builtin_popcount.
+Variable Attributes - Test attribute on variables for alignment, cleanup, etc.
+Function Attributes - Apply attribute to functions for visibility, noinline, etc.
+Type Qualifiers - Test const, volatile, restrict, and _Atomic qualifiers.
+Alignment - Test alignment with _Alignas and aligned attribute.
+Thread-Local Storage - Declare and use thread-local variables with _Thread_local.
+Asynchronous Signal Safety - Test functions and code blocks for async-signal safety.
+Non-Standard Calling Conventions - Use attribute((cdecl)), stdcall, etc., on functions.
+Nested Functions (GNU extension) - Define and test nested functions.
+Labels as Values - Use labels as values and indirect goto statements.

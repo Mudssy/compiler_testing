@@ -1,0 +1,26 @@
+Module parsing
+Function definition and declaration parsing
+Global variable parsing
+Metadata parsing, including named and unnamed metadata
+Attribute parsing for functions, parameters, and return values
+Basic block parsing
+Instruction parsing for all LLVM IR instructions, such as:
+Arithmetic and bitwise instructions (add, sub, mul, div, and, or, etc.)
+Memory access instructions (load, store, alloca, etc.)
+Control flow instructions (br, switch, indirectbr, etc.)
+Comparison instructions (icmp, fcmp)
+Type casting instructions (bitcast, inttoptr, ptrtoint, etc.)
+Complex instructions (select, phi, call, etc.)
+Type system parsing, including integer, floating-point, function, vector, array, pointer, and structure types
+Constant parsing, including simple constants, composite constants, and global identifiers
+Debug information parsing, including debug metadata and source location information
+Linkage types and visibility styles parsing
+Inline assembly parsing
+Alias and indirect function parsing
+Comdat group parsing
+Data layout and target triple parsing
+Module-level inline assembly parsing
+Parsing of intrinsic functions and their handling
+Garbage collection information parsing
+Parsing of custom metadata and extension handling
+Exception handling constructs, such as landing pads and catch clauses

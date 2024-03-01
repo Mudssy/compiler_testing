@@ -56,7 +56,7 @@ fn create_model_options() -> ModelOptions{
 
 fn list_feature_files() -> Vec<String> {
     let mut paths = Vec::new();
-    for file in WalkDir::new("./src/features").into_iter().filter_map(|file| file.ok()) {
+    for file in WalkDir::new("./features").into_iter().filter_map(|file| file.ok()) {
         if file.metadata().unwrap().is_file() {
             paths.push(file.path().display().to_string());
         }
@@ -160,7 +160,7 @@ fn main() {
             }
         }
     }
-    
+
 
 
 }

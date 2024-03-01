@@ -1,0 +1,50 @@
+Source-to-source transformation capabilities
+Macro expansion and rewriting
+Inclusion directive processing
+Conditional compilation handling
+Header file rewrites
+Token-based rewriting
+AST-based rewriting
+Rewriting of comments and documentation
+Preprocessor directive rewriting
+Code formatting and style adjustments
+Identifier renaming
+Automatic code refactoring operations
+Expression rewriting and simplification
+Loop transformation and unrolling
+Automatic generation of function stubs
+Inline function expansion
+Code annotation and instrumentation
+Dependency injection and code weaving
+Error and warning directive handling
+Pragma directive handling
+Automatic insertion of code guards
+Code deprecation and upgrade assistance
+Template instantiation and rewriting
+Lambda function and closure conversion
+Enum and constant folding and expansion
+Struct and union member access rewriting
+Type aliasing and typedef rewriting
+Automatic insertion of debugging code
+Code serialization and deserialization
+Language feature backporting and forward compatibility
+Cross-language code translation and interoperability
+Literal value conversion and formatting
+Automatic code commenting and documentation generation
+Code obfuscation and security enhancements
+Memory management and allocation transformation
+Exception handling and try-catch block rewriting
+Concurrency and parallelism constructs rewriting
+Attribute and annotation processing
+Code generation from domain-specific languages (DSLs)
+Refactoring of global and static variables
+Conditional expression and operator rewriting
+Switch-case statement transformation
+Goto statement elimination and restructuring
+Automatic insertion of performance profiling code
+Code internationalization and localization support
+Data type conversion and casting
+Automatic code versioning and branching
+Code compliance and standards enforcement
+Integration with external code analysis tools
+Custom rewrite rules and scriptable transformations

@@ -1,0 +1,97 @@
+Preprocessor Directives
+#define
+#undef
+#include
+#if
+#ifdef
+#ifndef
+#else
+#elif
+#endif
+#error
+#pragma
+#line
+Data Types
+Primitive data types (int, char, float, double, void)
+Enumerations (enum)
+Structures (struct)
+Unions (union)
+Type qualifiers (const, volatile)
+Storage class specifiers (extern, static, auto, register)
+Literals
+Integer literals
+Floating-point literals
+Character literals
+String literals
+Operators
+Arithmetic operators
+Relational operators
+Logical operators
+Bitwise operators
+Assignment operators
+Increment and decrement operators
+Conditional operator (?:)
+Comma operator
+Sizeof operator
+Alignof operator
+Pointer and address operators (*, &)
+Expressions and Statements
+Expression statements
+Compound statements (blocks)
+Selection statements (if, switch)
+Iteration statements (for, while, do-while)
+Jump statements (break, continue, return, goto)
+Label statements and labels
+Functions
+Function definitions
+Function declarations
+Function calls
+Argument passing mechanisms (by value, by reference)
+Variadic functions (stdarg.h)
+Pointers and Arrays
+Pointer declarations and operations
+Array declarations and operations
+Pointer arithmetic
+Multi-dimensional arrays
+Arrays and pointers as function arguments
+Dynamic Memory Allocation
+malloc
+calloc
+realloc
+free
+Input and Output
+Standard input and output (stdio.h)
+File input and output
+Formatted input/output functions (printf, scanf, fprintf, fscanf)
+String Manipulation
+String handling functions (string.h)
+Error Handling
+errno
+Standard error handling functions (perror, strerror)
+Predefined Macros and Identifiers
+__FILE__
+__LINE__
+__DATE__
+__TIME__
+__STDC__
+Inline Assembly (with caution on platform-specific code)
+Attributes and Extensions
+__attribute__
+GNU extensions (where applicable and not platform-specific)
+Pragmas
+#pragma once
+#pragma pack
+Other implementation-defined pragmas
+Linkage Specifications
+extern "C"
+C Standard Library Functions
+Comprehensive coverage of functions across all standard headers (stdlib.h, math.h, etc.)
+Miscellaneous Constructs
+Compound literals
+Designated initializers
+Static assertions (_Static_assert)
+Concurrency
+_Thread_local
+Atomic operations (stdatomic.h)
+Universal Character Names and Wide Characters
+Usage in identifiers and literals

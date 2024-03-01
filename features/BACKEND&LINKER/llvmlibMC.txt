@@ -1,0 +1,37 @@
+Instruction encoding
+Operand encoding
+Register allocation and usage
+Immediate and offset handling
+Instruction selection for various C constructs
+Pseudo-instruction expansion
+Relocation handling
+Section and segment generation
+Symbol table management
+Data directives and data layout
+Alignment constraints
+Conditional assembly support
+Inline assembly support
+Debug information generation
+Cross-referencing label and symbol resolution
+Floating-point operations and encoding
+Vector and SIMD instruction handling
+Loop and branch optimization at the machine code level
+Calling conventions and function prologue/epilogue generation
+Stack frame management and stack unwinding information
+Exception handling support
+Target-specific optimizations and features
+Literal pool management
+Global variable handling and addressing modes
+Thread-local storage (TLS) support
+Atomic operations and memory barriers
+Intrinsics and built-in function handling
+Linkage and visibility of symbols
+ABI compliance and inter-operation
+Machine code serialization and deserialization
+Profile-guided optimization artifacts
+Metadata handling and annotation
+Machine code verification and validation
+Code patching and dynamic code generation support
+Interoperability with target-specific assembler and linker features
+Compression and encoding of debug and exception handling sections
+Security features like stack canaries and control flow integrity
