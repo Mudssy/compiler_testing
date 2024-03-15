@@ -46,8 +46,7 @@ impl LLM{
 fn create_model_options() -> ModelOptions{
     ModelOptions{
         f16_memory: false,
-        m_map: true,
-        threads: 10,
+        m_map: false,
         
         ..Default::default()
     }
@@ -69,6 +68,30 @@ fn get_features_from_file(file_path: &str) -> Vec<String>{
     features
 }
 
+fn get_all_features() -> Vec<(String,String)>{
+    let feature_paths = list_feature_files();
+    let mut all_features = Vec::new();
+    for feature_path in &feature_paths{
+        let features = get_features_from_file(&feature_path);
+        let section = remove_extension(&get_filename_from_path(&feature_path));
+        for feature in features{
+            let tup = (section.clone(),feature);
+            all_features.push(tup);
+        }
+    }
+    return all_features;
+}
+
+fn get_number_of_features(file_paths: &Vec<String>) -> usize{
+    let mut count = 0;
+    for file_path in file_paths{
+        for feature in get_features_from_file(file_path){
+            count += 1;
+        }
+    }
+    count
+}
+
 fn get_filename_from_path(path: &str) -> String{
     let split_path: Vec<&str> = path.split("/").collect();
     let filename = split_path[split_path.len()-1].to_string();
@@ -81,6 +104,16 @@ fn remove_extension(filename: &str) -> String{
     filename_no_extension
 }
 
+fn read_current_feature_index() -> usize{
+    let contents = fs::read_to_string("./current_feature_index.txt").expect("should read file");
+    let index: usize = contents.parse().unwrap();
+    index
+}
+
+fn set_current_feature_index(index: usize){
+    fs::write("./current_feature_index.txt", index.to_string()).expect("should write file");
+}
+
 fn create_predict_options() -> PredictOptions{
     PredictOptions {
         // token_callback: Some(Box::new(|token| {
@@ -89,10 +122,10 @@ fn create_predict_options() -> PredictOptions{
         //     true
         // })),
         m_map: false,
-        threads: 10,
+        threads: 14,
         debug_mode:false,
-        tokens: 1000,
-        prompt_cache_all: true,
+        tokens: 500,
+        prompt_cache_all: false,
 
 
 
@@ -106,7 +139,7 @@ fn generate_prompt(compiler_section: &str, feature_to_test: &str) -> String{
     I can then run these programs through different compilers to see if they are supported and compare the outputs for each compiler.
     I want to test the {} feature for the C programming language for the {} section of the compiler.
     Generate a main function for the C programming language which prints out some specific output based on that feature which I could then use to compare the outputs of.
-    Do not include any explanation or and writing, just the program to be run. Also do not include any non standard libraries that will need to be added",feature_to_test,compiler_section)
+    Do not include any explanation or and writing, just the program to be run. Also do not include any non standard libraries that will need to be added. Finally, make sure the code generated is compatible with the C programming language and not C++ and do not make the test cases compiler specific.",feature_to_test,compiler_section)
     
 }
 
@@ -133,6 +166,14 @@ fn extract_code_block(input: &str) -> Option<&str> {
     }
 }
 
+fn save_test_case(test_count: usize, code: &str){
+    let filename = format!("./test_cases/test{}.c",test_count);
+    fs::write(filename, code).expect("should write file");
+}
+
+
+
+
 fn main() {
 
     let generator = LLM::new(
@@ -144,19 +185,21 @@ fn main() {
     );
 
     let feature_paths = list_feature_files();
-    //println!("{:?}", feature_paths);
-    for feature_path in &feature_paths{
-        let features = get_features_from_file(&feature_path);
-        for feature in features{
-            let section = remove_extension(&get_filename_from_path(&feature_path));
+    println!("Number of feautures: {}", get_number_of_features(&feature_paths));
+    println!("Number of features: {}", get_all_features().len());
 
-            let out = generator.generate_output(generate_prompt(&section, &feature), create_predict_options());
-            println!("Section: {}, Feature: {}", &section, &feature);
-            println!("{}", &out);
-            match extract_code_block(&out) {
-                Some(code) => println!("Extracted code:\n{}", code),
-                None => println!("Input does not contain a valid code block."),
-            }
+    let current_feature_index = read_current_feature_index();
+    let all_features = get_all_features();
+    for i in current_feature_index..all_features.len(){
+        let feature = &all_features[i];
+        let out = generator.generate_output(generate_prompt(&feature.0, &feature.1), create_predict_options());
+        println!("Section: {}, Feature: {}", &feature.0, &feature.1);
+        println!("{}", &out);
+        match extract_code_block(&out) {
+            Some(code) => {println!("Extracted code:\n{}", code);
+            save_test_case(i, code);
+            set_current_feature_index(i+1);},
+            None => println!("Input does not contain a valid code block."),
         }
     }
 
