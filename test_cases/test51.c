@@ -2,12 +2,13 @@
 #include <stdio.h>
 
 int main() {
-    int var1 = 10;
-    int *ptrVar1;
-    ptrVar1 = &var1;
+    int number = 10; // an integer variable
+    int *ptr; // declaring a pointer to an integer variable
     
-    printf("Address of var1: %p\n", ptrVar1);
-    printf("Value at address pointed by ptrVar1: %d\n", *ptrVar1);
-    
+    ptr = &number; // storing address of 'number' in the pointer 
+
+    printf("Address stored in pointer is: %p\n", ptr); // printing out the address stored in the pointer using '%p' format specifier.
+    printf("Value pointed to by the pointer is: %d\n", *ptr); // printing out value pointed to by 'ptr' using '*ptr' notation.
+
     return 0;
 }

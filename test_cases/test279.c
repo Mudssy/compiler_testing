@@ -1,7 +1,13 @@
 
 #include <stdio.h>
 
+int globalVar __attribute__ ((section ("clanglibDriver")));
+
+void printAddress() {
+    printf("globalVar address: %p\n", &globalVar);
+}
+
 int main() {
-    printf("Testing Linker Script Specification feature for the C programming language.\n");
+    printAddress();
     return 0;
 }

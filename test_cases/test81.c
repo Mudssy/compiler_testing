@@ -1,10 +1,9 @@
 
 #include <stdio.h>
-
 int main() {
-    int i = 0;
-    while(i < 5) {
-        printf("This is a test for llvmutilscount section of the C compiler: While loops functionality\n");
+    int i = 1;
+    while (i <= 5) {
+        printf("%d ", i);
         i++;
     }
     return 0;

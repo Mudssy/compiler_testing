@@ -1,28 +1,17 @@
 
 #include <stdio.h>
-
-void perfectShuffle(int arr[], int length) {
-    for (int i = 0; i < length / 2; i++) {
-        int temp = arr[i];
-        arr[i] = arr[length - 1 - i];
-        arr[length - 1 - i] = temp;
-    }
-}
-
-void printArray(int arr[], int length) {
-    for (int i = 0; i < length; i++) {
-        printf("%d ", arr[i]);
-    }
-    printf("\n");
-}
+#include <inttypes.h>
 
 int main() {
-    int arr[] = {1, 2, 3, 4, 5, 6};
-    int length = sizeof(arr) / sizeof(arr[0]);
-
-    printArray(arr, length);
-    perfectShuffle(arr, length);
-    printArray(arr, length);
-
+    uint32_t x = 1; // Your input number here
+    int shift = 1;  // The number of positions to rotate
+    
+    printf("Before rotating: %" PRIu32 "\n", x);
+    
+    // Rotate the bits by performing a bitwise OR operation with the shifted bits from the left side
+    uint32_t rotated = (x >> shift) | (x << (32 - shift)); 
+    
+    printf("After rotating: %" PRIu32 "\n", rotated);
+    
     return 0;
 }

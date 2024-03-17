@@ -1,18 +1,16 @@
 
 #include <stdio.h>
 
-int main() {
+int main(void) {
     int x = 10;
-    int y = 20;
-
-    void (^block)(void) = ^{
-        printf("x: %d, y: %d\n", x, y);
-    };
-
-    x = 30;
-    y = 40;
-
-    block(); // Output should be "x: 10, y: 20" due to block capturing the values at time of creation
-
+    ^{ // Block type attribute starts here
+        int y = x + 5; // Capturing the reference of `x` in block scope
+        printf("Value of y: %d\n", y);
+        ^{ // Nested block
+            int z = y * 2; // Reference capturing also works with nested blocks
+            printf("Value of z: %d\n", z);
+        }(); // Execute the nested block immediately
+    }(); // Execute the block immediately
+    
     return 0;
 }

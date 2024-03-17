@@ -3,16 +3,21 @@
 
 typedef struct {
     int x;
-} ExampleStruct;
+} Foo;
 
-ExampleStruct create_example_struct(int value) {
-    ExampleStruct obj;
-    obj.x = value * 2;
-    return obj;
+Foo* make_foo(int x) {
+    Foo *f = malloc(sizeof(*f));
+    f->x = x;
+    return f;
+}
+
+void foo_print(const Foo *f) {
+    printf("Foo: %d\n", f->x);
 }
 
 int main() {
-    ExampleStruct exampleObj = create_example_struct(5);
-    printf("Factory method result: %d\n", exampleObj.x);
+    Foo* f = make_foo(42);
+    foo_print(f);
+    free(f);
     return 0;
 }

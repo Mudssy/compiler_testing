@@ -1,30 +1,28 @@
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <pthread.h>
+#include <stdio.h>
 
-void *race_condition(void *arg) {
-    static int shared = 0;
-
-    shared++;
-    printf("Incremented shared variable to: %d\n", shared);
-
+void* thread_function(void* arg) {
+    printf("Inside the thread\n");
     return NULL;
 }
 
 int main() {
-    pthread_t threads[2];
-
-    for (size_t i = 0; i < sizeof(threads) / sizeof(pthread_t); i++) {
-        if (pthread_create(&threads[i], NULL, race_condition, NULL)) {
-            fprintf(stderr, "Error creating thread\n");
-            return 1;
-        }
+    pthread_t thread_id;
+    int result = pthread_create(&thread_id, NULL, &thread_function, NULL);
+    
+    if (result != 0) {
+        printf("Thread creation failed\n");
+        return 1;
     }
-
-    for (size_t i = 0; i < sizeof(threads) / sizeof(pthread_t); i++) {
-        pthread_join(threads[i], NULL);
+    
+    result = pthread_join(thread_id, NULL);
+    
+    if (result != 0) {
+        printf("Failed to join thread\n");
+        return 1;
     }
-
+    
+    printf("Thread joined successfully\n");
     return 0;
 }

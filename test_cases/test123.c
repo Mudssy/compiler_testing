@@ -1,15 +1,14 @@
 
 #include <stdio.h>
 
-typedef struct {
-    int a;
-    int b;
-    int c;
-} MyStruct;
+struct point { int x, y; };
 
-int main() {
-    MyStruct ms = { .b = 2, .a = 1, .c = 3 };
+int main(void)
+{
+    // Struct initialization with designated initializer
+    struct point p = { .x = 10, .y = 5 };
+
+    printf("Point: (%d, %d)\n", p.x, p.y);
     
-    printf("MyStruct members: %d, %d, %d\n", ms.a, ms.b, ms.c);
     return 0;
 }

@@ -1,17 +1,12 @@
 
 #include <stdio.h>
-#include "clanglibIndex" // Include clang libIndex for Indexing of attribute annotations feature
+
+// [[clang::libc]] is a non-standard GCC attribute used in the C language but ignored by other compilers
+void __attribute__((annotate("clang_libindex"))) myPrintFunction(const char *str) {
+    printf("%s\n", str);
+}
 
 int main() {
-    printf("This program tests the Indexing of attribute annotations feature for the C programming language.\n");
-    
-    // Test the Indexing of attribute annotations feature
-    int result = clanglibIndex_test(); // Call the testing function from clang libIndex library
-    if (result == 0) {
-        printf("The feature is supported. \n");
-    } else {
-        printf("The feature is not supported. \n");
-    }
-    
+    myPrintFunction("Hello, World!");
     return 0;
 }

@@ -2,21 +2,21 @@
 #include <stdio.h>
 
 int main() {
-    int x = 2;
+    char c;
     
-    switch(x) {
-        case 1:
-            printf("Value is 1\n");
+    printf("Enter a character: ");
+    scanf("%c", &c);
+
+    switch (c) {
+        case 'a':
+            printf("The entered character is 'a'\n");
             break;
-        case 2:
-            printf("Value is 2\n");
-            break;
-        case 3:
-            printf("Value is 3\n");
+        case 'b':
+            printf("The entered character is 'b'\n");
             break;
         default:
-            printf("Value is not 1, 2 or 3\n");
+            printf("The entered character is neither 'a' nor 'b'\n");
     }
-    
+
     return 0;
 }

@@ -2,14 +2,13 @@
 #include <stdio.h>
 
 int main() {
-    int x = 10;
-    int *ptr;
+    int x = 5;
     
-    ptr = &x;
+    // Declare a pointer to an integer
+    int *p = &x;
 
-    printf("Value of x: %d\n", x);
-    printf("Address of x: %p\n", (void *)&x);
-    printf("Value stored at the address pointed by ptr: %d\n", *ptr);
-    
+    printf("Address of x: %p\n", p);  // Prints the address stored in 'p', which should be same as address of 'x'.
+    printf("Value at address stored in p (i.e., value of x): %d\n", *p);  // Prints the value pointed to by 'p', i.e., the value of 'x'.
+  
     return 0;
 }

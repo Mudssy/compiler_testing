@@ -2,10 +2,10 @@
 #include <stdio.h>
 
 int main() {
-    int x = 10;
-    int y = 20;
-    int z = (x > y) ? x : y;
-
-    printf("The maximum value is: %d\n", z);
+    int condition1[] = {1};
+    int condition2[] = {0, 1};
+    
+    printf("%s\n", condition1[0] ? "One" : (condition2[1] ? "Two" : "None"));
+    
     return 0;
 }

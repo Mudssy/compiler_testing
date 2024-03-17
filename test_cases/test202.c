@@ -1,14 +1,14 @@
 
 #include <stdio.h>
 
-#define clanglibLex
+#define TEST_CASE 1
 
 int main() {
-    #ifdef clanglibLex
-        printf("clanglibLex is defined.\n");
+    #ifdef TEST_CASE
+        printf("TEST_CASE is defined\n");
     #else
-        printf("clanglibLex is not defined.\n");
+        printf("TEST_CASE is not defined\n");
     #endif
-    
+
     return 0;
 }

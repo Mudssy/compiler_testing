@@ -1,18 +1,17 @@
 
 #include <stdio.h>
 
-int main() {
+// Function that returns an integer
+int return_integer() {
     int a = 5;
-    int b = 10;
+    return a;
+}
 
-    printf("Before swap: a=%d, b=%d\n", a, b);
-
-    // Swapping a and b using third variable temp
-    int temp = a;
-    a = b;
-    b = temp;
-
-    printf("After swap: a=%d, b=%d\n", a, b);
-
+int main() {
+    if (return_integer() == 5) 
+        printf("The debug information for function return types is correctly generated\n");
+     else
+        printf("There's an error with the generation of debug information for function return types\n");
+  
     return 0;
 }

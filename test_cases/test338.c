@@ -1,20 +1,20 @@
 
 #include <stdio.h>
+#ifdef _OPENMP
+    #include <omp.h>
+#else
+    #error "OpenMP is required for this program"
+#endif
 
 int main() {
-    int array[4] = {10, 20, 30, 40};
-    int perm[4] = {0, 0, 0, 0};
-    
-    for (int i = 0; i < 4; ++i) {
-        perm[i] = i % 2 * 2 + i / 2;
+    int i;
+    int A[10];
+    for(i=0; i<10; i++) {
+        A[i] = i*2;
     }
-
-    int result[4];
-    for (int i = 0; i < 4; ++i) {
-        result[i] = array[perm[i]];
+    #pragma omp simd
+    for (i = 0; i < 10; ++i) {
+        printf("%d ", A[i]);
     }
-
-    printf("Result: %d, %d, %d, %d\n", result[0], result[1], result[2], result[3]);
-
     return 0;
 }

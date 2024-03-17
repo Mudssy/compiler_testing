@@ -1,13 +1,14 @@
 
 #include <stdio.h>
 
-int add(int a, int b) {
-    return a + b;
+void print_numbers(int num) {
+    if (num > 0) {
+        printf("%d ", num);
+        print_numbers(num - 1);
+    }
 }
 
 int main() {
-    int num1 = 5, num2 = 3;
-    int result = add(num1, num2);
-    printf("The sum of %d and %d is: %d\n", num1, num2, result);
+    print_numbers(5);
     return 0;
 }

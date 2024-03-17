@@ -1,25 +1,18 @@
 
 #include <stdio.h>
-#include <stdlib.h>
 
 int main(void) {
-    int n;
-    printf("Enter a positive integer: ");
-    scanf("%d", &n);
-    
-    if (n <= 0) {
-        printf("Invalid input\n");
-        return -1;
-    }
+    int i = 5;
+    int arr[i]; // Declare variable length array
 
-    int arr[n];
-    for (int i = 0; i < n; i++) {
-        arr[i] = i * 2;
+    for (int j=0; j<i; ++j) { // Initialize array with some values
+        arr[j] = j * 2;
     }
     
-    for (int i = 0; i < n; i++) {
-        printf("arr[%d] = %d\n", i, arr[i]);
+    printf("Array Contents:\n");
+    for(int j=0; j<i; ++j) { // Print out array contents
+        printf("%d ", arr[j]);
     }
-
+    
     return 0;
 }

@@ -2,11 +2,11 @@
 #include <stdio.h>
 
 int main() {
-    #ifdef NDEBUG
-        printf("Compiled in release mode.\n");
+    #ifdef __OPTIMIZE__
+        printf("Optimized build\n");
     #else
-        printf("Compiled in debug mode.\n");
+        printf("Debug build\n");
     #endif
-
+    
     return 0;
 }

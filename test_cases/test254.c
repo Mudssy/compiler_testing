@@ -1,12 +1,15 @@
 
 #include <stdio.h>
 
-_Noreturn void print_noreturn() {
-    printf("This function does not return.\n");
+_Noreturn void myExitFunction(void) {
+    printf("Called myExitFunction\n");
 }
 
-int main() {
-    print_noreturn();
-    printf("This should not be printed.\n");
-    return 0;
+int main() 
+{
+    atexit(myExitFunction);
+    // This function will never return
+    for (;;) {}  
+
+    return 0;  // Will not be executed
 }

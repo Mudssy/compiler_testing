@@ -1,10 +1,15 @@
 
 #include <stdio.h>
 
+void func(int* x) {
+    printf("Type reference identification successful\n");
+}
+
 int main() {
-    int a = 5;
-    int *p = &a;
+    int num = 5;
+    int *ptr = &num;
     
-    printf("Value of variable a is: %d\n", *p);
+    func(ptr);  // This will print the message "Type reference identification successful"
+    
     return 0;
 }

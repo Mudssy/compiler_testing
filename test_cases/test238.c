@@ -2,11 +2,16 @@
 #include <stdio.h>
 
 int main() {
-    int a = 5, b = 10;
-    printf("Initial values: a=%d, b=%d\n", a, b);
+    char punctuator = '+'; // Change this to test different punctuators
     
-    // Testing punctuator feature: a++, --b, a--, ++b
-    printf("After applying punctuators: a=%d, b=%d\n", a++, --b, a--, ++b);
+    switch (punctuator) {
+        case '.': printf("Dot Operator\n"); break;
+        case ',': printf("Comma Operator\n"); break;
+        case ':': printf("Colon Operator\n"); break;
+        case ';': printf("Semicolon Operator\n"); break;
+        case '?': printf("Conditional Operator\n"); break;
+        default: printf("Unknown punctuator\n"); break;
+    }
     
     return 0;
 }

@@ -1,12 +1,16 @@
 
 #include <stdio.h>
 
-// Declare an external variable.
-extern int extVar;
+int global_variable = 10; // global variable
 
-int main() {
-    // Display the value of the external variable.
-    printf("Value of External Variable: %d\n", extVar);
+void print_global(void) { 
+    printf("%d\n", global_variable);
+}
 
+extern void print_external() __attribute__((section("llvmutilscount"))); // extern function declaration
+
+int main(void) { 
+    print_global();
+    print_external();
     return 0;
 }

@@ -1,18 +1,27 @@
 
 #include <stdio.h>
 #include <signal.h>
+#include <setjmp.h>
 
-void handle_sigfpe(int signum) {
-    printf("Caught SIGFPE: Arithmetic Exception\n");
+static jmp_buf jumpBuffer;
+
+void signalHandler(int signum) {
+    printf("Handling signal %d\n", signum);
+    longjmp(jumpBuffer, 1); // Return from the setjmp call in main
 }
 
 int main() {
-    signal(SIGFPE, handle_sigfpe);
+    struct sigaction action;
+    action.sa_handler = signalHandler;
+    action.sa_flags = 0;
+    sigemptyset(&action.sa_mask);
+    sigaction(SIGFPE, &action, NULL); // Set up the handler for SIGFPE
 
-    int x = 0;
-    int y = 1 / x; // This will cause a division by zero error (arithmetic exception)
-
-    printf("Result: %d\n", y);
-    
+    if (setjmp(jumpBuffer) == 0) {
+        int x = 10 / 0; // This will cause a floating point exception
+        printf("After division by zero\n");
+    } else {
+        printf("Recovered from SIGFPE\n");
+    }
     return 0;
 }

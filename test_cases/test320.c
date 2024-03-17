@@ -1,19 +1,12 @@
 
 #include <stdio.h>
 
-int main() {
-    _Bool a = 1;
-    _Bool b = 0;
-
-    if (a && b) {
-        printf("Both are true\n");
-    } else if (!a && !b) {
-        printf("Both are false\n");
-    } else if (a || b) {
-        printf("One of them is true\n");
+int main(void) {
+    int bool_value = 0; // 0 is treated as false, non-zero is true
+    if (bool_value){
+        printf("True\n");
     } else {
-        printf("Something went wrong...\n");
+        printf("False\n");
     }
-
     return 0;
 }

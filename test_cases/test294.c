@@ -1,14 +1,14 @@
 
+// main.c
 #include <stdio.h>
 
-int import_function(void);
-
-int main() {
-    int result = import_function();
-    printf("Result from imported function: %d\n", result);
-    return 0;
+module M {
+    export int foo() {
+        return 123;
+    }
 }
 
-int import_function(void) {
-    return 42;
+int main() {
+    printf("%d\n", M_foo());
+    return 0;
 }

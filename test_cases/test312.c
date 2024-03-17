@@ -1,11 +1,8 @@
 
 #include <stdio.h>
 
-int main() {
-    int x;
-    #pragma clang diagnostic error "-Wunused-variable"
-    x = 5;
-
-    printf("The value of x is: %d\n", x);
+int main(void) {
+    int i = 1;
+    printf("Hello, world!\n");
     return 0;
 }

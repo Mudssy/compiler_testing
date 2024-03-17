@@ -1,9 +1,12 @@
 
 #include <stdio.h>
 
-_Static_assert(1, "Compile time assertion failed.");
+int main(void) {
+    int x = 5;  // replace with your test case values
+    
+    _Static_assert((x == 10), "Value is not correct");
+     
+    printf("The static assert works!\n");
 
-int main() {
-    printf("Static assert feature is working correctly.\n");
     return 0;
 }

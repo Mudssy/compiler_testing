@@ -1,20 +1,18 @@
 
 #include <stdio.h>
 
-class MyClass {
-public:
-    int x;
-    MyClass(int val) : x(val) {}
-};
+typedef struct {
+    int value;
+} MyStruct;
 
-MyClass operator+(const MyClass& a, const MyClass& b) {
-    return MyClass(a.x + b.x);
+MyStruct operator+(MyStruct a, MyStruct b) {
+    return (MyStruct){a.value + b.value};
 }
 
 int main() {
-    MyClass obj1(3);
-    MyClass obj2(5);
-    MyClass result = obj1 + obj2;
-    printf("Result: %d\n", result.x);
+    MyStruct a = {10}, b = {20};
+    MyStruct c = a + b;
+    
+    printf("Hello, World!"); // If this line is printed, then overloading works
     return 0;
 }

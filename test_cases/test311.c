@@ -1,16 +1,18 @@
 
 #include <stdio.h>
+#include <assert.h>
 
 int main() {
-    int a = 1;
-    float b = 2.0f;
-    char *p1 = (char *)&a;
-    char *p2 = (char *)&b;
-    
-    printf("Initial values: a = %d, b = %.1f\n", a, b);
+    int i = 1;
+    char *p = (char*)&i;
 
-    *p1 = 42;
-    printf("After changing value of *p1: a = %d, b = %.1f\n", a, b);
+    if(p[0] == 1) {
+        printf("Little endian\n");
+    } else {
+        printf("Big endian\n");
+    }
 
+    assert((*(int*)p) == i); // Strict aliasing violation, undefined behavior.
+  
     return 0;
 }

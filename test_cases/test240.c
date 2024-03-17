@@ -1,13 +1,14 @@
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+#define STRINGIFY(x) #x
+#define TOSTRING(x) STRINGIFY(x)
 
 int main() {
-    printf("FILE: __FILE__\n");
-    printf("LINE: %d\n", __LINE__);
-    printf("DATE: \"__DATE__\"\n");
-    printf("TIME: \"__TIME__\"\n");
-    printf("TIMESTAMP: %ld\n", (long)time(NULL));
+    printf("File :" TOSTRING(__FILE__) "\n");
+    printf("Line :%d\n", __LINE__);
+    printf("Date :" TOSTRING(__DATE__) "\n");
+    printf("Time :" TOSTRING(__TIME__) "\n");
+    printf("Timestamp :%s\n", __TIMESTAMP__);
+
     return 0;
 }

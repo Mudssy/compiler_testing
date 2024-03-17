@@ -1,15 +1,21 @@
 
 #include <stdio.h>
 
-int swift_renamed_function() __attribute__((swift_name("someSwiftFunction()")));
+// Swift name annotation
+extern void swift_func(int *p) __attribute__((swift_name("SwiftFunc")));
 
-int swift_renamed_function() {
-    int someVariable __attribute__((swift_name("someSwiftVariable"))) = 42;
-    return someVariable;
+extern int swift_var __attribute__((swift_name("SwiftVar"))) = 42;
+
+void func() {
+    printf("%s\n", __func__);
 }
 
 int main() {
-    int result = swift_renamed_function();
-    printf("Result: %d\n", result);
+    // Test Swift name annotation on a function
+    swift_func(&swift_var);
+    
+    // Check if the variable and function are recognized by the compiler
+    func();
+    
     return 0;
 }

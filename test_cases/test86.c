@@ -2,14 +2,13 @@
 #include <stdio.h>
 
 int main() {
-    int i = 0;
+    int x = 1;
 
-start:
-    printf("This is iteration %d\n", i);
-    i++;
+    if (x != 1) goto exit;
 
-    if(i<5)
-        goto start;
-    
+    printf("Hello World\n");
+
+exit:  // This is the label for the 'goto' statement
+
     return 0;
 }

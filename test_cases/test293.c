@@ -1,14 +1,15 @@
 
 #include <stdio.h>
 
-int foo(void) {
-    int a = 10;
-    int b = 20;
-    return a + b;
+__attribute__((optimize(0)))  // Disable optimizations
+void function_to_test() {
+    printf("This is a test function\n");
 }
 
-int main(void) {
-    int result = foo();
-    printf("The sum of 10 and 20 is: %d\n", result);
+int main() {
+    for(int i = 0; i < 1000000000; i++) {
+        function_to_test();  // Call the function many times to give it work to do
+    }
+
     return 0;
 }

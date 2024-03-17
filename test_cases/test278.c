@@ -1,12 +1,14 @@
 
 #include <stdio.h>
 
-static inline int add(int a, int b) {
-    return a + b;
+// Inline function definition
+static inline void print_message() {
+    printf("This is an example of an inline function.\n");
 }
 
-int main() {
-    int result = add(5, 3);
-    printf("The sum of 5 and 3 is: %d\n", result);
+int main(void) {
+    // Function call
+    print_message();
+    
     return 0;
 }

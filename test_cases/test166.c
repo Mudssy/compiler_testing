@@ -1,28 +1,19 @@
 
 #include <stdio.h>
 
-class A {
-public:
-    int x;
-private:
-    int y;
-};
+typedef struct {
+    int data;
+} MyStruct;
 
-class B {
-public:
-    friend void showXY(A &a); // Friend declaration
-};
-
-void showXY(A &a) {
-    printf("x: %d, y: %d\n", a.x, a.y);
+void printMyStruct(const MyStruct* my_struct) {
+    printf("Data: %d\n", my_struct->data);
 }
 
 int main() {
-    A obj;
-    obj.x = 10;
-    obj.y = 20;
+    MyStruct my_struct = { .data = 10 };
     
-    showXY(obj);
-
+    // Call friend function
+    printMyStruct(&my_struct);
+    
     return 0;
 }

@@ -2,9 +2,14 @@
 #include <stdio.h>
 
 int main() {
-    double pi = 3.141592653589793;
-    float euler = 2.718281828459045;
-    printf("The value of PI is: %f\n", pi);
-    printf("The value of Euler's number is: %f\n", euler);
+    // Test decimal numbers
+    printf("Decimal: %f\n", 1234567890.0);
+
+    // Test octal numbers
+    printf("Octal: %f\n", 01234567);
+
+    // Test hexadecimal numbers
+    printf("Hexadecimal: %f\n", 0xABCDEF);
+
     return 0;
 }

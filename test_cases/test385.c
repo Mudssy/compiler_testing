@@ -1,14 +1,15 @@
 
 #include <stdio.h>
 
-void printStaticVar() {
-    static int counter = 0;
-    printf("Counter value: %d\n", ++counter);
+void func1() {
+    // Static variable in function, initialized only once
+    static int x = 5; 
+    x++;
+    printf("x = %d\n", x);
 }
 
 int main() {
-    for (int i = 0; i < 5; i++) {
-        printStaticVar();
-    }
+    func1(); // Output: "x = 6"
+    func1(); // Output: "x = 7"
     return 0;
 }

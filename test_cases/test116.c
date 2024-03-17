@@ -1,16 +1,13 @@
 
 #include <stdio.h>
 
-int global_var = 10;
+int x = 10; // Global variable
 
-void modify_global() {
-    global_var += 5;
+void func() {
+    printf("Value of x is %d\n", x); 
 }
 
-int main() {
-    printf("Initial value of global variable: %d\n", global_var);
-    modify_global();
-    printf("After function call, the value of global variable: %d\n", global_var);
-    
+int main(void) {
+    func(); // Calling function with global variable
     return 0;
 }

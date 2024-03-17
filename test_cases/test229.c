@@ -1,13 +1,12 @@
 
 #include <stdio.h>
 
-#define CLANGLIBLEX 1
-
 int main() {
-    #ifdef CLANGLIBLEX
-        printf("ClanglibLex feature supported\n");
+    #ifdef __clang_major__
+        printf("This is Clang with major version %d\n", __clang_major__);
     #else
-        printf("ClanglibLex feature not supported\n");
+        printf("Not using clang compiler.\n");
     #endif
+    
     return 0;
 }

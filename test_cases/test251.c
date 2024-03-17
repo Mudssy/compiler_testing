@@ -2,7 +2,8 @@
 #include <stdio.h>
 
 int main() {
-    unsigned int decimal = 0b1101; // Binary literal with '0b' prefix (Clang only feature)
-    printf("Decimal value of binary 1101: %u\n", decimal);
+    int bin = 0b101; // Binary literal in C99
+    printf("Binary 101 = %d\n", bin);
+    
     return 0;
 }

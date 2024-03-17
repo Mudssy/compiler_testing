@@ -1,14 +1,14 @@
 
 #include <stdio.h>
 
-namespace my_space {
-    int foo() {
-        return 42;
-    }
+namespace foo {
+    int x = 42;
 }
 
+namespace bar = foo; // namespace aliasing
+
 int main() {
-    namespace alias = my_space;
-    printf("The answer is: %d\n", alias::foo());
+    printf("Value of foo::x: %d\n", foo::x);
+    printf("Value of bar::x: %d\n", bar::x);
     return 0;
 }

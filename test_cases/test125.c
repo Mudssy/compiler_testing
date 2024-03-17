@@ -1,11 +1,16 @@
 
 #include <stdio.h>
 
-#define MAX(a,b) ((a)>(b)?(a):(b))
+// Define a macro to check if the llvmutilscount feature is supported
+#ifdef __llvm_support_count
+    #define FEATURE_SUPPORT "Feature is supported"
+#else
+    #define FEATURE_SUPPORT "Feature is not supported"
+#endif
 
 int main() {
-    int x = 5;
-    int y = 10;
-    printf("The maximum between %d and %d is: %d\n", x, y, MAX(x, y));
+    // Print out the output based on whether or not the feature is supported
+    printf("%s\n", FEATURE_SUPPORT);
+
     return 0;
 }

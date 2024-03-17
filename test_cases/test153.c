@@ -1,20 +1,33 @@
 
+#include <stdarg.h>
 #include <stdio.h>
 
-int func(int a) {
-  return a * 2;
+#define _Generic(x)         _Generic((x), \
+        int: print_int,     \
+       char: print_char,    \
+    default: print_default  \
+)
+
+void print_int(va_list args) {
+    int x = va_arg(args, int);
+    printf("The integer is %d\n", x);
 }
 
-int func(float b) {
-  return (int)(b * 3);
+void print_char(va_list args) {
+    char x = (char)va_arg(args, int);
+    printf("The character is %c\n", x);
+}
+
+void print_default(va_list args) {
+    printf("Unsupported type\n");
 }
 
 int main() {
-  int x = func(5);
-  int y = func(6.0f);
-  
-  printf("Result for func(5): %d\n", x);
-  printf("Result for func(6.0f): %d\n", y);
-
-  return 0;
+    va_list args;
+    
+    _Generic(10)(args);
+    _Generic('a')(args);
+    _Generic(3.5f)(args);
+    
+    return 0;
 }

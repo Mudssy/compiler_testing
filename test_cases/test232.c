@@ -1,10 +1,13 @@
 
 #include <stdio.h>
 
+#ifdef MY_PRAGMA
+    #pragma mypragma define "Hello from the #pragma operator"
+#else
+    #define MY_PRINTF(fmt, ...) printf("Compiler does not support _Pragma operator")
+#endif 
+
 int main() {
-    _Pragma("clang diagnostic push")
-    _Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"")
-    printf("Clang _Pragma operator support test\n");
-    _Pragma("clang diagnostic pop")
+    MY_PRINTF("%s\n", MY_PRAGMA);
     return 0;
 }

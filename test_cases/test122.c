@@ -2,7 +2,13 @@
 #include <stdio.h>
 
 int main() {
-    int arr[3][2] = { [0][1] = 4, [1][0] = 2, [2][1] = 6 };
-    printf("Array values are: %d, %d, %d\n", arr[0][1], arr[1][0], arr[2][1]);
+    int array[5] = { [2] = 5, [3] = 10 };
+    
+    printf("array[0]: %d\n", array[0]); // should print 0
+    printf("array[1]: %d\n", array[1]); // should print 0
+    printf("array[2]: %d\n", array[2]); // should print 5
+    printf("array[3]: %d\n", array[3]); // should print 10
+    printf("array[4]: %d\n", array[4]); // should print 0
+    
     return 0;
 }

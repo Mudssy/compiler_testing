@@ -2,28 +2,14 @@
 #include <stdio.h>
 
 int main() {
-    int input;
-    printf("Enter a number: ");
-    scanf("%d", &input);
-
-    switch (input) {
+    printf("Before default case\n");
+    int i = 2;
+    switch(i) {
         case 1:
-            goto label1;
-        case 2:
-            goto label2;
+            printf("Case 1\n");
+            break;
         default:
-            goto label_default;
+            printf("Default case\n");
     }
-
-label1:
-    printf("You entered 1.\n");
-    return 0;
-
-label2:
-    printf("You entered 2.\n");
-    return 0;
-
-label_default:
-    printf("You didn't enter 1 or 2.\n");
-    return 0;
+    printf("After default case\n");
 }

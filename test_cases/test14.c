@@ -2,30 +2,31 @@
 #include <stdio.h>
 
 int main() {
-    int a = 5;
-    int b = 10;
-
-    if(a > b) {
-        printf("a is greater than b\n");
-    } else if (a < b) {
-        printf("a is less than b\n");
+    int x = 5;
+    
+    // Testing if statement
+    if (x > 0) {
+        printf("Value is positive\n");
     } else {
-        printf("a and b are equal\n");
+        printf("Value is not positive\n");
     }
-
-    switch(a) {
+    
+    // Testing switch case 
+    switch(x) {
         case 1:
-            printf("a is 1\n");
+            printf("Case 1\n");
             break;
         case 2:
-            printf("a is 2\n");
-            break;
-        case 3:
-            printf("a is 3\n");
+            printf("Case 2\n");
             break;
         default:
-            printf("a is not 1, 2 or 3\n");
+            printf("Default Case\n");
     }
-
+    
+    // Testing loop
+    for(int i = 0; i < 5; ++i) {
+        printf("Loop Iteration %d\n", i);
+    }
+    
     return 0;
 }

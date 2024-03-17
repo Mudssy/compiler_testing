@@ -1,28 +1,26 @@
 
 #include <stdio.h>
-#include <stdlib.h>
+#include <dlfcn.h>
 
 int main() {
     void *handle;
-    double (*cos_func)(double);
+    int (*func)(int, int);
     char *error;
-    
-    handle = dlopen("libm.so", RTLD_LAZY);
+
+    handle = dlopen("./libsample.so", RTLD_LAZY);
     if (!handle) {
-        fprintf(stderr, "%s\n", dlerror());
-        exit(EXIT_FAILURE);
+        fputs(dlerror(), stderr);
+        return 1;
     }
-    
-    cos_func = (double (*)(double)) dlsym(handle, "cos");
-    if ((error = dlerror()) != NULL) {
+
+    func = dlsym(handle, "add");
+    if ((error = dlerror()) != NULL)  {
         fprintf(stderr, "%s\n", error);
-        exit(EXIT_FAILURE);
+        return 2;
     }
-    
-    double result = cos_func(3.14);
-    printf("Result: %f\n", result);
+
+    printf("%d\n", (*func)(1, 2));
     
     dlclose(handle);
-    
     return 0;
 }

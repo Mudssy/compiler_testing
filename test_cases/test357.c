@@ -1,30 +1,23 @@
 
 #include <stdio.h>
-#include <stdint.h>
+#include <immintrin.h>
 
-void print_array(const int32_t *arr, size_t length) {
-    for (size_t i = 0; i < length; ++i) {
-        printf("%d ", arr[i]);
-    }
-    putchar('\n');
+void print_m128i(__m128i var) {
+    int *val = (int*) &var;
+    printf("Numerical: %d %d %d %d\n", val[0], val[1], val[2], val[3]);
+}
+
+void print_array(char *name, __m128i var) {
+    int *val = (int*) &var;
+    printf("%s: %d %d %d %d\n", name, val[0], val[1], val[2], val[3]);
 }
 
 int main() {
-    int32_t a[] = {1, 4, 9, 16, 25};
-    int32_t b[] = {2, 3, 5, 7, 11};
-    int32_t c[5];
-    size_t i;
-
-    for (i = 0; i < 5; ++i) {
-        if ((a[i] > b[i]) && (a[i] % 2 == 0)) {
-            c[i] = a[i];
-        } else {
-            c[i] = b[i];
-        }
-    }
-
-    printf("Resultant array: ");
-    print_array(c, 5);
-
-    return 0;
+    __m128i a = _mm_setr_epi32(9, 8, 7, 6);
+    __m128i b = _mm_setr_epi32(5, 4, 3, 2);
+    __m128i c = _mm_setr_epi32(1, 0, -1, -2);
+    
+    print_array("a", a);
+    print_array("b", b);
+    print_array("c", c);
 }

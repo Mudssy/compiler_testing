@@ -1,22 +1,40 @@
 
 #include <stdio.h>
+#include <pthread.h>
 
-int static_var = 10;
-__thread int thread_local_var = 20;
+// Thread-local storage declaration
+__thread int threadLocalVar;
 
-void update_vars(int a, int b) {
-    static_var += a;
-    thread_local_var += b;
+void *ThreadFunction(void *arg) {
+    // Set the value of this thread's copy of threadLocalVar
+    threadLocalVar = *((int*)arg);
+    
+    printf("threadLocalVar in thread %ld before sleep: %d\n", pthread_self(), threadLocalVar);
+    
+    // Sleep for a while to give other threads a chance to run and potentially modify the value
+    struct timespec delay;
+    delay.tv_sec = 0;
+    delay.tv_nsec = 100000000;  // 100ms
+    nanosleep(&delay, NULL);
+    
+    printf("threadLocalVar in thread %ld after sleep: %d\n", pthread_self(), threadLocalVar);
+    
+    return NULL;
 }
 
-int main() {
-    int local_var = 30;
+int main(void) {
+    pthread_t threads[2];
+    int args[2] = {1, 2};
     
-    printf("Before update: static_var=%d, thread_local_var=%d\n", static_var, thread_local_var);
-
-    update_vars(5, 10);
-
-    printf("After update: static_var=%d, thread_local_var=%d\n", static_var, thread_local_var);
+    // Create two threads
+    for (size_t i = 0; i < 2; ++i) {
+        pthread_create(&threads[i], NULL, ThreadFunction, &args[i]);
+    }
+    
+    // Wait for both threads to finish
+    for (size_t i = 0; i < 2; ++i) {
+        pthread_join(threads[i], NULL);
+    }
     
     return 0;
 }

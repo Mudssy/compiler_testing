@@ -1,13 +1,15 @@
 
 #include <stdio.h>
 
-void print_arguments(int argc, char *argv[]) {
-    for (int i = 0; i < argc; i++) {
-        printf("Argument %d: %s\n", i, argv[i]);
-    }
+void test_argument(int a, int* b) {
+    *b = htons(*b);
+    printf("%d\n", a + *b);  // This line is needed for the output to be different based on the endianness of the system.
 }
 
-int main(int argc, char *argv[]) {
-    print_arguments(argc, argv);
+int main() {
+    unsigned short x = 0x1234;
+    int y = 5;
+    test_argument(y, &x);
+    
     return 0;
 }

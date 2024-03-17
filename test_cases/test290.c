@@ -1,23 +1,17 @@
 
-#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main() {
-    int *ptr = (int *) malloc(sizeof(int));
-    if (!ptr) {
-        fprintf(stderr, "Memory allocation failed\n");
-        return 1;
+    char *data = (char *)malloc(10);
+    strcpy(data, "Hello");
+    
+    if (data[6] == '\0') {
+        printf("Buffer Overflow detected! Aborting.\n");
+        exit(-1);
+    } else {
+        free(data);
     }
-    printf("Address of ptr: %p\n", ptr);
-
-    // Initialize memory with known values
-    for (size_t i = 0; i < sizeof(int) / sizeof(char); i++) {
-        ((char *)ptr)[i] = (char)(i + 1);
-    }
-
-    // Access memory to trigger the Memory Sanitizer
-    printf("Value of *ptr: %d\n", *ptr);
-
-    free(ptr);
+    
     return 0;
 }

@@ -1,12 +1,24 @@
 
 #include <stdio.h>
 
+typedef struct { int x; } IntWrapper;
+typedef struct { double y; } DoubleWrapper;
+
+template<typename T, typename U>
+struct Pair {
+    T first;
+    U second;
+};
+
+void printPair(Pair<IntWrapper*, DoubleWrapper*> p) {
+    printf("First: %d, Second: %f\n", p.first->x, p.second->y);
+}
+
 int main() {
-    int arr[] = {10, 20, 30, 40, 50};
+    IntWrapper i = { .x = 10 };
+    DoubleWrapper d = { .y = 5.5 };
     
-    for (unsigned i = 0; i < sizeof(arr)/sizeof(arr[0]); ++i) {
-        printf("Element at index %u: %d\n", i, arr[i]);
-    }
+    Pair<IntWrapper*, DoubleWrapper*> pair = { .first = &i, .second = &d };
     
-    return 0;
+    printPair(pair);
 }

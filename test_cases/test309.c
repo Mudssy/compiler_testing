@@ -1,18 +1,13 @@
 
 #include <stdio.h>
-#include <omp.h>
-
+#ifndef _OPENMP
+    #error "OpenMP library not found"
+#endif
 int main() {
-    int num_threads = 0;
-
-    #pragma omp parallel
-    {
-        if (omp_get_thread_num() == 0) {
-            num_threads = omp_get_num_threads();
-        }
+    int i;
+    #pragma omp parallel for private(i)
+    for (i = 0; i < 10; i++) {
+        printf("This is iteration number %d executed by thread %d\n", i, omp_get_thread_num());
     }
-
-    printf("The number of threads used: %d\n", num_threads);
-
     return 0;
 }

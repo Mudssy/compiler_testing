@@ -2,10 +2,10 @@
 #include <stdio.h>
 
 int main() {
-    #ifdef __APPLE__
-        printf("This binary is fat or universal.\n");
+    #if defined(__APPLE__) && defined(__MACH__)
+        printf("Running on Apple platform.\n");
     #else
-        printf("This binary is not fat or universal.\n");
+        printf("Not running on Apple platform.\n");
     #endif
     
     return 0;

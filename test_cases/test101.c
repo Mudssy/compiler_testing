@@ -1,12 +1,14 @@
 
 #include <stdio.h>
 
-static int staticFunction(int input) {
-    return input * 2;
+// Static function declared and defined in global scope
+static void printHello() {
+    printf("Hello from static function!\n");
 }
 
 int main() {
-    int result = staticFunction(5);
-    printf("The output of the static function is: %d\n", result);
+    // Calling the static function within main function
+    printHello();
+    
     return 0;
 }

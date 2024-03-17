@@ -1,25 +1,23 @@
 
 #include <stdio.h>
-#include <stdlib.h>
+#include <xmmintrin.h>  // SSE Intrinsics header file
+#include <pmmintrin.h>  // SSE3 Intrinsics header file
 
-void shuffle(int *array, int n) {
-    for (int i = 0; i < n - 1; i++) {
-        int j = rand() % (n - i);
-        int temp = array[i + j];
-        array[i + j] = array[i];
-        array[i] = temp;
-    }
+void print_vector(__m128 v) {
+    float values[4];
+    _mm_storeu_ps(values, v);  // Store vector data in array
+    printf("Values: %f %f %f %f\n", values[0], values[1], values[2], values[3]);
 }
 
 int main() {
-    const int SIZE = 10;
-    int array[SIZE] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    __m128 a = _mm_setr_ps(1.0, 2.0, 3.0, 4.0);  // Load 4 floats into vector register
+    print_vector(a);
     
-    shuffle(array, SIZE);
+    __m128 b = _mm_setr_ps(5.0, 6.0, 7.0, 8.0);  // Load another set of 4 floats into vector register
+    print_vector(b);
     
-    for (int i = 0; i < SIZE; i++) {
-        printf("%d ", array[i]);
-    }
-    
+    __m128 result = _mm_add_ps(a, b);  // Add two vectors together and store the result in a new vector register
+    print_vector(result);
+
     return 0;
 }

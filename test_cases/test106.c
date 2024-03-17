@@ -1,12 +1,12 @@
 
 #include <stdio.h>
 
-inline int add(int a, int b) {
-    return a + b;
-}
+// Define a simple inline function
+static inline int square(int x) { return x * x; }
 
 int main() {
-    int result = add(5, 10);
-    printf("Result: %d\n", result);
+    // This will be replaced by the compiler with the value 100,
+    // and it won't cause any additional overhead at runtime.
+    printf("%d\n", square(10));
     return 0;
 }

@@ -1,13 +1,10 @@
 
 #include <stdio.h>
 
+extern void print_message();
+
 int main() {
-    int a = 5;
-    int b = 10;
-    int c = 15;
-    int d = 20;
-
-    printf("Values of a, b, c and d: %d, %d, %d, %d\n", a, b, c, d);
-
+    printf("Calling external function defined in LLVM IR file...\n");
+    print_message();
     return 0;
 }

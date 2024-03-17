@@ -2,24 +2,14 @@
 #include <stdio.h>
 
 int main() {
-    int num = 4;
-    
-    switch (num) {
+    int i = 0;  // Change this value to see different outcomes
+    switch(i) {
+        case 0:
         case 1:
-            printf("Number is 1\n");
-            break;
-        case 2:
-            printf("Number is 2\n");
-            break;
-        case 3:
-            printf("Number is 3\n");
-            break;
-        case 4:
-            printf("Number is 4\n");
+            printf("Hello world\n");
             break;
         default:
-            printf("Number is not in switch cases\n");
+            printf("Not hello world\n");
     }
-
     return 0;
 }

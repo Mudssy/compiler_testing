@@ -1,16 +1,23 @@
 
 #include <stdio.h>
 
-#define TEST_MACRO 1
+// Uncomment this line to define the macro
+#define TEST_MACRO
 
 int main() {
+    #ifdef TEST_MACRO
+        printf("Defined\n");
+    #else
+        printf("Undefined\n");
+    #endif
+
     #undef TEST_MACRO
     
-    if (TEST_MACRO) {
-        printf("TEST_MACRO is defined.\n");
-    } else {
-        printf("TEST_MACRO is not defined.\n");
-    }
+    #ifdef TEST_MACRO
+        printf("Defined\n");
+    #else
+        printf("Undefined\n");
+    #endif
 
     return 0;
 }

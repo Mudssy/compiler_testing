@@ -1,13 +1,31 @@
 
 #include <stdio.h>
 
-enum COLOR { RED = 5, GREEN = 10, BLUE = 20 };
+typedef enum {
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY,
+    THURSDAY,
+    FRIDAY,
+    SATURDAY,
+    SUNDAY
+} DayOfWeek;
+
+const char* day_to_string(DayOfWeek d) {
+    switch (d) {
+        case MONDAY: return "Monday";
+        case TUESDAY: return "Tuesday";
+        case WEDNESDAY: return "Wednesday";
+        case THURSDAY: return "Thursday";
+        case FRIDAY: return "Friday";
+        case SATURDAY: return "Saturday";
+        case SUNDAY: return "Sunday";
+    }
+}
 
 int main() {
-    enum COLOR color;
-    color = GREEN;
-    
-    printf("The value of the green color in the enumeration is: %d\n", color);
+    DayOfWeek today = MONDAY;
+    printf("Today is %s.\n", day_to_string(today));
     
     return 0;
 }

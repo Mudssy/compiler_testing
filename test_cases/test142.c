@@ -1,16 +1,19 @@
 
 #include <stdio.h>
 
+typedef struct {
+    int x;
+    char y[10];
+} SomeType;
+
 int main() {
-    int array[5] = {10, 20, 30, 40, 50};
-    int *ptr;
+    SomeType var = {5, "Hello"};
     
-    ptr = array;
-    printf("Values in the array are: \n");
-
-    for(int i = 0; i < 5; i++) {
-        printf("%d ", *(ptr+i));
-    }
-
+    // index into type directly
+    printf("x: %d\n", *(int*)((char*)&var + 0));
+    printf("y: ");
+    for (int i = 0; i < 10; ++i) 
+        printf("%c", ((char*)*(int*)((char*)&var + sizeof(int)))[i]);
+    
     return 0;
 }

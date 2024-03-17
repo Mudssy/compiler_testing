@@ -3,9 +3,9 @@
 
 int main() {
     int i = 0;
-    
+
     do {
-        printf("Iteration %d\n", i);
+        printf("Hello World\n");
         i++;
     } while (i < 5);
 

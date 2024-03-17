@@ -2,7 +2,11 @@
 #include <stdio.h>
 
 int main() {
-    #error "Testing #error directive for clanglibLex section of compiler."
-    printf("This message will not be printed because of the #error directive.\n");
+    #ifdef TEST_ERROR
+        #error "This compiler does not support error"
+    #else
+        printf("This compiler supports error\n");
+    #endif
+    
     return 0;
 }

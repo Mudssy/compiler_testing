@@ -1,15 +1,17 @@
 
 #include <stdio.h>
 
+void print_int(int num) {
+    __asm__("movl %0, %%eax\n"
+            "addl $48, %%eax\n"
+            "pushl %%eax\n"
+            : /* no output */
+            : "r"(num)
+            : "%eax");
+}
+
 int main() {
-    __asm__("movl $2, %%eax\n\t"
-            "movl $3, %%ebx\n\t"
-            "addl %%ebx, %%eax\n\t");
-
-    int result;
-    __asm__("movl %%eax, %0" : "=r"(result));
-
-    printf("The result of adding 2 and 3 is: %d\n", result);
-
+    print_int(10);  // Output should be: 58 ('4' + 10)
+    
     return 0;
 }

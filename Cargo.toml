@@ -10,4 +10,5 @@ edition = "2021"
 [dependencies]
 llama_cpp_rs = {path = "./rust-llama.cpp"}
 walkdir = "2"
-
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"

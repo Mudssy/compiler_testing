@@ -1,23 +1,26 @@
 
 #include <stdio.h>
 
-typedef int (*func_ptr)(int, int);
+// Declare function pointer types
+typedef void (*print_function)(const char *);
+typedef int (*add_function)(int, int);
+
+void print(const char *str) {
+    printf("%s\n", str);
+}
 
 int add(int a, int b) {
     return a + b;
 }
 
-int sub(int a, int b) {
-    return a - b;
-}
-
 int main() {
-    func_ptr operations[] = {add, sub};
-    int inputs[2][2] = {{5, 3}, {7, 2}};
-    
-    for (int i = 0; i < 2; ++i) {
-        printf("Result of operation %d: %d\n", i + 1, operations[i](inputs[i][0], inputs[i][1]));
-    }
+    // Declare function pointers and initialize them with functions
+    print_function printPtr = &print;
+    add_function addPtr = &add;
+
+    // Call the functions through their respective function pointers
+    (*printPtr)("Hello, World!");
+    printf("Result: %d\n", (*addPtr)(2, 3));
 
     return 0;
 }

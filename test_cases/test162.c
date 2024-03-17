@@ -1,9 +1,12 @@
 
 #include <stdio.h>
-#include "external_symbols_header.h"
+
+// Define the external function
+extern void print_message();
 
 int main() {
-    int result = external_function();
-    printf("The result of calling the external function is: %d\n", result);
+    // Call the externally defined function
+    print_message();
+    
     return 0;
 }

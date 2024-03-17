@@ -1,14 +1,9 @@
 
 #include <stdio.h>
 
-// API Notes
-#define MY_API_NOTE(msg) __attribute__((annotate("apiNote:" #msg)))
-
-MY_API_NOTE("This is a custom API note") void print_message() {
-    printf("Custom API Note: This function prints a message.\n");
-}
+void someFunction() __attribute__((annotate("this is a custom note")));
 
 int main() {
-    print_message();
+    printf("This is a test program for clang libAPI Notes.\n");
     return 0;
 }

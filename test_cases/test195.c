@@ -1,19 +1,9 @@
 
-#include <stdio.h>
-#include <assert.h>
-
-int foo(int a, int b) {
-    // Add contract condition using assert (C11 standard)
-    assert(a > 0 && b > 0);
-
-    return a + b;
-}
-
+#include <stdatomic.h>
+ 
+_Static_assert(_Atomic(int)!=_Atomic(long), "atomic int and long have the same representation");
+ 
 int main() {
-    int a = 5;
-    int b = 3;
-
-    printf("Result: %d\n", foo(a, b));
-
-    return 0;
+    atomic_int i = 1;
+    _Generic(i+5, atomic_int: sizeof, default: sizeof+1)(&i); // expands to sizeof(i) if i is atomic_int type
 }

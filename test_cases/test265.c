@@ -3,17 +3,18 @@
 
 int main() {
     FILE *file;
-
-    file = fopen("test.txt", "w");
+    char buffer[256];
+    
+    file = fopen("test_input.txt", "r");
     if (file == NULL) {
-        printf("Error opening file!\n");
+        printf("Could not open the file\n");
         return 1;
     }
-
-    fprintf(file, "This is a test.\n");
-
-    fclose(file);
     
-    printf("File successfully written.\n");
+    while (fgets(buffer, sizeof(buffer), file)) {
+        printf("%s", buffer);
+    }
+    
+    fclose(file);
     return 0;
 }

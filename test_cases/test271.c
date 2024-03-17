@@ -1,8 +1,11 @@
 
 #include <stdio.h>
-#include "test_header.h"
 
 int main() {
-    printf("%d\n", test_function());
+    printf("Testing Include path configuration feature\n");
+    
+    // Include a file from non-standard location
+    #include "path/to/your/file"
+
     return 0;
 }

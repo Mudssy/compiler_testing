@@ -2,6 +2,9 @@
 #include <stdio.h>
 
 int main() {
-    printf("ClanglibDriver Retargetable Debugger Information Generation Test\n");
-    return 0;
+    int x = 10;  // Breakpoint here
+    
+    printf("Value of x is %d\n", x);
+    
+    return 0;   // Another breakpoint here
 }

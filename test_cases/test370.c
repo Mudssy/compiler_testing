@@ -1,24 +1,18 @@
 
 #include <stdio.h>
 
-enum Colors {RED, GREEN, BLUE};
+typedef enum {
+    First_Value,
+    Second_Value,
+    Third_Value = 100,
+    Fourth_Value,
+} test;
 
 int main() {
-    enum Colors myColor = RED;
-
-    switch(myColor) {
-        case RED:
-            printf("The color is red.\n");
-            break;
-        case GREEN:
-            printf("The color is green.\n");
-            break;
-        case BLUE:
-            printf("The color is blue.\n");
-            break;
-        default:
-            printf("Invalid color.\n");
-    }
-
+    printf("First_Value: %d\n", First_Value);
+    printf("Second_Value: %d\n", Second_Value);
+    printf("Third_Value: %d\n", Third_Value);
+    printf("Fourth_Value: %d\n", Fourth_Value);
+    
     return 0;
 }

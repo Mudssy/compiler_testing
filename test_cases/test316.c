@@ -1,26 +1,13 @@
 
 #include <stdio.h>
 
-void print_non_nullable(char * _Nonnull string) {
-    printf("Non-Nullable: %s\n", string);
-}
-
-void print_nullable(char * _Nullable string) {
-    if (string != NULL) {
-        printf("Nullable: %s\n", string);
-    } else {
-        printf("Nullable: (null)\n");
-    }
+int _Nullable func(_Nonnull int *p1, _Nullable int *p2) {
+    if (p1 == NULL) return 0;
+    else if (p2 == NULL) return 1;
+    else return 2;
 }
 
 int main() {
-    char non_null[] = "Hello, world!";
-    print_non_nullable(non_null); // Expected to work fine
-    
-    char * nullable = NULL;
-    print_nullable(nullable); // Expected to work fine
-    
-    print_non_nullable(NULL); // Expected to generate a warning or error
-    
+    printf("Value: %d\n", func(NULL, NULL));
     return 0;
 }

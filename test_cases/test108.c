@@ -2,12 +2,11 @@
 #include <stdio.h>
 
 int main() {
-    int arr[2][3] = {{1, 2, 3}, {4, 5, 6}};
-    int i, j;
+    int array[2][3] = {{1, 2, 3}, {4, 5, 6}};
     
-    for (i = 0; i < 2; i++) {
-        for (j = 0; j < 3; j++) {
-            printf("Element at arr[%d][%d]: %d\n", i, j, arr[i][j]);
+    for(int i = 0; i < 2; ++i) {
+        for(int j = 0; j < 3; ++j) {
+            printf("Element at array[%d][%d] is: %d\n", i, j, array[i][j]);
         }
     }
     

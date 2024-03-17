@@ -1,27 +1,34 @@
 
 #include <stdio.h>
 
-typedef struct {
-    int id;
-} Object;
+typedef void (*function_ptr)(void);
 
-Object objArr[5];
+// Constructors
+void constructor1() { printf("Constructor 1\n"); }
+void constructor2() { printf("Constructor 2\n"); }
 
-void __attribute__((constructor)) init() {
-    for (int i = 0; i < 5; ++i) {
-        objArr[i].id = i + 1;
-    }
-}
-
-void __attribute__((destructor)) cleanup() {
-    for (int i = 0; i < 5; ++i) {
-        printf("Object %d destroyed\n", objArr[i].id);
-    }
-}
+// Destructors
+void destructor1() { printf("Destructor 1\n"); }
+void destructor2() { printf("Destructor 2\n"); }
 
 int main() {
-    for (int i = 0; i < 5; ++i) {
-        printf("Object %d initialized\n", objArr[i].id);
+    function_ptr constructors[] = { constructor1, constructor2 };
+    function_ptr destructors[] = { destructor1, destructor2 };
+    
+    int numConstructors = sizeof(constructors) / sizeof(function_ptr);
+    int numDestructors = sizeof(destructors) / sizeof(function_ptr);
+
+    // Call constructors
+    for (int i = 0; i < numConstructors; ++i) {
+        (*constructors[i])();
     }
+    
+    printf("\n");
+
+    // Call destructors in reverse order
+    for (int i = numDestructors - 1; i >= 0; --i) {
+        (*destructors[i])();
+    }
+
     return 0;
 }

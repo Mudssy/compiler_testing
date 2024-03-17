@@ -1,11 +1,14 @@
 
 #include <stdio.h>
 
-#define CONCAT(a, b) a ## b
+#define TOKENPASTE(x, y) x ## y
+#define PRINT_TOKEN(token) printf("Token is: " #token "\n")
 
 int main() {
-    int CONCAT(var, 1) = 42;
-    printf("Value of var1: %d\n", var1);
+    int TOKENPASTE(foo, 1);
+    foo1 = 42;
+    
+    PRINT_TOKEN(foo1);
     
     return 0;
 }

@@ -1,8 +1,14 @@
 
 #include <stdio.h>
 
-int main() {
-    int (*lambda)(int) = (int x) -> int { return x * 2; };
-    printf("The result of lambda expression is: %d\n", lambda(10));
+int main(void) {
+    // Define the lambda expression add
+    auto add = [](int a, int b) -> int { return a + b; };
+    
+    // Use the lambda to perform an operation
+    int result = add(5, 10);
+  
+    printf("The result of addition is %d\n", result);
+  
     return 0;
 }

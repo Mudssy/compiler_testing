@@ -2,7 +2,13 @@
 #include <stdio.h>
 
 int main() {
-    char *raw_string = R"(This is a raw string literal in C.\n)";
-    printf("%s", raw_string);
+    const char *rawString = R"delimiter(
+        This is a raw string literal.
+        It can contain "quotes" without being confused.
+        Newlines and other characters are preserved exactly as entered.
+    )delimiter";
+
+    printf("%s\n", rawString);
+
     return 0;
 }

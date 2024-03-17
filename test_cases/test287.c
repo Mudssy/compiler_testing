@@ -1,14 +1,10 @@
 
 #include <stdio.h>
-#include <stdlib.h>
 
 int main() {
-    int *ptr = (int*)malloc(10 * sizeof(int));
-    for (int i = 0; i <= 10; i++) {
-        ptr[i] = i;
-        printf("ptr[%d]: %d\n", i, ptr[i]);
-    }
-    free(ptr);
-
+    int arr[5] = {1, 2, 3, 4, 5};
+    int *p;
+    p = &arr[-1]; // This should trigger an out-of-bounds access error
+    printf("%d\n", *p);
     return 0;
 }

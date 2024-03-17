@@ -1,12 +1,11 @@
 
 #include <stdio.h>
 
-int add(int a, int b) {
-   return a + b;
+void print_message() {
+    printf("Hello from inside a function!\n");
 }
 
 int main() {
-    int result = add(5, 10);
-    printf("Result of function call: %d\n", result);
+    print_message();
     return 0;
 }

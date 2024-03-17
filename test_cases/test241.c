@@ -1,11 +1,11 @@
 
 #include <stdio.h>
-
-int main() {
+int main() 
+{
     #ifdef __cplusplus
-        printf("This compiler supports C++ compatibility feature for the C programming language.\n");
+        printf("This program is compiled in C++\n");
     #else
-        printf("This compiler does not support C++ compatibility feature for the C programming language.\n");
+        printf("This program is NOT compiled in C++\n");
     #endif
     
     return 0;

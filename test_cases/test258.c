@@ -1,8 +1,11 @@
 
 #include <stdio.h>
 
+void __attribute__((constructor)) print_before_main(void) {
+    printf("This is printed before the main function.\n");
+}
+
 int main() {
-    int result __attribute__((annotate("Testing clanglibLex attribute syntax support")));
-    printf("Attribute Syntax Support: %d\n", result);
+    printf("Hello, World!\n");
     return 0;
 }

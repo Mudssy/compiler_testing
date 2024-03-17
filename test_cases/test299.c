@@ -1,7 +1,11 @@
 
 #include <stdio.h>
 
+void __attribute__((constructor)) initLibrary(void) {
+    printf("Library Initialized!\n");
+}
+
 int main() {
-    printf("Object file output control feature test for clanglibDriver section\n");
+    printf("Hello, World!\n");
     return 0;
 }

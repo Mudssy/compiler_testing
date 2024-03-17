@@ -2,9 +2,11 @@
 #include <stdio.h>
 
 int main() {
-    int a = 5;
-    int b = 10;
-
-    printf("The sum of %d and %d is: %d\n", a, b, a + b);
-    return 0;
+    #ifdef COMPILATION_MODE
+        printf("Compiled\n");
+    #elif LINKING_MODE
+        printf("Linking\n");
+    #elif PREPROCESSING_MODE
+        printf("Preprocessing\n");
+    #endif
 }

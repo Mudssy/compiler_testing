@@ -1,28 +1,15 @@
 
 #include <stdio.h>
-#include <stdlib.h>
 
-volatile int sharedVariable = 0;
+int main(void) {
+    volatile int i = 10;
+    int *ptr = &i;  // Create a pointer to 'volatile' variable
 
-void function_1() {
-    for(int i = 0; i < 5; ++i) {
-        sharedVariable++;
-    }
-}
+    printf("Initial value of i: %d\n", i);
 
-void function_2() {
-    for(int i = 0; i < 5; ++i) {
-        sharedVariable--;
-    }
-}
+    *ptr = 20;  // Try to modify the value through its pointer
 
-int main() {
-    int initialValue = sharedVariable;
-    function_1();
-    function_2();
+    printf("Modified value of i: %d\n", i);
 
-    printf("Initial Value: %d\n", initialValue);
-    printf("Final Value: %d\n", sharedVariable);
-    
     return 0;
 }

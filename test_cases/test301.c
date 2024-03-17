@@ -1,14 +1,17 @@
 
 #include <stdio.h>
 
+void print(const char *s) {
+    printf("%s\n", s);
+}
+
 int main() {
-    // Assembly language output control feature test
-    asm("mov eax, 4");
-    asm("mov ebx, 1");
-    asm("mov ecx, message");
-    asm("mov edx, 13");
-    asm("int 0x80");
-    
-    // Message to be printed
-    char message[] = "Hello, World!";
+    __asm__ (
+        "mov $65, %eax;"  // ascii value of 'A'
+        "add $1, %eax;"   // increment by one to get 'B'
+        "push %eax;"
+        "call print"      // call print function with argument on stack
+    );
+
+    return 0;
 }

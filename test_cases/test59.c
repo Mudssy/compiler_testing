@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 int main() {
-    register int i = 10, j = 20;
-    printf("Values of i and j are %d %d\n", i, j);
+    register int x = 5; // Register variable
+    printf("Value of x is : %d\n", x);
     return 0;
 }

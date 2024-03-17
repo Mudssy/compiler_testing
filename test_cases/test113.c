@@ -1,20 +1,26 @@
 
 #include <stdio.h>
 
-int add(int a, int b) {
-    return a + b;
+typedef void (*FunctionPointer)(void);
+
+// Function that prints "Hello"
+static void hello(void) {
+    printf("Hello\n");
 }
 
-int subtract(int a, int b) {
-    return a - b;
+// Function that prints "World"
+static void world(void) {
+    printf("World\n");
 }
 
-int calculate(int a, int b, int (*operation)(int, int)) {
-    return operation(a, b);
-}
+int main(void) {
+    // Create an array of function pointers
+    FunctionPointer funcs[] = {hello, world};
+    
+    // Execute each function in the array
+    for (unsigned int i = 0; i < sizeof(funcs)/sizeof(FunctionPointer); ++i) {
+        (*funcs[i])();
+    }
 
-int main() {
-    printf("Add: %d\n", calculate(5, 3, add));
-    printf("Subtract: %d\n", calculate(5, 3, subtract));
     return 0;
 }

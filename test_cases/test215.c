@@ -2,9 +2,8 @@
 #include <stdio.h>
 
 int main() {
-    int 𝑂𝑛𝑒 = 42;
-    char 𝓮𝓵𝓸𝓶_𝓼𝓲𝓹𝓱𝓪𝓻 = 'A';
-    printf("The integer is: %d\n", 𝑂𝑛𝑒);
-    printf("The character is: %c\n", 𝓮𝓵𝓸𝓶_𝓼𝓲𝓹𝓱𝓪𝓻);
+    int \u2605_\u2601 = 42; // Unicode character name in identifiers
+    printf("%d\n", \u2605_\u2601); 
+    
     return 0;
 }

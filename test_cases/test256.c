@@ -1,13 +1,11 @@
 
 #include <stdio.h>
 
-int main() {
-    int value = 0;
-    [[likely]] if (value == 0) {
-        printf("Value is likely to be 0\n");
-    } else {
-        printf("Value is not likely to be 0\n");
-    }
+void print_message([[unused]] int dummy) {
+    printf("This is a test message.\n");
+}
 
+int main() {
+    print_message(0);
     return 0;
 }

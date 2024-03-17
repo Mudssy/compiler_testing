@@ -1,21 +1,20 @@
 
 #include <stdio.h>
 
-int shadowing_test() {
-    int a = 5;
-    int b = 10 * a;
+int main() {
+    int x = 10;
     
-    if (a == 5) {
-        int a = 10;
-        printf("Inside if: %d\n", a);
+    printf("Original value of x is %d\n", x);
+    
+    if(1) {
+        // Here, we declare a new variable 'x' in the inner scope with a different value.
+        // This concept is called "shadowing". 
+        int x = 20;  
+        
+        printf("Value of x after shadowing in the inner block is %d\n", x);
     }
     
-    return b;
-}
-
-int main() {
-    int result = shadowing_test();
-    printf("Result: %d\n", result);
-
+    printf("Value of x after the inner block, i.e., its outer value is %d\n", x);
+    
     return 0;
 }

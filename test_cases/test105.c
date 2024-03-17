@@ -1,24 +1,13 @@
 
 #include <stdio.h>
 
+int add(const int *restrict p1, const int *restrict p2) {
+    return *p1 + *p2; 
+}
+
 int main() {
-    int a[10], *p = a;
-    for (int i = 0; i < 10; ++i) {
-        a[i] = i;
-    }
-    
-    printf("Before:\n");
-    for (int i = 0; i < 10; ++i) {
-        printf("%d ", p[i]);
-    }
-    
-    int *restrict rp = &a[5];
-    *rp += 42;
-    
-    printf("\nAfter:\n");
-    for (int i = 0; i < 10; ++i) {
-        printf("%d ", p[i]);
-    }
-    
+    int a = 5;
+    int b = 6;
+    printf("The sum of %d and %d is %d\n", a, b, add(&a, &b));
     return 0;
 }

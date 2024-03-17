@@ -2,15 +2,12 @@
 #include <stdio.h>
 
 int main() {
-    int a = 10;
-    int b = 20;
+    int num = 20; // change this value to test different conditions
 
-    if (a > b) {
-        printf("a is greater than b\n");
-    } else if (a < b) {
-        printf("a is less than b\n");
+    if (num > 10) {
+        printf("The number is greater than 10\n");
     } else {
-        printf("a is equal to b\n");
+        printf("The number is not greater than 10\n");
     }
 
     return 0;

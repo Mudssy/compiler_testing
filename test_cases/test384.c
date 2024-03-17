@@ -1,9 +1,8 @@
 
 #include <stdio.h>
 
-extern int externalVar;
-
+extern int ext_var; // Declaration of external variable
 int main() {
-    printf("Value of external variable: %d\n", externalVar);
+    printf("Value of externally defined variable: %d\n", ext_var);
     return 0;
 }

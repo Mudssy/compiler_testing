@@ -1,16 +1,15 @@
 
 #include <stdio.h>
 
-typedef struct {
-    int a;
-    int b;
-} my_struct;
+struct Point { int x, y; };
+
+void print_point(struct Point p) {
+    printf("Point at (%d, %d)\n", p.x, p.y);
+}
 
 int main() {
-    my_struct s = { .b = 5, .a = 2 };
+    struct Point a = { .x = 10, .y = 20 };  // designated initializers
+    print_point(a);
     
-    printf("s.a: %d\n", s.a);
-    printf("s.b: %d\n", s.b);
-
     return 0;
 }

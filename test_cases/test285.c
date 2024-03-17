@@ -1,19 +1,16 @@
 
 #include <stdio.h>
+#include <assert.h>
 
-int main() {
-    int a[10] = {0};
-    int i;
-
-    for (i = 0; i < 10; ++i) {
-        a[i] += i;
+int main(void) {
+    int array[5] = {1, 2, 3, 4, 5};
+    int sum = 0;
+    
+    for (int i = 0; i < 5; ++i) {
+        sum += array[i];
     }
 
-    printf("Profile-guided optimization test:\n");
-
-    for (i = 0; i < 10; ++i) {
-        printf("%d ", a[i]);
-    }
-
+    assert(sum == 15);
+    printf("Profile-guided optimization handling feature works as expected.\n");
     return 0;
 }

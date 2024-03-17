@@ -2,7 +2,11 @@
 #include <stdio.h>
 
 int main() {
-    int clanglibLex_identifier = 12345;
-    printf("The value of 'clanglibLex_identifier' is: %d\n", clanglibLex_identifier);
+    int _ = 10; // Valid identifier which starts with underscore.
+    printf("%d\n", _);
+    
+    int test_123 = 20; // Valid identifier containing alphanumeric characters and underscores.
+    printf("%d\n", test_123);
+
     return 0;
 }

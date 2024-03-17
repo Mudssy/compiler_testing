@@ -1,15 +1,17 @@
 
 #include <stdio.h>
 
-typedef struct {
+struct Point {
     int x;
-} TestStruct;
+    int y;
+};
 
 int main() {
-    TestStruct test = {10};
-    TestStruct *test_ptr = &test;
+    struct Point p = {1, 2};
+    struct Point *ptr_p = &p;
     
-    printf("Member access using ->: %d\n", test_ptr->x);
-    
+    printf("x: %d\n", ptr_p->x); // Accessing member using pointer
+    printf("y: %d\n", (*ptr_p).y); // Another way to access member using pointer
+
     return 0;
 }

@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 int main() {
-    int32_t alignedVar __attribute__((aligned(16)));
-    printf("Address of alignedVar: %p\n", &alignedVar);
+    alignas(16) int arr[4];
+    printf("Address of first element in aligned array: %p\n", (void*)&arr[0]);
     return 0;
 }

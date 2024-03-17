@@ -2,20 +2,21 @@
 #include <stdio.h>
 
 int main() {
-    int a = 10;
-    int b = 20;
-    int result;
+    int x = 0;
 
-    // Labels feature usage
-    start:
-    result = a + b;
-    printf("The result is %d\n", result);
+    goto check_point;   // using labels for the first time
 
-    if (result < 30) {
-        a *= 2;
-        b *= 2;
-        goto start;
-    }
+    label1 : 
+        printf("Hello\n");
+        return 0;
+    
+    else:
+        printf("World\n");
+        return 0;
 
-    return 0;
+check_point:
+    if (x)
+        goto label1;    // using labels for the second time
+    else 
+        goto else;      // same with this
 }

@@ -1,9 +1,8 @@
 
 #include <stdio.h>
 
-int main() {
-    #line 42 "custom_file.c"
-    printf("This line number is changed to 42: %d\n", __LINE__);
-    
+int main(void) {
+    #line 10 "test.c"
+    printf("This line is on line %d of file %s\n", __LINE__, __FILE__);
     return 0;
 }

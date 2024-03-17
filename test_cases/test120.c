@@ -1,14 +1,17 @@
 
 #include <stdio.h>
 
-typedef struct {
+struct foo {
     int x;
-    float y;
-} MyStruct;
+    double y;
+};
 
 int main() {
-    MyStruct ms = {10, 20.5};
-
-    printf("MyStruct: x=%d, y=%.1f\n", ms.x, ms.y);
+    // Initializer list for a struct
+    struct foo f = {10, 3.14};
+    
+    printf("f.x: %d\n", f.x);
+    printf("f.y: %lf\n", f.y);
+    
     return 0;
 }

@@ -1,14 +1,15 @@
 
 #include <stdio.h>
 
-typedef struct {
-    int a;
-    int b;
-} TestStruct;
+struct Point {
+    int x;
+    int y;
+};
 
 int main() {
-    TestStruct test_struct = {10, 20};
-    printf("Value of member 'a': %d\n", test_struct.a);
-    printf("Value of member 'b': %d\n", test_struct.b);
+    struct Point p1 = { .x = 5, .y = 6 };
+    
+    printf("Point p1 coordinates are (%d, %d)\n", p1.x, p1.y);
+    
     return 0;
 }

@@ -1,13 +1,17 @@
 
-#include <stdatomic.h>
 #include <stdio.h>
+#include <stdatomic.h>
 
 int main() {
-    atomic_int counter = ATOMIC_VAR_INIT(0);
+    _Atomic(int) atomicInt = ATOMIC_VAR_INIT(0);
     
-    printf("Before increment: %d\n", atomic_load(&counter));
-    atomic_fetch_add(&counter, 1);
-    printf("After increment: %d\n", atomic_load(&counter));
+    // Atomic operations using built-in functions, like atomic_load and atomic_fetch_add
+    int expected = 0;
+    if (atomic_compare_exchange_strong(&atomicInt, &expected, 1)) {
+        printf("Successfully changed the value from %d to %d\n", expected, atomic_load(&atomicInt));
+    } else {
+        printf("Failed to change the value from %d to %d\n", expected, atomic_load(&atomicInt));
+    }
     
     return 0;
 }

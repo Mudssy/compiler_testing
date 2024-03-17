@@ -1,13 +1,17 @@
 
 #include <stdio.h>
 
-void print_output();
+// Forward declaration
+void print_message();
 
 int main() {
-    print_output();
+    // Use the forward declared function
+    print_message();
+    
     return 0;
 }
 
-void print_output() {
-    printf("Forward declaration feature in C programming language test for llvmlibDebugInfo section.\n");
+// Implementing the forward declared function
+void print_message() {
+    printf("Compiler supports handling of forward declarations for the llvmlibDebugInfo section.\n");
 }

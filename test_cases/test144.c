@@ -1,13 +1,15 @@
 
 #include <stdio.h>
 
-#define PRINT_SUM(a, b) printf("The sum of %d and %d is %d.\n", a, b, a + b);
-
-int main() {
-    int num1 = 5;
-    int num2 = 7;
-    
-    PRINT_SUM(num1, num2)
+int main(void) {
+    #ifdef __has_feature
+        if (__has_feature(libIndex))
+            printf("Macro Indexing is supported\n");
+        else
+            printf("Macro Indexing is not supported\n");
+    #else
+        printf("Macro Indexing feature checking is not supported\n");
+    #endif
 
     return 0;
 }

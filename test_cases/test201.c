@@ -2,10 +2,11 @@
 #include <stdio.h>
 
 int main() {
-    #ifdef clanglibLex
-        printf("clanglibLex section supported.\n");
+    #ifdef __clang_version__
+        printf("Compiler is clang\n");
     #else
-        printf("clanglibLex section not supported.\n");
+        printf("Compiler is not clang\n");
     #endif
+    
     return 0;
 }

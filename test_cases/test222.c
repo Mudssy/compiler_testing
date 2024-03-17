@@ -2,11 +2,11 @@
 #include <stdio.h>
 
 int main() {
-    double decimalNumber = 3.14;
-    double hexadecimalNumber = 0x3FFB851EB851E - 0x3FE6666666667;
+    float x = 123.456; // Decimal
+    printf("%f\n", x); // Prints in decimal format
     
-    printf("Decimal number: %f\n", decimalNumber);
-    printf("Hexadecimal number: %f\n", hexadecimalNumber);
-    
+    float y = 0x7b.edcp; // Hexadecimal 
+    printf("%a\n", y); // Prints in hexadecimal format
+
     return 0;
 }

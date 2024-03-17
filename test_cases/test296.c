@@ -2,6 +2,6 @@
 #include <stdio.h>
 
 int main() {
-    printf("Dependency file test\n");
+    printf("Hello, world!\n");
     return 0;
 }

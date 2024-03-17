@@ -1,15 +1,15 @@
 
 #include <stdio.h>
+#include <stdarg.h>
 
-#define print_args(...) printf("Arguments received: %d\n", sizeof((int[]){__VA_ARGS__})/sizeof(int))
+#define TEST_MACRO(fmt, ...) do { \
+    printf("%s", "Printing: "); \
+    printf(fmt, __VA_ARGS__); \
+} while (0)
 
-int main() {
-    int a = 1, b = 2, c = 3;
-    
-    print_args();
-    print_args(a);
-    print_args(a, b);
-    print_args(a, b, c);
+int main() 
+{
+    TEST_MACRO("%s\n", "Hello, world!");
     
     return 0;
 }

@@ -1,13 +1,11 @@
 
 #include <stdio.h>
 
-// Declare a new type called 'count_t' which is based on an unsigned int
-typedef unsigned int count_t;
+typedef int MyInteger;
 
 int main() {
-    // Declare a variable of the new type
-    count_t num = 42;
-
-    printf("The answer to life, the universe, and everything is %u.\n", num);
+    MyInteger myInt = 10;
+    
+    printf("The value of myInt is: %d\n", myInt);  // Outputs "The value of myInt is: 10"
     return 0;
 }

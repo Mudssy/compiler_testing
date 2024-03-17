@@ -1,12 +1,8 @@
 
-#include "forced_include.h"
+#include <stdio.h>
 
-int main() {
-    if (TEST_FORCED_INCLUDE) {
-        printf("Forced include file is working!\n");
-    } else {
-        printf("Forced include file not functioning.\n");
-    }
-
+int main(void) {
+    printf("If this file is included before any others by -include in the command line, you'll see this text.\n");
+    
     return 0;
 }

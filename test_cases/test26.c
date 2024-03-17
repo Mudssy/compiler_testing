@@ -2,25 +2,25 @@
 #include <stdio.h>
 
 typedef enum {
-    RED = 0xFF0000,
-    GREEN = 0x008000,
-    BLUE = 0x0000FF,
-} Color;
+    ONE = 1,
+    TWO = 2,
+    THREE = 3
+} Numbers;
 
 int main() {
-    Color color = GREEN;
-
-    switch (color) {
-        case RED:
-            printf("The chosen color is Red.\n");
+    Numbers my_number = TWO;
+    
+    switch (my_number) {
+        case ONE: 
+            printf("The number is one\n"); 
             break;
-        case GREEN:
-            printf("The chosen color is Green.\n");
+        case TWO: 
+            printf("The number is two\n");
             break;
-        case BLUE:
-            printf("The chosen color is Blue.\n");
+        case THREE: 
+            printf("The number is three\n"); 
             break;
     }
-
+    
     return 0;
 }

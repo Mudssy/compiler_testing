@@ -2,12 +2,11 @@
 #include <stdio.h>
 
 int main() {
-    printf("Start of program\n");
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Wunknown-pragmas"
-        // Insert code to be tested for the pragma feature here
-        printf("Pragma feature test\n");
-    #pragma clang diagnostic pop
-    printf("End of program\n");
+    #pragma clang attribute push (__attribute__((disable_tail_calls())), apply_to=function)
+    
+    printf("This line is printed when disable_tail_calls attribute is disabled.\n");  // This line will be executed normally.
+    
+    #pragma clang attribute pop
+
     return 0;
 }

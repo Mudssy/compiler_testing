@@ -1,12 +1,18 @@
 
 #include <stdio.h>
 
-int add(int a, int b) {
-    return a + b;
+// Function Declaration for testing libIndex
+void foo(int);
+
+// Main function
+int main() {
+    // Call the function which is declared above
+    foo(10);
+    
+    return 0;
 }
 
-int main() {
-    int result = add(5, 3);
-    printf("The sum of 5 and 3 is: %d\n", result);
-    return 0;
+// Function Definition
+void foo(int x) {
+    printf("Function Declaration Indexing with libIndex Test: %d\n", x);
 }

@@ -6,6 +6,65 @@ use std::fs;
 
 extern crate walkdir;
 use walkdir::WalkDir;
+use std::process::Command;
+use std::fs::File;
+use std::io::{self, Read, Write};
+
+
+use serde::{Serialize, Deserialize};
+
+#[derive(Serialize, Deserialize, Debug)]
+struct TestIndices {
+    current_test_create_index: usize,
+    current_test_improve_index: usize,
+    current_test_run_index: usize,
+    #[serde(skip)]
+    file_path: String, // This field is not serialized
+}
+
+impl TestIndices {
+    // Static function to create a new TestIndices instance with all indices set to 0
+    fn new(file_path: &str) -> Self {
+        TestIndices {
+            current_test_create_index: 0,
+            current_test_improve_index: 0,
+            current_test_run_index: 0,
+            file_path: file_path.to_string(),
+        }
+    }
+
+    fn save_to_file(&self) -> io::Result<()> {
+        let serialized = serde_json::to_string(self)?;
+        let mut file = File::create(&self.file_path)?;
+        file.write_all(serialized.as_bytes())?;
+        Ok(())
+    }
+
+    fn read_from_file(&mut self) -> io::Result<()> {
+        let mut file = File::open(&self.file_path)?;
+        let mut contents = String::new();
+        file.read_to_string(&mut contents)?;
+        let indices: TestIndices = serde_json::from_str(&contents)?;
+        self.current_test_create_index = indices.current_test_create_index;
+        self.current_test_improve_index = indices.current_test_improve_index;
+        self.current_test_run_index = indices.current_test_run_index;
+        Ok(())
+    }
+    fn increment_create_index(&mut self) {
+        self.current_test_create_index += 1;
+    }
+
+    // Increment the current_test_improve_index by 1
+    fn increment_improve_index(&mut self) {
+        self.current_test_improve_index += 1;
+    }
+
+    // Increment the current_test_run_index by 1
+    fn increment_run_index(&mut self) {
+        self.current_test_run_index += 1;
+    }
+} 
+
 
 struct LLM{
     model: LLama,
@@ -113,6 +172,16 @@ fn read_current_feature_index() -> usize{
 fn set_current_feature_index(index: usize){
     fs::write("./current_feature_index.txt", index.to_string()).expect("should write file");
 }
+fn read_current_test_improve_index() -> usize{
+    let contents = fs::read_to_string("./current_test_improve_index.txt").expect("should read file");
+    let index: usize = contents.parse().unwrap();
+    index
+}
+
+
+fn set_current_test_improve_index(index: usize){
+    fs::write("./current_test_improve_index.txt", index.to_string()).expect("should write file");
+}
 
 fn create_predict_options() -> PredictOptions{
     PredictOptions {
@@ -143,6 +212,18 @@ fn generate_prompt(compiler_section: &str, feature_to_test: &str) -> String{
     
 }
 
+fn generate_improve_prompt(compiler_section: &str,feature_to_test: &str, test_to_improve: &str) -> String{
+    format!("I want to test different sections of compilers for the C programming language.
+    To do this I want to generate specific C programs which cover specific features of the compiler.
+    I can then run these programs through different compilers to see if they are supported and compare the outputs for each compiler.
+    I want to test the {} feature for the C programming language for the {} section of the compiler.
+    Here is my test case: {}
+    Improve or fix this test case in order to make it more relevent in testing the feature and fix any syntax or logical issues.
+    Do not include any explanation or and writing, just the program to be run. Also do not include any non standard libraries that will need to be added. Finally, make sure the code generated is compatible with the C programming language and not C++ and do not make the test cases compiler specific.
+    ",test_to_improve,feature_to_test,compiler_section)
+    
+}
+
 fn extract_code_block(input: &str) -> Option<&str> {
     // Find the start of the code block, marked by "```c"
     if let Some(start) = input.find("```c") {
@@ -165,30 +246,29 @@ fn extract_code_block(input: &str) -> Option<&str> {
         None
     }
 }
+fn read_test_case(index: usize) -> String{
+    let filename = format!("./test_cases/test{}.c",index);
+    let contents = fs::read_to_string(filename).expect("should read file");
+    contents
+}
 
 fn save_test_case(test_count: usize, code: &str){
     let filename = format!("./test_cases/test{}.c",test_count);
     fs::write(filename, code).expect("should write file");
 }
 
-
-
-
-fn main() {
-
+fn generate_test_cases(test_indices: &mut TestIndices){
     let generator = LLM::new(
-        "./models/phind-codellama/phind-codellama-34b-v2.Q4_K_M.gguf",
+        "./models/deepseek-coder/deepseek-coder-33b-instruct.Q4_K_M.gguf",
         create_model_options(),
         create_predict_options(),
-        "./models/phind-codellama/prompt-template-begin.txt",
-        "./models/phind-codellama/prompt-template-end.txt",
+        "./models/deepseek-coder/prompt-template-begin.txt",
+        "./models/deepseek-coder/prompt-template-end.txt",
     );
-
+    
     let feature_paths = list_feature_files();
-    println!("Number of feautures: {}", get_number_of_features(&feature_paths));
-    println!("Number of features: {}", get_all_features().len());
-
-    let current_feature_index = read_current_feature_index();
+    
+    let current_feature_index = test_indices.current_test_create_index;
     let all_features = get_all_features();
     for i in current_feature_index..all_features.len(){
         let feature = &all_features[i];
@@ -198,12 +278,84 @@ fn main() {
         match extract_code_block(&out) {
             Some(code) => {println!("Extracted code:\n{}", code);
             save_test_case(i, code);
-            set_current_feature_index(i+1);},
+            test_indices.increment_create_index();
+            test_indices.save_to_file().unwrap()
+        },
             None => println!("Input does not contain a valid code block."),
         }
     }
 
+}
 
+fn improve_test_cases(test_indices: &mut TestIndices){
+    let generator = LLM::new(
+        "./models/deepseek-coder/deepseek-coder-33b-instruct.Q4_K_M.gguf",
+        create_model_options(),
+        create_predict_options(),
+        "./models/deepseek-coder/prompt-template-begin.txt",
+        "./models/deepseek-coder/prompt-template-end.txt",
+    );
+
+    let current_test_improve_index = test_indices.current_test_improve_index;
+    let all_features = get_all_features();
+    for i in current_test_improve_index..all_features.len(){
+        let feature = &all_features[i];
+        let test_to_improve = read_test_case(i);
+        let out = generator.generate_output(generate_improve_prompt(&feature.0, &feature.1,&test_to_improve), create_predict_options());
+        println!("Section: {}, Feature: {}", &feature.0, &feature.1);
+        println!("{}", &out);
+        match extract_code_block(&out) {
+            Some(code) => {println!("Extracted code:\n{}", code);
+            //save_test_case(i, code);
+            test_indices.increment_improve_index();
+            test_indices.save_to_file().unwrap()
+        },
+            None => println!("Input does not contain a valid code block."),
+        }
+    }
+
+}
+
+fn compile_and_run_program(file_path: &str, compiler_name: &str) -> Result<String, std::io::Error> {
+    // Compile the program using the specified compiler
+    let compile_output = std::process::Command::new(compiler_name)
+        .arg(file_path)
+        .output()?;
+    
+    // Check if the compilation was successful
+    if compile_output.status.success() {
+        // Run the compiled program and capture its output
+        let run_output = std::process::Command::new("./a.out")
+            .output()?;
+        
+        // Convert the output to a string and return it
+        let output = String::from_utf8_lossy(&run_output.stdout).to_string();
+        Ok(output)
+    } else {
+        // If compilation failed, return the error message
+        let error_message = String::from_utf8_lossy(&compile_output.stderr).to_string();
+        Err(std::io::Error::new(std::io::ErrorKind::Other, error_message))
+    }
+}
+
+
+
+
+
+fn main() {
+    let mut indices = TestIndices::new("test_indices.json");
+    indices.read_from_file().unwrap();
+    generate_test_cases(&mut indices);
+
+    // generate_test_cases()
+    // improve_test_cases()
+    // let out = compile_and_run_program("./test_cases/test0.c", "clang");
+    // match out {
+    //     Ok(output) => println!("Program output:\n{}", output),
+    //     Err(error) => println!("Compilation error:\n{}", error),
+    // }
+    
+    
 
 }
 

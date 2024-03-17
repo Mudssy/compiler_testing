@@ -1,10 +1,12 @@
 
 #include <stdio.h>
-#include "llvm/ADT/Statistic.h"
+#include "header1.h"  // header file with 'print_hello' function
+#include "header2.h"  // header file with 'print_world' function
 
 int main() {
-    llvm::Statistic *MyStat = new llvm::Statistic("MyStat", "Example statistic");
-    MyStat->addRecord(42);
-    printf("The value of the custom statistic is: %d\n", MyStat->getValue());
+    print_hello();
+    printf(" ");
+    print_world();
+    printf("\n");
     return 0;
 }

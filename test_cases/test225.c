@@ -2,7 +2,8 @@
 #include <stdio.h>
 
 int main() {
-    printf("Output before space \t\n"); // Tab character after the word "space"
-    printf("Output after tab and newline\n");
+    printf("This is a tab\t.\n");
+    printf("\rThis is a carriage return.");
+    printf("\nThis is a new line.");
     return 0;
 }

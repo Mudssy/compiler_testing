@@ -2,20 +2,17 @@
 #include <stdio.h>
 
 int main() {
-    int i = 5;
-    printf("Initial value of i: %d\n", i);
+    int num = 5;
+    
+    printf("Initial Value: %d\n", num);
 
-    ++i;
-    printf("After pre-increment, value of i: %d\n", i);
+    // Testing increment operation
+    num++; 
+    printf("After Increment: %d\n", num);
 
-    i--;
-    printf("After post-decrement, value of i: %d\n", i);
-
-    --i;
-    printf("After pre-decrement, value of i: %d\n", i);
-
-    ++i;
-    printf("After post-increment, value of i: %d\n", i);
+    // Testing decrement operation
+    num--; 
+    printf("After Decrement: %d\n", num);
 
     return 0;
 }

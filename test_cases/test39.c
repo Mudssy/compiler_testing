@@ -1,22 +1,21 @@
 
 #include <stdio.h>
-#include <signal.h>
 #include <unistd.h>
+#include <signal.h>
 
-volatile sig_atomic_t signal_received = 0;
-
-void sigint_handler(int signum) {
-    printf("Caught SIGINT, exiting...\n");
-    signal_received = 1;
+// Signal handler function
+void handle_sigint(int signum) {
+    printf("Received SIGINT signal!\n");
+    // Cleanup code here (if any)...
 }
 
 int main() {
-    signal(SIGINT, sigint_handler);
+    // Set the SIGINT handler
+    signal(SIGINT, handle_sigint);
     
-    while (!signal_received) {
-        printf("Still running... Press Ctrl+C to interrupt.\n");
-        sleep(1);
-    }
+    printf("Waiting for 10 seconds before exiting. Press Ctrl+C to interrupt me.\n");
+    sleep(10);
+    printf("Finished waiting. Exiting...\n");
     
     return 0;
 }

@@ -1,24 +1,35 @@
 
 #include <stdio.h>
 
-void shuffle(int *array, int n) {
-    for (int i = 0; i < n / 2; i++) {
-        int temp = array[i];
-        array[i] = array[n - 1 - i];
-        array[n - 1 - i] = temp;
-    }
+int fib(int n) {
+    if (n <= 1) return n;
+    return fib(n - 1) + fib(n - 2);
 }
 
-void print_array(int *array, int n) {
-    for (int i = 0; i < n; i++) {
-        printf("%d ", array[i]);
+void shuffleFunc() {
+    int a = 5, b = 7, c = 9;
+#pragma omp parallel sections
+    {
+        #pragma omp section
+            for (int i = 0; i < 3; ++i) printf("Thread %d\n", fib(a + i));
+        
+        #pragma omp section
+            for (int j = 0; j < 3; ++j) printf("Thread %d\n", fib(b + j));
+
+        #pragma omp section
+            for (int k = 0; k < 3; ++k) printf("Thread %d\n", fib(c + k));
     }
-    printf("\n");
 }
 
 int main() {
-    int input[] = {1, 2, 3, 4, 5};
-    shuffle(input, 5);
-    print_array(input, 5);
+#pragma omp parallel sections
+    {
+        #pragma omp section
+            shuffleFunc();
+        
+        #pragma omp section
+            shuffleFunc();
+    }
+    
     return 0;
 }

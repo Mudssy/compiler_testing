@@ -1,15 +1,12 @@
 
 #include <stdio.h>
 
-typedef struct {
-    int x;
-    float y;
-} myStruct;
+typedef int MyInt;  // This will generate debug info for the 'MyInt' type
 
 int main() {
-    myStruct s;
-    s.x = 10;
-    s.y = 20.5;
-    printf("The value of s.x is %d and the value of s.y is %.2f\n", s.x, s.y);
+    MyInt myVar = 10;
+    
+    printf("The value of myVar is %d\n", myVar);
+    
     return 0;
 }

@@ -2,12 +2,12 @@
 #include <stdio.h>
 
 int main() {
-    int x = 10;
+    int condition = 1; // Change this value to experiment with different outputs 
     
-    if(x > 5) {
-        printf("x is greater than 5\n");
+    if (condition) {
+        printf("Condition is true\n");
     } else {
-        printf("x is less than or equal to 5\n");
+        printf("Condition is false\n");
     }
 
     return 0;

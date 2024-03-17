@@ -1,11 +1,10 @@
 
 #include <stdio.h>
 
-#define PRINT_MACRO(x) printf("The value of macro " #x " is %d\n", x);
+// Object-like macro that defines the tokens for a symbol name
+#define FOO(x) #x  // convert the argument to a string literal
+#define BAR b      // define another token
 
 int main() {
-    int a = 10, b = 20;
-    PRINT_MACRO(a)
-    PRINT_MACRO(b)
-    return 0;
+    printf("%s\n", FOO(BAR));  // concatenate and print "b"
 }

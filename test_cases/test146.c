@@ -1,14 +1,13 @@
 
 #include <stdio.h>
 
-int sum(int a, int b) {
-    return a + b;
+void test_function(void) {
+    printf("Function called\n");
 }
 
-int main() {
-    int num1 = 5;
-    int num2 = 3;
-    int result = sum(num1, num2);
-    printf("The sum of %d and %d is: %d\n", num1, num2, result);
+int main(void) {
+    // Calling the function
+    test_function();
+    
     return 0;
 }

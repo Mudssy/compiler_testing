@@ -1,18 +1,17 @@
 
 #include <stdio.h>
 
-struct test_bitfield {
-    unsigned int a: 1;
-    unsigned int b: 2;
-    unsigned int c: 3;
-};
+typedef struct {
+    unsigned int field1 : 2;
+    unsigned int field2 : 3;
+} BitFields;
 
 int main() {
-    struct test_bitfield bitfields;
-    bitfields.a = 1;
-    bitfields.b = 2;
-    bitfields.c = 5;
+    BitFields bf = {2, 5};
     
-    printf("Bitfields values: a=%u b=%u c=%u\n", bitfields.a, bitfields.b, bitfields.c);
+    printf("Bit Fields:\n");
+    printf("field1: %u\n", bf.field1);
+    printf("field2: %u\n", bf.field2);
+    
     return 0;
 }

@@ -2,25 +2,10 @@
 #include <stdio.h>
 
 int main() {
-    int a = 10;
-    int b = 20;
+    int a;  // Declare an integer variable 'a'
+    a = 5;  // Assign the value 5 to 'a' using assignment operator
     
-    printf("Initial values: a = %d, b = %d\n", a, b);
-    
-    a += b; // Test addition assignment
-    printf("After 'a += b': a = %d, b = %d\n", a, b);
-    
-    a -= b; // Test subtraction assignment
-    printf("After 'a -= b': a = %d, b = %d\n", a, b);
-    
-    a *= b; // Test multiplication assignment
-    printf("After 'a *= b': a = %d, b = %d\n", a, b);
-    
-    a /= b; // Test division assignment
-    printf("After 'a /= b': a = %d, b = %d\n", a, b);
-    
-    a %= b; // Test modulo assignment
-    printf("After 'a %%= b': a = %d, b = %d\n", a, b);
-    
-    return 0;
+    printf("The value of 'a' is: %d\n", a);
+
+    return 0;  // Returning 0 signifies that the program ended successfully
 }

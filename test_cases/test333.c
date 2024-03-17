@@ -1,32 +1,37 @@
 
+#include <pthread.h>
 #include <stdio.h>
-#include <threads.h>
 
-int data = 0;
-mtx_t lock;
+int globalVar = 0; // Global variable to be accessed by threads
 
-int increment(void *arg) {
-    mtx_lock(&lock);
-    int tmp = data++;
-    mtx_unlock(&lock);
-    
-    return tmp;
+void* increment(void* arg) {
+    (void)arg; // Suppress warning about unused parameter
+    for(int i = 0; i < 1000000; ++i) {
+        __sync_fetch_and_add(&globalVar, 1); // Atomic operation
+    }
+    return NULL;
 }
 
 int main() {
-    thrd_t thread1, thread2;
+    pthread_t thread1, thread2;
+    int ret = 0;
 
-    mtx_init(&lock, mtx_plain);
-
-    thrd_create(&thread1, increment, NULL);
-    thrd_create(&thread2, increment, NULL);
-
-    thrd_join(thread1, NULL);
-    thrd_join(thread2, NULL);
-
-    mtx_destroy(&lock);
+    ret = pthread_create(&thread1, NULL, increment, NULL);
+    if (ret != 0) {
+        printf("Error creating thread 1\n");
+        return 1;
+    }
     
-    printf("Data: %d\n", data);
+    ret = pthread_create(&thread2, NULL, increment, NULL);
+    if (ret != 0) {
+        printf("Error creating thread 2\n");
+        return 1;
+    }
+
+    pthread_join(thread1, NULL);
+    pthread_join(thread2, NULL);
+    
+    printf("Final value of globalVar: %d\n", globalVar);
 
     return 0;
 }

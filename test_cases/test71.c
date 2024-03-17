@@ -1,17 +1,14 @@
 
 #include <stdio.h>
 
-int main() {
-    int a = 5;
-    int b = 10;
+int main(void) {
+    int x = 5;
     
-    if (a > b) {
-        printf("a is greater than b\n");
-    } else if (a < b) {
-        printf("a is less than b\n");
+    if (x > 4) {
+        printf("True\n");
     } else {
-        printf("a and b are equal\n");
+        printf("False\n");
     }
-    
+
     return 0;
 }

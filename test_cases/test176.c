@@ -1,13 +1,16 @@
 
 #include <stdio.h>
 
+template<int N>
+void square() {
+    printf("%d ", N * N);
+}
+
 int main() {
-    int arr[5] = {10, 20, 30, 40, 50};
-    int n = sizeof(arr) / sizeof(arr[0]);
-
-    for (int i=0; i<n; ++i) {
-        printf("Element at index %d is %d\n", i, arr[i]);
-    }
-
+    // Test with different values
+    square<1>();   // Outputs: 1
+    square<2>();   // Outputs: 4
+    square<3>();   // Outputs: 9
+    square<4>();   // Outputs: 16
     return 0;
 }

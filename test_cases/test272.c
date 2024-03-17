@@ -1,17 +1,24 @@
 
 #include <stdio.h>
 
-#define TEST_DEFINE 1
+#define PRINT_MSG(msg) printf("Message: %s\n", msg)
 
 int main() {
-    #ifdef clanglibDriver
-        #ifdef TEST_DEFINE
-            printf("clanglibDriver: TEST_DEFINE is defined.\n");
-        #else
-            printf("clanglibDriver: TEST_DEFINE is not defined.\n");
-        #endif
+    char* msg = "Hello World";
+
+    // Define the macro
+    #ifdef PRINT_MSG
+        PRINT_MSG(msg);
+    #endif
+
+    // Undefine the macro
+    #undef PRINT_MSG
+
+    // Attempt to use the macro after it's undefined
+    #ifdef PRINT_MSG
+        PRINT_MSG(msg);  // This line will not compile if the macro is undefined
     #else
-        printf("No clanglibDriver section found.\n");
+        printf("Macro PRINT_MSG is undefined\n");
     #endif
 
     return 0;

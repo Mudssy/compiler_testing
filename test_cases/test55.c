@@ -1,15 +1,16 @@
 
 #include <stdio.h>
 
-enum Season {spring, summer, autumn, winter};
+enum {Mon, Tue, Wed, Thu, Fri, Sat, Sun};
 
 int main() {
-    enum Season my_season = summer;
-    switch(my_season) {
-        case spring: printf("It's spring time."); break;
-        case summer: printf("It's hot!"); break; // This will print out
-        case autumn: printf("It's fall."); break;
-        case winter: printf("It's cold!"); break;
-    }
+    printf("Monday = %d\n", Mon);
+    printf("Tuesday = %d\n", Tue);
+    printf("Wednesday = %d\n", Wed);
+    printf("Thursday = %d\n", Thu);
+    printf("Friday = %d\n", Fri);
+    printf("Saturday = %d\n", Sat);
+    printf("Sunday = %d\n", Sun);
+    
     return 0;
 }

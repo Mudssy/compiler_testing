@@ -1,18 +1,17 @@
 
 #include <stdio.h>
 
-int global_var = 10;
+// Global Variable Declaration
+int g = 20;
 
-void update_global() {
-    global_var += 5;
+void add(int a, int b) {
+    // Local Variable Declaration
+    int sum = a + b;
+    printf("Sum of %d and %d is %d\n", a, b, sum);
 }
 
 int main() {
-    printf("Global variable before function call: %d\n", global_var);
-    
-    update_global();
-
-    printf("Global variable after function call: %d\n", global_var);
-
+    printf("Global variable: %d\n", g);
+    add(10, 20);
     return 0;
 }

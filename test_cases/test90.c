@@ -2,12 +2,16 @@
 #include <stdio.h>
 
 int main() {
-    int a = 10;
-    int b = 20;
+    int result = testReturn();
+    printf("The value returned from testReturn(): %d\n", result);
+    return 0;
+}
 
+int testReturn() {
+    int a = 5, b = 10;
     if (a > b) {
-        return 1;
+        return a;
     } else {
-        return 2;
+        return b;
     }
 }

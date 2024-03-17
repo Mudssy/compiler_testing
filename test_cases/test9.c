@@ -1,13 +1,16 @@
 
 #include <stdio.h>
 
-void func(int x) {
-    printf("In func: %d\n", x * 2);
+void print_hello() {
+    printf("Hello, World!\n");
 }
 
-int main() {
-    void (*fptr)(int);
-    fptr = &func;
-    (*fptr)(10);
+int main(void) {
+    void (*functionPointer)(void);
+    functionPointer = &print_hello;
+    
+    // The debug info should be visible here when the compiler generates it for function pointers.
+    functionPointer();
+    
     return 0;
 }

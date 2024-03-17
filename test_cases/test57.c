@@ -1,12 +1,11 @@
 
 #include <stdio.h>
 
-inline int add(int x, int y) {
-    return x + y;
-}
+// This is the inline function that you want to test with.
+inline void myFunction() { printf("Inline function was defined\n"); }
 
-int main() {
-    int result = add(3, 4);
-    printf("The result is %d\n", result);
+int main(void) {
+    // Call your function here.
+    myFunction();
     return 0;
 }

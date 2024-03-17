@@ -1,14 +1,21 @@
 
 #include <stdio.h>
 
-enum class Color { RED = 10, GREEN, BLUE };
-enum struct Shape { SQUARE = 20, CIRCLE, TRIANGLE };
+typedef enum {
+    RED,
+    GREEN,
+    BLUE
+} Color;
+
+const char* color_names[] = {
+    "RED", 
+    "GREEN", 
+    "BLUE"
+};
 
 int main() {
-    Color color = Color::GREEN;
-    Shape shape = Shape::TRIANGLE;
-    
-    printf("Color: %d, Shape: %d\n", static_cast<int>(color), static_cast<int>(shape));
-
+    for (Color i = 0; i < 3; ++i) {
+        printf("%s\n", color_names[i]);
+    }
     return 0;
 }

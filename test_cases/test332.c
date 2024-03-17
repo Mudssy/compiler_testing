@@ -1,15 +1,24 @@
 
 #include <stdio.h>
 
-typedef int (*func_ptr)(int);
+typedef void (*funcPtr)();
 
-static int add(int a, int b) {
-    return a + b;
+void foo() {
+    printf("Foo\n");
 }
 
-int main() {
-    func_ptr addPtr = (func_ptr)&add;
-    int result = addPtr(3, 5);
-    printf("Result: %d\n", result);
+void bar() {
+    printf("Bar\n");
+}
+
+int main(void) {
+    funcPtr fp;
+    
+    fp = &foo;
+    fp(); // prints "Foo"
+    
+    fp = &bar;
+    fp(); // prints "Bar"
+    
     return 0;
 }

@@ -1,9 +1,10 @@
 
 #include <stdio.h>
 
-// Example module interface
-module;
+void hello() { printf("Hello from module!\n"); }
 
-export void print_hello() {
-    printf("Hello from the imported module!\n");
+// Module definition, exporting the function "hello"
+module example 
+{
+    void hello();
 }

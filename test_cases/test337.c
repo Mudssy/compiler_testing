@@ -1,21 +1,40 @@
 
 #include <stdio.h>
+#include <omp.h>
 
-typedef struct {
-    float x;
-    char padding[12];
-    int y;
-} PaddedVector;
-
-int main() {
-    PaddedVector vec = { 3.14f, {0}, 42 };
-    printf("Size of padded vector: %zu\n", sizeof(vec));
+int main(void) {
+    int N = 5; // non-power of 2 size
+    int i;
     
-    if (sizeof(vec) == sizeof(float) + sizeof(char) * 12 + sizeof(int)) {
-        printf("Padding correctly applied.\n");
-    } else {
-        printf("Padding not correctly applied.\n");
+    int vect[N];
+    for (i=0; i<N; i++){
+        vect[i] = i+1;
     }
-
+    
+    #pragma omp parallel for simd simdlen(8) aligned(vect: 64)
+    for (i=0; i<N; i++){
+         printf("Original vector element %d is %d\n", i, vect[i]);
+    }
+    
+    int mask[N];
+    // generate the perfect shuffle mask
+    for (i = 0; i < N; ++i) {
+        if(i%2 == 0){
+            mask[i] = i+1;
+        } else{
+            mask[i] = i-1;
+        }
+    } 
+  
+    #pragma omp parallel for simd simdlen(8) aligned(vect: 64)
+    for (i=0; i<N; i++){
+         vect[i] = vect[mask[i]];
+    }
+    
+    #pragma omp parallel for simd simdlen(8) aligned(vect: 64)
+    for (i=0; i<N; i++){
+        printf("Shuffled vector element %d is %d\n", i, vect[i]);
+    }
+  
     return 0;
 }

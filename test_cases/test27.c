@@ -1,14 +1,14 @@
 
 #include <stdio.h>
 
-int add(int a, int b);
+// Declaration without initialization
+extern int var;
 
 int main() {
-    int result = add(5, 3);
-    printf("The sum of 5 and 3 is: %d\n", result);
+    // Definition with initialization
+    extern int var = 100;
+    
+    printf("Value of var: %d\n", var);
+    
     return 0;
-}
-
-int add(int a, int b) {
-    return a + b;
 }

@@ -2,23 +2,26 @@
 #include <stdio.h>
 
 int main() {
-    int target = 12345;
-    int host_val, target_val;
-
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Wcross-compile"
-    __builtin_cpu_init();
-    __builtin_setjmp_setup();
-    #pragma clang diagnostic pop
-
-    host_val = __builtin_trap() + 1;
-    target_val = __builtin_memcpy() + 2;
-
-    printf("Host value: %d, Target value: %d\n", host_val, target_val);
-    
-    if (host_val != target) {
-        return -1;
+    // Define __builtin_cpu_is is used as a macro for checking CPU features 
+    if(__builtin_cpu_supports("avx")){
+        printf("The processor supports AVX.\n");
+    } else {
+        printf("The processor does not support AVX.\n");
     }
-
+    
+    // You can test other features as well, for example:
+    if(__builtin_cpu_supports("sse4.2")){
+        printf("The processor supports SSE4.2.\n");
+    } else {
+        printf("The processor does not support SSE4.2.\n");
+    }
+    
+    // Check for architecture:
+    if(__builtin_cpu_is("x86_64")){
+        printf("Target is x86-64\n");
+    } else {
+        printf("Not running on an x86-64 architecture.\n");
+    }
+    
     return 0;
 }

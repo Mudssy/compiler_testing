@@ -2,8 +2,8 @@
 #include <stdio.h>
 
 int main() {
-    #line 10 "custom_file.c"
-    printf("This message should be printed from line number 10.\n");
-
+    printf("%s (%d): Hello world!\n", __FILE__, __LINE__);
+    #line 10 "another_file"
+    printf("%s (%d): Hello again! This line is from another file.\n", __FILE__, __LINE__);
     return 0;
 }

@@ -2,13 +2,23 @@
 #include <stdio.h>
 
 int main() {
-    printf("Size of char: %zu\n", sizeof(char));
-    printf("Size of short: %zu\n", sizeof(short));
-    printf("Size of int: %zu\n", sizeof(int));
-    printf("Size of long: %zu\n", sizeof(long));
-    printf("Size of long long: %zu\n", sizeof(long long));
-    printf("Size of float: %zu\n", sizeof(float));
-    printf("Size of double: %zu\n", sizeof(double));
-    printf("Size of long double: %zu\n", sizeof(long double));
+    int a;
+    printf("Size of integer: %zu\n", sizeof(a));
+    
+    char b;
+    printf("Size of character: %zu\n", sizeof(b));
+    
+    float c;
+    printf("Size of float: %zu\n", sizeof(c));
+    
+    double d;
+    printf("Size of double: %zu\n", sizeof(d));
+    
+    short e;
+    printf("Size of short integer: %zu\n", sizeof(e));
+    
+    long f;
+    printf("Size of long integer: %zu\n", sizeof(f));
+    
     return 0;
 }

@@ -2,15 +2,26 @@
 #include <stdio.h>
 
 int main() {
-    unsigned int a = 10;
-    unsigned int b = 3;
+    unsigned int x = 1;
+    unsigned int y = 3;
+    
+    printf("x is %d, y is %d\n", x, y);
 
-    printf("Bitwise AND: %u\n", a & b);
-    printf("Bitwise OR: %u\n", a | b);
-    printf("Bitwise XOR: %u\n", a ^ b);
-    printf("Bitwise NOT (~a): %u\n", ~a);
-    printf("Bitwise Left Shift (a << 2): %u\n", a << 2);
-    printf("Bitwise Right Shift (a >> 1): %u\n", a >> 1);
+    // Bitwise AND operation
+    unsigned int andResult = x & y;
+    printf("Bitwise AND result: %d\n", andResult);
 
+    // Bitwise OR operation
+    unsigned int orResult = x | y;
+    printf("Bitwise OR result: %d\n", orResult);
+
+    // Bitwise XOR operation
+    unsigned int xorResult = x ^ y;
+    printf("Bitwise XOR result: %d\n", xorResult);
+
+    // Bitwise NOT operation for 'x'
+    unsigned int notX = ~x;
+    printf("Bitwise NOT for 'x': %u\n", notX);
+    
     return 0;
 }

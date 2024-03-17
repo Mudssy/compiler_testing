@@ -1,22 +1,25 @@
 
 #include <stdio.h>
 
-// Deprecated function declaration
-__attribute__((deprecated)) void old_function() {
-    printf("This is the old function.\n");
+// Define the old API name as deprecated
+#define oldAPI __attribute__((deprecated("This API is deprecated. Use newAPI instead.")))
+
+// Declare the old API function
+oldAPI void oldAPI() {
+    printf("Old API called\n");
 }
 
-// New function declaration
-void new_function() {
-    printf("This is the new function.\n");
+// Define a new API function
+void newAPI() {
+    printf("New API called\n");
 }
 
 int main() {
-    // Call deprecated function
-    old_function();
-
-    // Call new function
-    new_function();
-
+    // Call the deprecated old API function and see if compiler warns
+    oldAPI();
+    
+    // Call the new API function to test renaming
+    newAPI();
+    
     return 0;
 }

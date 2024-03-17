@@ -2,10 +2,21 @@
 #include <stdio.h>
 
 int main() {
-    int a = 10;
-    float b = 220.5;
-    char c = 'A';
-    double d = 9876543210.123456789;
-    printf("Variable Declaration Test: %d, %f, %c, %lf\n", a, b, c, d);
+    int a;
+    float b;
+    char c;
+    
+    printf("Testing variable declarations:\n");
+
+    a = 10;
+    b = 20.5;
+    c = 'A';
+
+    if (a == 10 && b == 20.5f && c == 'A') {
+        printf("Variable declarations and assignments are working properly.\n");
+    } else {
+        printf("There seems to be a problem with variable declarations and assignments.\n");
+    }
+
     return 0;
 }

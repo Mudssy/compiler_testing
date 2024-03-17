@@ -1,8 +1,6 @@
 
 #include <stdio.h>
-
-int main() {
-    printf("This program is running in a %s environment.\n", 
-        __STDC_HOSTED__ ? "hosted" : "freestanding");
+int main(void){
+    printf("__STDC_VERSION__ = %ld\n", __STDC_VERSION__);
     return 0;
 }

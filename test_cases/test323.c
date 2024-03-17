@@ -1,22 +1,12 @@
 
 #include <stdio.h>
 
-typedef struct {
-    int x;
-} MyStruct;
-
-MyStruct init_method(int val) {
-    MyStruct obj;
-    obj.x = val * 2;
-    return obj;
-}
-
-void print_struct(MyStruct s) {
-    printf("The value of x is: %d\n", s.x);
+__attribute__((constructor)) // Annotate functions as initializers
+void init_function() {
+    printf("This is an initialization function\n");
 }
 
 int main() {
-    MyStruct obj = init_method(10);
-    print_struct(obj);
+    printf("Hello, world!\n");
     return 0;
 }

@@ -1,20 +1,20 @@
 
-#include <stdio.h>
+#if __has_include(<availability.h>) && (defined(__MAC_OS_X_VERSION_MIN_REQUIRED) || defined(_WIN32))
+    #define CHECK_AVAILABLE 1
+#endif
 
-// Define an API function pointer type and a global variable for it
-typedef void (*APIFunction)();
-APIFunction api_function = NULL;
+#ifdef CHECK_AVAILABLE
+    #if __has_feature(objc_arc)
+        #warning Objective-C Automatic Reference Counting is available.
+    #else
+        #error Objective-C Automatic Reference Counting is not available.
+    #endif
 
-void unavailable_api() {
-    printf("This API is not available on this platform.\n");
-}
-
-int main() {
-    // Set the function pointer to point to the API function if it's available, else to the unavailable_api
-    api_function = &unavailable_api;
-
-    // Call the function through the function pointer
-    (*api_function)();
-
-    return 0;
-}
+    #if defined(__MAC_OS_X_VERSION_MIN_REQUIRED) && (__MAC_OS_X_VERSION_MIN_REQUIRED >= 1090)
+        #warning AppKit API is available.
+    #else
+        #error AppKit API is not available.
+    #endif
+#else
+    #warning Availability checks are not supported on this compiler or platform.
+#endif

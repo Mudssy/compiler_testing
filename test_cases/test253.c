@@ -1,11 +1,14 @@
 
 #include <stdio.h>
-#include <stdalign.h>
-
-_Alignas(16) int var;
+#include <string.h>
 
 int main() {
-    printf("Address of var: %p\n", (void *) &var);
-    printf("Alignment of var: %zu\n", alignof(var));
+    struct alignas(8) S {
+        char c;
+        int n;
+    };
+
+    printf("Alignment of struct S: %zu\n", alignof(struct S));
+    
     return 0;
 }

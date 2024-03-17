@@ -1,16 +1,29 @@
 
 #include <stdio.h>
-#include <stdlib.h>
 
-inline int add(int a, int b) {
-    return a + b;
+void foo() __attribute__((always_inline));
+
+void foo() {
+    asm ("mov $60, %eax\n" // syscall number for exit
+         "xor %ebx, %ebx\n" // exit code 0
+         "int $0x80"); // invoke the kernel
+}
+
+void bar() {
+    asm("nop"); // no operation to test loop unrolling
+}
+
+void baz() {
+    int i;
+    for (i = 0; i < 100; ++i) {
+        bar();
+    }
 }
 
 int main() {
-    int a = 0;
-    for (int i = 0; i < 1000000000; ++i) {
-        a += add(i % 2, i / 2);
-    }
-    printf("%d\n", a);
+    printf("Hello, world!\n");
+    foo(); // will not return here because of the exit syscall
+    printf("This line will never be reached.\n");
+    baz();
     return 0;
 }

@@ -4,12 +4,13 @@
 int main() {
     int a = 10;
     int b = 20;
-    int c = 30;
-
-    printf("Result of AND operation: %d\n", a & b & c);
-    printf("Result of OR operation: %d\n", a | b | c);
-    printf("Result of XOR operation: %d\n", a ^ b ^ c);
-    printf("Result of NOT operation: %d\n", ~a);
-
+    
+    // Using logical operations in if statement 
+    if (a > 5 && b < 30) {
+        printf("Both conditions are true.\n");
+    } else {
+        printf("One or both conditions are false.\n");
+    }
+    
     return 0;
 }

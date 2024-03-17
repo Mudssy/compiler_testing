@@ -1,22 +1,32 @@
 
 #include <stdio.h>
+#include <string.h>
 
-int main(int argc, char **argv) {
-    if (argc > 1) {
-        FILE *file = fopen(argv[1], "r");
-        if (file != NULL) {
-            char buffer[256];
-            while (fgets(buffer, sizeof(buffer), file)) {
-                printf("%s", buffer);
-            }
-            fclose(file);
-        } else {
-            fprintf(stderr, "Unable to open the specified response file.\n");
+int main(int argc, char** argv) {
+    if (argc == 2) {
+        FILE* file = fopen(argv[1], "r");
+        if (file == NULL) {
+            printf("Error: Unable to open file\n");
             return 1;
         }
+        
+        char line[256];
+        while (fgets(line, sizeof(line), file)) {
+            // remove newline character from the end of string
+            line[strcspn(line, "\n")] = 0;
+            
+            if (strncmp(line, "print", 5) == 0) {
+                printf("%s\n", line + 5);
+            } else {
+                printf("Unknown command: %s\n", line);
+            }
+        }
+        
+        fclose(file);
     } else {
-        fprintf(stderr, "Usage: %s <response-file>\n", argv[0]);
+        printf("Error: No file specified\n");
         return 1;
     }
+    
     return 0;
 }

@@ -1,9 +1,19 @@
 
 #include <stdio.h>
+#include <stdarg.h>
 
-#define PRINT_ARGS(...) printf(__VA_ARGS__)
+void print_numbers(int num, ...) {
+    va_list args;
+    va_start(args, num);
+    
+    for (int i = 0; i < num; ++i) {
+        int value = va_arg(args, int);
+        printf("%d: %d\n", i+1, value);
+    }
+    va_end(args);
+}
 
 int main() {
-    PRINT_ARGS("Testing Variadic macros handling feature in the C programming language for clanglibLex section.\n");
+    print_numbers(3, 42, 7, 98);
     return 0;
 }

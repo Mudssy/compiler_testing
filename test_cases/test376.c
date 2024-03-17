@@ -2,15 +2,14 @@
 #include <stdio.h>
 
 int main() {
-    unsigned int a = 5;
-    unsigned int b = 3;
+    int a = 1;  //0001 in binary
+    printf("a = %d\n", a);  
+    
+    int b = a << 2;  //Shift left by 2 places, should give 4 (0b100)
+    printf("b = %d\n", b);  
 
-    printf("Bitwise OR: %u\n", a | b);
-    printf("Bitwise AND: %u\n", a & b);
-    printf("Bitwise XOR: %u\n", a ^ b);
-    printf("Bitwise NOT: %u\n", ~a);
-    printf("Bitwise Left Shift: %u\n", a << 2);
-    printf("Bitwise Right Shift: %u\n", a >> 1);
-
+    int c = a | 3;  //Bitwise OR with 3, should give 3 (0b11)
+    printf("c = %d\n", c);  
+    
     return 0;
 }

@@ -2,10 +2,9 @@
 #include <stdio.h>
 
 int main() {
-    int $var1$ = 5;
-    int var2$ = 10;
-    int var$$ = 15;
+    int $ = 10;  // Dollar sign '$' is used as an identifier
     
-    printf("Output: %d, %d, %d\n", $var1$, var2$, var$$);
+    printf("Value of $: %d\n", $);
+    
     return 0;
 }

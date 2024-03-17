@@ -1,14 +1,10 @@
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <sanitizer/lsan_interface.h>
 
 int main() {
-    int x = 0;
-    __lsan_enable();
-    printf("Undefined behavior sanitizer is: %s\n", __lsan_default_options());
-    if(x) {
-        exit(1);
+    int arr[5] = {1, 2, 3, 4, 5};
+    for(int i=0; i<=5; i++) { // This should trigger a warning or error from UBSan
+        printf("%d\n", arr[i]);
     }
     return 0;
 }

@@ -1,22 +1,13 @@
 
 #include <stdio.h>
-#include <stdlib.h>
 
-__attribute__((warn_unused_result))
-int divide(int a, int b) {
-    if (b == 0) {
-        perror("Division by zero");
-        exit(EXIT_FAILURE);
-    }
-    return a / b;
+// The __attribute__((error("message"))) annotation indicates that this function is not allowed to return. 
+void __attribute__((error("This function should never be called"))) 
+func_that_shouldnt_be_called() {
+    printf("This should never be printed\n");
 }
 
 int main() {
-    int result = divide(10, 2);
-    printf("The result is: %d\n", result);
-
-    result = divide(10, 0);
-    printf("The result is: %d\n", result);
-
+    func_that_shouldnt_be_called();
     return 0;
 }

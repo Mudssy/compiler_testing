@@ -2,9 +2,11 @@
 #include <stdio.h>
 
 int main() {
-    int a = 10;
-    int b = 20;
+    int a = 5;
+    int b = 10;
+    int max = (a > b) ? a : b; // Using ternary operator to find the maximum of two numbers
     
-    (a > b) ? printf("a is greater than b\n") : printf("b is greater than or equal to a\n");
+    printf("Maximum between %d and %d is: %d\n", a, b, max);
+
     return 0;
 }

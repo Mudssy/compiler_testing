@@ -1,27 +1,15 @@
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+#include <immintrin.h>
 
-// Function to shuffle an array using the perfect shuffle algorithm
-void perfectShuffle(int arr[], int n) {
-    for (int i = 0; i < n / 2; i++) {
-        int temp = arr[i];
-        arr[i] = arr[n - 1 - i];
-        arr[n - 1 - i] = temp;
-    }
+void print_array(__m256i array) {
+    long* values = (long*)&array;
+    printf("%ld %ld\n", values[0], values[1]);
 }
 
 int main() {
-    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8};
-    int n = sizeof(arr) / sizeof(arr[0]);
+    __m256i input  = _mm256_setr_epi64x(1, 2, 3, 4);
+    __m256i output = _mm256_permute4x64_epi64(input, (int)_MM_SHUFFLE(0, 1, 2, 3));
     
-    srand((unsigned int) time(NULL));
-    perfectShuffle(arr, n);
-    
-    for (int i = 0; i < n; i++) {
-        printf("%d ", arr[i]);
-    }
-    
-    return 0;
+    print_array(output);
 }

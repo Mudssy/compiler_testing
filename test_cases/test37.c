@@ -1,10 +1,11 @@
 
 #include <stdio.h>
 
+extern int foo(); // function from libfoo.a
+extern void bar(); // function from libbar.a
+
 int main() {
-    int a = 5;
-    int b = 10;
-    int sum = a + b;
-    printf("The sum of %d and %d is: %d\n", a, b, sum);
-    return 0;
+    printf("Calling foo: %d\n", foo());
+    printf("Calling bar: ");
+    bar();
 }

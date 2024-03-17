@@ -1,13 +1,12 @@
 
 #include <stdio.h>
-
 int main() {
     int x = 10;
-
+    
     if (x > 5) {
-        printf("x is greater than 5\n");
+        printf("Condition was true\n");
     } else {
-        printf("x is not greater than 5\n");
+        printf("Condition was false\n");
     }
 
     return 0;

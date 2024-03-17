@@ -1,10 +1,12 @@
 
 #include <stdio.h>
 
-#define HELLO_WORLD "Hello, World!"
-#define PRINT(x) printf("%s\n", x);
+//Define a macro named MY_MACRO
+#define MY_MACRO "Hello, World!"
 
 int main() {
-    PRINT(HELLO_WORLD)
+    //Print out the value of the macro
+    printf("%s\n", MY_MACRO);
+
     return 0;
 }

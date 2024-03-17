@@ -1,9 +1,13 @@
 
 #include <stdio.h>
 
-int globalVar = 42;
+int global_variable = 10;
 
-int main() {
-    printf("The value of global variable is: %d\n", globalVar);
+void printGlobalVariable() {
+    printf("The value of global_variable is %d\n", global_variable);
+}
+
+int main(void) {
+    printGlobalVariable();
     return 0;
 }

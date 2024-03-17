@@ -2,10 +2,15 @@
 #include <stdio.h>
 
 int main() {
-    int result;
+    int src = 10;
+    int dst;
 
-    asm("mov $2, %0" : "=r"(result));
+    __asm__ ( "mov %1, %0\n"
+              : "=r"(dst)
+              : "r"(src) 
+            );
 
-    printf("Result: %d\n", result);
+    printf("The value of 'dst' is: %d\n", dst);
+
     return 0;
 }
