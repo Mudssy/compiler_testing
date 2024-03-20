@@ -2,20 +2,10 @@
 #include <stdio.h>
 
 int main() {
-    int a = 10;
-    float b = 20.5;
-    double c = 30.75;
+    int i = 10;
+    float f = (float)i / 2;   // explicit casting to float
     
-    printf("Before casting:\n");
-    printf("a: %d\nb: %f\nc: %lf\n", a, b, c);
-    
-    // Assigning values to different data types
-    a = (int)b + 10;
-    b = (float)c - 2.5;
-    c = (double)a * 2.75;
-    
-    printf("\nAfter type casting:\n");
-    printf("a: %d\nb: %f\nc: %lf\n", a, b, c);
+    printf("The value of f is: %f\n", f);
 
     return 0;
 }

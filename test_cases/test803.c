@@ -1,12 +1,16 @@
 
 #include <stdio.h>
 
-int sum(int a, int b) {
+// Function Definition
+int add(int a, int b) {
     return a + b;
 }
 
 int main() {
-    int result = sum(5, 3);
-    printf("The sum of 5 and 3 is %d\n", result);
-    return 0;
+    // Test cases
+    printf("%d\n", add(3, 4));   // Output: 7
+    printf("%d\n", add(-1, 1));  // Output: 0
+    printf("%d\n", add(0, 0));   // Output: 0
+    
+    return 0;  // Exit successfully
 }

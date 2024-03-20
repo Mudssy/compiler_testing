@@ -1,17 +1,15 @@
 
 #include <stdio.h>
 
-int weak_func(void) __attribute__((weak));
-int weak_func(void) {
-    return 42;
+void __attribute__((weak)) weak_fn() {
+    printf("Default definition\n");
 }
 
-int main() {
-    if (&weak_func) {
-        printf("Weak symbol supported: Yes\n");
+int main(void) {
+    if (weak_fn != NULL && weak_fn != 0) { // Weak symbol may not be defined
+        weak_fn();
     } else {
-        printf("Weak symbol supported: No\n");
+        printf("Weak function is undefined.\n");
     }
-
     return 0;
 }

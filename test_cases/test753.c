@@ -1,14 +1,16 @@
 
 #include <stdio.h>
 
-typedef struct {
-    int x;
-    double y;
-} my_struct;
-
-my_struct __attribute__ ((aligned (64))) global_var;
+// Global variable with specific alignment requirement
+__attribute__ ((aligned (16))) char alignedVar[4];
+char unalignedVar[5] = {'H', 'e', 'l', 'l', 'o'};
 
 int main() {
-    printf("Address of global_var: %p\n", &global_var);
-    return 0;
+    if(((unsigned long)alignedVar & 0xf) == 0){
+        printf("Aligned");
+    }else{
+        printf("Unaligned");
+    }
+    
+    return 0; // Make sure this program does not run forever
 }

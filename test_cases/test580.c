@@ -1,18 +1,15 @@
 
 #include <stdio.h>
 
-int add(int a, int b) {
-    return a + b;
-}
-
-void print_result(int result) {
-    printf("Result: %d\n", result);
+// Function to be called
+void print_message(char *message) {
+    printf("%s\n", message);
 }
 
 int main() {
-    int num1 = 5;
-    int num2 = 10;
-    int sum = add(num1, num2);
-    print_result(sum);
+    // Test function call and check output
+    char *test_message = "Hello, World!";
+    print_message(test_message);
+    
     return 0;
 }

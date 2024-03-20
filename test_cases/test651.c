@@ -2,24 +2,17 @@
 #include <stdio.h>
 #include <ctype.h>
 
-int main() {
-    char str[] = "Hello, World!";
-
-    for (int i = 0; str[i] != '\0'; ++i) {
-        if (islower(str[i])) {
-            printf("%c is a lowercase letter.\n", str[i]);
-        } else if (isupper(str[i])) {
-            printf("%c is an uppercase letter.\n", str[i]);
-        } else if (isdigit(str[i])) {
-            printf("%c is a digit.\n", str[i]);
-        } else if (isspace(str[i])) {
-            printf("%c is a space character.\n", str[i]);
-        } else if (ispunct(str[i])) {
-            printf("%c is a punctuation mark.\n", str[i]);
+int main(void) {
+    char test_chars[] = {'A', '1', '!'};
+    int i;
+    
+    for (i = 0; i < 3; ++i){
+        if(isalpha(test_chars[i])){  // checks if the character is alphabetic
+            printf("'%c' is an alphabet\n", test_chars[i]);
         } else {
-            printf("Unexpected character: %c\n", str[i]);
+            printf("'%c' is not an alphabet\n", test_chars[i]);
         }
     }
-
-    return 0;
+    
+    return 0; // the program returns 0 to indicate a successful execution
 }

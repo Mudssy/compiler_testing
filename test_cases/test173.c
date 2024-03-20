@@ -1,29 +1,19 @@
 
 #include <stdio.h>
 
-template<typename T>
-struct S {
-    void f() { printf("General template\n"); }
-};
+template<typename T, typename U> 
+auto max(T t, U u) -> decltype(t > u ? t : u){
+    return (t > u) ? t : u;
+}
 
+// Explicit specialization
 template<>
-void S<int>::f() { printf("Specialization for int\n"); }
-
-template<typename T>
-struct S<T*> {
-    void f() { printf("Partial specialization for pointers\n"); }
-};
+char *max<char*, char*>(char *a, char *b){
+    return strcmp(a, b) > 0 ? a : b;
+}
 
 int main() {
-    S<double> s1;
-    s1.f();
-
-    S<int> s2;
-    s2.f();
-
-    int i = 5;
-    S<decltype(i)> s3;
-    s3.f();
-
-    return 0;
+    printf("Max of 3 and 7 is %d\n", max(3, 7)); // integer version
+    printf("Max of 'a' and 'b' is '%c'\n", max('a', 'b')); // char version
+    printf("Max of \"Hello\" and \"World\" is \"%s\"\n", max("Hello", "World")); // string version 
 }

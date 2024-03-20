@@ -1,18 +1,17 @@
 
 #include <stdio.h>
 
+void my_memcpy(int * __restrict__ dest, int const * __restrict__ src, size_t count) {
+    for (size_t i = 0; i < count; ++i) {
+        dest[i] = src[i];
+    }
+}
+
 int main() {
-    int x __attribute__((noalias)) = 5;
-    int y __attribute__((noalias)) = 10;
-    int *px = &x;
-    int *py = &y;
-    
-    printf("Values before:\nx: %d\ny: %d\n", x, y);
-    
-    *px += 5;
-    *py -= 3;
-    
-    printf("Values after addition and subtraction:\nx: %d\ny: %d\n", x, y);
-    
-    return 0;
+    int src[] = {1, 2, 3, 4};
+    my_memcpy(src + 1, src, sizeof(int)); // Undefined behavior due to overlapping memory
+    for (size_t i = 0; i < sizeof(src) / sizeof(*src); ++i) {
+        printf("%d ", src[i]);
+    }
+    printf("\n");
 }

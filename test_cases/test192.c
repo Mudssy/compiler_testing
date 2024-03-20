@@ -1,21 +1,23 @@
 
 #include <stdio.h>
+#include <limits.h>
 #include <assert.h>
 
-void print_value(int value) {
-    assert(value >= 0 && value < 10);
-    printf("The value is: %d\n", value);
+template<typename T>
+concept SignedIntegral = sizeof(T) == sizeof(int) && std::is_signed<T>::value;
+
+template<SignedIntegral T, typename U>
+constexpr bool sum_in_range(T a, U b) {
+    return (b >= INT_MIN - a && b <= INT_MAX - a);
+}
+
+void test() {
+    assert(sum_in_range((char)-10, (int)INT_MAX));
+    assert(!sum_in_range((unsigned char)-2, (int)-1));
+    printf("Test passed\n");
 }
 
 int main() {
-    int x = 5;
-    int y = -1;
-    
-    // This will pass the assertion because 5 is in range [0, 10)
-    print_value(x);
-    
-    // This will fail the assertion because -1 is not in range [0, 10)
-    print_value(y);
-    
+    test();
     return 0;
 }

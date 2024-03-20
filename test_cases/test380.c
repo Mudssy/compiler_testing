@@ -2,8 +2,11 @@
 #include <stdio.h>
 
 int main() {
-    int x = 5; // Declare an integer variable
-    float y = (float)x / 2; // Cast x to float and then divide by 2
-    printf("%f\n", y); // Print the result
+    double x = 2.0; // Define a variable x as double type
+
+    int y = (int)x;  // Convert x to integer and assign it to y
+
+    printf("%d\n", y); // Print the converted value of x (which should be 2)
+    
     return 0;
 }

@@ -1,14 +1,13 @@
 
 #include <stdio.h>
 
-int add(int a, int b) __attribute__((regparm(3)));
-
-int add(int a, int b) {
-    return a + b;
+__attribute__((regparm(3)))  // The number inside the parentheses is how many parameters should be passed in registers.
+void testFunction(__reg_unused int a, __reg_unused int b, int c) {
+    printf("Value of C: %d\n", c);
 }
 
 int main() {
-    int result = add(10, 20);
-    printf("The sum of 10 and 20 is: %d\n", result);
-    return 0;
+    // Test with some numbers to demonstrate the regparm attribute.
+    testFunction(1, 2, 3);
+    return 0;  // Make sure your program returns a value.
 }

@@ -1,22 +1,16 @@
 
 #include <stdio.h>
 
-enum Color { RED, GREEN, BLUE };
+typedef enum { FALSE=0, TRUE=1 } bool;
 
 int main() {
-    enum Color my_color = GREEN;
+    bool test = TRUE;
     
-    switch (my_color) {
-        case RED:
-            printf("The color is Red.\n");
-            break;
-        case GREEN:
-            printf("The color is Green.\n");
-            break;
-        case BLUE:
-            printf("The color is Blue.\n");
-            break;
+    if (test) {
+        printf("Enum types are supported!\n");
+        return 0;
+    } else {
+        printf("Unexpected behavior: Enum types are not supported.\n");
+        return -1;
     }
-    
-    return 0;
 }

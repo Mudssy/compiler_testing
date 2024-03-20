@@ -2,27 +2,18 @@
 #include <stdio.h>
 
 int main() {
-    int number = 5;
-    char result[32] = "";
-    
-    switch (number) {
+    int i = 2;  // Change this value for different test cases
+
+    switch (i) {
         case 1:
-            sprintf(result, "Number is 1");
+            printf("Case 1\n");
             break;
         case 2:
-            sprintf(result, "Number is 2");
-            break;
-        case 3:
-            sprintf(result, "Number is 3");
-            break;
-        case 4:
-            sprintf(result, "Number is 4");
+            printf("Case 2\n");
             break;
         default:
-            sprintf(result, "Number is not between 1 and 4");
+            printf("Default Case\n");
     }
 
-    printf("%s\n", result);
-    
     return 0;
 }

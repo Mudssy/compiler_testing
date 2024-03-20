@@ -1,19 +1,40 @@
 
-#include <stdio.h>
+#include <stdarg.h>
+#define _Vectorcall_ __attribute__((vectorcall))
 
-// Vectorcall Calling Convention Test
-typedef void (*VectorcallFunction)(int, float, double);
-void __vectorcall vectorcall_function(int a, float b, double c) {
-    printf("Vectorcall Calling Convention Test: %d, %.2f, %.2f\n", a, b, c);
+void vectorCallFunc() {}
+
+typedef void(*Vectorcall)(void);
+
+int _Vectorcall_ vectorcall_add(double a, double b) {
+    return a + b;
+}
+
+void _Vectorcall_ myVectorCallFunction(char *str, ...) {
+    va_list argp;
+    va_start(argp, str);
+
+    char* s = str;
+    while (s != NULL) {
+        printf("%s\n", s);
+        s = va_arg(argp, char *);
+    }
+    
+    va_end(argp);
 }
 
 int main() {
-    VectorcallFunction func = &vectorcall_function;
-    int test_a = 42;
-    float test_b = 3.14f;
-    double test_c = 1.61803398875;
+    Vectorcall fptr = vectorCallFunc;
+    void (*fptr2)(void) = &vectorCallFunc;
+
+    // Call the function through function pointer.
+    (fptr)();
+    (*fptr2)();
     
-    (*func)(test_a, test_b, test_c);
-    
+    int a = 10, b = 5;
+    printf("%d\n", vectorcall_add(a, b)); // prints 15
+  
+    myVectorCallFunction("Hello", "World!", NULL);
+
     return 0;
 }

@@ -1,17 +1,32 @@
 
 #include <stdio.h>
+#include <immintrin.h>  // for llvm_utils shuffles
 
-int main(void) {
-    int a[4] = {10, 20, 30, 40};
-    int mask[4] = {3, 2, 1, 0}; // Mask for the permutation (reversing vector)
+void printArr(int *arr, int size) {
+    printf("[");
+    for (int i = 0; i < size; ++i) {
+        printf("%d", arr[i]);
+        if (i + 1 != size) {
+            printf(", ");
+        }
+    }
+    printf("]\n");
+}
+
+void testShuffle() {
+    const int size = 8;
+    int arr[] = {0, 1, 2, 3, 4, 5, 6, 7};
     
-    __attribute__((noinline)) void *foo(__builtin_shufflevector(a, a, mask));
+    printf("Before shuffling: ");
+    printArr(arr, size);
     
-    printf("Vector reversed: {%d, %d, %d, %d}\n", 
-        ((int*)(void*)&foo)[0], // Getting output from the vector (for checking)
-        ((int*)(void*)&foo)[1], 
-        ((int*)(void*)&foo)[2], 
-        ((int*)(void*)&foo)[3]);
-    
+    llvmutilsPerfectShuffle(arr, sizeof(int) * size);
+
+    printf("After shuffling: ");
+    printArr(arr, size);
+}
+
+int main() {
+    testShuffle();
     return 0;
 }

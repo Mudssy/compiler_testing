@@ -2,28 +2,28 @@
 #include <stdio.h>
 #include <pthread.h>
 
-__thread int tls_var = 10;
+_Thread_local int tlsVar = 10; // Thread Local Storage variable declaration 
 
-void *thread_func(void *arg) {
-    printf("Thread TLS value: %d\n", tls_var);
+void* threadFunc(void* arg) {
+    printf("Before modification in thread : %d\n", tlsVar);
+    tlsVar = *((int*)arg); // Modifying TLS variable
+    printf("After modification in thread: %d\n", tlsVar); 
+    
     return NULL;
 }
 
 int main() {
-    pthread_t thread;
+    pthread_t threadId1, threadId2;
+    int var = 50; // Variable for first thread
+    int var2 = 60; // Variable for second thread
 
-    if (pthread_create(&thread, NULL, &thread_func, NULL)) {
-        fprintf(stderr, "Error creating thread\n");
-        return 1;
-    }
-
-    tls_var = 20;
-    printf("Main TLS value: %d\n", tls_var);
-
-    if (pthread_join(thread, NULL)) {
-        fprintf(stderr, "Error joining thread\n");
-        return 1;
-    }
+    // Create two threads 
+    pthread_create(&threadId1, NULL, &threadFunc, (void*)&var);
+    pthread_create(&threadId2, NULL, &threadFunc, (void*)&var2);
+    
+    // Wait until both threads have completed execution
+    pthread_join(threadId1, NULL); 
+    pthread_join(threadId2, NULL); 
 
     return 0;
 }

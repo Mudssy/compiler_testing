@@ -1,17 +1,22 @@
 
 #include <stdio.h>
 
-int main() {
-    int a = 10;
-    if (a > 5) {
-        int b = 20;
-        printf("b: %d\n", b);
+int main(void) {
+    int x = 1; // local variable to main function
+    
+    if (x == 1) {
+        printf("Inside the outer scope\n");
+        
+        int y = 2; // local variable to inner block
+        
+        if (y == 2) {
+            printf("Inside the inner scope\n");
+        } else {
+            printf("This should not be printed\n");
+        }
     } else {
-        int c = 30;
-        printf("c: %d\n", c);
+        printf("This should not be printed\n");
     }
-    // Uncomment the following lines to test for a compiler error
-    // printf("b: %d\n", b);
-    // printf("c: %d\n", c);
-    return 0;
+    
+    return 0; // program ends normally
 }

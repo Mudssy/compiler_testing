@@ -1,16 +1,13 @@
 
 #include <stdio.h>
-#include <alloca.h>
+
+void recursive(int count) {
+    char a[1024*500]; // Allocating large amount of stack memory
+    printf("%d\n",count); 
+    recursive(count+1); // Recursion which might lead to stack overflow
+}
 
 int main() {
-    const size_t largeSize = (size_t)1 << 30; // 1GB
-
-    void *ptr = alloca(largeSize); // Allocate memory on the stack
-    if (ptr != NULL) {
-        printf("Stack protection is enabled and allocation of %zu bytes was successful.\n", largeSize);
-    } else {
-        printf("Stack protection is disabled or allocation failed.\n");
-    }
-
+    recursive(1);
     return 0;
 }

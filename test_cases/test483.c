@@ -1,12 +1,11 @@
 
 #include <stdio.h>
 
-__attribute__((noinline)) int add(int a, int b) {
-    return a + b;
+void __attribute__((noinline)) foo() {
+    printf("Inside noinline function\n");
 }
 
 int main() {
-    int result = add(2, 3);
-    printf("Result: %d\n", result);
+    foo();
     return 0;
 }

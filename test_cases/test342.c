@@ -1,17 +1,18 @@
 
 #include <stdio.h>
-#include <inttypes.h>
+#define SHUFFLE2(a, b) __builtin_shuffle((vector unsigned int){0, 1}, (vector unsigned int){a, b})
+#define SHUFFLE4(a, b, c, d) __builtin_shuffle((vector unsigned int){0, 1, 2, 3}, (vector unsigned int){a, b, c, d})
 
 int main() {
-    uint32_t x = 1; // Your input number here
-    int shift = 1;  // The number of positions to rotate
+    vector unsigned int v = (vector unsigned int){1, 2, 3, 4};
     
-    printf("Before rotating: %" PRIu32 "\n", x);
-    
-    // Rotate the bits by performing a bitwise OR operation with the shifted bits from the left side
-    uint32_t rotated = (x >> shift) | (x << (32 - shift)); 
-    
-    printf("After rotating: %" PRIu32 "\n", rotated);
+    // Testing SHUFFLE2.
+    v = SHUFFLE2(v, 0);
+    printf("SHUFFLE2: {%d, %d}\n", v[0], v[1]);
+
+    // Testing SHUFFLE4.
+    v = SHUFFLE4(v, 3, 2, 1);
+    printf("SHUFFLE4: {%d, %d, %d, %d}\n", v[0], v[1], v[2], v[3]);
     
     return 0;
 }

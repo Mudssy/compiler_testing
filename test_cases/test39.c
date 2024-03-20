@@ -1,21 +1,27 @@
 
 #include <stdio.h>
-#include <unistd.h>
 #include <signal.h>
+#include <unistd.h>
 
-// Signal handler function
-void handle_sigint(int signum) {
-    printf("Received SIGINT signal!\n");
-    // Cleanup code here (if any)...
+void async_event(int sig) {
+    printf("Async event fired!\n");
 }
 
 int main() {
-    // Set the SIGINT handler
-    signal(SIGINT, handle_sigint);
+    struct sigaction sa;
+    sa.sa_handler = &async_event;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = SA_ASYNC;
     
-    printf("Waiting for 10 seconds before exiting. Press Ctrl+C to interrupt me.\n");
-    sleep(10);
-    printf("Finished waiting. Exiting...\n");
+    if (sigaction(SIGUSR1, &sa, NULL) == -1) {
+        perror("Could not set signal handler");
+        return 1;
+    }
+    
+    printf("Firing async event...\n");
+    raise(SIGUSR1);
+    
+    sleep(2); // Sleep for a while to give the asynchronous event a chance to print.
     
     return 0;
 }

@@ -1,17 +1,13 @@
 
 #include <stdio.h>
 
-// Function declaration
-int add(int a, int b);
-
-int main() {
-    // Using the declared function
-    int sum = add(5, 10);
-    printf("The sum is: %d\n", sum);
-    return 0;
-}
-
-// Function definition
+// Declare a simple function
 int add(int a, int b) {
     return a + b;
+}
+
+int main() {
+    int result = add(5, 10);
+    printf("The sum is: %d\n", result);
+    return 0; // Return statement to end the program
 }

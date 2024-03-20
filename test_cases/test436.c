@@ -1,21 +1,28 @@
 
 #include <stdio.h>
+#include <string.h>
 
-void update(int *restrict a, int *restrict b) {
-    for (int i = 0; i < 10; ++i) {
-        a[i] += b[i];
+int check_palindrome(char* str, const int len) {
+    char *strt = str;
+    char *end = str + len - 1;
+    
+    while (end > strt) {
+        if (*strt != *end) {
+            return 0;
+        }
+        ++strt;
+        --end;
     }
+    return 1;
 }
 
 int main() {
-    int arr1[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    int arr2[10] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+    char* test_str = "radar";
+    int len = strlen(test_str);
     
-    update(arr1, arr2);
-
-    for (int i = 0; i < 10; ++i) {
-        printf("%d ", arr1[i]);
+    if (check_palindrome(test_str, len)) {
+        printf("%s is a palindrome\n", test_str);
+    } else {
+        printf("%s is not a palindrome\n", test_str);
     }
-
-    return 0;
 }

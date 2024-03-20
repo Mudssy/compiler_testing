@@ -1,12 +1,17 @@
 
 #include <stdio.h>
 
-[[clang::warn_unused_result]] int add(int a, int b) {
-    return a + b;
+int __attribute__((const)) multiply(int a, int b) {
+    return a * b;
+}
+
+void test_multiply() {
+    printf("Testing multiply\n");
+    int result = multiply(2, 3); // Expected output: 6
+    printf("Result: %d\n", result);
 }
 
 int main() {
-    int result = add(5, 10);
-    printf("Result: %d\n", result);
+    test_multiply();
     return 0;
 }

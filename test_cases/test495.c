@@ -1,30 +1,39 @@
 
 #include <stdio.h>
-#include <threads.h>
+#include <pthread.h>
 
-int main(void) {
-    printf("Testing Thread Safety Attributes in C\n");
-    
-    struct timespec sleep_time;
-    sleep_time.tv_sec = 1;
-    sleep_time.tv_nsec = 0;
+#define ITERATIONS 1000000
 
-    mtx_t mutex;
-    mtx_init(&mutex, mtx_plain);
+// This variable will be shared across threads
+__attribute__((tls_model("global-dynamic"))) __thread int global = 0;
 
-    thrd_start_t func = print_number;
+void *increment(void *arg){
+    for (int i=0; i<ITERATIONS; ++i){
+        // The following operation is not atomic and might lead to race condition
+        ++global; 
+    }
+    return NULL;
+}
 
-    thrd_t threads[5];
-    int i;
-    for (i = 0; i < 5; ++i) {
-        thrd_create(threads + i, func, (void *)(long long)i);
+int main(){
+    pthread_t thread1, thread2;
+    int ret;
+
+    ret = pthread_create(&thread1, NULL, increment, NULL);
+    if (ret){
+        printf("Thread creation failed: %d\n", ret);
+        return 1;
     }
 
-    for (i = 0; i < 5; ++i) {
-        thrd_join(threads[i], NULL);
+    ret = pthread_create(&thread2, NULL, increment, NULL);
+    if (ret){
+        printf("Thread creation failed: %d\n", ret);
+        return 1;
     }
 
-    mtx_destroy(&mutex);
+    // Wait for the threads to complete their execution
+    pthread_join(thread1, NULL);
+    pthread_join(thread2, NULL);
 
-    return 0;
+    printf("Final value of global: %d (Expected %d)\n", global, ITERATIONS*2);
 }

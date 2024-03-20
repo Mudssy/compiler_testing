@@ -10,10 +10,8 @@ int main() {
     SomeType var = {5, "Hello"};
     
     // index into type directly
-    printf("x: %d\n", *(int*)((char*)&var + 0));
-    printf("y: ");
-    for (int i = 0; i < 10; ++i) 
-        printf("%c", ((char*)*(int*)((char*)&var + sizeof(int)))[i]);
-    
+    printf("x: %d\n", *(int*)(&var + 0));
+    printf("y: %s\n", (char*)(&var + 1));
+  
     return 0;
 }

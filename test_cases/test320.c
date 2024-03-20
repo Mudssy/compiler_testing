@@ -1,12 +1,14 @@
 
 #include <stdio.h>
 
-int main(void) {
-    int bool_value = 0; // 0 is treated as false, non-zero is true
-    if (bool_value){
-        printf("True\n");
-    } else {
-        printf("False\n");
-    }
+void printBool(char* name, int value) {
+    printf("%s = %d\n", name, value != 0); // will convert to bool and then to int for printing
+}
+
+int main() {
+    // Test cases
+    printBool("0", 0);
+    printBool("-1", -1);
+    printBool("1", 1);
     return 0;
 }

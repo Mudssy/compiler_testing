@@ -1,15 +1,16 @@
 
 #include <stdio.h>
 
+// Define a struct
 typedef struct {
     int x;
-    float y;
-} TestStruct;
+    double y;
+} point;
 
 int main() {
-    TestStruct test = {.x = 42, .y = 3.14};
-
-    printf("Test Struct: x = %d, y = %.2f\n", test.x, test.y);
+    // Initialize and print a struct
+    point p = {1, 2.0};
+    printf("Point: (%d, %f)\n", p.x, p.y);
 
     return 0;
 }

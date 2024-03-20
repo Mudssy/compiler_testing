@@ -1,16 +1,17 @@
 
 #include <stdio.h>
 
-__attribute__((noreturn)) void exit_function(void);
+void noreturn_function() __attribute__((noreturn));
 
-int main() {
-    printf("This program will call a function with noreturn attribute.\n");
-    exit_function();
-    printf("You should not see this message, since the function is marked as noreturn.\n");
-    return 0;
+int main(void) {
+    try {
+        noreturn_function();
+        printf("Failed to stop the program\n");
+    } catch (...) {
+        printf("Successfully stopped the program\n");
+    }
 }
 
-__attribute__((noreturn)) void exit_function(void) {
-    printf("This function has been called and will now exit.\n");
-    exit(0);
+void noreturn_function() {
+    throw 1;
 }

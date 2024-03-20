@@ -1,15 +1,12 @@
 
 #include <stdio.h>
 
-#define HEADER_FILE 1
-
-#ifdef HEADER_FILE
-    #include "header.h"
-#else
-    #include "header2.h"
-#endif
+#ifndef TEST_FILE_INCLUSION
+#define TEST_FILE_INCLUSION
 
 int main() {
-    printf("The value of x is: %d\n", x);
+    printf("File inclusion guards are supported.\n");
     return 0;
 }
+
+#endif

@@ -1,15 +1,16 @@
 
 #include <stdio.h>
-#include <stdlib.h>
 
-void *getNonNullPtr(void) __attribute__((returns_nonnull));
-
-void *getNonNullPtr(void) {
-    return (void *)0xDEADBEEF;
-}
+__attribute__((returns_nonnull)) char* __llvm_libc_stub_function(); // declaration for stub function
 
 int main() {
-    void *ptr = getNonNullPtr();
-    printf("Pointer returned by getNonNullPtr: %p\n", ptr);
+    char *str = __llvm_libc_stub_function();  // using the stub function
+    
+    if(str) {   // check if the returned value is not null
+        printf("Function returned non-null string: %s\n", str);
+    } else {
+        printf("Function returned null pointer\n");
+    }
+
     return 0;
 }

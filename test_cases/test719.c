@@ -1,19 +1,14 @@
 
 #include <stdio.h>
 
-int foo(int a);
-
-int main() {
-    int x = 5;
-    printf("Original value of x: %d\n", x);
-    foo(x);
-    printf("After calling foo, x is now: %d\n", x);
-    return 0;
+// Inline function
+static __inline__ char *alias_symbol() {
+    // Use the address of the TLS variable as an alias symbol
+    static __thread int tlsvar;
+    return (char *)&tlsvar;
 }
 
-int foo(int a) {
-    // Alias symbol handling in interface stubs feature for the C programming language
-    int *p = &a;
-    (*p)++;
-    return a;
+int main(void) {
+    printf("Alias symbol: %p\n", alias_symbol());
+    return 0;
 }

@@ -2,10 +2,11 @@
 #include <stdio.h>
 
 int main() {
-    int x = 0;
-    int y = 1 / x;
+    printf("Before include directive\n");
     
-    printf("Result: %d\n", y);
-    
+    #include "non_existent_file.txt" // This should cause an error at compile-time
+
+    printf("After include directive\n"); // This line will not be executed, so it won't print anything
+
     return 0;
 }

@@ -1,18 +1,12 @@
 
 #include <stdio.h>
 
-#define TEST_SECTION_CLANGINCLUDE
-
-#ifdef TEST_SECTION_CLANGINCLUDE
-    #include "clanginclude.h"
-
-    int main() {
-        printf("TEST_SECTION_CLANGINCLUDE is defined\n");
-        return 0;
-    }
-#else
-    int main() {
-        printf("TEST_SECTION_CLANGINCLUDE is not defined\n");
-        return 0;
-    }
-#endif
+int main() {
+    #ifdef __clang__  // This checks if we are using the Clang compiler
+        printf("We are using the Clang compiler.\n");
+    #else
+        printf("We are not using the Clang compiler.\n");
+    #endif
+    
+    return 0;
+}

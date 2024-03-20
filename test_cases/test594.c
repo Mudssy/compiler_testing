@@ -2,19 +2,9 @@
 #include <stdio.h>
 
 int main() {
-    int i;
-    start:
-    printf("start\n");
-    for (i = 0; i < 5; ++i) {
-        if (i == 3) {
-            goto end;
-        }
-        printf("i: %d\n", i);
-    }
-
-    goto start;
-    
-end:
-    printf("end\n");
+    int x = 0;
+start:
+    printf("x = %d\n", x);
+    if (++x < 5) goto start;
     return 0;
 }

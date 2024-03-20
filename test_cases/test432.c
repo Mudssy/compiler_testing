@@ -1,12 +1,17 @@
 
 #include <stdio.h>
+#ifdef _OPENMP
+    #include <omp.h>
+#endif
 
-int main() {
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Wunused-variable"
-    int unused_var = 10;
-    #pragma clang diagnostic pop
-
-    printf("Test case for Pragma Directives feature in C programming language.\n");
+int main(void) {
+    printf("OpenMP Specification: %d\n", _OPENMP);  // If compiler supports OpenMP, this should print the version number
+    
+    #pragma omp parallel
+    {
+        int ID = omp_get_thread_num();
+        printf("Hello from thread %d\n", ID);
+    }
+    
     return 0;
 }

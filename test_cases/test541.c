@@ -1,21 +1,24 @@
 
-#include <stdio.h>
 #include <stdarg.h>
+#include <stdio.h>
 
-void print_values(const char* format, ...) {
-    va_list args;
-    va_start(args, format);
+void print_integers(int num, ...) {
+    va_list valist;
 
-    for (int i = 0;; ++i) {
-        int value = va_arg(args, int);
-        if (value == -1) break;
-        printf("Value %d: %d\n", i+1, value);
+    /* initialize valist for num number of arguments */
+    __builtin_va_start(valist, num);
+
+    /* access all the arguments assigned to valist */
+    for (int i = 0; i < num; i++) {
+       int value = __builtin_va_arg(valist, int);
+       printf("Argument %d: %d\n", i + 1, value);
     }
-
-    va_end(args);
+    
+    /* clean memory reserved for valist */
+    __builtin_va_end(valist);
 }
 
 int main() {
-    print_values("%d %d %d", 42, 75, -1);
-    return 0;
+   print_integers(3, 10, 20, 30);
+   return 0;
 }

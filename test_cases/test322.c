@@ -2,24 +2,22 @@
 #include <stdio.h>
 
 typedef struct {
-    int x;
+    int field;
 } MyClass;
 
-void MyClass_setX(MyClass* this, int value) {
-    this->x = value;
+void MyClass_setField(MyClass *self, int value) {
+    self->field = value;
 }
 
-int MyClass_getX(const MyClass* this) {
-    return this->x;
+int MyClass_getField(MyClass *self) {
+    return self->field;
 }
 
 int main() {
-    MyClass myObject = { .x = 10 };
+    MyClass myObject;
+    MyClass_setField(&myObject, 42);
     
-    printf("Initial Value: %d\n", MyClass_getX(&myObject));
-    
-    MyClass_setX(&myObject, 20);
-    printf("After set Value: %d\n", MyClass_getX(&myObject));
-    
+    printf("The value of field is: %d\n", MyClass_getField(&myObject));
+
     return 0;
 }

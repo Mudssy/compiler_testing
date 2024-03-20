@@ -2,11 +2,14 @@
 #include <stdio.h>
 
 // Define the external function
-extern void print_message();
+void print_message(); // External declaration
 
-int main() {
-    // Call the externally defined function
+int main(void) {
     print_message();
-    
     return 0;
+}
+
+// Implementation of the external function
+void print_message() {
+    printf("Hello, world!\n");
 }

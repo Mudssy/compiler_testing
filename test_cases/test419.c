@@ -2,17 +2,17 @@
 #include <stdio.h>
 
 int main() {
-    const int constant = 42;
-    int variable = 10;
+    const int array[10] = {0}; // create an array of size 10 and initialize all elements to zero
+    
+    for(int i = 0; i < 10; ++i) {
+        printf("%d ", array[i]); // print the initial values
+    }
+    
+    array[5] = 7; // attempt to change a value in the array, this should cause an error if const is supported
 
-    printf("Initial value of variable: %d\n", variable);
-
-    // Attempt to modify the constant variable, which should cause a compilation error due to type qualifiers
-    // This test is to check if the compiler correctly identifies constants and enforces immutability.
-    // If this compiles successfully or produces an incorrect output, it indicates a failure in the type qualifiers feature of the compiler.
-    constant = 5;
-
-    printf("Updated value of variable: %d\n", variable);
-
+    for(int i = 0; i < 10; ++i) {
+        printf("%d ", array[i]); // print the values again
+    }
+    
     return 0;
 }

@@ -2,11 +2,14 @@
 #include <stdio.h>
 
 int main() {
-    int a = 10;
-    int b = 20;
-    
-    int max = (a > b) ? a : b;
+    int x = 10;
+    int y = (x > 5) ? 1 : -1; // test ternary operator
 
-    printf("The maximum value is %d\n", max);
-    return 0;
+    if(y == 1){
+        printf("Passed\n");
+    } else{
+        printf("Failed\n");
+    }
+    
+    return 0; // ensure program returns and does not run forever
 }

@@ -2,6 +2,11 @@
 #include <stdio.h>
 
 int main() {
-    printf("This program tests the Code generation from domain-specific languages (DSLs) feature for the C programming language.\n");
+    #if __has_feature(cxx_lambda) || \
+        (defined(__GNUC__) && defined(__GXX_EXPERIMENTAL_CXX0X__))
+        printf("Lambda expressions supported\n");
+    #else
+        printf("Lambda expressions not supported\n");
+    #endif
     return 0;
 }

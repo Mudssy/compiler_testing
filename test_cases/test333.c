@@ -2,36 +2,38 @@
 #include <pthread.h>
 #include <stdio.h>
 
-int globalVar = 0; // Global variable to be accessed by threads
+pthread_mutex_t mutex;
+int sharedVariable = 0;
 
-void* increment(void* arg) {
-    (void)arg; // Suppress warning about unused parameter
-    for(int i = 0; i < 1000000; ++i) {
-        __sync_fetch_and_add(&globalVar, 1); // Atomic operation
-    }
-    return NULL;
+void* threadFunction(void* arg) {
+    pthread_mutex_lock(&mutex);
+    ++sharedVariable;
+    printf("Shared variable value after increment: %d\n", sharedVariable);
+    pthread_mutex_unlock(&mutex);
 }
 
 int main() {
-    pthread_t thread1, thread2;
-    int ret = 0;
-
-    ret = pthread_create(&thread1, NULL, increment, NULL);
-    if (ret != 0) {
-        printf("Error creating thread 1\n");
-        return 1;
-    }
-    
-    ret = pthread_create(&thread2, NULL, increment, NULL);
-    if (ret != 0) {
-        printf("Error creating thread 2\n");
+    if (pthread_mutex_init(&mutex, NULL) != 0) {
+        printf("Mutex initialization failed!\n");
         return 1;
     }
 
-    pthread_join(thread1, NULL);
-    pthread_join(thread2, NULL);
+    pthread_t threadID[3];
+    int i;
     
-    printf("Final value of globalVar: %d\n", globalVar);
-
+    for(i = 0; i < 3; ++i) {
+        if (pthread_create(&threadID[i], NULL, &threadFunction, NULL) != 0) {
+            printf("Failed to create thread!\n");
+            return 1;
+        }
+    }
+    
+    for(i = 0; i < 3; ++i) {
+        pthread_join(threadID[i], NULL);
+    }
+    
+    printf("Final value of shared variable: %d\n", sharedVariable);
+    
+    pthread_mutex_destroy(&mutex);
     return 0;
 }

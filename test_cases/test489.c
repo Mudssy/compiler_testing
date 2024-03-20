@@ -1,8 +1,13 @@
 
 #include <stdio.h>
 
-int main() {
-    int a __attribute__((unused)) = 42;
-    printf("This is a test for unused attributes feature in C.\n");
-    return 0;
+int main(void) {
+    // Check if 'unused' attribute exists
+    if (__has_attribute(unused)) {
+        printf("Unused attributes supported\n");
+        return 0;
+    } else {
+        printf("Unused attributes not supported\n");
+        return 1;
+    }
 }

@@ -2,18 +2,14 @@
 #include <stdio.h>
 
 typedef struct {
-    int a;
-    float b;
-} TestStruct;
-
-TestStruct create_struct(int a, float b) {
-    return (TestStruct){ .a = a, .b = b };
-}
+    int x;
+    double y;
+} SampleStruct;
 
 int main() {
-    TestStruct test = create_struct(5, 3.14);
+    SampleStruct s = { 10, 20.5 };
     
-    printf("TestStruct: a=%d, b=%.2f\n", test.a, test.b);
-    
+    printf("SampleStruct: {x=%d, y=%.1f}\n", s.x, s.y);
+
     return 0;
 }

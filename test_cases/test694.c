@@ -2,17 +2,21 @@
 #include <stdio.h>
 
 int main() {
-    int a = 42;
-    int b = 0;
-    try {
-        if (b == 0) {
-            throw "Division by zero condition!";
-        }
-        else {
-            printf("The result is: %d\n", a / b);
-        }
-    } catch (const char* msg) {
-        printf("%s\n", msg);
+    printf("Hello World\n"); // Test standard library functions
+    
+    int var = 10; // Test variable declaration and assignment
+    printf("%d\n", var); 
+
+    if(var > 5) { // Test control flow statements (if statement)
+        printf("Variable is greater than 5\n"); 
+    } else {
+        printf("Variable is not greater than 5\n");
     }
-    return 0;
+    
+    for(int i = 0; i < 5; i++) { // Test looping constructs (for loop)
+        printf("%d ", var+i);
+    }
+    printf("\n");
+  
+    return 0; 
 }

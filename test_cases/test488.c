@@ -1,13 +1,11 @@
 
 #include <stdio.h>
 
-#ifdef __clang__
-  #define COMPILER "Clang"
-#else
-  #define COMPILER "Other"
-#endif
+void __attribute__((always_inline)) foo(void) {
+    printf("Hello, World!\n");
+}
 
 int main() {
-   printf("This program is compiled using %s.\n", COMPILER);
-   return 0;
+    foo();
+    return 0;
 }

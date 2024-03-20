@@ -1,11 +1,10 @@
 
 #include <stdio.h>
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-variable"
-int main() {
-    int unusedVariable = 0;
-    printf("Unused Variable: %d\n", unusedVariable);
+int main(void) {
+    #pragma message("Compiling " __FILE__)
+    #pragma message(__DATE__)
+    #pragma message(__TIME__)
+
     return 0;
 }
-#pragma clang diagnostic pop

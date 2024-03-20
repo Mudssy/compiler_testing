@@ -1,14 +1,13 @@
 
 #include <stdio.h>
-#include <stdlib.h>
 
-__attribute__((optimize("O2"))) 
-int add(int a, int b) {
-    return a + b;
+void __attribute__((optimize("O"))) test_func() {
+    // Specific code here for testing different optimizations
 }
 
-int main() {
-    int result = add(10, 20);
-    printf("Result: %d\n", result);
+int main(void){
+    printf("Starting...\n");
+    test_func();
+    printf("Finished!\n");
     return 0;
 }

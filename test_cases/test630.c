@@ -2,12 +2,21 @@
 #include <stdio.h>
 
 struct {
-    unsigned int a: 1;
-    unsigned int b: 3;
-    unsigned int c: 4;
-} bit_fields = {0x5, 0x7};
+    unsigned int widthValidated;
+    unsigned int heightValidated;
+} status1;
+
+struct {
+    unsigned int widthValidated : 1; // this is a one-bit wide bitfield member
+    unsigned int heightValidated : 1; // this is also a one-bit wide bitfield member
+} status2;
 
 int main() {
-    printf("Bit Field Values: a=%u, b=%u, c=%u\n", bit_fields.a, bit_fields.b, bit_fields.c);
+    printf("Memory size occupied by status1 : %lu\n", sizeof(status1));
+    printf("Memory size occupied by status2 : %lu\n", sizeof(sizeof(status2)));
+
+    // accessing bitfields
+    status2.widthValidated = 0;
+    printf("Width Validation: %u\n", status2.widthValidated);
     return 0;
 }

@@ -1,17 +1,17 @@
 
 #include <stdio.h>
 
-void print(const char *s) {
-    printf("%s\n", s);
-}
-
 int main() {
-    __asm__ (
-        "mov $65, %eax;"  // ascii value of 'A'
-        "add $1, %eax;"   // increment by one to get 'B'
-        "push %eax;"
-        "call print"      // call print function with argument on stack
-    );
-
+    int result;
+    
+    __asm__("movl $3, %eax;"   // Move immediate value 3 to register EAX
+            "movl $4, %ecx;"   // Move immediate value 4 to register ECX
+            "addl %ecx, %eax;" // Add value in ECX to EAX (result is stored in EAX)
+            :"=a"(result)      // Output operand: result = EAX
+            :                 // Input operands: none
+            :"%eax", "%ecx");  // Clobbered registers: EAX, ECX
+    
+    printf("The result is %d\n", result);
+    
     return 0;
 }

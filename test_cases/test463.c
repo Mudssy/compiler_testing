@@ -3,15 +3,12 @@
 #include <stdlib.h>
 
 int main() {
-    void *ptr = malloc(10);
-
-    if (__builtin_expect(!ptr, 0)) {
-        printf("Memory allocation failed.\n");
-        exit(EXIT_FAILURE);
+    int *p = malloc(sizeof(int));
+    if (p != NULL) {
+        printf("Dynamic memory allocation successful without throwing an exception.\n");
+        free(p);
+    } else {
+        printf("Dynamic memory allocation failed and threw an exception.\n");
     }
-
-    free(ptr);
-
-    printf("Nothrow attribute test passed.\n");
     return 0;
 }

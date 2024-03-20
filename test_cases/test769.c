@@ -2,7 +2,6 @@
 #include <stdio.h>
 
 int main() {
-    char string_literal[] = "Hello, World!";
-    printf("%s\n", string_literal);
-    return 0;
+    char* str = "Hello, world!";  // String literal test
+    printf("%s\n", str);  // Expect "Hello, world!" to be printed out
 }

@@ -1,14 +1,21 @@
 
-#include <stdio.h>
+#include <stdatomic.h>
+
+struct Shared {
+    atomic_int lock;
+};
+
+void f(struct Shared* shared) {
+    while (atomic_exchange(&shared->lock, 1) == 1) {}
+    
+    // critical section
+    
+    atomic_store(&shared->lock, 0);
+}
 
 int main() {
-    int arr[5] = {10, 20, 30, 40, 50};
-    int index;
-    
-    for (index = 0; index < 5; index++) {
-        __attribute__((guarded_by(arr)))
-        printf("Element at arr[%d] is: %d\n", index, arr[index]);
-    }
+    struct Shared shared = { .lock = 0 };
+    f(&shared);
     
     return 0;
 }

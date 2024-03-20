@@ -2,12 +2,19 @@
 #include <stdio.h>
 
 int main() {
-    int array[] = {10, 20, 30, 40, 50};
-    int n = sizeof(array) / sizeof(array[0]);
+    // Testing Single Dimension Arrays
     
-    printf("The array has %d elements.\n", n);
-    for (int i = 0; i < n; i++) {
-        printf("%d ", array[i]);
+    int arr[5];
+    int i;
+
+    for(i = 0; i < 5; i++) {
+        arr[i] = i * 2;
+    }
+
+    printf("Array elements: ");
+
+    for(i = 0; i < 5; i++) {
+        printf("%d ", arr[i]);
     }
 
     return 0;

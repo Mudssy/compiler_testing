@@ -1,44 +1,32 @@
 
-#include <omp.h>
 #include <stdio.h>
-#include <stdlib.h>
+#include <assert.h>
 
-// Function to merge two vectors into one
-void* vect_merge(int *v1, int n1, int *v2, int n2) {
-    int i;
-    int *res = malloc((n1 + n2)*sizeof(*res));
-    
-    #pragma omp parallel for 
-    for (i = 0; i < n1+n2; ++i){
-        if(i<n1) res[i]=v1[i]; 
-        else res[i]=v2[i-n1];
+void shuffle(int *arr1, int len1, int *arr2, int len2, int *result) {
+    assert(len1 + len2 <= 50);  // adjust the size according to your needs
+    for (int i = 0; i < len1 + len2; ++i) {
+        if (i % 2 == 0 && i / 2 < len1) {
+            result[i] = arr1[i/2];
+        } else {
+            int j = (i - 1) / 2;
+            if (j >= len2) --j;
+            result[i] = arr2[j];
+        }
     }
-    
-    return res;
 }
 
-// Function to print a vector
-void print_vect(int *v, int size) {
-    int i;
-    printf("{");
-    for (i = 0; i < size-1; ++i){
-        printf("%d, ", v[i]);
-    }
-    if(size != 0) printf("%d", v[size - 1]);
-    printf("}\n");
-}
-
-// Main function to test the merge function
 int main() {
-    int v1[] = {1,2,3};
-    int v2[] = {4,5,6,7};
+    int arr1[] = {1, 3, 5};
+    int arr2[] = {2, 4, 6};
+    int len1 = sizeof(arr1) / sizeof(int);
+    int len2 = sizeof(arr2) / sizeof(int);
+    int result[50];  // adjust the size according to your needs
     
-    int *v_res;
-    v_res = vect_merge(v1, 3, v2, 4);
+    shuffle(arr1, len1, arr2, len2, result);
     
-    print_vect(v_res, 7);
-
-    free(v_res);
-
+    for (int i = 0; i < len1 + len2; ++i) {
+        printf("%d ", result[i]);
+    }
+    
     return 0;
 }

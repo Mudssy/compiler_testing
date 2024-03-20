@@ -1,17 +1,26 @@
 
-#include <stdio.h>
 #include <stdarg.h>
+#include <stdio.h>
 
-int main(void) {
-    int result = 0;
+void checkVaEnd(int count, ...) {
+    va_list arg;
+    int i = 0;
     
-    va_list args;
-    va_start(args, result);
-        for (int i = 1; i <= 5; ++i) {
-            int value = va_arg(args, int);
-            printf("Value: %d\n", value);
-        }
-    va_end(args);
+    va_start(arg, count);
+    
+    for (; i < count; ++i) {
+        printf("%d ", va_arg(arg, int));
+    }
+    
+    if(__builtin_va_end(arg)) {
+        printf("\nVa End operation was successful\n");
+    } else {
+        printf("\nVa End operation failed\n");
+    }
+}
+
+int main() {
+    checkVaEnd(3, 10, 20, 30);
     
     return 0;
 }

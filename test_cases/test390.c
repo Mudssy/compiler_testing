@@ -1,9 +1,7 @@
 
 #include <stdio.h>
 
-#define MESSAGE "This is a clang preprocessor directive test."
-
 int main() {
-    printf(MESSAGE);
+    printf("Preprocessor Directives Test\n");
     return 0;
 }

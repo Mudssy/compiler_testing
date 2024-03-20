@@ -1,15 +1,10 @@
 
 #include <stdio.h>
 
-int main() {
-    printf("Output before attribute.\n");
+// The following attribute tells Clang not to include this function in code coverage reports
+__attribute__((no_sanitize("coverage"))) void untracked() { printf("Untracked!\n"); }
 
-    int no_sanitize_coverage_func(void) __attribute__((no_sanitize("address", "undefined")));
-    void no_sanitize_coverage_func(void) {
-        // Some code that can be affected by sanitizers
-    }
-    
-    printf("Output after attribute.\n");
-
-    return 0;
+int main() { 
+    printf("Tracked!\n"); 
+    untracked(); // This function should not be included in coverage
 }

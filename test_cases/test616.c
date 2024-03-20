@@ -1,26 +1,25 @@
 
 #include <stdio.h>
 
+void print_value(int* p) {
+    printf("Value: %d\n", *p);
+}
+
+void print_array_values(int** arr, int size) {
+    for (int i = 0; i < size; i++) {
+        print_value(arr[i]);
+    }
+}
+
 int main() {
-    int n = 3;
-    int m = 2;
-
-    int (*array_of_pointers)[m];
-    array_of_pointers = (int(*)[m]) malloc(n * sizeof(*array_of_pointers));
+    // Define some integers.
+    int a1 = 5, a2 = 10, a3 = 15, a4 = 20;
     
-    for(int i=0; i<n; i++) {
-        for(int j=0; j<m; j++) {
-            (*array_of_pointers)[i*m + j] = (i+1)*10 + j;
-        }
-    }
+    // Declare an array of pointers to integers.
+    int* arr[4] = {&a1, &a2, &a3, &a4};
     
-    for(int i=0; i<n; i++) {
-        for(int j=0; j<m; j++) {
-            printf("array_of_pointers[%d][%d] = %d\n", i, j, (*array_of_pointers)[i*m + j]);
-        }
-    }
-
-    free(array_of_pointers);
+    // Call function to print values.
+    print_array_values(arr, 4);
     
     return 0;
 }

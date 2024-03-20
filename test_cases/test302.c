@@ -1,10 +1,11 @@
 
 #include <stdio.h>
 
-extern void print_message();
-
 int main() {
-    printf("Calling external function defined in LLVM IR file...\n");
-    print_message();
-    return 0;
+    // Create a simple expression tree for an arithmetic operation
+    int a = 2 + 3 * 4;
+    
+    printf("The result of the operation is %d.\n", a);
+    
+    return 0; // Return from the function as expected. This does not run forever.
 }

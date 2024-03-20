@@ -1,24 +1,22 @@
 
 #include <stdio.h>
 
-typedef struct { int x; } IntWrapper;
-typedef struct { double y; } DoubleWrapper;
+typedef struct {
+    int* first;
+    double* second;
+} Pair;
 
-template<typename T, typename U>
-struct Pair {
-    T first;
-    U second;
-};
-
-void printPair(Pair<IntWrapper*, DoubleWrapper*> p) {
-    printf("First: %d, Second: %f\n", p.first->x, p.second->y);
+void printPair(Pair pair) {
+    printf("First: %d, Second: %f\n", *pair.first, *pair.second);
 }
 
 int main() {
-    IntWrapper i = { .x = 10 };
-    DoubleWrapper d = { .y = 5.5 };
+    int i = 5;
+    double d = 3.14;
     
-    Pair<IntWrapper*, DoubleWrapper*> pair = { .first = &i, .second = &d };
+    Pair pair = { .first = &i, .second = &d };
     
     printPair(pair);
+
+    return 0;
 }

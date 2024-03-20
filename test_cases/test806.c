@@ -1,17 +1,17 @@
 
 #include <stdio.h>
 
-int factorial(int n) {
-    if (n == 0) {
-        return 1;
+void print_numbers(int n) {
+    if (n < 0) { // Base case for the recursion
+        return;
     } else {
-        return n * factorial(n - 1);
+        printf("%d\n", n);
+        print_numbers(n-1);  // Recursive call
     }
 }
 
 int main() {
-    int number = 5;
-    int result = factorial(number);
-    printf("The factorial of %d is: %d\n", number, result);
+    int n = 5;
+    print_numbers(n);
     return 0;
 }

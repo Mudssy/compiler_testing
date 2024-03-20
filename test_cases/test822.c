@@ -2,11 +2,13 @@
 #include <stdio.h>
 
 int main() {
-    int a = 5;
-    if (1) {
-        int a = 10;
-        printf("Block scoped variable: %d\n", a);
+    int x = 10;  // This is in the outer block
+    printf("%d\n", x);
+    
+    if (x > 5) {
+        int y = 20;  // This is in a block inside an "if" statement
+        printf("%d %d\n", x, y);
     }
-    printf("Global scoped variable: %d\n", a);
+    
     return 0;
 }

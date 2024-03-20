@@ -1,8 +1,7 @@
 
 #include <stdio.h>
-
-int main() {
-    double result = __builtin_huge_val();
-    printf("The value of __builtin_huge_val(): %f\n", result);
+#define P (void*)0
+int main(void) {
+    printf("Value of P in hexadecimal: %p\n", P);
     return 0;
 }

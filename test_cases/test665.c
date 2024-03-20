@@ -1,11 +1,10 @@
 
 #include <stdio.h>
 
-#define EXPAND(x) x * 2
+#define MY_MAX(a, b) ((a) > (b) ? (a) : (b))
+#define DOUBLE_IT(x) ((x) * 2)
 
 int main() {
-    int a = 5;
-    int b = EXPAND(a);
-    printf("The value of b is: %d\n", b);
+    printf("%d\n", MY_MAX(10, 20) * DOUBLE_IT(3));
     return 0;
 }

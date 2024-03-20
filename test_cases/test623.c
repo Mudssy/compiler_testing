@@ -1,25 +1,18 @@
 
 #include <stdio.h>
 
-struct Point {
+typedef struct {
     int x;
-    int y;
-};
+    char y[10];
+} MyStruct;
 
-void print_point(struct Point p) {
-    printf("Point: (%d, %d)\n", p.x, p.y);
+void printMyStruct(MyStruct s) {
+    printf("x = %d, y = %s\n", s.x, s.y);
 }
 
 int main() {
-    struct Point points[3] = {
-        {10, 20},
-        {30, 40},
-        {50, 60}
-    };
-    
-    for (int i = 0; i < 3; i++) {
-        print_point(points[i]);
-    }
-    
+    MyStruct myStruct = {24, "Hello"};
+    printMyStruct(myStruct);
+
     return 0;
 }

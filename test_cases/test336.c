@@ -1,34 +1,22 @@
 
 #include <stdio.h>
-#include <omp.h>  // OpenMP library for parallelism
+#include <omp.h>
 
 int main() {
-    int vect_size = 8;  // Vector size should be power of two for perfect shuffle
-    double a[vect_size], b[vect_size];
-  
-    #pragma omp simd
-    for(int i=0;i<vect_size;++i) {
-        a[i] = 1.0*(i+1);
-        b[i] = a[i];  // Copy array
-    }
-
-    printf("Before Shuffle:\n");
-  
-    for(int i=0;i<vect_size;++i) {
-        printf("%f ",a[i]);
-    }
+    int i;
     
-    #pragma omp simd
-    for(int i=0;i<vect_size/2;++i) {  // Shuffle array b
-        double temp = b[2*i];
-        b[2*i] = b[(2*i+1)%vect_size];
-        b[(2*i+1)%vect_size] = temp;
-    }  
-    
-    printf("\n\nAfter Shuffle:\n");
-    
-    for(int i=0;i<vect_size;++i) {
-        printf("%f ",b[i]);
+    // Loop through powers of 2 up to a certain limit
+    for (i = 0; i < 8; ++i) {
+        int n = (1<<i);   // Power-of-two size vector
+        
+        #pragma omp parallel num_threads(n)
+        {
+            int threadId = omp_get_thread_num();
+            
+            // Generate a test case for each power of two sized vector and print the result
+            printf("Test case %d: %d threads, %d length. Result: %d\n", 
+                    i + 1, n, n, __builtin_ctz(threadId));
+        }
     }
     
     return 0;

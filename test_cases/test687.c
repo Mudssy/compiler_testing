@@ -1,13 +1,15 @@
 
 #include <stdio.h>
 
+// The lambda function to print a greeting
+void (*greet)(const char *) = (void(*)(const char *))(void(*)());
+
 int main() {
-    int x = 42;
-
-    int (*lambda)(int) = ^(int y){ return x * y; };
-    int result = lambda(3);
-
-    printf("Result: %d\n", result);
-
+    // Assign the lambda function to print "Hello, World!"
+    greet = (void(*)(const char *)) ^ void(char *name) { printf("Hello, %s!\n", name); };
+    
+    // Call the lambda function with our name as an argument
+    greet("World");
+    
     return 0;
 }

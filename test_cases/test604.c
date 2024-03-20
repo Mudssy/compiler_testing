@@ -2,11 +2,15 @@
 #include <stdio.h>
 
 int main() {
-    int num = 10;
-    int *ptr = &num;
+    int array[5] = {10, 20, 30, 40, 50};
+    int *p;
 
-    printf("Address of num: %p\n", ptr);
-    printf("Value pointed by ptr: %d\n", *ptr);
+    p = &array[0]; // Pointer to the first element in the array
 
+    printf("First Element: %d\n",*p); // prints first element - Output should be '10'
+    
+    p++; 
+    printf("Second Element: %d\n", *p); // prints second element - Output should be '20'
+    
     return 0;
 }

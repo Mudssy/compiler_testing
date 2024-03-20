@@ -1,17 +1,18 @@
 
 #include <stdio.h>
 
-int main() {
-    int n = 5;
-    int arr[n];
+int main(void) {
+    int n = 10;
+    int array[n]; // Declare an array with the variable length
     
-    for (int i = 0; i < n; i++) {
-        arr[i] = i + 1;
+    for (int i = 0; i < n; ++i) {
+        array[i] = i * 2; // Fill the array
+    }
+
+    printf("Array elements: ");
+    for (int i = 0; i < n; ++i) {
+        printf("%d ", array[i]); // Print out the array elements
     }
     
-    for (int i = 0; i < n; i++) {
-        printf("Element %d: %d\n", i, arr[i]);
-    }
-    
-    return 0;
+    return 0; // Signal to the operating system that the program has ended successfully
 }

@@ -1,23 +1,32 @@
 
 #include <stdio.h>
-#include <immintrin.h>
+#include <immintrin.h> // AVX or later required for Intel intrinsics
 
-void print_m128i(__m128i var) {
-    int *val = (int*) &var;
-    printf("Numerical: %d %d %d %d\n", val[0], val[1], val[2], val[3]);
-}
-
-void print_array(char *name, __m128i var) {
-    int *val = (int*) &var;
-    printf("%s: %d %d %d %d\n", name, val[0], val[1], val[2], val[3]);
-}
+// Define the vector type based on the compiler settings
+#if defined(__INTEL_COMPILER) || defined(_MSC_VER)
+    typedef __m256d vec;
+#else
+    #include <xmmintrin.h> // SSE intrinsics for GCC/Clang
+    typedef __m128d vec;
+#endif
 
 int main() {
-    __m128i a = _mm_setr_epi32(9, 8, 7, 6);
-    __m128i b = _mm_setr_epi32(5, 4, 3, 2);
-    __m128i c = _mm_setr_epi32(1, 0, -1, -2);
+    double src[] = { 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8 };
     
-    print_array("a", a);
-    print_array("b", b);
-    print_array("c", c);
+    // Load the source vector from memory
+    vec vsrc = _mm_loadu_pd(src);
+    
+    int shuffleMask[] = { 2, 3, 4, 5, 6, 7, 0, 1 };
+    
+    // Perform the perfect shuffle operation using the mask and vector
+    vec vres = _mm_permute2f128_pd(vsrc, vsrc, *(__m128i*)shuffleMask);
+    
+    double res[4];
+    
+    // Store the result to memory
+    _mm_storeu_pd(res, vres);
+    
+    printf("Results: %f, %f\n", res[0], res[1]);
+    
+    return 0;
 }

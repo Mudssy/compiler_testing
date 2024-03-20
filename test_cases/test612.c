@@ -1,16 +1,13 @@
 
 #include <stdio.h>
+#include <complex.h>
 
 int main() {
-    // Declare complex numbers
-    _Complex float c1 = 3 + 4 * _I;
-    _Complex float c2 = 1 - 2 * _I;
+    double complex z1 = 1.0 + 3.0 * I;  // Declare and initialize a complex number
+    double complex result = ccos(z1);   // Apply the cos function to it
     
-    // Perform addition
-    _Complex float c3 = c1 + c2;
+    printf("The real part is: %f\n", creal(result));
+    printf("The imaginary part is: %f\n", cimag(result));
     
-    // Print result
-    printf("The result of addition is: %.2f%+.2fi\n", crealf(c3), cimagf(c3));
-    
-    return 0;
+    return 0;  // Return statement ends execution of main function
 }

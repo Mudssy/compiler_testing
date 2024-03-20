@@ -1,18 +1,20 @@
 
 #include <stdio.h>
-#include <assert.h>
+
+void foo(int *ptr) {
+    int value = *((int*)ptr);
+    printf("%d\n", value);  // output will depend on strict-aliasing rule
+}
 
 int main() {
-    int i = 1;
-    char *p = (char*)&i;
-
-    if(p[0] == 1) {
-        printf("Little endian\n");
-    } else {
-        printf("Big endian\n");
-    }
-
-    assert((*(int*)p) == i); // Strict aliasing violation, undefined behavior.
-  
-    return 0;
+    union {
+        int i;
+        float f;
+    } u;
+    
+    u.i = 42;
+    
+    foo(&u.f);
+    
+    return 0;  // this will not run forever in C89 or later, just depends on strict-aliasing rule
 }

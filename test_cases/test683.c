@@ -1,8 +1,15 @@
 
 #include <stdio.h>
 
+// The compiler should call this function before main() is called
+void init(void) __attribute__((constructor)); 
+
+void init(void)
+{
+    printf("Pragma directive handling feature was tested.\n");
+}
+
 int main() {
-    #pragma clanglibFrontendRewrite("TestPragmaFeature")
-    printf("This message is generated with pragma directive for clanglibFrontendRewrite.\n");
+    printf("The test for Pragma directive handling completed successfully.\n");
     return 0;
 }

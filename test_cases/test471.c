@@ -1,17 +1,19 @@
 
 #include <stdio.h>
 
+// Cold Attributes are only supported for clanginclude section 
+// of the compiler and it may not be available on all compilers.
+__attribute__((cold)) void function_to_test() {
+    printf("This is a cold function execution.\n");
+}
+
 int main() {
-    int x = 10;
-    switch (x) {
-        case 5:
-            printf("x is equal to 5\n");
-            break;
-        case 10:
-            printf("x is equal to 10\n");
-            break;
-        default:
-            printf("x is not equal to 5 or 10\n");
-    }
-    return 0;
+    printf("Before calling cold function:\n");
+    
+    // Calling the cold function before main
+    function_to_test();
+    
+    printf("After calling cold function:\n");
+    
+    return 0; // To avoid running forever as per your requirement.
 }

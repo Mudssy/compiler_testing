@@ -1,11 +1,16 @@
 
 #include <stdio.h>
 
-void __attribute__((used)) llvmlibInterfaceStub() {
-    printf("llvmlibInterfaceStub executed\n");
+void __attribute__((used)) used_function() {
+    printf("Used function called\n");
 }
 
-int main() {
-    llvmlibInterfaceStub();
+void unused_function() {
+    printf("Unused function called\n");
+}
+
+int main(void) {
+    used_function();
+    unused_function();
     return 0;
 }

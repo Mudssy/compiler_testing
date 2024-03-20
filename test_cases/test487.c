@@ -1,15 +1,22 @@
 
 #include <stdio.h>
 
+int __attribute__((warn_unused_result)) myFunction(void) {
+    return 10;
+}
+
 int main() {
-    int x = 0;
-    printf("Value of x: %d\n", x);
-    #pragma clang diagnostic push
-    #pragma clang diagnostic warning "-Wunused-variable"
-    if (x > 0) {
-        int y = x * 2;
-        printf("Value of y: %d\n", y);
+    // This should not generate any warning because the result is used
+    int retVal = myFunction();
+    
+    if (retVal == 10) {
+        printf("Got expected return value!\n");
+    } else {
+        printf("Did not get expected return value! Got: %d\n", retVal);
     }
-    #pragma clang diagnostic pop
+
+    // This should generate a warning because the result is ignored
+    myFunction();
+    
     return 0;
 }

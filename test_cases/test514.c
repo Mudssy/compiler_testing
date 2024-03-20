@@ -1,28 +1,9 @@
 
-#include <stdlib.h>
-#include <sanitizer/asan_interface.h>
+#include <stdio.h>
 
-__attribute__((noinline)) void asan_test() {
-    int x[10];
-    for (int i = 0; i < 10; i++) {
-        x[i] = i * 2;
-    }
-    for (int i = 0; i < 10; i++) {
-        if (x[i] != i * 2) {
-            exit(1);
-        }
-    }
-}
-
-__attribute__((noinline)) void asan_test_invalid() {
-    int x[5];
-    for (int i = 0; i < 10; i++) {
-        x[i] = i * 2;
-    }
-}
-
-int main(void) {
-    asan_test();
-    asan_test_invalid();
+int main() {
+    int array[5] = {1, 2, 3, 4, 5};
+    unsigned long size = sizeof(array); // Size in bytes of array.
+    printf("Size of the array: %lu\n", size);
     return 0;
 }

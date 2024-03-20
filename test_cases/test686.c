@@ -1,17 +1,16 @@
 
 #include <stdio.h>
 
-template<typename T>
-T add(T a, T b) {
-    return a + b;
+// Declare template function
+template <typename T>
+void print_value(T value) {
+    printf("%d\n", value);
 }
 
 int main() {
-    int x = 10, y = 20;
-    float p = 5.5, q = 7.3;
-
-    printf("The sum of the integers is: %d\n", add(x, y));
-    printf("The sum of the floats is: %.2f\n", add(p, q));
-
+    // Use template instantiation and rewriting feature
+    int x = 5;
+    print_value<int>(x);
+    
     return 0;
 }

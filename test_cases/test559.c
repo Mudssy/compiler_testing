@@ -1,21 +1,25 @@
 
 #include <stdio.h>
+#include <xmmintrin.h> // Include necessary header file
+
+void print_vector(__m128 v) {
+    float *ptr = (float*)&v;
+    printf("(%f, %f, %f, %f)\n", ptr[0], ptr[1], ptr[2], ptr[3]);
+}
 
 int main() {
-    int i = 0;
-    /* Declare and initialize a vector of integers */
-    int vec[4] = {1, 2, 3, 4};
+    __m128 a = _mm_setr_ps(1.0, 2.0, 3.0, 4.0); // Create vector a
+    __m128 b = _mm_setr_ps(5.0, 6.0, 7.0, 8.0); // Create vector b
+    __m128 result;
 
-    /* Use SIMD pragma to enable vectorization for the loop */
-#pragma clang loop vectorize(enable)
-    for (i = 0; i < 4; ++i) {
-        vec[i] *= 2;
-    }
+    printf("Vector A: ");
+    print_vector(a);
+    printf("Vector B: ");
+    print_vector(b);
 
-    /* Print out the modified values */
-    for (i = 0; i < 4; ++i) {
-        printf("vec[%d] = %d\n", i, vec[i]);
-    }
-
+    result = _mm_add_ps(a, b); // Add vectors a and b
+    printf("Result of addition: ");
+    print_vector(result);
+    
     return 0;
 }

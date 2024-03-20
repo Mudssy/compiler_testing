@@ -1,15 +1,11 @@
 
-#include <stdio.h>
+#include<stdio.h>
 
 int main() {
-    int i = 0;
+    printf("Testing Labels...\n");
+    here: // Label definition
+    printf("Printed from label.\n");
+    goto here; // Jump to label 'here'
 
-start:
-    printf("Iteration: %d\n", i);
-    i++;
-    if(i < 5) {
-        goto start;
-    }
-    
     return 0;
 }

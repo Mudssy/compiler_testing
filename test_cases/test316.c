@@ -1,13 +1,20 @@
 
 #include <stdio.h>
 
-int _Nullable func(_Nonnull int *p1, _Nullable int *p2) {
-    if (p1 == NULL) return 0;
-    else if (p2 == NULL) return 1;
-    else return 2;
+void test_function(_Nullable int* x) {
+    if (x != NULL) {
+        printf("Value: %d\n", *x);
+    } else {
+        puts("Null");
+    }
 }
 
 int main() {
-    printf("Value: %d\n", func(NULL, NULL));
+    int a = 10;
+    int b = 20;
+    
+    test_function(&a); // Test with non-null value
+    test_function(NULL); // Test with null value
+    
     return 0;
 }

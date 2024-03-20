@@ -2,11 +2,13 @@
 #include <stdio.h>
 
 int main() {
-    int val = 42;
-    int *ptr1 = &val;
-    int **ptr2 = &ptr1;
-    int ***ptr3 = &ptr2;
-
-    printf("Value: %d\n", **ptr3);
-    return 0;
+    int i = 10;  // integer variable
+    int *ptr = &i; // pointer to integer
+    int **pptr = &ptr; // pointer to a pointer
+    
+    printf("%d\n", **pptr);  // prints the value of 'i' (should be 10)
+    printf("%p\n", ptr);   // prints the address of 'i'
+    printf("%p\n", *pptr); // prints the same address as above
+    
+    return 0; // main function should always return
 }

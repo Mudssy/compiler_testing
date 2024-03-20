@@ -1,13 +1,23 @@
 
 #include <stdio.h>
+#include <assert.h>
 
-int main() {
-    int foo[] = [1, 2, 3];
-    int foo_length __attribute__((unused)) = sizeof(foo) / sizeof(foo[0]);
+// Define a dummy attribute 'nonstring' and a function f with this attribute
+#define nonstring __attribute__((annotate("nonstring")))
+void nonstring f() {}
 
-    for (int i = 0; i < foo_length; i++) {
-        printf("Foo element at index %d is: %d\n", i, foo[i]);
+int main(void) {
+    // Get the attributes of the function `f`
+    const char *attr = __builtin_annotation(f, "nonstring");
+    
+    if (attr == NULL) {
+        printf("Function 'f' doesn't have the 'nonstring' attribute\n");
+    } else {
+        printf("Function 'f' has the 'nonstring' attribute with value '%s'\n", attr);
+        
+        // Verify that the attribute has a specific value
+        assert(strcmp(attr, "<value>") == 0);
     }
-
+    
     return 0;
 }

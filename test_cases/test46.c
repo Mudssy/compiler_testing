@@ -12,3 +12,7 @@ int main(void) {
     
     return 0;
 }
+
+void foo(void){
+    printf("Function foo called\n");
+}

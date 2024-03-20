@@ -1,16 +1,10 @@
 
+// main.c
 #include <stdio.h>
+#include "header.h"  // include the header file
 
 int main() {
-    FILE *file;
-
-    file = fopen("llvmunittests/test_inclusion.txt", "r");
-    if (file) {
-        printf("File inclusion successful.\n");
-        fclose(file);
-    } else {
-        printf("File inclusion failed.\n");
-    }
-
+    // Execute function from included header file
+    hello();  
     return 0;
 }

@@ -1,18 +1,19 @@
 
 #include <stdio.h>
 
-int main() {
+void func(int n) {
     int i;
 
-#pragma clang loop vectorize(enable)
-    for (i = 0; i < 10; i++) {
-        printf("Vectorized iteration: %d\n", i);
-    }
+    #pragma GCC optimize ("-Ofast") // Clang supports this too
+    for (i=0; i<n*100000000; ++i); 
+    ++i;
+    printf("After first loop, i is %d\n", i);
 
-#pragma clang loop vectorize(disable)
-    for (i = 0; i < 10; i++) {
-        printf("Non-vectorized iteration: %d\n", i);
+    #pragma GCC optimize ("-Os") // Clang supports this too
+    for (i=0; i<n*100000000; ++i) {
+        if(i > n*900000000) break;
+        ++i;
     }
-
-    return 0;
+    ++i;
+    printf("After second loop, i is %d\n", i);
 }

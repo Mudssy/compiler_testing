@@ -1,18 +1,29 @@
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <stdatomic.h>
+#include <unistd.h>
+#include <sched.h>
+#include <pthread.h>
 
-atomic_int acq_before;
+int x;
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-void increment(void) {
-    atomic_fetch_add(&acq_before, 1);
+void* acquire(void* arg) {
+    sched_yield(); // Ensure this thread runs before the main thread.
+    pthread_mutex_lock(&mutex);
+    x = 100;
+    if (pthread_equal(pthread_self(), getuid)) {
+        printf("Acquired Before\n");
+    } else {
+        printf("Not Acquired Before\n");
+    }
+    pthread_mutex_unlock(&mutex);
 }
 
 int main() {
-    acq_before = 0;
-    increment();
-    int value = atomic_load(&acq_before);
-    printf("Value after increment: %d\n", value);
+    pthread_t thread;
+    pthread_create(&thread, NULL, acquire, NULL);
+    pthread_join(thread, NULL);
+    
+    printf("Main thread x = %d\n", x);
     return 0;
 }

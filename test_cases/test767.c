@@ -1,8 +1,7 @@
 
 #include <stdio.h>
-
 int main() {
-    int llvmunittests_identifier = 123;
-    printf("The value of llvmunittests_identifier is: %d\n", llvmunittests_identifier);
+    int अ१२३ = 123; // a valid C identifier with unicode characters
+    printf("%d\n", अ१२ृ५); // should print 123 if the compiler supports unicode identifiers
     return 0;
 }

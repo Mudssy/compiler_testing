@@ -1,17 +1,22 @@
 
 #include <stdio.h>
-#include <float.h>
 
 int main() {
-    printf("Limits for float: \n");
-    printf("Max: %E\n", FLT_MAX);
-    printf("Min: %E\n", FLT_MIN);
-    printf("Epsilon: %E\n", FLT_EPSILON);
+    float f;
+    double d;
+    long double ld;
     
-    printf("\nLimits for double: \n");
-    printf("Max: %E\n", DBL_MAX);
-    printf("Min: %E\n", DBL_MIN);
-    printf("Epsilon: %E\n", DBL_EPSILON);
+    // Test float type
+    f = 12345.67890f;
+    printf("float: %f\n", f);
+    
+    // Test double type
+    d = 12345.67890123456789;
+    printf("double: %lf\n", d);
+    
+    // Test long double type
+    ld = 12345.67890123456789L;
+    printf("long double: %Lf\n", ld);
     
     return 0;
 }

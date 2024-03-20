@@ -1,23 +1,26 @@
 
 #include <stdio.h>
-#include <threads.h>
 
-_Thread_local int tls_var = 10;
+_Thread_local int testVar = 10;
 
-int thread_func(void *arg) {
-    printf("Initial value of TLS variable in thread: %d\n", tls_var);
-    tls_var += 5;
-    printf("Value of TLS variable after modification in thread: %d\n", tls_var);
-    return 0;
+void *threadFunc(void* arg) {
+    printf("Value in thread local is %d\n", testVar);
+    return NULL;
 }
 
 int main() {
-    thrd_t thread1, thread2;
+    printf("Main function value is %d\n", testVar);
+    
+    // Create a new thread and run it
+    pthread_t threadID;
+    int result = pthread_create(&threadID, NULL, &threadFunc, NULL);
+    if (result != 0) {
+        printf("Failed to create thread.\n");
+        return 1; // Exit with error status.
+    }
+    
+    // Wait for the thread to finish
+    pthread_join(threadID, NULL);
 
-    printf("Initial value of TLS variable in main: %d\n", tls_var);
-    thrd_create(&thread1, thread_func, NULL);
-    thrd_join(thread1, NULL);
-    printf("Value of TLS variable after thread execution in main: %d\n", tls_var);
-
-    return 0;
+    return 0; // Exit without error.
 }

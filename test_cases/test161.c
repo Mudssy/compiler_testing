@@ -5,14 +5,20 @@ typedef struct {
     int value;
 } MyStruct;
 
-MyStruct operator+(MyStruct a, MyStruct b) {
+MyStruct add(MyStruct a, MyStruct b) {
     return (MyStruct){a.value + b.value};
 }
 
+void print(MyStruct s) {
+    printf("%d\n", s.value);
+}
+
 int main() {
-    MyStruct a = {10}, b = {20};
-    MyStruct c = a + b;
+    MyStruct x = {10};
+    MyStruct y = {20};
     
-    printf("Hello, World!"); // If this line is printed, then overloading works
+    MyStruct z = add(x, y);
+    print(z);  // Expected output: 30
+    
     return 0;
 }

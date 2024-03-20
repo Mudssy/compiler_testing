@@ -1,14 +1,10 @@
 
 #include <stdio.h>
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunknown-pragmas"
-#pragma clang diagnostic error "-W#warnings"
-
 int main() {
-    printf("The pragma directive test has passed.\n");
-    #warning "This is a custom warning."
+    #pragma omp parallel for
+    for(int i=0; i<10; ++i) {
+        printf("Testing pragma directive in C\n");
+    }
     return 0;
 }
-
-#pragma clang diagnostic pop

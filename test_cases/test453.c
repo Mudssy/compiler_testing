@@ -1,9 +1,13 @@
 
 #include <stdio.h>
 
-int main(void) {
-    int value __attribute__((deprecated("This attribute is deprecated")));
-    value = 42;
-    printf("Value: %d\n", value);
+void deprecated_function() __attribute__((deprecated("This function is deprecated. Use new_function instead.")));
+
+void deprecated_function() {
+    printf("Deprecated Function Used\n");
+}
+
+int main() {
+    deprecated_function();  // This will produce a warning when compiled
     return 0;
 }

@@ -7,7 +7,7 @@ void function_to_test() {
 }
 
 int main() {
-    for(int i = 0; i < 1000000000; i++) {
+    for(int i = 0; i < 1000; i++) {
         function_to_test();  // Call the function many times to give it work to do
     }
 

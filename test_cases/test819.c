@@ -1,9 +1,16 @@
 
 #include <stdio.h>
 
-extern int llvmunittests_value;
+// Declaration of x (extern)
+extern int x;
 
 int main() {
-    printf("The value of llvmunittests_value is: %d\n", llvmunittests_value);
+    // Check if x is defined
+    if (&x) {
+        printf("Defined\n");
+    } else {
+        printf("Not Defined\n");
+    }
+    
     return 0;
 }

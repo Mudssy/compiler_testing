@@ -2,13 +2,18 @@
 #include <stdio.h>
 
 int main() {
-    char utf8String[] = u8"Hello World - UTF-8";
-    char16_t utf16String[] = u"Hello World - UTF-16";
-    char32_t utf32String[] = U"Hello World - UTF-32";
+    // Print UTF-8 (default) character
+    printf("UTF-8: å\n");
     
-    printf("%s\n", utf8String);
-    printf("%ls\n", utf16String);
-    printf("%ls\n", (wchar_t*)utf32String); // wchar_t is often 32 bits wide, but this won't always be true.
+    // Print UTF-16 character
+    printf("UTF-16: ");
+    fwrite("\xC3\xA5", 2, 1, stdout);   // Character 'å' in UTF-8
+    printf("\n");
+
+    // Print UTF-32 character
+    printf("UTF-32: ");
+    fwrite("\x00\x00\x00\xE5", 4, 1, stdout);   // Character 'å' in UTF-32
+    printf("\n");
     
     return 0;
 }

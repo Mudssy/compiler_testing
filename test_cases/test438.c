@@ -1,13 +1,25 @@
 
 #include <stdio.h>
+#include <stdlib.h>
 
-struct Data {
+typedef struct {
     int size;
-    double arr[];
-};
+    double data[]; // flexible array member
+} FlexArray;
 
 int main() {
-    struct Data d1 = {3, {1.0, 2.0, 3.0}};
-    printf("The first element of the array is: %f\n", d1.arr[0]);
+    FlexArray *fa = malloc(sizeof(FlexArray) + 5*sizeof(double)); 
+    fa->size = 5;
+    
+    for (int i=0; i<fa->size; ++i) // populate the array with some values
+        fa->data[i] = i * 1.1;
+
+    printf("Values in the FlexArray:\n");
+    for (int i=0; i<fa->size; ++i) {
+       printf("%f\n", fa->data[i]);
+    }
+    
+    free(fa); // don't forget to free allocated memory
+    
     return 0;
 }

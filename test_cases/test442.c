@@ -1,19 +1,15 @@
 
 #include <stdio.h>
 
-enum Colors { RED, GREEN, BLUE };
+enum {RED, BLUE} color; // enum variable declaration
 
 int main() {
-    enum Colors favorite_color;
-    
-    favorite_color = BLUE;
-    
-    if (favorite_color == RED)
-        printf("Your favorite color is red.\n");
-    else if (favorite_color == GREEN)
-        printf("Your favorite color is green.\n");
-    else if (favorite_color == BLUE)
-        printf("Your favorite color is blue.\n");
-    
-    return 0;
+    if(color == RED) {
+        printf("Enumeration constant RED is supported\n");
+    } else if(color == BLUE){
+        printf("Enumeration constant BLUE is supported\n");
+    } else {
+        printf("Enumeration constants are not supported or there's an error with the color enum\n");
+    }
+    return 0; // making sure this test case does not run forever
 }

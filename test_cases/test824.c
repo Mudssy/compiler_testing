@@ -1,15 +1,18 @@
 
 #include <stdio.h>
 
-int add(int a, int b); // Function Prototype
+void foo(int x); // function prototype outside of main function
 
 int main() {
-    int sum = add(5, 3); // Function Call
-    printf("The sum of 5 and 3 is: %d\n", sum);
+    int a = 5;
+    printf("Inside main, before calling foo: %d\n", a);
+    foo(a);
+    printf("Inside main, after calling foo: %d\n", a);  // should print the same value as before function call
     return 0;
 }
 
-// Function Definition
-int add(int a, int b) {
-    return a + b;
+void foo(int x) {
+    printf("Inside foo, starting with: %d\n", x);
+    ++x;
+    printf("Inside foo, after incrementing: %d\n", x);  // should print one more than the input value
 }

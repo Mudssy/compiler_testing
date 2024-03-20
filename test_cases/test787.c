@@ -1,16 +1,24 @@
 
 #include <stdio.h>
 
-int main() {
-    int a = 10;
-    int b = 20;
+int test(int a, int b) {
+    return a == b;
+}
 
-    if (a < b)
-        printf("a is less than b\n");
-    else if (a > b)
-        printf("a is greater than b\n");
-    else
-        printf("a and b are equal\n");
+void print_result(const char* compilerName, int result) {
+    printf("Using %s:\n", compilerName);
+    
+    if (result) {
+        printf("\tRelational Operators feature is supported.\n");
+    } else {
+        printf("\tRelational Operators feature is not supported.\n");
+    }
+}
+
+int main() {
+    int result = test(42, 21); // Test with different values if needed
+    
+    print_result("LLVM", result);
 
     return 0;
 }

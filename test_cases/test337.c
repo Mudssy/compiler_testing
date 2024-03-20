@@ -1,40 +1,22 @@
 
 #include <stdio.h>
-#include <omp.h>
 
-int main(void) {
-    int N = 5; // non-power of 2 size
-    int i;
-    
-    int vect[N];
-    for (i=0; i<N; i++){
-        vect[i] = i+1;
+void printVector(int* vec, int size) {
+    printf("{ ");
+    for (int i = 0; i < size; ++i) {
+        printf("%d ", vec[i]);
     }
-    
-    #pragma omp parallel for simd simdlen(8) aligned(vect: 64)
-    for (i=0; i<N; i++){
-         printf("Original vector element %d is %d\n", i, vect[i]);
-    }
-    
-    int mask[N];
-    // generate the perfect shuffle mask
-    for (i = 0; i < N; ++i) {
-        if(i%2 == 0){
-            mask[i] = i+1;
-        } else{
-            mask[i] = i-1;
-        }
-    } 
-  
-    #pragma omp parallel for simd simdlen(8) aligned(vect: 64)
-    for (i=0; i<N; i++){
-         vect[i] = vect[mask[i]];
-    }
-    
-    #pragma omp parallel for simd simdlen(8) aligned(vect: 64)
-    for (i=0; i<N; i++){
-        printf("Shuffled vector element %d is %d\n", i, vect[i]);
-    }
-  
+    printf("}\n");
+}
+
+int main() {
+    // Test with vectors whose size is not a power of two.
+    int vec1[] = {1, 2, 3};
+    printVector(vec1, sizeof(vec1)/sizeof(*vec1));
+
+    // Test with padding: the vector size has to be a multiple of 4 (or 8), let's add some padding.
+    int vec2[] = {4, 5, 6};
+    printVector((int*)__builtin_shufflevector(vec2, vec2, (__m128i){0,0,0,0}), sizeof(vec2)/sizeof(*vec2));
+
     return 0;
 }

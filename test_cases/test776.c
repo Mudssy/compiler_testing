@@ -2,23 +2,14 @@
 #include <stdio.h>
 
 int main() {
-    _Bool boolVar = 0;
-    int intVar = 5;
-    float floatVar = 3.14f;
-    double doubleVar = 3.14159265358979323846;
-    char charVar = 'A';
-    short shortVar = 500;
-    long longVar = 1234567890;
-    long long longLongVar = 1234567890123456789LL;
+    auto int x = 10; // 'auto' keyword is used for automatic detection of variable type in C99 or later
+    static int y = -5; // 'static' keyword is used to keep the variable alive for the entire duration of the program
+    
+    if (x > y) {
+        printf("The value of x is greater than y.\n");
+    } else {
+        printf("The value of y is greater than x or both are equal.\n");
+    }
 
-    printf("_Bool: %d\n", boolVar);
-    printf("int: %d\n", intVar);
-    printf("float: %.2f\n", floatVar);
-    printf("double: %.15lf\n", doubleVar);
-    printf("char: %c\n", charVar);
-    printf("short: %hd\n", shortVar);
-    printf("long: %ld\n", longVar);
-    printf("long long: %lld\n", longLongVar);
-
-    return 0;
+    return 0; // Returning zero indicates successful termination of the program.
 }

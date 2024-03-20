@@ -2,11 +2,17 @@
 #include <stdio.h>
 
 int main() {
-    int a = 10;
-    float b = 5.5;
-
-    printf("Integer value: %d\n", (int)b);
-    printf("Float value: %f\n", (float)a);
+    char charValue = 'a';
+    int intValue = 0;
+    
+    // Perform type casting from char to int
+    intValue = (int)charValue;
+    
+    if(intValue == 97) { 
+        printf("Success\n"); 
+    } else {
+         printf("Failure\n"); 
+    }
 
     return 0;
 }

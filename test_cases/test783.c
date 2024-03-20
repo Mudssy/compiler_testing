@@ -1,26 +1,15 @@
 
 #include <stdio.h>
 
-typedef int (*func_ptr)(int, int);
-
-int add(int x, int y) {
-    return x + y;
-}
-
-int subtract(int x, int y) {
-    return x - y;
-}
-
-int operation(int a, int b, func_ptr op) {
-    return op(a, b);
+void print_message(char *msg) {
+    printf("%s\n", msg);
 }
 
 int main() {
-    int result1 = operation(5, 3, add);
-    printf("Result of addition: %d\n", result1);
+    void (*fptr)(char*);
+    
+    fptr = &print_message; // Assign the address of function to function pointer
+    (*fptr)("Hello from Function Pointer"); // Call the function via function pointer
 
-    int result2 = operation(5, 3, subtract);
-    printf("Result of subtraction: %d\n", result2);
-
-    return 0;
+    return 0; // Make sure it returns, not running forever.
 }

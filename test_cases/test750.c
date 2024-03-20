@@ -1,11 +1,7 @@
 
 #include <stdio.h>
-
-__attribute__((section("llvmlibInterfaceStub"))) void print_from_stub() {
-    printf("Output from llvmlibInterfaceStub section.\n");
-}
-
-int main() {
-    print_from_stub();
-    return 0;
+void __attribute__((section("llvmlibInterfaceStub"))) stub_function() { printf("Inside stub function\n"); }
+int main(void) {
+    printf("Hello from the main function\n");
+    stub_function();
 }

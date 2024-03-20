@@ -2,13 +2,9 @@
 #include <stdio.h>
 
 int main() {
-    int arr[5] = {1, 2, 3, 4, 5};
-    int sum = 0;
+    int arr[0] = {};
     
-    for (int i = 0; i < 5; i++) {
-        sum += arr[i];
-    }
-    
-    printf("The sum of the elements in the array is: %d\n", sum);
+    printf("The size of the array is: %zu\n", sizeof(arr)/sizeof(arr[0]));
+
     return 0;
 }

@@ -1,13 +1,12 @@
 
 #include <stdio.h>
-
-typedef struct {
-    int x;
-    float y;
-} CustomType;
+typedef int my_int; // Define 'my_int' as equivalent to int.
 
 int main() {
-    CustomType myVar = {42, 3.14};
-    printf("Custom type variable: (%d, %.2f)\n", myVar.x, myVar.y);
-    return 0;
+    printf("Hello world\n"); 
+    
+    my_int i = 10;   // Declare an instance of new type.
+    printf("%d", i); // Print out the integer.
+
+    return 0;        // Return with success status.
 }

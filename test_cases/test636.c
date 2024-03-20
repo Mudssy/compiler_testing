@@ -1,9 +1,12 @@
 
 #include <stdio.h>
 
-#define TEST_MSG "This message is from a preprocessor directive."
-
 int main() {
-    printf("%s\n", TEST_MSG);
+    #ifdef __llvm__ // Check if compiler is LLVM based
+        printf("LLVM Compiler Detected\n");
+    #else 
+        #error This code requires an LLVM-based compiler, but the current compiler does not seem to be supported.
+    #endif
+
     return 0;
 }

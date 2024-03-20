@@ -1,12 +1,15 @@
 
 #include <stdio.h>
-
 int main() {
-    int a = 10;
-    int b = 20;
-    
-    printf("Value of a: %d\n", a);
-    printf("Value of b: %d\n", b);
-
-    return 0;
+    int i = 0;
+    if(i == 0){
+        printf("Test Case 1: '==' punctuator recognized\n");
+    } else{
+        printf("Test Case 1: FAILED!\n");
+    }
+    if(i != 0){
+        printf("FAILED!\n");
+    } else {
+        printf("Test Case 2: '!=' punctuator recognized\n");
+    }
 }

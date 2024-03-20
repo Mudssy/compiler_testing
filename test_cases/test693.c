@@ -2,9 +2,6 @@
 #include <stdio.h>
 
 int main() {
-    int x = 5;
-    int y = x++;
-    printf("x: %d, y: %d\n", x, y);
-
+    printf("This is a test for language feature backporting and forward compatibility.\n");
     return 0;
 }

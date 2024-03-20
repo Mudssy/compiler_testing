@@ -1,30 +1,32 @@
 
-#include <stdatomic.h>
+#include <pthread.h>
 #include <stdio.h>
-#include <threads.h>
 
-atomic_int acnt;
+// Global variable for testing
+int global_var __attribute__((pt_guarded_by(lock))) = 0;
 
-int thrd_equal(thrd_t t1, thrd_t t2) {
-  return t1.id == t2.id;
+// Mutex lock
+pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+
+void *increment_var(void *arg) {
+    pthread_mutex_lock(&lock);
+    ++global_var;
+    pthread_mutex_unlock(&lock);
+
+    return NULL;
 }
 
 int main() {
-    thrd_t threads[5];
-    for (int i = 0; i < 5; i++) {
-        thrd_create(&threads[i], increment, NULL);
-    }
+    // Create threads to increment the variable
+    pthread_t thread1, thread2;
+    pthread_create(&thread1, NULL, &increment_var, NULL);
+    pthread_create(&thread2, NULL, &increment_var, NULL);
 
-    for (int i = 0; i < 5; i++) {
-        thrd_join(threads[i], NULL);
-    }
+    // Wait for threads to finish
+    pthread_join(thread1, NULL);
+    pthread_join(thread2, NULL);
 
-    printf("The final count is %d\n", atomic_load(&acnt));
+    printf("Global variable value: %d\n", global_var);
+
     return 0;
-}
-
-void increment(void* arg) {
-    for (int i = 0; i < 1000; ++i) {
-        atomic_fetch_add(&acnt, 1);
-    }
 }

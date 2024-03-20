@@ -1,34 +1,32 @@
 
 #include <stdio.h>
-#include <stdlib.h>
 
-typedef struct {
-    size_t len;
-    int arr[];
-} FlexArrayStruct;
+// Declare a struct with flexible array member
+struct S {
+    int i;
+    char data[]; // This is the flexible array member
+};
 
-FlexArrayStruct* create_flexarray(size_t len) {
-    FlexArrayStruct *flexarray = (FlexArrayStruct *) malloc(sizeof(FlexArrayStruct) + sizeof(int) * len);
-    flexarray->len = len;
-    return flexarray;
-}
-
-void print_flexarray(const FlexArrayStruct *flexarray) {
-    for (size_t i = 0; i < flexarray->len; ++i) {
-        printf("%d ", flexarray->arr[i]);
-    }
-    printf("\n");
-}
-
-int main() {
-    FlexArrayStruct *flexarray = create_flexarray(5);
-    for (size_t i = 0; i < flexarray->len; ++i) {
-        flexarray->arr[i] = i * 2;
+int main(void) {
+    printf("Size of struct S: %lu\n", sizeof(struct S));
+    
+    // Allocate memory for a struct S with a flexibly-sized array
+    size_t dataSize = 10;
+    struct S *s = malloc(sizeof(*s) + dataSize);
+    
+    // Check the size of the allocated memory to make sure it's what we expect
+    printf("Allocated size: %lu\n", sizeof(*s) + dataSize);
+    
+    s->i = 10;
+    for (int i = 0; i < dataSize; ++i) {
+        s->data[i] = 'a' + i; // Just some dummy values
     }
     
-    print_flexarray(flexarray);
+    printf("Value of i: %d\n", s->i);
+    printf("Values in the array:\n");
+    for (int i = 0; i < dataSize; ++i) {
+        printf("%c ", s->data[i]);
+    }
     
-    free(flexarray);
-    
-    return 0;
+    free(s); // Don't forget to free allocated memory!
 }

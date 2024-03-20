@@ -1,13 +1,16 @@
 
 #include <stdio.h>
 
-typedef struct {
-    int a;
-    float b;
-} TestStruct;
+struct TestStruct {
+    int x;
+    float y;
+};
 
 int main() {
-    TestStruct test_struct = {10, 20.5};
-    printf("Accessing Structure Members: %d and %.2f\n", test_struct.a, test_struct.b);
+    struct TestStruct ts = {10, 20.5f};
+    
+    printf("ts.x: %d\n", ts.x);
+    printf("ts.y: %.1f\n", ts.y);
+
     return 0;
 }

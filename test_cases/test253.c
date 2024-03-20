@@ -1,14 +1,9 @@
 
 #include <stdio.h>
-#include <string.h>
 
 int main() {
-    struct alignas(8) S {
-        char c;
-        int n;
-    };
-
-    printf("Alignment of struct S: %zu\n", alignof(struct S));
-    
-    return 0;
+    typedef struct { char c; long l; } s_t;
+    printf("%zu\n", sizeof(s_t));
+    printf("%zu\n", _Alignof(long double));
+    printf("%zu\n", alignof(s_t));
 }

@@ -2,14 +2,8 @@
 #include <stdio.h>
 
 int main() {
-    int result = 0;
-    int iterations = 10;
-
-    for (int i = 0; i < iterations; ++i) {
-        result += i * 2;
+    int i;
+    for (i = 0; i < 100; i++) {
+        printf("Loop iteration %d\n", i);
     }
-
-    printf("Result after loop transformation and unrolling: %d\n", result);
-    
-    return 0;
 }

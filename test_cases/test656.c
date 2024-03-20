@@ -1,34 +1,24 @@
 
 #include <stdio.h>
 
-void print_generic(int x) {
-    printf("int: %d\n", x);
+#define print(type, ...) _Generic((type), \
+    int: print_int, \
+    float: print_float)(__VA_ARGS__)
+    
+void print_int(int i) {
+    printf("Integer: %d\n", i);
 }
 
-void print_generic(float x) {
-    printf("float: %f\n", x);
-}
-
-void print_generic(char *x) {
-    printf("string: %s\n", x);
+void print_float(float f) {
+    printf("Float: %f\n", f);
 }
 
 int main() {
-    int intVar = 10;
-    float floatVar = 3.14;
-    char *strVar = "Hello, world!";
-
-    _Generic(intVar,
-            int: print_generic,
-            default: printf)("This is an integer\n");
+    int a = 5;
+    float b = 3.14;
     
-    _Generic(floatVar,
-            float: print_generic,
-            default: printf)("This is a floating-point number\n");
-            
-    _Generic(strVar,
-            char *: print_generic,
-            default: printf)("This is a string\n");
-
+    print(a, a);
+    print(b, b);
+    
     return 0;
 }

@@ -2,18 +2,15 @@
 #include <stdio.h>
 
 int main() {
-    int x = 5;
-    int y = 10;
+    int x = 5, y;
+    y = (x > 0) && printf("x is positive\n");
+    printf("y: %d\n", y);
     
-    // Conditional expression feature test
-    int max = (x > y) ? x : y;
-    printf("The maximum value is: %d\n", max);
-
-    // Operator rewriting feature test
-    int a = 5;
-    int b = 3;
-    a += b;  // This will be rewritten to a = a + b by the compiler
-    printf("a after operator rewrite: %d\n", a);
+    if(y){
+        printf("The condition evaluated to true, so the print statement happened.\n");
+    } else {
+        printf("The condition evaluated to false, so the print statement didn't happen.\n");
+    }
 
     return 0;
 }

@@ -2,15 +2,30 @@
 #include <stdio.h>
 
 int main() {
-    unsigned int a = 5;
-    unsigned int b = 10;
+    int a = 15, b = 20; /* test numbers */
+    
+    printf("Testing Bitwise Operators:\n");
+    
+    /* AND operator */
+    if (a & b) {
+        printf("%d AND %d = %d\n", a, b, a&b); 
+    } else {
+        printf("AND operation not supported.\n");
+    }
 
-    printf("Bitwise AND of %u and %u: %u\n", a, b, (a & b));
-    printf("Bitwise OR of %u and %u: %u\n", a, b, (a | b));
-    printf("Bitwise XOR of %u and %u: %u\n", a, b, (a ^ b));
-    printf("Bitwise NOT of %u: %u\n", a, ~a);
-    printf("Bitwise LEFT SHIFT of %u by 1 position: %u\n", a, (a << 1));
-    printf("Bitwise RIGHT SHIFT of %u by 1 position: %u\n", a, (a >> 1));
+    /* OR operator */
+    if (a | b) {
+        printf("%d OR %d = %d\n", a, b, a|b);
+    } else {
+        printf("OR operation not supported.\n");
+    }
 
+    /* XOR operator */
+    if (a ^ b) {
+        printf("%d XOR %d = %d\n", a, b, a^b); 
+    } else {
+        printf("XOR operation not supported.\n");
+    }
+    
     return 0;
 }

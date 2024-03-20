@@ -3,11 +3,11 @@
 
 int main() {
     int i = 0;
-    
-    while(i < 10) {
-        printf("The value of i is %d\n", i);
+
+    while (i < 10) {
+        printf("Iteration %d\n", i);
         i++;
     }
-
+    
     return 0;
 }

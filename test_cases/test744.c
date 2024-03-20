@@ -1,19 +1,18 @@
 
 #include <stdio.h>
 
-void __attribute__((nonnull)) function_stub(int *a, int *b) {
-    if (*a > *b) {
-        printf("First number is greater.\n");
-    } else if (*a < *b) {
-        printf("Second number is greater.\n");
-    } else {
-        printf("Both numbers are equal.\n");
-    }
+void my_func(int* a __attribute__((nonnull)), int *b __attribute__((nonnull))) {
+    printf("The program ran successfully\n");
 }
 
 int main() {
-    int a = 10;
-    int b = 5;
-    function_stub(&a, &b);
-    return 0;
+    int x = 5, y = 10;
+
+    if (x != 0 && y != 0) {
+        my_func(&x, &y); // no null pointer here
+    } else {
+        printf("A null pointer was passed\n");
+    }
+
+    return 0; // ensures that the program returns normally
 }

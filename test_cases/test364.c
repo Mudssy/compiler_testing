@@ -2,21 +2,18 @@
 #include <stdio.h>
 
 int main() {
-    char c;
+    int x = 2;
     
-    printf("Enter a character: ");
-    scanf("%c", &c);
-
-    switch (c) {
-        case 'a':
-            printf("The entered character is 'a'\n");
+    switch (x) {
+        case 1:
+            printf("Case 1\n");
             break;
-        case 'b':
-            printf("The entered character is 'b'\n");
+        case 2:
+            printf("Case 2\n");
             break;
         default:
-            printf("The entered character is neither 'a' nor 'b'\n");
+            printf("Default Case\n");
     }
-
+    
     return 0;
 }

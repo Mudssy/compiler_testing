@@ -1,14 +1,23 @@
 
 #include <stdio.h>
 
-int main() {
-    int arr[3][2] = {{10, 15}, {20, 25}, {30, 35}};
-    int(*ptr)[2];
-
-    for (int i = 0; i < 3; i++) {
-        ptr = &arr[i];
-        printf("Value at arr[%d] is %d and %d\n", i, *((*ptr) + 0), *((*ptr) + 1));
+int main(void) {
+    int array[5] = {10, 20, 30, 40, 50};
+    int *p[5];
+    
+    // Assigning addresses of elements of the array to p
+    for (int i = 0; i < 5; ++i) {
+        p[i] = &array[i];
     }
-
+    
+    printf("Array elements: ");
+    for(int j=0;j<5;j++){
+        printf("%d ", array[j]);
+    }
+    printf("\nValues stored at addresses pointed by pointers: ");
+    for (int i = 0; i < 5; ++i) {
+       printf("%d ", *p[i]);
+    }
+    
     return 0;
 }

@@ -1,21 +1,23 @@
 
-#include <iostream>
-struct X {
-    // Deleted function
-    X() = delete;
+#include <stdio.h>
 
-    // Defaulted function
-    X(int a) : i(a) {}
+// Emulate deleted function
+int __attribute__((deprecated)) deprecated_function() {
+    return 0;
+}
 
-    int i;
-};
+// Emulate defaulted function
+static inline int defaulted_function() {
+    return 42;
+}
 
-int main(){
-    // This line will cause compile error, because the default constructor is deleted.
-    X x1;
-
-    // This line will not cause any compiling errors.
-    X x2(5);
+int main() {
     
-    std::cout << "X's member variable i: "<< x2.i <<std::endl;
+    // Test deleted function
+    printf("Deleted function: %d\n", deprecated_function());
+    
+    // Test defaulted function
+    printf("Defaulted function: %d\n", defaulted_function());
+
+    return 0;
 }

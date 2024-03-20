@@ -3,11 +3,12 @@
 #include <string.h>
 
 int main() {
-    char str1[] = "Hello, World!";
-    char str2[40] = "This is a test string.";
-    
-    printf("The length of the string \"%s\" is %lu.\n", str1, strlen(str1));
-    printf("The concatenated string is \"%s\".\n", strcat(str2, " Appended!"));
-    
+    char source[] = "This is source";
+    char target[20];
+
+    strncpy(target, source, sizeof(target));
+    printf("Source: %s\n", source);
+    printf("Target: %s\n", target);
+
     return 0;
 }

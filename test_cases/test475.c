@@ -1,11 +1,11 @@
 
 #include <stdio.h>
 
-void __stdcall printHello(void) {
-    printf("Hello from stdcall function!\n");
+void __stdcall PrintMessage() {
+    printf("Hello from stdcall\n");
 }
 
 int main() {
-    printHello();
+    PrintMessage();
     return 0;
 }

@@ -2,14 +2,9 @@
 #include <stdio.h>
 
 int main() {
-    alignas(16) int aligned_array[5];
+    _Alignas(double) char buffer[sizeof(double)]; // create an aligned buffer of sufficient size for a double
     
-    printf("Alignment requirement of the array: %zu\n", _Alignof(aligned_array));
-    
-    for (size_t i = 0; i < 5; ++i) {
-        aligned_array[i] = i + 1;
-        printf("%p: %d\n", &aligned_array[i], aligned_array[i]);
-    }
+    printf("Size: %zu\n", sizeof(buffer)); // print the size of the array
     
     return 0;
 }

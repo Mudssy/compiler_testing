@@ -1,9 +1,13 @@
 
+#include <stdio.h>
 #include <stdatomic.h>
- 
-_Static_assert(_Atomic(int)!=_Atomic(long), "atomic int and long have the same representation");
- 
-int main() {
-    atomic_int i = 1;
-    _Generic(i+5, atomic_int: sizeof, default: sizeof+1)(&i); // expands to sizeof(i) if i is atomic_int type
+
+int main(void) {
+    _Atomic int x = 0; // initialize atomic integer
+    
+    atomic_store(&x, 42); // set the value of x to 42 atomically
+    
+    printf("%d\n", atomic_load(&x)); // print the value of x (should be 42)
+    
+    return 0;
 }

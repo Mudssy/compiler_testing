@@ -1,20 +1,26 @@
 
 #include <stdio.h>
-typedef void (*function_ptr)(void);
 
-typedef struct _class {
-    int variable;
-    function_ptr instance_method;
-} Class;
+typedef struct {
+    int (*method)(int);
+} MyStruct;
 
-// Define a method for the class
-void method(Class* self) {
-    printf("Variable value: %d\n", self->variable);
+// Method for MyStruct instance
+int MyMethod(int x) {
+    return x * 2;
+}
+
+MyStruct NewInstance() {
+    MyStruct instance = { .method = &MyMethod };
+    return instance;
 }
 
 int main() {
-    // Instantiate the class and call the method
-    Class c = { .variable = 42, .instance_method = &method };
-    (c.instance_method)(&c); // Expected output: "Variable value: 42"
+    // Create new instance of MyStruct
+    MyStruct my_instance = NewInstance();
+
+    // Call method on MyStruct instance and print result
+    printf("Result: %d\n", my_instance.method(5));  // Should print "Result: 10"
+
     return 0;
 }

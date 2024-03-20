@@ -1,16 +1,13 @@
 
 #include <stdio.h>
 
-__attribute__((weak_import)) int myWeakFunction() {
-    return 42;
-}
+void __attribute__((weak)) featureNotSupported(void);  // Declare a weak symbol
 
 int main() {
-    if (myWeakFunction) {
-        printf("The weak function exists and returned: %d\n", myWeakFunction());
+    if (&featureNotSupported) {
+        printf("Feature supported\n");
     } else {
-        printf("The weak function is not available.\n");
+        printf("Feature not supported\n");
     }
-    
     return 0;
 }

@@ -1,16 +1,19 @@
 
-/*
- * This program demonstrates automatic documentation generation feature for the C programming language
- */
-
 #include <stdio.h>
 
 /**
- * The main function of this program. It prints out a specific output based on the automatic code commenting and documentation generation feature.
- * 
- * @return An integer value representing the exit status of the program
+ * @brief This is a test function that prints "Hello World" to the console.
+ */
+void helloWorld() {
+    printf("Hello World\n");
+}
+
+/**
+ * @brief The main function, which calls `helloWorld` and then returns 0.
  */
 int main() {
-    printf("This is an example C program to test automatic documentation generation for the C programming language.\n");
+    // Call the test function
+    helloWorld();
+    
     return 0;
 }

@@ -1,24 +1,20 @@
 
 #include <stdio.h>
 
-typedef void (*funcPtr)();
+int add(int a, int b) { return a + b; }
+int subtract(int a, int b) { return a - b; }
+typedef int (*Operation)(int, int); // Function pointer type
 
-void foo() {
-    printf("Foo\n");
+void printResult(Operation operation, int a, int b) { 
+    printf("The result is: %d\n", operation(a, b)); 
 }
 
-void bar() {
-    printf("Bar\n");
-}
+int main() {
+   Operation add_op = (Operation)&add;
+   Operation subtract_op = &subtract; // Implicit conversion
 
-int main(void) {
-    funcPtr fp;
-    
-    fp = &foo;
-    fp(); // prints "Foo"
-    
-    fp = &bar;
-    fp(); // prints "Bar"
-    
-    return 0;
+   printResult(add_op, 5, 3);
+   printResult(subtract_op, 5, 3);
+   
+   return 0;
 }

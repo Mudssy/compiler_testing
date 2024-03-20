@@ -1,14 +1,18 @@
 
 #include <stdio.h>
-#include <sanitizer/common_interface_defs.h>
+#include <assert.h>
 
-__attribute__((noinline)) void stack_use() {
-    char buffer[1024];
-    __sanitizer_print_stack_trace();
+void* get_stack() {
+    void *result = __builtin_frame_address(0);
+    return result;
 }
 
-int main(void) {
-    printf("Running C program to test the Sanitize Safe Stack Attributes feature...\n");
-    stack_use();
+int main() {
+    int dummy;  // This local variable is necessary to allow the compiler to generate a stack frame on some systems.
+
+    printf("Stack address: %p\n", get_stack());
+    
+    assert(get_stack() != NULL);  // This check should fail if the feature doesn't work as expected.
+
     return 0;
 }

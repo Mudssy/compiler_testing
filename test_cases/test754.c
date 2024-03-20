@@ -1,11 +1,21 @@
 
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 
-void __attribute__((cold)) function_stub(int x) {
-    printf("Function with cold attribute called with value: %d\n", x);
-}
+__attribute__((cold)) void print_hot(void) { printf("Hot\n"); }
 
 int main() {
-    function_stub(42);
+    srand(time(NULL));   // Initialization, should only be called once.
+    int i;
+    
+    for(i=0; i<100; i++){
+        if ( rand() % 100 < 90 ){
+            printf("Hot\n");
+        } else {
+            print_hot();
+        }
+    }
+    
     return 0;
 }

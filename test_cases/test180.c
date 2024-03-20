@@ -1,15 +1,18 @@
 
 #include <stdio.h>
 
-void foo() noexcept {}
-void bar() {}
+void function_throw() noexcept {
+    throw 1;
+}
 
-int main(){
-    if(noexcept(foo())) printf("Function foo is marked as noexcept.\n");
-    else printf("Function foo is not marked as noexcept.\n");
-    
-    if(noexcept(bar())) printf("Function bar is marked as noexcept.\n");
-    else printf("Function bar is not marked as noexcept.\n");
-    
+int main() {
+    try {
+        printf("Calling function_throw...\n");
+        function_throw();
+        printf("This will not be printed.\n");
+    } catch (int e) {
+        printf("Caught exception: %d\n", e);
+    }
+
     return 0;
 }

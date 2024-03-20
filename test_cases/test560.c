@@ -2,11 +2,19 @@
 #include <stdio.h>
 
 int main() {
-    int x = 10;
-    int y = 20;
-    int result = 3 * x + y / 2 - (x > y ? x : y);
+    int a = 5;        // integer variable 
+    char b = 'A';     // character variable
+    float c = 3.14;   // floating point variable
+    double d = 2.71828; // double precision floating point variable
 
-    printf("The result is: %d\n", result);
+    printf("Integer: %d\n", a);
+    printf("Character: %c\n", b);
+    printf("Float: %f\n", c);
+    printf("Double: %lf\n", d); 
 
-    return 0;
+    int sum = a + (int)c; // type casting and operation test
+    
+    printf("Sum of integer and float: %d\n", sum);
+
+    return 0; // program ends here.
 }

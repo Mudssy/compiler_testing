@@ -1,12 +1,12 @@
 
 #include <stdio.h>
 
-inline int add(int x, int y) {
-    return x + y;
+// This is an inline function
+static __attribute__((always_inline)) int testInlineFunc() {
+    return 1;
 }
 
-int main() {
-    int result = add(5, 3);
-    printf("The sum is: %d\n", result);
+int main(void) {
+    printf("Inline function stub support: %s\n", (testInlineFunc() == 1 ? "Supported" : "Not supported"));
     return 0;
 }

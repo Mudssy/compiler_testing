@@ -1,12 +1,12 @@
 
 #include <stdio.h>
 
+__attribute__((annotate("example_annotation")))
+void annotatedFunction(void) {
+    printf("This function is annotated.\n");
+}
+
 int main() {
-    int a = 5;
-    int b __attribute__((annotate("This is an annotation"))) = 10;
-    
-    printf("Without annotation: %d\n", a);
-    printf("With annotation: %d\n", b);
-    
+    annotatedFunction();
     return 0;
 }

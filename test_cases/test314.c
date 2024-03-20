@@ -1,17 +1,14 @@
 
+#include <Availability.h>
 #include <stdio.h>
 
-void api_function() __attribute__((availability(ios,introduced=13.0))); // Assuming iOS 13.0 as minimum requirement
+void my_function() __attribute__((availability(macos, introduced=10.14, deprecated=12.0), availability(ios, introduced=13.0, deprecated=15.0)));
 
-int main(void) {
-    printf("This compiler supports availability annotations.\n");
-    
-    if(__builtin_available(ios 13.0, *)) {
-        api_function();
-        printf("The function is available on this system.\n");
+int main() {
+    if (&my_function != NULL) {
+        printf("Function is available\n");
     } else {
-        printf("The function is not available on this system.\n");
+        printf("Function is not available\n");
     }
-    
     return 0;
 }

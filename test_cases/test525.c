@@ -1,13 +1,15 @@
 
-#include <stdio.h>
+#include <stdio.h> // Standard library, no need for clanginclude here
+#define likely(x) __builtin_expect((x), 1)
+#define unlikely(x) __builtin_expect((x), 0)
 
 int main() {
-    int x = 10;
-    int y = __builtin_expect(x > 5, 1);
-    if (y) {
-        printf("The condition is expected to be true!\n");
+    int a = 5;
+    if (likely(a == 5)) { // Replace with your own condition that can be predicted
+        printf("Predicted\n");
     } else {
-        printf("The condition is not expected.\n");
+        printf("Not Predicted\n");
     }
-    return 0;
+    
+    return 0; // Makes sure the program does not run forever. It will always return in this code
 }

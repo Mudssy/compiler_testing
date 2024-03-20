@@ -1,13 +1,11 @@
 
 #include <stdio.h>
 
-__attribute__((const)) int add(int a, int b) {
-    return a + b;
+int __attribute__((const)) getValue() {
+    return 42;
 }
 
-int main() {
-    int x = 10;
-    int y = 20;
-    printf("Result: %d\n", add(x, y));
+int main(void) {
+    printf("%d\n", getValue());
     return 0;
 }

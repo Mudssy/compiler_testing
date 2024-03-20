@@ -2,16 +2,16 @@
 #include <stdio.h>
 
 int main() {
-    int a = 0;
+    int num = 5;
     
-    switch (a) {
-        case 1:
-            printf("Case 1\n");
-            break;
-        default:
-            printf("Default Case\n");
-            break;
+    try {
+        // Test out of bounds array access
+        int array[2] = {0, 1};
+        printf("%d\n", array[num]);
+        
+    } catch (ArrayIndexOutOfBoundsException e) {
+        printf("Caught ArrayIndexOutOfBoundsException: %s\n", e.getMessage());
     }
-
+    
     return 0;
 }

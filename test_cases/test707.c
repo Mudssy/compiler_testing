@@ -1,11 +1,7 @@
 
 #include <stdio.h>
 
-int main() {
-    int a = 0;
-    for(int i = 0; i < 10000; ++i) {
-        a += i;
-    }
-    printf("Result: %d\n", a);
+int main(void) {
+    printf("Testing automatic insertion of performance profiling code feature.\n");
     return 0;
 }

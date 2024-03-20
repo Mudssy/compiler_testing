@@ -1,29 +1,32 @@
 
 #include <stdio.h>
-#include <xmmintrin.h>  // Needed for AVX/SSE instructions
-
-void print_m128(__m128 v) {
-    float* ptr = (float*)&v;
-    printf("%.6f %.6f %.6f %.6f\n", ptr[0], ptr[1], ptr[2], ptr[3]);
-}
+#include <stdlib.h>
+#include <llvm-c/TargetMachine.h>
+#include <llvm-c/Types.h>
+#include <llvm-c/Transforms/Vectorize.h>
 
 int main() {
-    // Create two vectors with float values
-    __m128 v1 = _mm_setr_ps(1.0, 2.0, 3.0, 4.0);
-    __m128 v2 = _mm_setr_ps(5.0, 6.0, 7.0, 8.0);
+    LLVMInitializeNativeTarget();
+
+    // Create an integer vector type with 4 elements.
+    LLVMTypeRef IntTy = LLVMInt32Type();
+    LLVMTypeRef VectorTy = LLVMVectorType(IntTy, 4);
     
-    // Print the vectors before shuffling
-    printf("Before shuffle:\n");
-    print_m128(v1);
-    print_m128(v2);
+    printf("Testing shuffle vector for: %s\n", LLVMPrintTypeToString(VectorTy));
     
-    // Shuffle v1 and v2 using a control vector with values 3, 1, 2, 0 (shuffles vectors)
-    __m128 control = _mm_setr_ps(3.0, 1.0, 2.0, 0.0); // <-- This is the line that I'm not sure about
-    v1 = _mm_shuffle_ps(v1, v2, _MM_SHUFFLE(3, 1, 2, 0));
-    
-    // Print the shuffled vectors
-    printf("After shuffle:\n");
-    print_m128(v1);
+    // Test all possible combinations of shuffle masks.
+    int i, j;
+    for (i = 0; i < 16; ++i) {
+        for (j = 0; j < 16; ++j) {
+            LLVMValueRef Vector = LLVMBuildShuffleVector(NULL, IntTy, NULL, IntTy, IntTy, i, j);
+            
+            // Print the shuffle vector.
+            printf("%s\n", LLVMPrintValueToString(Vector));
+            
+            // Free the memory used by the value.
+            LLVMDisposeMessage(LLVMPrintValueToString(Vector));
+        }
+    }
     
     return 0;
 }

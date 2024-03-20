@@ -1,12 +1,12 @@
 
 #include <stdio.h>
 
+void __attribute__((unused)) foo(int unused_parameter) {
+    printf("This function is unused.\n");
+}
+
 int main() {
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Wunused-attribute"
-        __attribute__((unused)) int x = 10;
-    #pragma clang diagnostic pop
-    
-    printf("Test case for unused attribute feature in C.\n");
+    int __attribute__((unused)) unused_variable = 42;
+    printf("Hello, world!\n");
     return 0;
 }

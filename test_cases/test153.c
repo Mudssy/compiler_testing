@@ -1,33 +1,18 @@
 
-#include <stdarg.h>
 #include <stdio.h>
 
-#define _Generic(x)         _Generic((x), \
-        int: print_int,     \
-       char: print_char,    \
-    default: print_default  \
-)
-
-void print_int(va_list args) {
-    int x = va_arg(args, int);
-    printf("The integer is %d\n", x);
+void printMessage() {
+    printf("No overloaded functions detected\n");
 }
 
-void print_char(va_list args) {
-    char x = (char)va_arg(args, int);
-    printf("The character is %c\n", x);
-}
-
-void print_default(va_list args) {
-    printf("Unsupported type\n");
+// This is the overloaded function
+void printMessage(int num) {
+    __asm__(".symver printMessage,printMessage@GLIBC_2.0"); // This line ensures that each call to printMessage will have different symbol version
+    printf("Overloaded functions detected\n");
 }
 
 int main() {
-    va_list args;
-    
-    _Generic(10)(args);
-    _Generic('a')(args);
-    _Generic(3.5f)(args);
-    
+    printMessage();  // This should print "No overloaded functions detected"
+    printMessage(1);  // This should print "Overloaded functions detected"
     return 0;
 }

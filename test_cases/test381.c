@@ -1,14 +1,13 @@
 
 #include <stdio.h>
 
-void print_numbers(int num) {
-    if (num > 0) {
-        printf("%d ", num);
-        print_numbers(num - 1);
-    }
+void print_message() {
+  printf("Function call detected!\n");
 }
 
-int main() {
-    print_numbers(5);
-    return 0;
+int main(void) {
+  // Test function calls feature
+  print_message();
+  
+  return 0;
 }

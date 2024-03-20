@@ -1,10 +1,12 @@
 
 #include <stdio.h>
 
-extern void _Z4testv(); // C++ Name Mangling for a global function called test()
+void foo(int x) { printf("Foo called with %d\n", x); }
 
-int main(void) {
-    printf("Calling extern C++ Name Mangled function...\n");
-    _Z4testv();
+extern void __Z3barifECv() __asm__ ("_Z3barifECv");  // Mangle the function name as if it was compiled by clang.
+
+int main() {
+    foo(10);
+    __Z3barifECv();
     return 0;
 }

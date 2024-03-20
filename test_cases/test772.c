@@ -1,16 +1,21 @@
 
 #include <stdio.h>
 
-int main() {
-    // Declaration of variables
-    int a = 10;
-    float b = 20.5;
-    double c = 30.789;
-    
-    // Printing the values based on declarations
-    printf("Integer: %d\n", a);
-    printf("Float: %.2f\n", b);
-    printf("Double: %.4lf\n", c);
+// This function prints a simple message indicating success
+void test_success() {
+    printf("Successfully declared variable\n");
+}
 
-    return 0;
+int main() {
+    // Declare and initialize an integer
+    int myVar = 10;
+    
+    // Test if the declaration was successful
+    if (myVar == 10) {
+        test_success();
+    } else {
+        printf("Error in variable declaration\n");
+    }
+
+    return 0; // Make sure it returns to avoid infinite loop
 }

@@ -1,8 +1,6 @@
 
 #include <stdio.h>
-
 int main() {
-    char *str = "This is a string literal in C.";
-    printf("%s\n", str);
+    printf("Hello, World!\n");
     return 0;
 }

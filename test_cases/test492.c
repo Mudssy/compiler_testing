@@ -1,13 +1,28 @@
 
 #include <stdio.h>
-#ifdef __clang__
-    _Thread_local int tls_var = 10;
-#else
-    static int tls_var = 10;
-#endif
+#include <pthread.h>
+
+__thread int tls_var = 10;  // TLS variable
+
+void *myThreadFun(void *vargp) {
+    tls_var += 5;   // Accessing the thread-local variable
+    printf("Print from Thread: %d\n", tls_var);
+}
+
 int main() {
-    printf("Initial value of TLS variable: %d\n", tls_var);
-    tls_var += 5;
-    printf("Value after modification: %d\n", tls_var);
+    pthread_t thread_id1, thread_id2;
+    
+    printf("Before Thread: %d\n", tls_var);  // Print the value of tls_var before the threads are created.
+  
+    pthread_create(&thread_id1, NULL, myThreadFun, NULL);
+    pthread_join(thread_id1, NULL);
+    
+    printf("After first thread execution: %d\n", tls_var);  // Print the value of tls_var after executing the first thread.
+  
+    pthread_create(&thread_id2, NULL, myThreadFun, NULL);
+    pthread_join(thread_id2, NULL);
+    
+    printf("After both threads execution: %d\n", tls_var);  // Print the value of tls_var after executing both threads.
+  
     return 0;
 }

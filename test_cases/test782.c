@@ -2,12 +2,11 @@
 #include <stdio.h>
 
 int main() {
-    int num = 5;
-    int *ptr = &num;
-
-    printf("Value of num: %d\n", num);
-    printf("Address of num: %p\n", ptr);
-    printf("Value pointed by ptr: %d\n", *ptr);
+    int var = 10;
+    int *p = &var;
+    
+    printf("Address of var: %p\n", (void*)&var);
+    printf("Value at address stored in p: %d\n", *p);
 
     return 0;
 }

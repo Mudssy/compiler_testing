@@ -2,10 +2,20 @@
 #include <stdio.h>
 
 int main() {
-    int a;  // Declare an integer variable 'a'
-    a = 5;  // Assign the value 5 to 'a' using assignment operator
+    // Test integer assignment
+    int x = 5;
+    printf("Value of x: %d\n", x);
     
-    printf("The value of 'a' is: %d\n", a);
-
-    return 0;  // Returning 0 signifies that the program ended successfully
+    // Test array element assignment
+    int arr[10];
+    for (int i=0; i<10; ++i) {
+        arr[i] = i+1;
+    }
+    printf("Array elements: ");
+    for (int i=0; i<10; ++i) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+    
+    return 0;
 }

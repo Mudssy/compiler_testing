@@ -2,19 +2,9 @@
 #include <stdio.h>
 
 int main() {
-    int x = 0;
-    int result;
-
-    __auto_type y = &x;
-    *y = 5;
+    auto int i = 10;  // 'auto' is used here
     
-    if (*y == 5) {
-        printf("The auto feature works correctly.\n");
-        result = 0;
-    } else {
-        printf("The auto feature does not work correctly.\n");
-        result = 1;
-    }
-
-    return result;
+    printf("Value of i: %d\n", i);
+    
+    return 0;  // This ensures the function will not run forever and eventually return a value.
 }

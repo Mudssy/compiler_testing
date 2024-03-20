@@ -1,20 +1,32 @@
 
 #include <stdio.h>
-#include <immintrin.h>  // AVX2 intrinsic header file
-
-void print_vector(__m256i v) {
-    float* val = (float*)&v;  // Convert the vector to an array
-    printf("{%f, %f, %f, %f}\n", val[0], val[1], val[2], val[3]);
-}
+#include <omp.h>
 
 int main() {
-    __m256i a = _mm256_setr_epi32(4, 8, 7, 6, 3, 2, 1, 0); // Initialize vector with specified order
-    __m256i b = _mm256_setr_epi32(0, 1, 2, 3, 4, 5, 6, 7); // Initialize vector with another order
-    print_vector(a);
-    print_vector(b);
+    int i, arr[10];
     
-    __m256i shuffleA = _mm256_permute2x128_si256(a, b, _MM_SHUFFLE(0, 2, 3, 1)); // Perform shuffle
-    print_vector(shuffleA);  // Print the results
+    // Initialize array with values from 0 to 9
+    for(i=0; i<10; ++i) {
+        arr[i] = i;
+    }
+
+    #pragma omp parallel num_threads(2) shared(arr)
+    {
+        int id = omp_get_thread_num();
+        
+        // Perform a shuffle operation and check if the original order is preserved
+        #pragma omp for ordered schedule(static,1) nowait
+        for (i = 0; i < 10; ++i){
+            int temp = arr[i];
+            #pragma omp ordered
+            { 
+                printf("Thread %d: arr[%d] = %d\n", id, i, temp);
+                
+                // Wait for all threads to finish printing before continuing
+                #pragma omp barrier
+            }
+        }
+    }
     
     return 0;
 }

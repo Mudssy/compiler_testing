@@ -2,17 +2,17 @@
 #include <stdio.h>
 
 int main() {
-    int i = 42;
-    float f = 3.14f;
-    double d = 2.71828;
-    char c = 'A';
-    _Bool b = 1;
-
-    printf("Integer: %d\n", i);
-    printf("Float: %f\n", f);
-    printf("Double: %lf\n", d);
-    printf("Char: %c\n", c);
-    printf("Bool: %s\n", b ? "true" : "false");
-
+    // Testing int type
+    printf("Size of int: %lu\n", sizeof(int));
+    
+    // Testing char type
+    printf("Size of char: %lu\n", sizeof(char));
+    
+    // Testing float type
+    printf("Size of float: %lu\n", sizeof(float));
+    
+    // Testing double type
+    printf("Size of double: %lu\n", sizeof(double));
+    
     return 0;
 }

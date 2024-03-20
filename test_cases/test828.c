@@ -3,14 +3,15 @@
 #include <stdlib.h>
 
 int main() {
-    int* ptr = (int*)malloc(sizeof(int));
-    if (ptr == NULL) {
-        printf("Memory allocation failed\n");
-        return 1;
-    } else {
-        *ptr = 42;
-        printf("Malloc feature test: The value stored in allocated memory is %d\n", *ptr);
-        free(ptr);
+    int *p = malloc(sizeof(int));  // allocate memory for an integer
+    if (p == NULL) {              // check if the allocation was successful
+        printf("Memory could not be allocated.\n");
+        return 1;                 // exit with error code
     }
-    return 0;
+    
+    *p = 5;                       // store a value in the allocated memory
+    printf("%d\n", *p);           // print the stored value (should be "5")
+    free(p);                      // free the allocated memory
+    
+    return 0;                     // exit with success code
 }

@@ -1,11 +1,11 @@
 
 #include <stdio.h>
 
-void __attribute__((no_instrument_function)) noInstrumentFunction() {
-    printf("This function should not be instrumented.\n");
+void __attribute__((no_instrument_function)) stubFunction() {
+    printf("This is a stub function that should never be instrumented.\n");
 }
 
 int main() {
-    noInstrumentFunction();
+    stubFunction();
     return 0;
 }

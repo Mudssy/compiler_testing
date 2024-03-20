@@ -1,15 +1,13 @@
 
 #include <stdio.h>
 
-struct Point { int x, y; };
+struct point { int x, y; };
 
-void print_point(struct Point p) {
-    printf("Point at (%d, %d)\n", p.x, p.y);
-}
+int main()
+{
+    struct point p = { .y = 25, .x = 10 }; /* designated initializers */
+    printf("p.x = %d\n", p.x);
+    printf("p.y = %d\n", p.y);
 
-int main() {
-    struct Point a = { .x = 10, .y = 20 };  // designated initializers
-    print_point(a);
-    
     return 0;
 }

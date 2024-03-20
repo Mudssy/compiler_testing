@@ -1,17 +1,14 @@
 
 #include <stdio.h>
-#include <stdint.h>
-#include "llvmutils/PerfectShuffle.h"
+#include <immintrin.h>  // Required for vector extensions in GCC/Clang
 
-int main() {
-    uint32_t input[8] = {1, 2, 3, 4, 5, 6, 7, 8};
-    uint32_t output[8];
+void print_shuffle(__m256i v1, __m256i v2) {
+    __m256i result = _mm256_permutevar8x32_epi32(v1, v2);
+    int values[8];
     
-    llvmutils_PerfectShuffle(input, output);
+    _mm256_storeu_si256((__m256i*)values, result);
 
-    for (int i = 0; i < 8; i++) {
-        printf("%d ", output[i]);
+    for (int i = 0; i < 8; ++i) {
+        printf("%d ", values[i]);
     }
-
-    return 0;
 }

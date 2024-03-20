@@ -2,17 +2,25 @@
 #include <stdio.h>
 #include <string.h>
 
-int main() {
-    char str1[] = "Hello, world!";
-    char str2[40] = "String manipulation functions in C programming language.";
+int main(void) {
+    char str1[20] = "Hello ";
+    char str2[] = "World!";
     
-    // Using strcpy function to copy str1 into str2
-    strcpy(str2, str1);
-    printf("Copied string: %s\n", str2);
+    // concatenate str1 and str2 and print the result
+    strcat(str1, str2);
+    printf("Concatenated string: %s\n", str1);
 
-    // Finding the length of str2 using strlen function
-    size_t len = strlen(str2);
-    printf("Length of the string: %zu\n", len);
+    // calculate length of a string
+    int len = strlen(str1);
+    printf("Length of concatenated string: %d\n", len);
     
+    // compare two strings
+    char str3[20] = "Hello World!";
+    if (strcmp(str1, str3) == 0) {
+        printf("The strings are equal.\n");
+    } else {
+        printf("The strings are not equal.\n");
+    }
+
     return 0;
 }

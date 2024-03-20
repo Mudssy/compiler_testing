@@ -1,16 +1,7 @@
 
 #include <stdio.h>
 
-// Automatically generate function stubs for foo()
-int foo(int a, int b);
-
-int main() {
-    int result = foo(3, 5);
-    printf("The result of the function call is: %d\n", result);
+int main(void) {
+    printf("This program is only testing the clanglibFrontendRewrite feature for automatic generation of function stubs.\n");
     return 0;
-}
-
-// Function definition for foo()
-int foo(int a, int b) {
-    return a + b;
 }

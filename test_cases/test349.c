@@ -1,16 +1,15 @@
 
 #include <stdio.h>
-#include <stdint.h>
-
-void print_shuffled(uint32_t x, uint32_t y) {
-    uint32_t result = (x & 0xFFFF) | ((y << 16) & 0xFFFF0000);
-    printf("Shuffled value: %u\n", result);
-}
+#include <immintrin.h> // For AVX2 intrinsics
 
 int main() {
-    uint32_t x = 0xAABBCCDD;
-    uint32_t y = 0x11223344;
-
-    print_shuffled(x, y);
+    __m256i x = _mm256_setr_epi32(1, 2, 3, 4, 5, 6, 7, 8);
+    __m256i y = _mm256_permute2x128_si256(x, x, -1); // This is an invalid shuffle mask
+    int* result = (int*)&y;
+    
+    for(int i = 0; i < 8; ++i) {
+        printf("%d ", result[i]);
+    }
+    
     return 0;
 }

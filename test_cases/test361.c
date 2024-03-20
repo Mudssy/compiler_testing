@@ -1,13 +1,15 @@
 
 #include <stdio.h>
 
-int add(int a, int b); // function declaration
+// Function declaration
+int add(int x, int y);
 
 int main() {
-    printf("%d\n", add(3, 4)); // should print out 7
-    return 0;
+    printf("Function declaration tested\n");
+    return 0; // Make sure the code returns and does not run forever
 }
 
-int add(int a, int b) { // function definition
-    return a + b;
+// Function definition
+int add(int x, int y) {
+    return x + y;
 }

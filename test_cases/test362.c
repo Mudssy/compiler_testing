@@ -1,14 +1,11 @@
 
 #include <stdio.h>
-
 int main() {
-    int num = 20; // change this value to test different conditions
-
-    if (num > 10) {
-        printf("The number is greater than 10\n");
+    int x = 10;
+    if (x > 5) {
+        printf("If statement works!\n");
     } else {
-        printf("The number is not greater than 10\n");
+        printf("Else works!\n");
     }
-
     return 0;
 }

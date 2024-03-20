@@ -2,21 +2,15 @@
 #include <stdio.h>
 
 int main() {
-    int a;
-    float b;
+    int i;
     char c;
+    float f;
+    double d;
+
+    printf("Size of int = %lu bytes\n", sizeof(i));
+    printf("Size of char = %lu byte\n", sizeof(c));
+    printf("Size of float = %lu bytes\n", sizeof(f));
+    printf("Size of double = %lu bytes\n", sizeof(d));
     
-    printf("Testing variable declarations:\n");
-
-    a = 10;
-    b = 20.5;
-    c = 'A';
-
-    if (a == 10 && b == 20.5f && c == 'A') {
-        printf("Variable declarations and assignments are working properly.\n");
-    } else {
-        printf("There seems to be a problem with variable declarations and assignments.\n");
-    }
-
     return 0;
 }

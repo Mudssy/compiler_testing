@@ -1,9 +1,16 @@
 
 #include <stdio.h>
-#include <stdalign.h>
+#include <stdlib.h>
 
-int main(void) {
-    alignas(128) char aligned_buffer[10];
-    printf("Address of aligned buffer: %p\n", (void *)aligned_buffer);
-    return 0;
+int main() {
+    int align_data __attribute__ ((aligned (16))) = 15;
+    
+    if(((unsigned long) &align_data & 0xF) == 0){
+        printf("Aligned\n");
+    }else{
+        printf("Not Aligned\n");
+        exit(EXIT_FAILURE);
+    }
+
+    return EXIT_SUCCESS;
 }

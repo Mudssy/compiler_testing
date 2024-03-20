@@ -1,16 +1,15 @@
 
+#include <stdlib.h>
 #include <stdio.h>
 
-int main() {
-    int result;
-    // Using the __has_feature macro to check for No Sanitize CFI Attributes feature
-    #if __has_feature(no_sanitize_cfi)
-        result = 100;
-    #else
-        result = -100;
-    #endif
+void check_cfi(int target) {
+    // If the target address is not part of the __cfi_check function, abort() will be called.
+    void (*funcptr)(void) = (void(*)(void))&__cfi_check;
+    funcptr();
+}
 
-    printf("Result: %d\n", result);
-
-    return 0;
+int main(void) {
+    int target = 0xdeadbeef;  // This is the address we want to check for CFI.
+    check_cfi(target);
+    return EXIT_SUCCESS;
 }

@@ -1,12 +1,13 @@
 
 #include <stdio.h>
 
-int main() {
-    const int x = 5;
-    // Trying to modify a const qualified variable
-    x = 10;
-    
-    printf("The value of x after trying to modify it: %d\n", x);
+const int constant_value = 10; // Define your const variable here.
 
-    return 0;
+int main() {
+    if(constant_value == 10) // Check if the const value is still the same.
+        printf("Passed\n"); // If it's the same, print "Passed".
+    else
+        printf("Failed\n"); // If it's not the same, print "Failed".
+    
+    return 0; // Make sure the program always returns.
 }

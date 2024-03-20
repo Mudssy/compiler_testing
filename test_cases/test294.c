@@ -1,14 +1,9 @@
 
 // main.c
 #include <stdio.h>
-
-module M {
-    export int foo() {
-        return 123;
-    }
-}
+#include <math.h>
 
 int main() {
-    printf("%d\n", M_foo());
+    printf("Square root of 4 is %f\n", sqrt(4));
     return 0;
 }

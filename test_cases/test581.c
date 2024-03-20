@@ -2,29 +2,22 @@
 #include <stdio.h>
 
 int main() {
-    int a = 5, b = 10;
+    // Variable declaration statement
+    int num1 = 5, num2 = 7;
     
-    if (a > b) {
-        printf("a is greater than b\n");
-    } else if (a < b) {
-        printf("a is less than b\n");
+    // If-else statements
+    if (num1 > num2) {
+        printf("num1 is greater than num2\n");
     } else {
-        printf("a and b are equal\n");
+        printf("num1 is not greater than num2\n");
     }
 
-    for (int i = 0; i < 5; i++) {
-        printf("i: %d\n", i);
+    // For loop statement
+    int sum = 0;
+    for(int i=1; i<=5; i++) {
+        sum += i;
     }
-
-    int j;
-    while ((j = getchar()) != '\n' && j != EOF) {
-        putchar(j);
-    }
-
-    do {
-        printf("This message will only be printed once.\n");
-        break;
-    } while (1);
+    printf("Sum of 1 to 5 is %d\n", sum);
     
-    return 0;
+    return 0; // Terminates program successfully
 }

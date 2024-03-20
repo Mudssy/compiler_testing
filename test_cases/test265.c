@@ -2,19 +2,25 @@
 #include <stdio.h>
 
 int main() {
-    FILE *file;
-    char buffer[256];
-    
-    file = fopen("test_input.txt", "r");
-    if (file == NULL) {
-        printf("Could not open the file\n");
+    FILE *inputFile = fopen("input.txt", "r");
+    if (inputFile == NULL) {
+        printf("Could not open input file\n");
         return 1;
     }
     
-    while (fgets(buffer, sizeof(buffer), file)) {
-        printf("%s", buffer);
+    FILE *outputFile = fopen("output.txt", "w");
+    if (outputFile == NULL) {
+        printf("Could not open output file\n");
+        fclose(inputFile);
+        return 1;
     }
     
-    fclose(file);
+    char c;
+    while ((c = fgetc(inputFile)) != EOF) {
+        fputc(c, outputFile);
+    }
+    
+    fclose(inputFile);
+    fclose(outputFile);
     return 0;
 }

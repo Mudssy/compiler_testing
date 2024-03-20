@@ -2,27 +2,39 @@
 #include <stdio.h>
 
 int main() {
-    unsigned int a = 10;
-    unsigned int b = 20;
-    unsigned int result;
+    int a = 5; // 0101 in binary
+    int b = 3; // 0011 in binary
+
+    if ((a & b) == 1) {
+        printf("AND operation failed\n");
+        return 1;
+    }
     
-    result = a | b; // Bitwise OR
-    printf("Bitwise OR of %u and %u: %u\n", a, b, result);
-
-    result = a & b; // Bitwise AND
-    printf("Bitwise AND of %u and %u: %u\n", a, b, result);
-
-    result = a ^ b; // Bitwise XOR
-    printf("Bitwise XOR of %u and %u: %u\n", a, b, result);
-
-    result = ~a; // Bitwise NOT
-    printf("Bitwise NOT of %u: %u\n", a, result);
-
-    result = a << 2; // Bitwise Left Shift
-    printf("Left shift of %u by 2 positions: %u\n", a, result);
-
-    result = b >> 2; // Bitwise Right Shift
-    printf("Right shift of %u by 2 positions: %u\n", b, result);
-
+    if ((a | b) != 7) {
+        printf("OR operation failed\n");
+        return 1;
+    }
+    
+    if ((a ^ b) != 6) {
+        printf("XOR operation failed\n");
+        return 1;
+    }
+    
+    if ((~a & 0xF) != (0xF^5)) { // assuming int is 4 bytes
+        printf("NOT operation failed\n");
+        return 1;
+    }
+    
+    if ((b << 2) != 12) {
+        printf("Left Shift operation failed\n");
+        return 1;
+    }
+    
+    if ((a >> 1) != 2) {
+        printf("Right Shift operation failed\n");
+        return 1;
+    }
+    
+    printf("All tests passed\n");
     return 0;
 }

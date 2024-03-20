@@ -2,12 +2,17 @@
 #include <stdio.h>
 
 int main() {
-    int a = 10;
-    two: a++;
-    printf("Value of a after label two: %d\n", a);
-
-    one: a--;
-    printf("Value of a after label one: %d\n", a);
+    int num = 10;
+    
+    // A label
+    my_label:
+    
+    printf("Number is %d\n", num);
+    
+    if(num > 0) {
+        num--;
+        goto my_label;  // Jump to the label
+    }
 
     return 0;
 }

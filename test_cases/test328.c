@@ -1,20 +1,14 @@
 
-#if __has_include(<availability.h>) && (defined(__MAC_OS_X_VERSION_MIN_REQUIRED) || defined(_WIN32))
-    #define CHECK_AVAILABLE 1
+#ifndef __has_attribute // Check if __has_attribute is defined
+#define __has_attribute(x) 0 // If not, define it as 0
 #endif
 
-#ifdef CHECK_AVAILABLE
-    #if __has_feature(objc_arc)
-        #warning Objective-C Automatic Reference Counting is available.
-    #else
-        #error Objective-C Automatic Reference Counting is not available.
-    #endif
-
-    #if defined(__MAC_OS_X_VERSION_MIN_REQUIRED) && (__MAC_OS_X_VERSION_MIN_REQUIRED >= 1090)
-        #warning AppKit API is available.
-    #else
-        #error AppKit API is not available.
-    #endif
-#else
-    #warning Availability checks are not supported on this compiler or platform.
+#if __has_attribute(unavailable) && !defined(__clang__) // Check if the 'unavailable' attribute exists and compiler isn't clang
+#error "The unavailable API feature is not supported by this compiler." // Report error if unavailable feature is not supported
 #endif
+
+__attribute__((unavailable)) int foo() { return 0; } // Mark function as unavailable
+
+int main() {
+    foo(); // Use the unavailable function to generate a compile-time error
+}

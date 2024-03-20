@@ -1,23 +1,28 @@
 
-#include <math.h>
 #include <stdio.h>
 
 int main() {
-    double x = 0.1;
-
-    printf("FP classification for %f:\n", x);
-
-    if (fpclassify(x) == FP_NAN) {
-        printf("Value is NaN\n");
-    } else if (fpclassify(x) == FP_INFINITE) {
-        printf("Value is Infinite\n");
-    } else if (fpclassify(x) == FP_ZERO) {
-        printf("Value is Zero\n");
-    } else if (fpclassify(x) == FP_SUBNORMAL) {
-        printf("Value is Subnormal\n");
-    } else if (fpclassify(x) == FP_NORMAL) {
-        printf("Value is Normal\n");
+    double x = 3.14;
+    
+    // The classification results are represented as an enum in clang
+    int classify = __builtin_classify_type(x);
+    
+    switch (classify) {
+        case 0:
+            printf("The number is a NaN.\n");
+            break;
+        case 1:
+            printf("The number is finite and not zero.\n");
+            break;
+        case 2:
+            printf("The number is +Infinity.\n");
+            break;
+        case 3:
+            printf("The number is -Infinity.\n");
+            break;
+        default:
+            printf("The classification result is unknown.\n");
     }
-
+    
     return 0;
 }

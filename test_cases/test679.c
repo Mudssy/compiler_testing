@@ -1,12 +1,11 @@
 
 #include <stdio.h>
 
-static inline int add(int a, int b) {
-    return a + b;
+__attribute__((always_inline)) void foo() {
+    printf("Hello, world!\n");
 }
 
 int main() {
-    int result = add(10, 20);
-    printf("Result: %d\n", result);
+    foo();
     return 0;
 }

@@ -2,23 +2,28 @@
 #include <stdio.h>
 
 int main() {
-    int num1, num2;
+    int a = 1, b = 0;
+    
+    // Testing AND operation
+    if (a && b) {
+        printf("AND operation failed\n");
+    } else {
+        printf("AND operation succeeded\n");
+    }
+    
+    // Testing OR operation
+    if (a || b) {
+        printf("OR operation succeeded\n");
+    } else {
+        printf("OR operation failed\n");
+    }
 
-    // Testing the AND operator
-    num1 = 30;
-    num2 = 55;
-    if(num1 && num2) printf("Line 1 - Condition is true\n");
-    else printf("Line 1 - Condition is not true\n");
+    // Testing NOT operation
+    if (!b) {
+        printf("NOT operation succeeded\n");
+    } else {
+        printf("NOT operation failed\n");
+    }
     
-    // Testing the OR operator
-    num1 = 0;
-    num2 = -7;
-    if(num1 || num2) printf("Line 2 - Condition is true\n");
-    else printf("Line 2 - Condition is not true\n");
-    
-    // Testing the NOT operator
-    num1 = 0;
-    if(!num1) printf("Line 3 - Condition is true\n");
-    else printf("Line 3 - Condition is not true\n");
     return 0;
 }

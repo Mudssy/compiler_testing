@@ -1,18 +1,22 @@
 
 #include <stdio.h>
 
-extern int ext_var; // external linkage variable
-static int stat_var = 42; // internal linkage variable
+// External linkage
+extern void externalFunction();
+void externalFunction() {
+    printf("External Function\n");
+}
 
-int func1(void) { return 10; } // external linkage function
-static int func2(void) { return 20; } // internal linkage function
+static void internalStaticFunction() {
+    printf("Internal Static Function\n");
+}
 
 int main() {
-    printf("External variable: %d\n", ext_var);
-    printf("Internal variable: %d\n", stat_var);
+    // Calling an external function
+    externalFunction();
     
-    printf("External function: %d\n", func1());
-    printf("Internal function: %d\n", func2());
-
+    // Calling an internal static function
+    internalStaticFunction();
+    
     return 0;
 }

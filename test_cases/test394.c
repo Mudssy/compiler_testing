@@ -2,17 +2,15 @@
 #include <stdio.h>
 
 int main() {
-    int i = 0;
-
-    while(i < 10) {
-        printf("Iteration: %d\n", i);
+    int i;
+    
+    for(i = 0; i < 10; i++) {
+        printf("Value of i: %d\n", i);
         
         if (i == 5) {
             break;
         }
-
-        i++;
     }
-
+    
     return 0;
 }

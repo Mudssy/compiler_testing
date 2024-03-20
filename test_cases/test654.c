@@ -1,17 +1,13 @@
 
 #include <stdio.h>
-#include <stdalign.h>
-
-typedef struct {
-    int a;
-    char b;
-} test_struct;
 
 int main() {
-    alignas(32) test_struct my_struct = {1, 'a'};
-
-    printf("Size of test_struct: %zu\n", sizeof(test_struct));
-    printf("Alignment of my_struct: %zu\n", _Alignof(my_struct));
-
+    struct alignas(16) S {
+        char c;
+        int n;
+    };
+    
+    printf("Alignment of struct S: %zu\n", _Alignof(struct S)); // Outputs alignment requirement of the type.
+    
     return 0;
 }

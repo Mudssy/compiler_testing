@@ -1,20 +1,36 @@
 
 #include <stdio.h>
-#include <stdarg.h>
+#include <stdarg.h>  // for va_list, va_start, va_arg, va_end
 
-void print_integers(int count, ...) {
-    va_list list;
-    va_start(list, count);
-
+int sum(int count, ...) { 
+    int result = 0;
+    va_list args;
+    va_start(args, count);
+    
     for (int i = 0; i < count; ++i) {
-        int num = va_arg(list, int);
-        printf("%d ", num);
+        result += va_arg(args, int);
     }
+    va_end(args);
+    
+    return result;
+}
 
-    va_end(list);
+double average(int count, ...) { 
+    double result = 0.0;
+    va_list args;
+    va_start(args, count);
+    
+    for (int i = 0; i < count; ++i) {
+        result += va_arg(args, int);
+    }
+    va_end(args);
+    
+    return result/count;
 }
 
 int main() {
-    print_integers(5, 1, 2, 3, 4, 5);
+    printf("Sum = %d\n", sum(5, 10, 20, 30, 40, 50));
+    printf("Average = %.2f\n", average(5, 10, 20, 30, 40, 50));
+    
     return 0;
 }

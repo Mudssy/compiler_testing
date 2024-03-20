@@ -2,8 +2,9 @@
 #include <stdio.h>
 
 int main() {
-    volatile int x = 0;
-    volatile int y = 1 / x;
-    printf("Undefined behavior: %d\n", y);
+    int a = 5;
+    __attribute__((no_sanitize("undefined")))  {
+        printf("%d\n", a);
+    }
     return 0;
 }

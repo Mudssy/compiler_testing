@@ -1,11 +1,14 @@
 
 #include <stdio.h>
 
-// This is the inline function that you want to test with.
-inline void myFunction() { printf("Inline function was defined\n"); }
+// Define an inline function foo()
+inline void foo() {
+    printf("Hello from inline function\n");
+}
 
 int main(void) {
-    // Call your function here.
-    myFunction();
+    // Call the inline function
+    foo();
+
     return 0;
 }

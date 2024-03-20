@@ -1,12 +1,14 @@
 
 #include <stdio.h>
 
-int main() {
-    int a = 5;
-    int b = 10;
-    int c = a + b;
+typedef void (*func_ptr)(void);
 
-    printf("Output: %d\n", c);
+static inline void foo() {
+    printf("Hello from foo\n");
+}
 
+int main(int argc, char **argv) {
+    func_ptr ptr = (func_ptr)foo;
+    ptr();
     return 0;
 }

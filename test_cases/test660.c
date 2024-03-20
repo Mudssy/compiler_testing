@@ -2,7 +2,12 @@
 #include <stdio.h>
 
 int main() {
-    int (^compound_literal)(void) = (int (^)(void)) ^(void) { return 42; };
-    printf("Compound Literals output: %d\n", compound_literal());
+    struct point { int x, y; };
+    
+    // Compound literal initialization
+    struct point p = (struct point){ .x = 10, .y = 20 };
+    
+    printf("X: %d, Y: %d\n", p.x, p.y);
+    
     return 0;
 }

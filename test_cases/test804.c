@@ -1,12 +1,15 @@
 
 #include <stdio.h>
 
-int add(int a, int b) {
-    return a + b;
+// Function definition for add
+int add(int x, int y) {
+    return x + y;
 }
 
+// Main function to test the add function
 int main() {
-    int result = add(3, 5);
-    printf("The sum of 3 and 5 is: %d\n", result);
+    // Print out the result of calling add with some arguments
+    printf("The sum is: %d\n", add(5, 10));
+    
     return 0;
 }

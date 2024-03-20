@@ -2,25 +2,26 @@
 #include <stdio.h>
 #include <setjmp.h>
 
-jmp_buf env;
+void function2(int count);
 
-void function2() {
-    longjmp(env, 1);
-}
+jmp_buf buf;
 
 void function1() {
-    function2();
+    printf("Before setjmp\n");
+    if (setjmp(buf) == 0){
+        printf("First time through\n");
+        function2(1); /* Never returns */
+    } else {
+        printf("After longjmp\n");
+    }
+}
+
+void function2(int count) {
+    if (count < 10)
+        longjmp(buf, 1);
 }
 
 int main() {
-    int ret = setjmp(env);
-    
-    if (ret == 0) {
-        function1();
-        printf("Long jump not performed\n");
-    } else {
-        printf("Long jump performed\n");
-    }
-    
+    function1();
     return 0;
 }

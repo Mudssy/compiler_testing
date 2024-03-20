@@ -1,10 +1,12 @@
 
 #include <stdio.h>
-
+#define SIZE 10000
 int main() {
-    const char *ptr = "This string will be prefetched";
-    __builtin_prefetch(ptr, 0, 3);
-  
-    printf("Output after prefetch operation\n");
+    int array[SIZE];
+    for (int i = 0; i < SIZE; i++) {
+        array[i] = i;
+        __builtin_prefetch(&array[(i + 1) % SIZE], 1, 3);
+    }
+    printf("Prefetch operations tested successfully!\n");
     return 0;
 }

@@ -1,17 +1,20 @@
 
 #include <stdio.h>
+#include <string.h>
 #include <errno.h>
-
+ 
 int main() {
-    errno = 0;
-    printf("This program will print out some specific output based on errno feature:\n");
+    FILE *file;
     
-    int result = 1 / 0;
-    if (errno == ERANGE) {
-        perror("Result: ");
-    } else {
-        printf("Error not detected.\n");
+    file = fopen("this_file_does_not_exist", "r");
+    if (file == NULL) {
+        printf("Error opening the file: %s\n", strerror(errno));
+        
+        // This is only for testing, avoid using it in real programs.
+        return 0;
     }
-
+    
+    fclose(file);
+    
     return 0;
 }

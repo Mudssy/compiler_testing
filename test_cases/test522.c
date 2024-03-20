@@ -1,13 +1,18 @@
 
 #include <stdio.h>
 
-#define MODULE_NAME "MyModule"
-#define EXPORT __attribute__((visibility("default")))
+// Assume that 'm' is defined in another module
+import m;  // Module import
 
-extern void print_module_name() EXPORT;
-
-int main() {
-    print_module_name();
-    printf(" has been imported and used successfully.\n");
-    return 0;
+int main(void) {
+    // Use a function from the imported module
+    int result = m$foo();  
+    
+    if (result == 42) {
+        printf("Module Import and Export are working with clanginclude.\n");
+    } else {
+        printf("Module Import and Export do not seem to be working with clanginclude.\n");
+    }
+    
+    return 0; // Make sure the program returns, don't run forever.
 }

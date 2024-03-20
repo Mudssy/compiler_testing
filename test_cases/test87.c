@@ -2,21 +2,17 @@
 #include <stdio.h>
 
 int main() {
-    int x = 0;
+    int x = 0; // assigning value to x
 
-    goto check_point;   // using labels for the first time
-
-    label1 : 
-        printf("Hello\n");
+    if (x) 
+        goto label1; // using goto to skip the else block
+    else {
+label2:
+        printf("This is label2\n");
         return 0;
+    }
     
-    else:
-        printf("World\n");
+    label1:
+        printf("This is label1\n");
         return 0;
-
-check_point:
-    if (x)
-        goto label1;    // using labels for the second time
-    else 
-        goto else;      // same with this
 }

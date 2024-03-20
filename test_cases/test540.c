@@ -2,19 +2,19 @@
 #include <stdio.h>
 #include <setjmp.h>
 
-static jmp_buf env;
+jmp_buf buf;
 
-void do_longjmp() {
-    longjmp(env, 1);
+void error_handler(int status) {
+    printf("Error: %d\n", status);
+    longjmp(buf, 1); // jump back to the setjmp call after setting the context
 }
 
 int main() {
-    int val = setjmp(env);
-    if (val == 0) {
-        printf("First call to setjmp\n");
-        do_longjmp();
+    if (!setjmp(buf)) {
+        printf("Calling error_handler with status 2\n");
+        error_handler(2);   // does not return here
     } else {
-        printf("Long jump called\n");
+        printf("Continued from setjmp call\n");
     }
     return 0;
 }

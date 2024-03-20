@@ -1,13 +1,14 @@
 
 #include <stdio.h>
 
-void function_stub(void) __attribute__((artificial));
-
-void function_stub(void) {
-    printf("Testing __attribute__((artificial)) in function stubs\n");
-}
+void my_function() __attribute__((artificial));
 
 int main() {
-    function_stub();
-    return 0;
+    if (my_function) {
+        printf("Compiler supports __attribute__((artificial))\n");
+    } else {
+        printf("Compiler does not support __attribute__((artificial))\n");
+    }
+    
+    return 0; // to make sure the test case returns
 }

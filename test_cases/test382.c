@@ -1,16 +1,15 @@
 
 #include <stdio.h>
 
-int factorial(int i) {
-    if(i <= 1) {
-        return 1;
-    } else {
-        return i * factorial(i - 1);
-    }
-}
-
-int main() {
-    int number = 5;
-    printf("Factorial of %d is: %d\n", number, factorial(number));
-    return 0;
-}
+int fib(int n) {
+    if (n <= 1) 
+        return n; 
+    else 
+        return fib(n - 1) + fib(n - 2); 
+} 
+  
+int main() { 
+    int n = 9; // Fibonacci number to calculate. Adjust as needed for your tests.
+    printf("%d", fib(n)); 
+    return 0; 
+} 

@@ -1,32 +1,37 @@
 
 #include <stdio.h>
-#include <string.h>
+#include <unistd.h>
 
-int main(int argc, char** argv) {
-    if (argc == 2) {
-        FILE* file = fopen(argv[1], "r");
-        if (file == NULL) {
-            printf("Error: Unable to open file\n");
-            return 1;
-        }
-        
-        char line[256];
-        while (fgets(line, sizeof(line), file)) {
-            // remove newline character from the end of string
-            line[strcspn(line, "\n")] = 0;
-            
-            if (strncmp(line, "print", 5) == 0) {
-                printf("%s\n", line + 5);
-            } else {
-                printf("Unknown command: %s\n", line);
-            }
-        }
-        
-        fclose(file);
-    } else {
-        printf("Error: No file specified\n");
+int main(void) {
+    char *command = "clang @response_file";
+    FILE* rspFile = fopen("response_file", "w");
+    
+    if (rspFile == NULL) {
+        printf("Error creating response file\n");
         return 1;
     }
+
+    // write command to the response file
+    fprintf(rspFile, "%s.c -o %s\n", __FILE__, __FILE__);
     
+    if (ferror(rspFile)) {
+        printf("Error writing to response file\n");
+        return 1;
+    }
+
+    // close the response file
+    fclose(rspFile);
+  
+    // run the command
+    int result = system(command);
+    
+    if (result == -1) {
+        printf("Error executing command\n");
+        return 1;
+    }
+  
+    // delete the response file
+    remove("response_file");
+  
     return 0;
 }

@@ -1,13 +1,21 @@
 
 #include <stdio.h>
+#include <errno.h>
 
-// The __attribute__((error("message"))) annotation indicates that this function is not allowed to return. 
-void __attribute__((error("This function should never be called"))) 
-func_that_shouldnt_be_called() {
-    printf("This should never be printed\n");
+// Attribute used to handle errors
+__attribute__((returns_nonnull))
+char * errorCheckFunction(void) {
+    errno = EIO; // Set the error number (EIO is a general input/output error)
+    return NULL;
 }
 
 int main() {
-    func_that_shouldnt_be_called();
+    char* result = errorCheckFunction(); // Call the function
+    
+    if(!result) {
+        perror("Error in errorCheckFunction"); // Prints "Error in errorCheckFunction: Input/Output error" (If errno is EIO)
+    } else {
+        printf("%s\n", result);
+    }
     return 0;
 }

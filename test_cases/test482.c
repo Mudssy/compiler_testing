@@ -1,14 +1,16 @@
 
 #include <stdio.h>
+#include <stdlib.h>
 
-void print_and_exit(const char *message) __attribute__((noreturn));
+// The _Noreturn keyword specifies that a function does not return to its caller after execution.
+void print_and_exit() __attribute__((noreturn));
 
-int main() {
-    print_and_exit("Hello, world!");
-    return 0;
+void print_and_exit() {
+    printf("Hello World\n");
+    exit(0);  // This stops program execution.
 }
 
-void print_and_exit(const char *message) {
-    printf("%s\n", message);
-    exit(0);
+int main(){
+    print_and_exit();
+    return 0;  // We should never reach this line because of the noreturn attribute.
 }

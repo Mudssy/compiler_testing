@@ -2,15 +2,7 @@
 #include <stdio.h>
 
 int main() {
-    printf("Hello, World!\n"); // UTF-8 encoded string literal
-    
-    char *s = "This is a "\
-              u8"Unicode (UTF-8) "\
-              L"wide character constant (wchar_t)"\
-              u"Unicode16 character constant (char16_t) "\
-              U"Unicode32 character constant (char32_t)"\
-              ;
-    printf("%s\n", s);
-    
+    printf("Hello, World!\n");     // u8"Hello, World!"
+    printf("\u043F\u0440\u0438\u0432\u0435\u0442 Coder!"); // u8"Привет Coder!"
     return 0;
 }

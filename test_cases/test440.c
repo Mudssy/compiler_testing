@@ -1,8 +1,12 @@
 
 #include <stdio.h>
 
-int main(void) {
-    int __attribute__((annotate("This is an annotated variable"))) annotated_var = 42;
-    printf("The value of the annotated variable is %d\n", annotated_var);
+int main() {
+    const int constVar = 10;
+    volatile int volatileVar = 20;
+
+    printf("Const Variable: %d\n", constVar);
+    printf("Volatile Variable: %d\n", volatileVar);
+
     return 0;
 }

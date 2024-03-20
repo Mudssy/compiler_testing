@@ -1,15 +1,14 @@
 
 #include <stdio.h>
 
-void counter() {
-    static int count = 0;
-    count++;
-    printf("This function has been called %d times.\n", count);
+void func() {
+    static int i = 0;
+    printf("The value of i is %d\n", i);
+    i++;
 }
 
 int main() {
-    for (int i = 0; i < 5; i++) {
-        counter();
-    }
+    func(); // should print "The value of i is 0"
+    func(); // should print "The value of i is 1"
     return 0;
 }

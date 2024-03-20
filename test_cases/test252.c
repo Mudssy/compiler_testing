@@ -1,15 +1,15 @@
 
 #include <stdio.h>
 
-long double operator "" _km(long double k) { return k * 1000; }
-long double operator "" _m(long double m) { return m; }
+typedef double distance;
+distance operator "" _km(long double d) { return (double)d * 1000; }
+distance operator "" _m(long double m) { return (double)m; }
+distance operator "" _cm(long double c) { return (double)c / 100; }
+distance operator "" _mm(long double mm) { return (double)mm / 1000; }
 
-int main() {
-    long double distance_in_km = 25.36_km;
-    printf("Distance in meters: %Lf\n", distance_in_km);
-    
-    long double distance_in_m = operator"" _m(distance_in_km);
-    printf("Distance in kilometers: %Lf\n", distance_in_m / 1000.0);
-    
+int main()
+{
+    distance d = 2.3_km + 5.6_m - 789_cm + 4567_mm;
+    printf("Distance: %f meters\n", d);
     return 0;
 }

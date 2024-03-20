@@ -2,17 +2,27 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-void print_numbers(const char *separator, int count, ...) {
-    va_list args;
-    va_start(args, count);
-    
-    for (int i = 0; i < count; ++i) {
-        printf("%d%s", va_arg(args, int), separator);
-    }
-    va_end(args);
+double average(int num,...) {
+
+   va_list valist;
+   double sum = 0.0;
+   int i;
+
+   /* initialize valist for num number of arguments */
+   va_start(valist, num);
+
+   /* access all the arguments assigned to valist */
+   for (i = 0; i < num; i++) {
+      sum += va_arg(valist, int);
+   }
+	
+   /* clean memory reserved for valist */
+   va_end(valist);
+
+   return sum/num;
 }
 
 int main() {
-    print_numbers(" ", 3, 1, 2, 3);
-    return 0;
+    printf("Average of 2, 3, 4, 5 = %f\n", average(4, 2,3,4,5));
+   printf("Average of 5, 10, 15 = %f\n", average(3, 5,10,15));
 }

@@ -1,17 +1,30 @@
 
-#include <stdio.h>
-#include <stdatomic.h>
-
-atomic_int lock;
-
-void function() {
-    _Atomic int *lock_ptr = &lock;
-    while (atomic_flag_test_and_set(lock_ptr) != 0);
-    printf("Function executed.\n");
-    atomic_flag_clear(lock_ptr);
-}
+#include <thread>
+#include <mutex>
 
 int main() {
-    function();
+    std::mutex m;
+    int count = 0;
+    
+    // Create threads
+    std::thread t1([&m, &count](){
+        for (int i=0; i<5; ++i) { 
+            std::lock_guard<std::mutex> lock(m); // Use scoped lockable attributes
+            ++count; 
+        }
+    });
+    
+    std::thread t2([&m, &count](){
+        for (int i=0; i<5; ++i) {
+            std::lock_guard<std::mutex> lock(m); // Use scoped lockable attributes
+            ++count; 
+        }
+    });
+    
+    t1.join();
+    t2.join();
+    
+    printf("Count: %d\n", count); // Expected output is "Count: 10"
+    
     return 0;
 }

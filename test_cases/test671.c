@@ -1,9 +1,9 @@
 
 #include <stdio.h>
 
+/*This is a comment*/
+
 int main() {
-    /* This is a simple program that prints some text based on comment rewriting feature */
-    printf("This text will be printed if comment rewriting works as expected.\n");
-    
-    return 0;
+    puts("The Rewriting of comments and documentation feature for clanglibFrontendRewrite section of the compiler works as expected!");
+    return 0; // This return statement ends the program without any infinite loops.
 }

@@ -1,20 +1,24 @@
 
 #include <stdio.h>
-#include <stddef.h>
 
-union MyUnion {
-    int a;
-    float b;
+typedef struct {
+    int x;
+} S1;
+
+typedef struct {
+    double y;
+} S2;
+
+union U {
+    S1 s1;
+    S2 s2;
 };
 
-int main() {
-    union MyUnion my_union = { .a = 10 };
-    
-    if (my_union.a == 10) {
-        printf("Union Initialization feature works correctly.\n");
-    } else {
-        printf("Union Initialization feature failed.\n");
-    }
+int main(void) 
+{
+    union U u = { .s1 = {5} }; // Initializes the first member of the union.
 
-    return 0;
+    printf("x: %d\n", u.s1.x); // Prints "x: 5"
+
+    return 0; // The test case always returns.
 }

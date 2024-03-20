@@ -1,20 +1,18 @@
 
 #include <stdio.h>
-#include <sanitizer/dfsan_interface.h>
+#include <sanitizer/shadow_call_stack.h>
 
-void target(int a, int b) {
-    printf("Target called with arguments: %d and %d\n", a, b);
+void test() {
+    printf("This is a test.\n");
 }
 
-int main() {
-    // Initialize data for dfsan
-    const dfsan_label label = dfsan_create_label("label1", 0);
-    int x, y;
-    dfsan_set_label(label, &x, sizeof(x));
-    dfsan_set_label(label, &y, sizeof(y));
-
-    // Call target function with arguments tainted with the label.
-    target(x, y);
+int main(int argc, char **argv) {
+    void *top;
+    if (__sanitizer_get_total_unique_caller_callee_pairs(&top)) {
+        ((void (*)(void))((uintptr_t)top + sizeof(uintptr_t)))();
+    } else {
+        printf("No caller-callee pairs found.\n");
+    }
 
     return 0;
 }

@@ -2,10 +2,11 @@
 #include <stdio.h>
 
 int main() {
-    int a = 5;
-    int b = 10;
-    __builtin_assume(a > b);
+    int x = -1; // Change this to a positive number to see the output change
 
-    printf("Assumption made: a > b\n");
+    __builtin_assume(x > 0);
+
+    printf("The value of x is: %d\n", x);
+
     return 0;
 }

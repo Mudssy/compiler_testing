@@ -2,8 +2,6 @@
 #include <stdio.h>
 
 int main() {
-    int \u2605_\u2601 = 42; // Unicode character name in identifiers
-    printf("%d\n", \u2605_\u2601); 
-    
+    printf("\U0001F600"); // Prints a smiley face as output
     return 0;
 }

@@ -1,14 +1,13 @@
 
 #include <stdio.h>
 
-int stub_function(const int *x) __attribute__((const));
-
-int stub_function(const int *x) {
-    return *x;
+void __attribute__((const)) test_function(int i) {
+    printf("Test function called with %d\n", i);
 }
 
 int main() {
-    const int a = 10;
-    printf("Result: %d\n", stub_function(&a));
+    int input = 10; // Change this value to check if the compiler optimizes or not
+    test_function(input);
+    
     return 0;
 }

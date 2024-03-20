@@ -1,14 +1,19 @@
 
 #include <stdio.h>
 
-int add_numbers(int a, int b);
+// Function prototype
+void print_message(const char* message);
 
 int main() {
-    int result = add_numbers(5, 10);
-    printf("The sum of 5 and 10 is: %d\n", result);
+    const char* msg = "Hello, world!";
+    
+    // Call function using the prototype
+    print_message(msg);
+    
     return 0;
 }
 
-int add_numbers(int a, int b) {
-    return a + b;
+// Function definition
+void print_message(const char* message) {
+    printf("%s\n", message);
 }

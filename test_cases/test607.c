@@ -2,16 +2,12 @@
 #include <stdio.h>
 
 int main() {
-    int val = 10;
-    int *ptr = &val;
-    int **pptr = &ptr;
-
-    printf("Value of val: %d\n", val);
-    printf("Address of val: %p\n", (void *)&val);
-    printf("Value of ptr: %p\n", (void *)ptr);
-    printf("Address of ptr: %p\n", (void *)&ptr);
-    printf("Value of pptr: %p\n", (void *)*pptr);
-    printf("Address of pptr: %p\n", (void *)&pptr);
+    int x = 10;
+    int *p = &x;
+    int **pp = &p;
     
+    printf("Value of x using pointer: %d\n", *p);
+    printf("Value of x using pointer to a pointer: %d\n", **pp);
+
     return 0;
 }

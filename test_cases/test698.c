@@ -3,19 +3,21 @@
 #include <stdlib.h>
 
 int main() {
-    int* ptr = (int*) malloc(sizeof(int));
+    int *ptr = (int*) malloc(sizeof(int)); // Allocate memory
     
-    if (ptr == NULL) {
-        printf("Memory allocation failed.\n");
-        return 1;
+    if (ptr == NULL) { 
+        printf("Memory not allocated\n");
+        return 0; // Exit program
+    }
+    else {
+       printf("Memory successfully allocated\n");
     }
 
-    *ptr = 42;
-    printf("Allocated memory address: %p\n", ptr);
-    printf("Value stored at allocated memory: %d\n", *ptr);
+    *ptr = 10; // Assign value to memory
+    printf("Value of ptr: %d\n", *ptr); // Print the value of pointer
     
-    free(ptr);
-    printf("Memory freed successfully.\n");
-    
+    free(ptr); // Deallocate memory
+    printf("Memory successfully deallocated\n");
+
     return 0;
 }

@@ -1,13 +1,12 @@
 
 #include <stdio.h>
 
-int dependency_injection(int a) {
-    return a * 2;
-}
+// Defines the interface for dependency injection
+#define MY_FUNC(x) printf("Dependency Injection: " #x "\n")
 
 int main() {
-    int input = 5;
-    int result = dependency_injection(input);
-    printf("The result of the dependency injection is: %d\n", result);
+    // Uses the injected dependency
+    MY_FUNC("This is a test");
+
     return 0;
 }

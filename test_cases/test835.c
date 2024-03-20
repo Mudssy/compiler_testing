@@ -1,14 +1,18 @@
 
 #include <stdio.h>
-#include <errno.h>
 
-int main() {
-    FILE *file = fopen("nonexistent_file", "r");
+int main(void) {
+    FILE *file;
+    
+    file = fopen("does_not_exist.txt", "r");
     if (file == NULL) {
-        perror("Error opening file");
-    } else {
-        printf("File opened successfully.\n");
-        fclose(file);
+        perror("Error when opening the file");
+        return 1;
     }
+
+    // Rest of your program...
+
+    fclose(file);
+    
     return 0;
 }

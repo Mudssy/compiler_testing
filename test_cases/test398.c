@@ -1,22 +1,21 @@
 
 #include <stdio.h>
 
-typedef void (*FunctionPointer)();
-
-void function1() {
-    printf("Function 1 executed.\n");
+void hello(const char *name) {
+    printf("Hello %s\n", name);
 }
 
-void function2() {
-    printf("Function 2 executed.\n");
+void goodbye(const char *name) {
+    printf("Goodbye %s\n", name);
 }
 
 int main() {
-    FunctionPointer funcArray[2] = {function1, function2};
+    void (*functions[2])(const char*);
+    functions[0] = hello;
+    functions[1] = goodbye;
 
-    for (int i = 0; i < 2; i++) {
-        funcArray[i]();
-    }
+    functions[0]("World");  // Prints "Hello World"
+    functions[1]("People"); // Prints "Goodbye People"
 
     return 0;
 }

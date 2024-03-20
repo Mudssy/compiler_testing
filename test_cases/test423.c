@@ -1,13 +1,12 @@
 
 #include <stdio.h>
 
-typedef struct {
-    int a;
-    float b;
-} TestStruct;
+struct point { int x, y; };
 
-int main() {
-    TestStruct test = { .a = 42, .b = 3.14 };
-    printf("TestStruct: a = %d, b = %.2f\n", test.a, test.b);
+int main(void) {
+    struct point pt = { .y = 10, .x = 5 };
+
+    printf("pt.x = %d, pt.y = %d\n", pt.x, pt.y);
+    
     return 0;
 }

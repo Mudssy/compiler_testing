@@ -1,27 +1,30 @@
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
-void shuffle(int* array, int length) {
-    for (int i = 0; i < length - 1; i++) {
-        int j = rand() % (length - i);
-        if (j != 0) {
-            int temp = array[i];
-            array[i] = array[i + j];
-            array[i + j] = temp;
-        }
-    }
-}
+#include <omp.h>
 
 int main() {
-    srand(time(NULL));
-    int vector[] = {1, 2, 3, 4, 5};
-    int length = sizeof(vector) / sizeof(vector[0]);
-    shuffle(vector, length);
+    int arr[] = {1, 2, 3, 4, 5};
+    int result[5];
+    int i;
+
+    #pragma omp parallel for default(none) shared(arr, result) private(i)
+    for (i = 0; i < 5; ++i) {
+        result[i] = arr[i];
+    }
     
-    for (int i = 0; i < length; i++) {
-        printf("%d ", vector[i]);
+    // Check if all elements are duplicated correctly.
+    int success = 1;
+    for (i = 0; i < 5; ++i) {
+        if (arr[i] != result[i]) {
+            printf("Mismatch at index %d: Expected %d, got %d\n", i, arr[i], result[i]);
+            success = 0;
+        }
+    }
+    
+    if (success) {
+        printf("All elements were duplicated correctly.\n");
+    } else {
+        printf("There was a mismatch in the duplication process.\n");
     }
     
     return 0;

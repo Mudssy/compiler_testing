@@ -1,26 +1,36 @@
 
 #include <stdio.h>
 
-typedef struct {
-    int x;
-    float y;
-} TestStruct;
+void print_pointer(int *ptr) {
+    if (ptr != NULL) {
+        printf("Pointer value: %p\n", ptr);
+        printf("Dereferenced pointer: %d\n", *ptr);
+    } else {
+        printf("Null Pointer.\n");
+    }
+}
 
 int main() {
-    int a = 10;
-    int *ptr_a = &a;
+    int x = 10;
+    int y = 20;
     
-    TestStruct t;
-    t.x = 5;
-    t.y = 7.2;
-    TestStruct *ptr_t = &t;
+    // Test & operator
+    print_pointer(&x);
     
-    printf("Value of a: %d\n", *ptr_a);
-    printf("Address of a: %p\n", ptr_a);
+    // Test * operator on a NULL pointer
+    print_pointer(NULL);
     
-    printf("Value of t.x: %d\n", (*ptr_t).x);
-    printf("Value of t.y: %.2f\n", (*ptr_t).y);
-    printf("Address of t: %p\n", ptr_t);
+    // Assigning address of 'y' to pointer variable 'p' using '&' operator.
+    int* p = &y;
+  
+    printf("Address stored in p: %p\n", p);
+    printf("Value pointed by the pointer p: %d\n", *p);
+    
+    // Assigning address of 'x' to pointer variable 'q'.
+    int* q = &x;
+  
+    printf("Address stored in q: %p\n", q);
+    printf("Value pointed by the pointer q: %d\n", *q);
     
     return 0;
 }

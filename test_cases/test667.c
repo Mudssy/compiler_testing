@@ -1,13 +1,14 @@
 
 #include <stdio.h>
 
-#define TEST_CLANGLIBFRONTENDRW 1
+// Test 1: Simple condition check
+#ifdef DEBUG
+    #define STRING "Debug build"
+#else
+    #define STRING "Release build"
+#endif
 
 int main() {
-#ifdef TEST_CLANGLIBFRONTENDRW
-    printf("Clang libFrontend Rewrite feature is supported.\n");
-#else
-    printf("Clang libFrontend Rewrite feature is not supported.\n");
-#endif
+    printf("%s\n", STRING);
     return 0;
 }

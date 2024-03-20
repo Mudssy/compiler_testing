@@ -1,21 +1,20 @@
 
-#include <stdio.h>
 #include <stdarg.h>
+#include <stdio.h>
 
-void printArgs(int count, ...) {
-    va_list list;
-    int i;
+void print_ints(int num, ...) {
+    va_list args;
+    va_start(args, num);
     
-    va_start(list, count);
-    
-    for (i = 0; i < count; ++i) {
-        printf("%d ", va_arg(list, int));
+    for (int i = 0; i < num; ++i) {
+        int value = va_arg(args, int);
+        printf("%d: %d\n", i, value);
     }
     
-    va_end(list);
+    va_end(args);
 }
 
 int main() {
-    printArgs(5, 123, 456, 789, 321, 987);
+    print_ints(3, 42, 17, 99);
     return 0;
 }

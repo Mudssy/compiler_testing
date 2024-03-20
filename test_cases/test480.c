@@ -1,12 +1,14 @@
 
+#include <stdlib.h>
 #include <stdio.h>
 
-int main() {
-    int a = 10;
-    __attribute__((annotate("This is an attribute"))) int b = 20;
+// Define a clean-up function for the attribute
+void my_exit1(void) { printf("my_exit1()\n"); }
+void my_exit2(void) { printf("my_exit2()\n"); }
 
-    printf("Value of variable 'a': %d\n", a);
-    printf("Value of variable 'b' with Artificial Attribute: %d\n", b);
+int main(void) {
+    at_quick_exit(my_exit1);
+    at_quick_exit(my_exit2);
 
-    return 0;
+    quick_exit(0); // Quick exit does not call the clean-up functions.
 }

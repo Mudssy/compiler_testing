@@ -2,13 +2,15 @@
 #include <stdio.h>
 
 int main() {
-    int a = 10;
-    if (a > 5) {
-        int b = 20;
-        printf("Value of b: %d\n", b);
+    int x = 10; // Variable declared inside the block
+    printf("%d\n", x); // Prints 10 as expected
+    
+    if (x == 10) {
+        int x = 20; // Another variable also named 'x' but only within this block
+        printf("%d\n", x); // Prints 20 because it's accessing the inner most 'x'
     }
-    // The following line would result in an error if variable b is not block-scoped.
-    // If it's block-scoped, the program will successfully run and print "Error: use of undeclared identifier 'b'"
-    printf("Value of b after block scope: %d\n", b);
+
+    printf("%d\n", x); // This should still print 10 as we are outside of the inner block where 'x' was declared with value 20
+    
     return 0;
 }

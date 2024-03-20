@@ -1,20 +1,20 @@
 
-#include <stdio.h>
 #include <stdarg.h>
+#include <stdio.h>
 
-void vprintf(const char *format, va_list argptr) {
-    vfprintf(stdout, format, argptr);
+void foo(int n, ...) {
+    va_list argp;
+    va_start(argp, n);
+    
+    for (int i = 0; i < n; ++i) {
+        int x = va_arg(argp, int);
+        printf("Argument %d: %d\n", i+1, x);
+    }
+    
+    va_end(argp);
 }
 
 int main() {
-    int x = 42;
-    double y = 3.14;
-    const char* str = "Hello, World!";
-
-    va_list args;
-    va_start(args, str);
-    vprintf("%d\n", args);
-    va_end(args);
-
+    foo(5, 10, 20, 30, 40, 50);
     return 0;
 }

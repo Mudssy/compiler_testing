@@ -1,13 +1,18 @@
 
 #include <stdio.h>
 
-// Declare a function as deprecated
-void __attribute__((deprecated)) my_deprecated_function() {
-    printf("This function is deprecated\n");
+// This is the function we will annotate
+int __attribute__((nonnull(1))) my_function(char* str) {
+    printf("%s\n", str);
+    return 0;
 }
 
+// Main function to test attribute annotation
 int main() {
-    // Call the deprecated function and see if compiler gives any warning
-    my_deprecated_function();
-    return 0;
+    // Invoke my_function with a null pointer which should trigger a warning/error
+    // according to the compiler's implementation of the nonnull attribute
+    char* s = NULL;
+    int result = my_function(s); 
+  
+    return 0; 
 }

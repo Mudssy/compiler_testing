@@ -1,11 +1,13 @@
 
 #include <stdio.h>
 
-__attribute__((flatten)) void function_stub(int x) {
-    printf("Function Stub called with argument: %d\n", x);
-}
+void print_hello() __attribute__((flatten));
 
 int main() {
-    function_stub(42);
+    print_hello();
     return 0;
+}
+
+void print_hello() {
+    printf("Hello, world! This function was flattened.\n");
 }

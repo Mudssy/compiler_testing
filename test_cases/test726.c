@@ -1,18 +1,21 @@
 
-#include <stdio.h>
 #include <stdarg.h>
+#include <stdio.h>
 
-void print_ints(int count, ...) {
-    va_list args;
-    va_start(args, count);
-    for (int i = 0; i < count; i++) {
-        int num = va_arg(args, int);
-        printf("%d ", num);
+int sum(int count, ...) {
+    int result = 0;
+    va_list ap;
+    va_start(ap, count);
+    
+    for (int i = 0; i < count; ++i) {
+        result += va_arg(ap, int);
     }
-    va_end(args);
+    va_end(ap);
+    
+    return result;
 }
 
 int main() {
-    print_ints(5, 1, 2, 3, 4, 5);
+    printf("%d\n", sum(5, 1, 2, 3, 4, 5));
     return 0;
 }

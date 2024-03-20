@@ -2,10 +2,8 @@
 #include <stdio.h>
 
 int main() {
-    int a = 10;
-    constexpr int b = __builtin_constant_p(a) ? a : -1;
-    
-    printf("Value of b: %d\n", b);
-    
+    // Test for hot attributes
+    _hot int hot_var = 42;
+    printf("Hot Attribute Value: %d\n", hot_var);
     return 0;
 }

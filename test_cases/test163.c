@@ -1,14 +1,9 @@
 
 #include <stdio.h>
 
-namespace foo {
-    int x = 42;
-}
-
-namespace bar = foo; // namespace aliasing
+int foo() { return 42; }
 
 int main() {
-    printf("Value of foo::x: %d\n", foo::x);
-    printf("Value of bar::x: %d\n", bar::x);
+    printf("Value of x in foo: %d\n", foo());
     return 0;
 }

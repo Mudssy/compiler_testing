@@ -1,11 +1,17 @@
 
 #include <stdio.h>
+#include <stdlib.h>
+#include "/usr/include/testheader.h"
 
-int main() {
-    printf("Testing Include path configuration feature\n");
+int main(void) {
+    FILE *fp = fopen("/usr/include/testheader.h", "r");
+    if (fp == NULL) {
+        printf("Failed to open file\n");
+        exit(EXIT_FAILURE);
+    } else {
+        printf("Successfully opened file %s\n", "/usr/include/testheader.h");
+        fclose(fp);
+    }
     
-    // Include a file from non-standard location
-    #include "path/to/your/file"
-
-    return 0;
+    return EXIT_SUCCESS;
 }

@@ -1,14 +1,11 @@
 
 #include <stdio.h>
 
-int func(int a) __attribute__((pure));
-
-int func(int a) {
-    return a * 2;
+int __attribute__((pure)) pure_test(int x) {
+    return 10; // some computation here
 }
 
 int main() {
-    int input = 10;
-    printf("The result of func(%d) is: %d\n", input, func(input));
+    printf("Pure function\n");
     return 0;
 }

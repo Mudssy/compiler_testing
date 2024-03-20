@@ -1,12 +1,17 @@
 
 #include <stdio.h>
 
-int add(int a, int b) {
-    return a + b;
-}
+// Function declaration
+void testFunctionDefinitions();
 
 int main() {
-    int result = add(5, 3);
-    printf("The sum of 5 and 3 is: %d\n", result);
-    return 0;
+    // Function call
+    testFunctionDefinitions();
+    
+    return 0; // The program should always return from the main function
+}
+
+// Function definition
+void testFunctionDefinitions() {
+    printf("Function Definitions Tested\n");
 }

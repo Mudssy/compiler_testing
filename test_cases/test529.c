@@ -1,10 +1,12 @@
 
 #include <stdio.h>
 
+void print_if_supported(void) {
+    const char* message = __builtin_choose_expr(__builtin_types_compatible_p(int, int), "Supported", "Not supported");
+    printf("%s\n", message);
+}
+
 int main() {
-    int a = 10;
-    int b = 20;
-    int c = __builtin_choose_expr(a > b, a + 5, b - 3);
-    printf("Result: %d\n", c);
-    return 0;
+    print_if_supported();
+    return 0; // To make sure the program doesn't run forever.
 }

@@ -1,9 +1,16 @@
 
 #include <stdio.h>
 
-int main(void) {
-    int a = 1;
-    ++a; // This is prefix increment
-    printf("%d\n", --a);  // This is prefix decrement
+int main() {
+    int i = 5;  // Initial value
+    
+    printf("Initial Value: %d\n", i); 
+
+    i++;  // Increment
+    printf("After incrementing: %d\n", i);  
+      
+    i--;  // Decrement
+    printf("After decrementing: %d\n", i); 
+
     return 0;
 }

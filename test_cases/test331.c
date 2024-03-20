@@ -1,16 +1,17 @@
 
 #include <stdio.h>
+#include <Block.h> // Block_copy(), Block_release()
 
 int main(void) {
-    int x = 10;
-    ^{ // Block type attribute starts here
-        int y = x + 5; // Capturing the reference of `x` in block scope
-        printf("Value of y: %d\n", y);
-        ^{ // Nested block
-            int z = y * 2; // Reference capturing also works with nested blocks
-            printf("Value of z: %d\n", z);
-        }(); // Execute the nested block immediately
-    }(); // Execute the block immediately
+    int var = 42; // variable to be captured by the block
     
+    void (^myBlock)(void) = ^{
+        printf("Value of var inside the block: %d\n", var);
+    };
+    
+    printf("Value of var before calling the block: %d\n", var);
+    myBlock(); // call the block
+    printf("Value of var after calling the block: %d\n", var);
+  
     return 0;
 }

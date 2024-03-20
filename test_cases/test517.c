@@ -1,16 +1,14 @@
 
 #include <stdio.h>
-#include <sanitizer/common_interface_defs.h>
 
-__attribute__((no_sanitize("address"))) void foo() {
-  int x[10];
-  printf("Element %d: %d\n", 5, x[5]);
+// Function to test coverage analysis
+void foo(int i) {
+    if (i > 0)
+        printf("Greater than zero\n");
 }
 
 int main() {
-  __sanitizer_reset_coverage();
-  foo();
-  uint64_t coverage = __sanitizer_get_total_unique_coverage();
-  printf("Coverage: %ld\n", coverage);
-  return 0;
+    foo(-1); // Should not print anything
+    foo(5);  // Should print "Greater than zero"
+    return 0;
 }

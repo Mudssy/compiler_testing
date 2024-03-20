@@ -1,16 +1,12 @@
 
 #include <stdio.h>
 
-int main() {
-    int x = 0;
-    #pragma clang diagnostic push
-    #pragma clang diagnostic warning "-Wunused-variable"
-    if (1)
-        x = 5;
-    else
-        x = 3;
-    #pragma clang diagnostic pop
+int main(void) {
+    #pragma GCC error "This code section intentionally has an error for testing purposes."
+    printf("No Error\n");
 
-    printf("The value of x is: %d\n", x);
-    return 0;
+    #pragma GCC warning "This code section intentionally has a warning for testing purposes."
+    printf("Warning\n");
+
+    return 0; // make sure this program returns and does not run forever.
 }

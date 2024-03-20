@@ -1,13 +1,16 @@
 
 #include <stdio.h>
 #include <locale.h>
+#include <libintl.h> // for gettext functions
+
+#define _(string) gettext(string)
 
 int main() {
-    // Set locale to German (de_DE) for internationalization testing
-    setlocale(LC_ALL, "de_DE");
-
-    // Print out a string that should be translated based on the current locale
-    printf("Translated String: %s\n", gettext("Hello, World!"));
+    setlocale (LC_ALL, "");
+    bindtextdomain ("hello", "/usr/share/locale");
+    textdomain ("hello");
+    
+    printf(_("Hello, World!\n"));
     
     return 0;
 }

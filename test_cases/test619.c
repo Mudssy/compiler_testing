@@ -2,12 +2,13 @@
 #include <stdio.h>
 
 int main() {
-    char str1[] = "Hello ";
-    char str2[] = "World!";
-    char str3[50];
-
-    snprintf(str3, sizeof(str3), "%s%s", str1, str2);
+    char string[] = "Hello, World!"; // Input your string here
     
-    printf("%s\n", str3);
+    printf("Hello World\n");
+    
+    for(int i = 0; string[i] != '\0'; i++) {
+        printf("%c\n", string[i]);
+    }
+
     return 0;
 }

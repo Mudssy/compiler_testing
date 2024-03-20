@@ -1,24 +1,45 @@
 
 #include <stdio.h>
 
-int main() {
-    int a = 10, b = 20;
-    
-    printf("a = %d, b = %d\n", a, b);
-    if (a == b)
-        printf("a is equal to b\n");
-    else
-       printf("a is not equal to b\n");
-  
-    if(a < b)
-        printf("a is less than b\n");
-    else 
-        printf("a is greater or equal than b\n");
-    
-    if (a > b)
-        printf("a is greater than b\n");
-    else
-       printf("a is less or equal to b\n");
+int main(void) {
+    int num1 = 5;
+    int num2 = 7;
 
+    if (num1 == num2){
+        printf("Equal\n");
+    } else {
+        printf("Not Equal\n");
+    }
+    
+    if (num1 != num2){
+        printf("Not Equal\n");
+    } else {
+        printf("Equal\n");
+    }
+
+    if (num1 < num2){
+        printf("%d is less than %d\n", num1, num2);
+    } else {
+        printf("%d is not less than %d\n", num1, num2);
+    }
+
+    if (num1 > num2){
+        printf("%d is greater than %d\n", num1, num2);
+    } else {
+        printf("%d is not greater than %d\n", num1, num2);
+    }
+    
+    if (num1 <= num2){
+        printf("%d is less than or equal to %d\n", num1, num2);
+    } else {
+        printf("%d is not less than or equal to %d\n", num1, num2);
+    }
+    
+    if (num1 >= num2){
+        printf("%d is greater than or equal to %d\n", num1, num2);
+    } else {
+        printf("%d is not greater than or equal to %d\n", num1, num2);
+    }
+    
     return 0;
 }

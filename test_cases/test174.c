@@ -1,9 +1,8 @@
 
 #include <stdio.h>
 
-template<typename T>
-T max(T a, T b) { return (a > b) ? a : b; }
+#define max(a, b) ((a > b) ? a : b)  // This is how you can create a macro for the functionality of a function template
 
 int main() {
-    printf("Max value is %d\n", max<int>(3, 7)); // This will print "Max value is 7"
+    printf("Max value is %d\n", max(3, 7)); // This will print "Max value is 7"
 }

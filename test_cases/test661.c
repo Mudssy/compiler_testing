@@ -3,13 +3,14 @@
 
 typedef struct {
     int x;
-    int y;
+    double y;
 } Point;
 
 int main() {
-    Point p = { .y = 10, .x = 20 };
+    Point p = { .x = 1, .y = 2.5 };
     
-    printf("Point: (%d, %d)\n", p.x, p.y);
+    printf("p.x: %d\n", p.x);
+    printf("p.y: %f\n", p.y);
 
     return 0;
 }

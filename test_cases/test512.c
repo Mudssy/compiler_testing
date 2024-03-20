@@ -1,20 +1,18 @@
 
 #include <stdio.h>
-#include <stdlib.h>
-
-void print_address(const void *ptr) {
-    printf("Address: %p\n", ptr);
-}
 
 int main() {
-    int i = 0;
-    const char *str = "Hello, Address Sanitizer!";
-
-    __asm__("" : "=r"(i) : "0"(i)); // Attempt to break the optimization
-
-    print_address(&i);
-    printf("%s\n", str);
-    print_address((void *)str);
-
+    char buffer[10];  // Declare a buffer of size 10
+    printf("Enter some text:\n");
+    
+    if (fgets(buffer, sizeof(buffer), stdin) != NULL) {  
+        // Attempt to read input into the buffer
+        
+        puts(buffer);  
+        // Print out what was read
+    } else { 
+        printf("Failed to read input");
+    }
+    
     return 0;
 }

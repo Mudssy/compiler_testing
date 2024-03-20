@@ -1,17 +1,14 @@
 
 #include <stdio.h>
 
-typedef void (*function_t)(void);
-
-void func(void) __attribute__((cdecl));
-
-int main() {
-    function_t fptr = (function_t)&func;
-    fptr();
-    printf("Attribute cdecl test passed\n");
-    return 0;
+void __attribute__((cdecl)) foo() {
+    printf("Hello from foo!\n");
 }
 
-void func(void) {
-    printf("Inside function with __attribute__((cdecl))\n");
+int main() {
+    void (*funPtr)();
+    funPtr = &foo;
+    funPtr();  // Calling the function through a function pointer.
+    
+    return 0;  // Program ends here, so it doesn't run forever.
 }

@@ -1,12 +1,15 @@
 
+#include <omp.h>
 #include <stdio.h>
-#ifdef __clang__
-#pragma clang loop vectorize(enable)
-#endif
+
 int main() {
-    int i;
-    for (i = 0; i < 10; ++i) {
-        printf("Vectorized Loop Output: %d\n", i);
-    }
-    return 0;
+  int sum = 0;
+  #pragma omp parallel for reduction(+:sum)
+  for (int i = 1; i <= 100; ++i) {
+    sum += i;
+  }
+  
+  printf("Sum of numbers from 1 to 100 is %d\n", sum);
+  
+  return 0;
 }

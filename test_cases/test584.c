@@ -3,9 +3,11 @@
 
 int main() {
     int i = 1;
-    while (i <= 5) {
-        printf("Number: %d\n", i);
+
+    while (i <= 50) {
+        printf("%d ", i);
         i++;
     }
+
     return 0;
 }

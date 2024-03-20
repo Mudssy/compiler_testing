@@ -1,21 +1,22 @@
 
 #include <stdio.h>
 
-// Swift name annotation
-extern void swift_func(int *p) __attribute__((swift_name("SwiftFunc")));
-
-extern int swift_var __attribute__((swift_name("SwiftVar"))) = 42;
-
-void func() {
-    printf("%s\n", __func__);
+// This is a simple test case that uses the `__attribute__((swift_name))` annotation to rename a variable and function in Swift.
+int __attribute__((swift_name("renamedVariable"))) renamedVariable = 10;
+void __attribute__((swift_name("renamedFunction"))) renamedFunction() { 
+    printf("This is from the 'renamedFunction'\n");
 }
 
 int main() {
-    // Test Swift name annotation on a function
-    swift_func(&swift_var);
+    // Test `renamedVariable` in Swift to ensure it has the expected value.
+    if (renamedVariable != 10) {
+        printf("Test failed: renamedVariable has unexpected value.\n");
+        return 1;
+    }
     
-    // Check if the variable and function are recognized by the compiler
-    func();
+    // Call `renamedFunction` and expect no output (because the function doesn't produce any in this test).
+    renamedFunction();
     
+    printf("All tests passed.\n");
     return 0;
 }

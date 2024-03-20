@@ -1,16 +1,22 @@
 
 #include <stdio.h>
 
-int main() {
-    int array[5] = {10, 20, 30, 40, 50};
-    int *ptr;
-    ptr = array;
-
-    for(int i=0; i<5; i++) {
-        printf("Value of array[%d]: %d\n", i, array[i]);
-        printf("Value of ptr: %d\n", *ptr);
-        ptr++;
+void print_array(int *arr, int size) {
+    for (int i = 0; i < size; ++i) {
+        printf("%d ", arr[i]);
     }
+    printf("\n");
+}
+
+int main() {
+    // Testing pointers
+    int a = 10;
+    int *p = &a;
+    printf("Value of 'a' through pointer: %d\n", *p);
+    
+    // Testing arrays
+    int arr[5] = {1, 2, 3, 4, 5};
+    print_array(arr, 5);
 
     return 0;
 }

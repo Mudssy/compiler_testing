@@ -1,18 +1,20 @@
 
 #include <stdio.h>
-
-typedef struct {
-    int a;
-    float b;
-} custom_type;
-
+#define MAX_SIZE 1024
 int main() {
-    custom_type myVar;
-    myVar.a = 10;
-    myVar.b = 20.5;
+    typedef unsigned char byte;
+    typedef struct {
+        int a, b;
+    } Pair;
     
-    printf("myVar.a: %d\n", myVar.a);
-    printf("myVar.b: %.1f\n", myVar.b);
+    // testing for array of bytes and pairs
+    byte bytes[MAX_SIZE] = {'a', 'b', 'c'};
+    printf("Bytes: %s\n", bytes);
     
-    return 0;
+    Pair pair1 = {.a = 5, .b = 7}, pair2;
+    pair2.a = pair1.b;
+    pair2.b = pair1.a;
+    
+    printf("Pair 1: {%d, %d}\n", pair1.a, pair1.b);
+    printf("Pair 2: {%d, %d}\n", pair2.a, pair2.b);
 }

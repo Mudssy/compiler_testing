@@ -1,16 +1,16 @@
 
 #include <stdio.h>
 
-// Define a macro for LLVM lib interface stub section
-#define LLVM_LIBINTERFACE_STUB
+#define EXAMPLE_MACRO 1
 
-int main() {
-    // Use conditional compilation based on macros
-    #ifdef LLVM_LIBINTERFACE_STUB
-        printf("LLVM Lib Interface Stub is supported.\n");
+int main(void) {
+    #if EXAMPLE_MACRO == 0
+        printf("EXAMPLE_MACRO is defined as 0\n");
+    #elif EXAMPLE_MACRO == 1
+        printf("EXAMPLE_MACRO is defined as 1\n");
     #else
-        printf("LLVM Lib Interface Stub is not supported.\n");
+        printf("EXAMPLE_MACRO is not defined as 0 or 1\n");
     #endif
-
+    
     return 0;
 }

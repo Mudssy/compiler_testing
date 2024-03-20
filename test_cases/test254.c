@@ -1,15 +1,12 @@
 
 #include <stdio.h>
 
-_Noreturn void myExitFunction(void) {
-    printf("Called myExitFunction\n");
+_Noreturn void myFunc() {
+    printf("Running in noreturn function.\n");
+    while (1) {} // Infinite loop to avoid returning
 }
 
-int main() 
-{
-    atexit(myExitFunction);
-    // This function will never return
-    for (;;) {}  
-
-    return 0;  // Will not be executed
+int main() {
+    myFunc();
+    return 0;
 }

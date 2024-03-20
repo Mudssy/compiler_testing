@@ -1,22 +1,13 @@
 
+#include <stdint.h>
 #include <stdio.h>
-#include "llvmutils/PerfectShuffle.h"
+
+// Function to rotate bits of n by d positions
+uint64_t rotateLeft(uint64_t n, uint64_t d) {
+    return (n << d)|(n >> (64 - d));
+}
 
 int main() {
-    int arr[] = {1, 2, 3, 4, 5};
-    size_t len = sizeof(arr) / sizeof(arr[0]);
-    
-    printf("Original array: ");
-    for (size_t i = 0; i < len; i++) {
-        printf("%d ", arr[i]);
-    }
-    
-    llvmutils_PerfectShuffle(arr, len);
-    
-    printf("\nAfter shuffle: ");
-    for (size_t i = 0; i < len; i++) {
-        printf("%d ", arr[i]);
-    }
-    
+    printf("%llu\n", rotateLeft(10987654321ULL, 3)); // replace with your test cases
     return 0;
 }

@@ -1,23 +1,20 @@
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <sanitizer/asan_interface.h>
-
-void *global_ptr;
-
-__attribute__((no_sanitize("memory"))) void foo() {
-    global_ptr = malloc(10);
-}
 
 int main() {
-    foo();
+    int x = 0;
     
-    if (__asan_address_is_poisoned(global_ptr)) {
-        printf("NoSanitizeMemory: Poison memory is detected.\n");
+    if (__has_feature(memory_sanitizer)) {
+        // Code for Compiler with Memory Sanitization
+        printf("Compiler with No Sanitize Memory Attributes\n");
+        x = __no_sanitize_arg("Memory", 42);
     } else {
-        printf("NoSanitizeMemory: Poison memory is not detected.\n");
+        // Code for Normal Compiler
+        printf("Normal Compiler or Non-Supported Feature\n");
+        x = 1;
     }
     
-    free(global_ptr);
+    printf("Output: %d\n", x);
+
     return 0;
 }

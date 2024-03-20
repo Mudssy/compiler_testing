@@ -1,16 +1,16 @@
 
 #include <stdio.h>
 
-typedef struct {
-    int a;
-    float b;
-} MyStruct;
+struct Student {
+    char name[50];
+    int age;
+};
 
 int main() {
-    MyStruct my_struct = {10, 20.5};
+    struct Student s1 = {"John", 20};
     
-    printf("my_struct.a: %d\n", my_struct.a);
-    printf("my_struct.b: %.1f\n", my_struct.b);
-    
+    printf("Student Name: %s\n", s1.name);
+    printf("Student Age: %d\n", s1.age);
+
     return 0;
 }

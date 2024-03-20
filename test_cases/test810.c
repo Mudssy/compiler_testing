@@ -1,14 +1,14 @@
 
 #include <stdio.h>
 
-#define llvmunittests 1
+#define MY_MACRO "Hello from macro"
 
 int main() {
-    #if defined(llvmunittests) && (llvmunittests == 1)
-        printf("Conditional Compilation feature is supported.\n");
+    #ifdef MY_MACRO
+        printf("%s\n", MY_MACRO);
     #else
-        printf("Conditional Compilation feature is not supported.\n");
+        printf("MY_MACRO is not defined.\n");
     #endif
-
+    
     return 0;
 }

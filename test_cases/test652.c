@@ -1,22 +1,17 @@
 
-#include <stdio.h>
 #include <signal.h>
-#include <unistd.h>
+#include <stdio.h>
 
-void handler(int signum) {
-    printf("Caught signal: %d\n", signum);
+void signal_handler(int signum) {
+    printf("Received signal: %d\n", signum);
 }
 
 int main() {
-    if (signal(SIGINT, handler) == SIG_ERR) {
-        perror("Error during signal registration");
-        return 1;
-    }
-
-    while (1) {
-        printf("Waiting for a signal...\n");
-        sleep(5);
-    }
-
+    // set up the signal handler
+    signal(SIGINT, signal_handler);
+    
+    printf("Waiting for a SIGINT...\n");
+    
+    while (1) {} // keep running to prevent the program from exiting
     return 0;
 }

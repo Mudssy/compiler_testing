@@ -3,11 +3,10 @@
 
 int main() {
     int i = 0;
-    
     do {
-        printf("This is the %d iteration\n", i);
-        i++;
-    } while (i < 10);
-    
+        printf("Hello, World! %d\n", i);
+        ++i;
+        if (i > 10) break;  // Terminate the loop after 10 iterations
+    } while(1);
     return 0;
 }

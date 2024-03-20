@@ -3,19 +3,16 @@
 #include <stdlib.h>
 
 int main() {
-    int *ptr = (int*) malloc(sizeof(int));
+    int *ptr = malloc(sizeof(*ptr));  // Dynamically allocated memory for an integer
     
-    if(ptr == NULL) {
-        printf("Memory allocation failed\n");
-        return 1;
+    if (ptr == NULL) {
+        printf("Memory allocation failed!\n");
+        return -1;  // Indicate failure
     }
     
-    *ptr = 42;
-    printf("Allocated memory. Stored value: %d\n", *ptr);
-    
-    free(ptr);
-    ptr = NULL;
-    printf("Freed the allocated memory.\n");
-    
-    return 0;
+    *ptr = 42;  // Store some value in the allocated memory
+    printf("Value stored at dynamic memory: %d\n", *ptr);
+    free(ptr);  // Free the dynamically allocated memory
+
+    return 0;  // Indicate success
 }

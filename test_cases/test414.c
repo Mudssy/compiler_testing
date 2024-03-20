@@ -3,14 +3,13 @@
 #include <string.h>
 
 int main() {
-    char str1[] = "Hello, ";
-    char str2[] = "World!";
-    char combined[strlen(str1) + strlen(str2) + 1];
-    
-    strcpy(combined, str1);
-    strcat(combined, str2);
-    
-    printf("%s\n", combined);
-    
+    char str1[20] = "Hello";
+    char str2[] = ", World!";
+
+    // Concatenate two strings
+    strcat(str1, str2);
+
+    printf("%s\n", str1);  // Output: Hello, World!
+
     return 0;
 }

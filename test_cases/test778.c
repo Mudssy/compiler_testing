@@ -1,22 +1,24 @@
 
 #include <stdio.h>
 
-enum Color {
-    RED,
-    GREEN,
-    BLUE
-};
+typedef enum { ONE = 1, TWO, THREE } Numbers;
 
 int main() {
-    enum Color my_color = BLUE;
-
-    if (my_color == RED) {
-        printf("The color is red.\n");
-    } else if (my_color == GREEN) {
-        printf("The color is green.\n");
-    } else if (my_color == BLUE) {
-        printf("The color is blue.\n");
+    Numbers num = TWO;
+    
+    switch (num) {
+        case ONE:
+            printf("The number is one\n");
+            break;
+        case TWO:
+            printf("The number is two\n");
+            break;
+        case THREE:
+            printf("The number is three\n");
+            break;
+        default:
+            printf("Unknown number\n");
     }
-
+    
     return 0;
 }

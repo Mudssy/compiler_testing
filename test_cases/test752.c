@@ -1,11 +1,15 @@
 
 #include <stdio.h>
 
-__attribute__((destructor)) void on_exit(void) {
-    printf("Destructor attribute feature supported.\n");
+void my_cleanup(void) {
+    printf("Clean up function executed\n");
 }
 
 int main() {
-    printf("Program started.\n");
+    void (*volatile destructor)(void);
+
+    destructor = &my_cleanup;
+    destructor(); // Force the clean-up function to run
+
     return 0;
 }

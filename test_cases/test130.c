@@ -1,12 +1,10 @@
 
 #include <stdio.h>
+#define STATIC_ASSERT(condition) int static_assertion[(condition)?1:-1]
 
-int main(void) {
-    int x = 5;  // replace with your test case values
-    
-    _Static_assert((x == 10), "Value is not correct");
-     
-    printf("The static assert works!\n");
+STATIC_ASSERT(sizeof(int) == 4); // replace this with your feature to be tested
 
+int main() {
+    printf("If you see this message, the compiler supports _Static_assert in the llvmutilscount section.\n");
     return 0;
 }

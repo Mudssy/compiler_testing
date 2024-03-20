@@ -1,14 +1,9 @@
 
 #include <stdio.h>
-
+void foo(int x) {
+  if (x > 0) printf("Hello, World!\n");
+}
 int main() {
-    int x = 10;
-    int y = 20;
-    if (x > y) {
-        int temp = x;
-        x = y;
-        y = temp;
-    }
-    printf("After swapping, x: %d, y: %d\n", x, y);
-    return 0;
+  foo(-1);
+  return 0;
 }

@@ -1,15 +1,12 @@
 
 #include <stdio.h>
-
-typedef int (*function_ptr)(int);
-
-int square(int x) {
-    return x * x;
-}
-
+typedef int (*func_ptr)(int);
+static func_ptr f; // Forward declaration for llvmlibInterfaceStub
 int main() {
-    function_ptr func = square;
-    int result = func(5);
-    printf("The result of the function pointer is: %d\n", result);
-    return 0;
+    if (f == NULL) printf("Function pointer is null\n"); 
+    else printf("Function pointer is not null\n");
+    
+    int result = (*f)(5);
+    printf("Result: %d\n", result);
+    return 0; // Returns without running forever.
 }

@@ -1,13 +1,18 @@
 
 #include <stdio.h>
-#include <stdlib.h>
+#include <unistd.h>
+#include <errno.h>
+#include <string.h>
 
 int main() {
-    FILE *file = fopen("nonexistent_file", "r");
-    if (file == NULL) {
-        perror("Error: Unable to open file");
-        return EXIT_FAILURE;
+    FILE *fp = fopen("nonexistentfile", "r"); // Open a non-existent file
+    
+    if(fp == NULL) {
+        int errnum = errno;
+        fprintf(stderr, "Failed to open the file. Error: %s\n", strerror(errnum));
+        
+        return 1; // Return an error code
     }
-    fclose(file);
-    return 0;
+    
+    return 0; // Return successful exit code
 }

@@ -1,34 +1,15 @@
 
 #include <stdio.h>
 
-__attribute__((returns_nonnull)) int *example(int *ptr) {
-    if (*ptr == 0) {
-        return ptr;
-    }
-    return NULL;
+void foo(char* __attribute__((nonnull)) s) {
+    printf("%s\n", s);
 }
 
 int main() {
-    int a = 10;
-    int b = 0;
-
-    printf("a: %d\n", a);
-    printf("b: %d\n", b);
-
-    int *result_a = example(&a);
-    int *result_b = example(&b);
-
-    if (result_a) {
-        printf("a is non-null: %d\n", *result_a);
-    } else {
-        printf("a is null\n");
-    }
-
-    if (result_b) {
-        printf("b is non-null: %d\n", *result_b);
-    } else {
-        printf("b is null\n");
-    }
+    char *s = NULL;
+    
+    /* The following line will give a compile-time error if the nonnull attribute is not supported. */
+    foo(s); 
 
     return 0;
 }

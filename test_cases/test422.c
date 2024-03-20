@@ -1,15 +1,12 @@
 
 #include <stdio.h>
 
+typedef struct {
+    int x;
+} S;
+
 int main() {
-    int sum = 0;
-    
-    for (int i = 0; i < 5; ++i) {
-        int array[] = {1, 2, 3, 4, 5};
-        sum += ((int []){array[i], i})[i];
-    }
-
-    printf("%d\n", sum);
-
+    S *s = &(S){ .x = 42 };
+    printf("%d\n", s->x);
     return 0;
 }

@@ -1,10 +1,14 @@
 
 #include <stdio.h>
 
-#define PRINT_MESSAGE(x) printf("Message: %s\n", x);
+// Macro definition
+#define MAX(a, b) ((a > b) ? a : b)
 
 int main() {
-    const char* message = "Testing Macros Feature";
-    PRINT_MESSAGE(message)
-    return 0;
+    int x = 10;
+    int y = 20;
+
+    printf("Max between %d and %d is: %d\n", x, y, MAX(x, y));  // Using macro function
+
+    return 0;  // Return statement to avoid infinite looping.
 }

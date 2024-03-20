@@ -1,11 +1,13 @@
 
 #include <stdio.h>
 
+// Comment out this line to disable Rewrite feature
+#pragma Rewrite on
+
 int main() {
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Wunknown-pragmas"
-    #pragma clanglibFrontendRewrite rewrite(true)
-    printf("Header file rewrites feature has been tested successfully.\n");
-    #pragma clang diagnostic pop
+    printf("Hello, world!\n");
     return 0;
 }
+
+// Comment out the following line to see if compiler still understands it
+#define FOO(x) ((x)*2)

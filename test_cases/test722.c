@@ -2,6 +2,10 @@
 #include <stdio.h>
 
 int main() {
-    printf("The llvmlibInterfaceStub feature is working as expected.\n");
-    return 0;
+    int x = 10;
+    
+    printf("Hello, World!\n"); 
+    printf("The value of x is %d\n", x); 
+    
+    return 0; 
 }

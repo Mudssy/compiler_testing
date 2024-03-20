@@ -1,8 +1,11 @@
 
 #include <stdio.h>
 
-int main() {
-    printf("Testing Input/Output Functions (stdio.h) feature for the C programming language.\n");
-    printf("This is a test output.\n");
+int main(void) {
+    int i = 10;
+    float f = 3.14f;
+    char c = 'A';
+    printf("Hello World!\n");
+    printf("%d %f %c\n", i, f, c);
     return 0;
 }

@@ -2,11 +2,10 @@
 #include <stdio.h>
 
 int main() {
-    int x = 0;
-    
+    printf("Executing __builtin_trap().\n");
     __builtin_trap();
     
-    printf("This message should never be printed.\n");
-    
+    // This code will never be reached as the program will terminate above due to trap operation.
+    printf("This line should not be printed because of undefined behavior after using __builtin_trap()!\n");
     return 0;
 }

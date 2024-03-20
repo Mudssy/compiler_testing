@@ -2,13 +2,24 @@
 #include <stdio.h>
 
 int main() {
-    int x = 5;
+    int arr[5] = {10, 20, 30, 40, 50};
     
-    // Declare a pointer to an integer
-    int *p = &x;
+    // Testing pointer to array
+    int* ptr_arr = arr;
+    printf("Pointer to Array: %d\n", *ptr_arr);
 
-    printf("Address of x: %p\n", p);  // Prints the address stored in 'p', which should be same as address of 'x'.
-    printf("Value at address stored in p (i.e., value of x): %d\n", *p);  // Prints the value pointed to by 'p', i.e., the value of 'x'.
-  
+    // Testing pointer arithmetic
+    for(int i=0; i<5; i++) {
+        printf("Array[%d] via Pointer Arithmetic: %d\n", i, *(ptr_arr+i));
+    }
+    
+    // Testing null pointers
+    int* ptr = NULL;
+    if(!ptr) {
+      printf("Null pointer test passed.\n");
+    } else {
+      printf("Null pointer test failed.\n");
+    }
+
     return 0;
 }

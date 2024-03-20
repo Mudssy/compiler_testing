@@ -1,17 +1,14 @@
 
 #include <stdio.h>
 
-// A constexpr function in C++ can be evaluated at compile-time, which can improve performance for certain computations.
-constexpr int square(int x) {
-    return x * x;
-}
-
-// A constexpr variable is a variable that can be evaluated at compile time.
-constexpr int result = square(5);
+// Testing constexpr variables and functions
+constexpr int square(int x) { return x * x; }
 
 int main() {
-    // If constexpr variables and functions are supported, the output should be 25.
-    printf("Result: %d\n", result);
+    // Testing if a variable is constexpr
+    static_assert(square(5) == 25, "Square function should have been calculated at compile time");
     
+    printf("%d\n", square(5));  // Expected output: 25
+  
     return 0;
 }

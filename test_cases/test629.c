@@ -1,17 +1,22 @@
 
 #include <stdio.h>
 
-typedef struct {
-    int x;
-} inner_t;
+struct inner_structure {
+    int a;
+};
 
-typedef struct {
-    inner_t inner_struct;
-    int y;
-} outer_t;
+struct outer_structure {
+    int b;
+    struct inner_structure i;
+};
 
 int main() {
-    outer_t outer_struct = { {10}, 20 };
-    printf("Nested Structures Output: %d, %d\n", outer_struct.inner_struct.x, outer_struct.y);
+    struct inner_structure i = { 42 };
+    struct outer_structure o = { 10, {20} };
+
+    printf("Outer structure: b=%d\n", o.b);
+    printf("Inner structure (through outer): a=%d\n", o.i.a);
+    printf("Directly accessed inner structure: a=%d\n", i.a);
+    
     return 0;
 }

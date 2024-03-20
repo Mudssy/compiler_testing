@@ -1,14 +1,14 @@
 
 #include <stdio.h>
 
-int add(int a, int b) __attribute__((nothrow));
+void func() __attribute__((nothrow));
 
-int add(int a, int b) {
-    return a + b;
-}
-
-int main() {
-    int result = add(5, 7);
-    printf("Result: %d\n", result);
+int main(void) {
+    if (func != 0) {
+        printf("Function is nothrow\n");
+    } else {
+        printf("Function is throw\n");
+    }
+    
     return 0;
 }

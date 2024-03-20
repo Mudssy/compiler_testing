@@ -1,14 +1,10 @@
 
-#include <stdio.h>
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 
-int main() {
-    #pragma clang diagnostic push
-    #pragma clang diagnostic error "-Werror"
-        int x = 5;
-        int y = "test";
-    #pragma clang diagnostic pop
-    
-    printf("Error not triggered.\n");
-    
+__attribute__((error("This function is deprecated"))) 
+void foo(void) {}
+
+int main(void) {
+    foo(); // This will always cause an error to be emitted.
     return 0;
 }

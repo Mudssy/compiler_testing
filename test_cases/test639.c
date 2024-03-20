@@ -1,16 +1,11 @@
 
 #include <stdio.h>
 
-int main() {
-    #ifdef __clang__
-        printf("Clang Compiler detected!\n");
-    #elif defined(__GNUC__)
-        printf("GCC Compiler detected!\n");
-    #elif defined(_MSC_VER)
-        printf("MSVC Compiler detected!\n");
-    #else
-        printf("Unknown Compiler detected!\n");
-    #endif
+// Include our custom header file that defines the macro "MY_NUM"
+#include "custom_header.h"
 
+int main() {
+    printf("The value of MY_NUM is: %d\n", MY_NUM);
+    
     return 0;
 }

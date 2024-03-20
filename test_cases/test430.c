@@ -1,9 +1,13 @@
 
 #include <stdio.h>
 
-int main() {
-    int i = 42;
+struct aligned {
+    char c;
+    int n;
+} __attribute__((aligned(8)));
 
-    printf("The answer to life, the universe, and everything: %d\n", i);
+int main() {
+    printf("Alignment of struct aligned: %zu\n", _Alignof(struct aligned));
+
     return 0;
 }

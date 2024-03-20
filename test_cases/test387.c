@@ -1,15 +1,16 @@
 
 #include <stdio.h>
 
-int main(void) {
+int main() {
     volatile int i = 10;
-    int *ptr = &i;  // Create a pointer to 'volatile' variable
-
+    
+    // This will print "i changed to 20"
     printf("Initial value of i: %d\n", i);
+    
+    // Now let's change the value of i
+    *(volatile int*)&i = 20;
 
-    *ptr = 20;  // Try to modify the value through its pointer
-
-    printf("Modified value of i: %d\n", i);
-
+    printf("i changed to %d\n", i);
+    
     return 0;
 }

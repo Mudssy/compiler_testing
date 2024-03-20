@@ -2,21 +2,21 @@
 #include <stdio.h>
 
 int main() {
-    int i = 5;
-    float f = 3.14f;
-    double d = 3.141592653589793;
-    
-    printf("Size of int: %lu\n", sizeof(i));
-    printf("Size of float: %lu\n", sizeof(f));
-    printf("Size of double: %lu\n", sizeof(d));
+    // Testing Compound Literals
+    struct point { int x; int y; } *p;
+    p = &(struct point){ .x = 1, .y = 2 };
+    printf("Point: (%d, %d)\n", p->x, p->y); // Should print "Point: (1, 2)"
 
-    i = 10;
-    f = 2.71828f;
-    d = 2.718281828459045;
+    // Testing flexible array members
+    int size = 5;
+    struct s {
+        int i;
+        char a[];
+    };
+    struct s *s = malloc(sizeof(struct s) + sizeof(char)*size);
+    for (int i=0; i<size; i++)
+        s->a[i] = 'A'+i; // Should print "ABCDE"
+    printf("Flexible array: %s\n", s->a);
     
-    printf("Value of int after assignment: %d\n", i);
-    printf("Value of float after assignment: %.6f\n", f);
-    printf("Value of double after assignment: %.17f\n", d);
-
     return 0;
 }

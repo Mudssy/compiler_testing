@@ -1,14 +1,12 @@
 
 #include <stdio.h>
 
-int no_sanitize_function(int x) __attribute__((no_sanitize("undefined")));
-
-int no_sanitize_function(int x) {
-    return x * 2;
+void __attribute__((noinline, no_sanitize("memory"))) func(int *p) {
+    printf("%d\n", *p);  // This should not be sanitized by memory sanitizer.
 }
 
 int main() {
-    int result = no_sanitize_function(5);
-    printf("Result: %d\n", result);
-    return 0;
+    int x = 42;
+    func(&x);
+    return 0;   // Make sure the code returns. It will not run forever.
 }

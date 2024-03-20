@@ -1,11 +1,14 @@
 
 #include <stdio.h>
 
-extern int foo(); // function from libfoo.a
-extern void bar(); // function from libbar.a
+// Define a function from an external library.
+void hello_from_library();
 
 int main() {
-    printf("Calling foo: %d\n", foo());
-    printf("Calling bar: ");
-    bar();
+    printf("Inside main, calling hello_from_library:\n");
+    
+    // Call the function from the library.
+    hello_from_library();
+
+    return 0;
 }

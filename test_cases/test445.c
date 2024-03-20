@@ -1,19 +1,16 @@
 
 #include <stdio.h>
 
-union U {
-    int a;
-    float b;
-};
+typedef union {
+  int i;
+  float f;
+} u_t;
 
 int main() {
-    union U u1, u2;
+    u_t u = { .f = 3.14 };
     
-    u1.a = 42;
-    printf("u1: %d\n", u1.a);
-    
-    u2.b = 3.14f;
-    printf("u2: %.2f\n", u2.b);
+    printf("u.i = %d\n", u.i); // Accessing the integer representation of a floating point number
+    printf("u.f = %f\n", u.f); // Directly accessing the float member
     
     return 0;
 }

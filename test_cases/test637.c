@@ -1,11 +1,14 @@
 
 #include <stdio.h>
 
-#define SQUARE(x) ((x) * (x))
-#define PRINT_SQUARE(x) printf("The square of %d is: %d\n", x, SQUARE(x))
+#define MY_MACRO
 
 int main() {
-    int num = 5;
-    PRINT_SQUARE(num);
+    #ifdef MY_MACRO
+        printf("MY_MACRO is defined\n");
+    #else
+        printf("MY_MACRO is not defined\n");
+    #endif
+    
     return 0;
 }
