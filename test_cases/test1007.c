@@ -2,16 +2,19 @@
 #include <stdio.h>
 
 int main() {
-    int a = 10;
-    int *ptr = &a;
-    printf("Initial value of a: %d\n", a);
+    int x = 10;
     
-    (*ptr)++;
-    printf("Value of a after (*ptr)++: %d\n", a);
+    // Test pointer arithmetic
+    int *ptr = &x;
+    printf("Value of ptr before incrementing: %d\n", *ptr);
+    ptr++;  // This might be allowed or not, depending on the compiler
+    printf("Value of ptr after incrementing: %d\n", *ptr);
     
-    int b = 20;
-    ptr = &b;
-    printf("Value of a after reassigning ptr to b: %d\n", a);
+    // Test reference arithmetic
+    int &ref = x;
+    printf("Value of ref before incrementing: %d\n", ref);
+    ref++;  // This might be allowed or not, depending on the compiler
+    printf("Value of ref after incrementing: %d\n", ref);
     
     return 0;
 }

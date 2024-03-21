@@ -1,7 +1,7 @@
 
 #include <stdio.h>
-
 int main() {
-    printf("This is an example of using CHECK directives with regular expressions in FileCheck.\n");
+    printf("Hello, World!");
     return 0;
 }
+// CHECK: Hello, World!

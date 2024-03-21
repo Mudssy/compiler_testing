@@ -1,13 +1,16 @@
 
 #include <stdio.h>
 
-int sum(int a, int b) {
-    return a + b;
+void print_value(int value) {
+    printf("Value: %d\n", value);
 }
 
 int main() {
+    int value = 42;
+    
     // Testing function call arguments breaking feature
-    int result = sum(10, 20, 30); // This should cause an error or warning in the compiler
-    printf("Result: %d\n", result);
+    print_value
+        (value);
+    
     return 0;
 }

@@ -1,13 +1,19 @@
 
 #include <stdio.h>
 
+int __llvm_libc_warning(const char *message, const char *file, unsigned line);
+
 int main() {
-    #ifdef __has_include
-        #if __has_include(<llvmlibRemarks.h>)
-            printf("Compiler supports llvmlibRemarks section.\n");
-        #else
-            printf("Compiler does not support llvmlibRemarks section.\n");
-        #endif
-    #endif
-    return 0;
+    int x = 10; // Change this value to test different cases
+    switch (x) {
+        case 1:
+            printf("Case 1\n");
+            break;
+        case 2:
+            __llvm_libc_warning("This is a warning", __FILE__, __LINE__);
+            break;
+        default:
+            printf("Default case\n");
+    }
+    return 0; // This ensures the program returns and does not run forever
 }

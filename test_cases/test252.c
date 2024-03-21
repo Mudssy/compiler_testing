@@ -1,15 +1,18 @@
 
 #include <stdio.h>
+#include <string.h>
 
-typedef double distance;
-distance operator "" _km(long double d) { return (double)d * 1000; }
-distance operator "" _m(long double m) { return (double)m; }
-distance operator "" _cm(long double c) { return (double)c / 100; }
-distance operator "" _mm(long double mm) { return (double)mm / 1000; }
+// User-defined literals handling (for C++ compatibility)
+long double operator"" _kg(long double x) { return x * 1000; }
+long double operator"" _g( long double x) { return x; }
+long double operator"" _mg(long double x) { return x / 1000; }
 
-int main()
-{
-    distance d = 2.3_km + 5.6_m - 789_cm + 4567_mm;
-    printf("Distance: %f meters\n", d);
+int main() {
+    long double weight_in_kg = 1.0_kg;
+    printf("Weight in kg: %Lf\n", weight_in_kg);
+    
+    long double weight_in_g = 2000.0_mg;
+    printf("Weight in g: %Lf\n", weight_in_g);
+
     return 0;
 }

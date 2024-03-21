@@ -1,8 +1,7 @@
 
 #include <stdio.h>
-
+#define STR_TEST "Test"
 int main() {
-    const char *output = "Hello, World!";
-    printf("%s\n", output);
+    printf("%%t=%s, %%u=<unavailable>\n", STR_TEST);
     return 0;
 }

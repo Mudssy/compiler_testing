@@ -2,13 +2,12 @@
 #include <stdio.h>
 
 int main() {
-    int result = 0;
-
-    for (int i = 0; i < 10; i++) {
-        result += i;
+    for (int i = 0; i < 10; ++i) {
+        if (i % 2 == 0) {
+            printf("Even Number\n");
+        } else {
+            printf("Odd Number\n");
+        }
     }
-
-    printf("Sum of numbers from 0 to 9: %d\n", result);
-
     return 0;
 }

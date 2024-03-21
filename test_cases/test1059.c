@@ -1,15 +1,14 @@
 
 #include <stdio.h>
 
-#define PRINT_ALIGNED(type, value) \
-    printf("%-20s: %p\n", #type, (void *) &value);
-
 int main() {
-    long double a;
-    int b __attribute__((aligned(16)));
-
-    PRINT_ALIGNED(long double, a);
-    PRINT_ALIGNED(int, b);
-
+    struct {
+        char c;
+        int i;
+    } s = {'a', 1};
+    
+    printf("Address of char: %p\n", (void*)&s.c);
+    printf("Address of int: %p\n", (void*)&s.i);
+    
     return 0;
 }

@@ -1,14 +1,18 @@
 
 #include <stdio.h>
 
-// Testing constexpr variables and functions
-constexpr int square(int x) { return x * x; }
+constexpr int factorial(int n) {
+    if (n == 0) {
+        return 1;
+    } else {
+        return n * factorial(n - 1);
+    }
+}
 
 int main() {
-    // Testing if a variable is constexpr
-    static_assert(square(5) == 25, "Square function should have been calculated at compile time");
-    
-    printf("%d\n", square(5));  // Expected output: 25
-  
+    const int a = factorial(5);
+
+    printf("Factorial of 5 is %d\n", a);
+
     return 0;
 }

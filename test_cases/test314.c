@@ -1,14 +1,17 @@
 
-#include <Availability.h>
 #include <stdio.h>
+#include <os/availability.h>
 
-void my_function() __attribute__((availability(macos, introduced=10.14, deprecated=12.0), availability(ios, introduced=13.0, deprecated=15.0)));
+void print_message() {
+    printf("This message is for platforms that support this function.\n");
+}
 
-int main() {
-    if (&my_function != NULL) {
-        printf("Function is available\n");
+int main(void) {
+    if (__builtin_available(macOS 10.15, iOS 13.0, *)) {
+        print_message();
+        return 0;
     } else {
-        printf("Function is not available\n");
+        printf("This platform does not support this feature.\n");
+        return -1;
     }
-    return 0;
 }

@@ -1,7 +1,11 @@
 
 #include <stdio.h>
 
-int main() {
-    printf("Testing space after template keyword feature in C program.\n");
+int main(void) {
+    int i = 0;
+
+    if (i == 0) printf("Space after template keyword not supported\n");
+     else      printf("Space after template keyword supported\n");
+
     return 0;
 }

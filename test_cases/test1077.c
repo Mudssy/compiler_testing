@@ -1,14 +1,13 @@
 
 #include <stdio.h>
 
-int add(int a, int b);
-
-int main() {
-    int result = add(5, 3);
-    printf("The sum of 5 and 3 is: %d\n", result);
-    return 0;
+void foo(int x,
+    int y) // this breaks the function definition after the type
+{
+    printf("%d %d\n", x, y);
 }
 
-int add(int a, int b) {
-    return a + b;
+int main() {
+    foo(10, 20); // prints "10 20"
+    return 0;
 }

@@ -1,12 +1,15 @@
 
 #include <stdio.h>
 
-int sum(int a, int b) {
-    return a + b;
+void func() {
+    printf("Test\n");
 }
 
 int main() {
-    int result = sum(10, 20);
-    printf("The sum is: %d\n", result);
+    func (); //This line tests the space before parentheses feature
+    
+    if(printf("Success\n")) {} //If this line runs without crashing, spaces are allowed 
+    else printf("Failure\n"); 
+                      
     return 0;
 }

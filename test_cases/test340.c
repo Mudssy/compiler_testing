@@ -1,32 +1,39 @@
 
 #include <stdio.h>
-#include <immintrin.h>  // for llvm_utils shuffles
+#include <time.h>
+#include <assert.h>
+#include <stdlib.h>
 
-void printArr(int *arr, int size) {
-    printf("[");
-    for (int i = 0; i < size; ++i) {
-        printf("%d", arr[i]);
-        if (i + 1 != size) {
-            printf(", ");
+void shuffle(int *array, size_t n) {
+    if (n > 1) {
+        for (size_t i = 0; i < n - 1; ++i) {
+            size_t j = i + rand() / (RAND_MAX / (n - i) + 1);
+            int t = array[j];
+            array[j] = array[i];
+            array[i] = t;
         }
     }
-    printf("]\n");
 }
 
-void testShuffle() {
-    const int size = 8;
-    int arr[] = {0, 1, 2, 3, 4, 5, 6, 7};
+int main(void) {
+    srand((unsigned int) time(NULL));
     
-    printf("Before shuffling: ");
-    printArr(arr, size);
+    size_t n = 10;
+    int *array = malloc(n * sizeof(*array));
+    assert(array != NULL);
+
+    for (size_t i = 0; i < n; ++i) {
+        array[i] = i + 1;
+    }
+
+    shuffle(array, n);
     
-    llvmutilsPerfectShuffle(arr, sizeof(int) * size);
-
-    printf("After shuffling: ");
-    printArr(arr, size);
-}
-
-int main() {
-    testShuffle();
+    printf("Shuffled Array: ");
+    for (size_t i = 0; i < n; ++i) {
+        printf("%d ", array[i]);
+    }
+    printf("\n");
+  
+    free(array);
     return 0;
 }

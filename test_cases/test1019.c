@@ -1,18 +1,27 @@
 
 #include <stdio.h>
 
-typedef struct {
-    int a;
-    int b;
-} MyStruct;
+typedef struct 
+{
+    int x;
+    int y;
+} Point;
 
-MyStruct myFunc(void) {
-    MyStruct obj = {1, 2};
-    return obj;
+Point createPoint(int x, int y)
+{
+    return (Point){x, y}; // Initializer list breaking feature test
 }
 
-int main() {
-    MyStruct obj2 = myFunc();
-    printf("Values of obj2: a=%d, b=%d\n", obj2.a, obj2.b);
+void printCoordinates(Point pt)
+{
+    printf("X: %d\n", pt.x);
+    printf("Y: %d\n", pt.y);
+}
+
+int main() 
+{
+    Point point = createPoint(5, 10); // Create a new point
+    printCoordinates(point); // Print the coordinates of the point
+  
     return 0;
 }

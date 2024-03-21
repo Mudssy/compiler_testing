@@ -1,15 +1,11 @@
 
 #include <stdio.h>
 
-struct TestStruct {
-    int a;
-    int b;
-};
-
 int main() {
-    struct TestStruct ts = { .b = 2, .a = 1 };
-    
-    printf("ts.a: %d\n", ts.a);
-    printf("ts.b: %d\n", ts.b);
+    // This is a designated initializer example from C99 standard.
+    struct { int x; char c; } s = { .x = 10, .c = 'a' };
+
+    printf("Designated Initializers: %d %c\n", s.x, s.c);
+
     return 0;
 }

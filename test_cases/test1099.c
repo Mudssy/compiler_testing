@@ -1,17 +1,19 @@
 
-#include <stdio.h>
+#include<stdio.h>
 
-typedef struct {
-    int x;
-    float y;
-} MyStruct;
+typedef int MyInt;
+typedef char* MyString;
+
+void printMyType(MyInt i, MyString s) {
+    printf("Integer is %d\n", i);
+    printf("String is %s\n", s);
+}
 
 int main() {
-    MyStruct my_struct;
-    my_struct.x = 10;
-    my_struct.y = 20.5;
-
-    printf("my_struct.x: %d, my_struct.y: %.1f\n", my_struct.x, my_struct.y);
-
+    MyInt my_int = 10;
+    MyString my_string = "Hello World";
+    
+    printMyType(my_int, my_string);
+    
     return 0;
 }

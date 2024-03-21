@@ -1,13 +1,14 @@
 
 #include <stdio.h>
+#include <inttypes.h>
 
-int main(void) {
-    printf("Start of main function.\n");
-    int x = 5;
-    #pragma clang diagnostic push
-    #pragma clang diagnostic remark "llvmlibRemarks" "Value of x is:"
-    printf("%d\n", x);
-    #pragma clang diagnostic pop
-    printf("End of main function.\n");
+void __attribute__((noinline)) report(const char *message, int line) {
+    printf("%s (line %d)\n", message, line);
+}
+
+int main() {
+    void *address = __builtin_return_address(0);
+    report("Return address is", __LINE__);
+    printf("%p\n", address);
     return 0;
 }

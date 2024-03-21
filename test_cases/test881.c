@@ -1,7 +1,6 @@
 
 #include <stdio.h>
-
 int main() {
-    printf("Testing llvmlibRemarks feature.\n");
+    printf("Source file name: %s\n", __FILE__);
     return 0;
 }

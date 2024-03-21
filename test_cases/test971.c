@@ -1,13 +1,11 @@
 
 #include <stdio.h>
 
+void uncalledFunction() {
+    printf("This function will not be called but the compiler should optimize it away.\n");
+}
+
 int main() {
-    int x = 0;
-    if (x) {
-        printf("Dead code path executed.\n");
-    } else {
-        printf("Live code path executed.\n");
-    }
-    
+    printf("Hello, World!\n");
     return 0;
 }

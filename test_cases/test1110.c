@@ -2,9 +2,10 @@
 #include <stdio.h>
 
 int main() {
-    int a = 5;
-    int b = 10;
-    const char* output = (a > b) ? "a is greater than b" : "b is greater or equal to a";
-    printf("%s\n", output);
+    int a = 10, b = 20;
+    
+    (a > b) ? printf("True\n") : printf("False\n"); // this will print "False" 
+    (a < b) ? printf("True\n") : printf("False\n"); // this will print "True" 
+    
     return 0;
 }

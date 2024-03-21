@@ -1,9 +1,10 @@
 
 #include <stdio.h>
 
-int globalVar = 42;
-
 int main() {
-    printf("The value of globalVar is: %d\n", globalVar);
+    int global_var = 42;
+    
+    printf("%d\n", global_var);
+
     return 0;
 }

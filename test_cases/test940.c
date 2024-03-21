@@ -1,8 +1,11 @@
 
+#include <assert.h>
 #include <stdio.h>
 
 int main() {
-    int x = 5;
-    printf("The variable x is: %d\n", x);
+    int x = 10;
+    printf("x: %d\n", x);
+    
+    // The CHECK directive will verify if "x: 10" is in the output of this program.
     return 0;
 }

@@ -1,9 +1,15 @@
 
 #include <stdio.h>
+#include <llvm/Remarks/RemarkFormat.h> // include necessary header files
 
 int main() {
-    #pragma optimization_id("llvmlibRemarks")
-    int x = 5;
-    printf("The value of x is: %d\n", x);
-    return 0;
+    const char *RemarkFormat = llvm::remarks::getYAMLRemarksVersionString(); // try to get remark format
+    
+    if (RemarkFormat != NULL) {  // feature is available
+        printf("Hello World\n");
+    } else {                    // feature not available
+        printf("Feature not available\n");
+    }
+
+    return 0;                   // make sure it returns
 }

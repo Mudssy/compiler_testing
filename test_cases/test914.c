@@ -1,24 +1,29 @@
 
 #include <stdio.h>
+#include <string.h>
 
-int main() {
-    int a = 10;
-    int b = 20;
-    int max;
+extern void *llvmlibc_test(void);
 
-#ifdef __OPTIMIZE__
-    // This section is only compiled when the compiler is asked to optimize the code.
-    // The following remark is in LLVM format, and will be recognized by compilers that use LLVM for their backend:
-    // Expected output when remarks are emitted: "Optimizing code"
-    __asm__("; <remarks>:1:1: remark: Optimizing code");
-#endif
-
-    if (a > b) {
-        max = a;
+int main(void) {
+    const char *remarks;
+    
+    // Call a function from libremar
+    llvmlibc_test();
+    
+    remarks = __llvm_libc_getRemarks();
+    
+    if (remarks == NULL) {
+        printf("No remarks provided.\n");
     } else {
-        max = b;
+        size_t len = strlen(remarks);
+        
+        // Print out each character in the remarks string.
+        for (size_t i = 0; i < len; ++i) {
+            putchar(remarks[i]);
+        }
+        
+        putchar('\n');
     }
-
-    printf("The maximum value is %d\n", max);
+    
     return 0;
 }

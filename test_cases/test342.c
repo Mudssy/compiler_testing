@@ -1,18 +1,18 @@
 
 #include <stdio.h>
-#define SHUFFLE2(a, b) __builtin_shuffle((vector unsigned int){0, 1}, (vector unsigned int){a, b})
-#define SHUFFLE4(a, b, c, d) __builtin_shuffle((vector unsigned int){0, 1, 2, 3}, (vector unsigned int){a, b, c, d})
+#include <immintrin.h> // For __m256i and _mm256_permute_epi32 intrinsic
 
 int main() {
-    vector unsigned int v = (vector unsigned int){1, 2, 3, 4};
+    int originalNumber = 0xF0;  // Binary: 11110000
     
-    // Testing SHUFFLE2.
-    v = SHUFFLE2(v, 0);
-    printf("SHUFFLE2: {%d, %d}\n", v[0], v[1]);
-
-    // Testing SHUFFLE4.
-    v = SHUFFLE4(v, 3, 2, 1);
-    printf("SHUFFLE4: {%d, %d, %d, %d}\n", v[0], v[1], v[2], v[3]);
+    __m256i originalVector = _mm256_set1_epi8(originalNumber);
+    
+    __m256i shiftedVector = _mm256_permute_epi32(originalVector, 0b00111000); // Rotate right by 1 bit
+    
+    int result = _mm256_extract_epi8(shiftedVector, 0); // Extract the first byte which is now after rotation
+    
+    printf("Original number: %x\n", originalNumber);
+    printf("After right shift by one bit: %x\n", result);
     
     return 0;
 }

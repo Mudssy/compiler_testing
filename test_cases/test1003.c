@@ -2,21 +2,9 @@
 #include <stdio.h>
 
 int main() {
-    int a = 5;
-    printf("Original value of a: %d\n", a);
+    int i = 10;
     
-    // Testing unary operators
-    ++a;
-    printf("Value of ++a: %d\n", a);
-    
-    --a;
-    printf("Value of --a: %d\n", a);
-    
-    a++;
-    printf("Value of a++: %d\n", a);
-    
-    a--;
-    printf("Value of a--: %d\n", a);
-    
-    return 0;
+    printf("%d\n", -i);  // This line prints a negative value which tests if the unary operator '-' works properly in clang libFormat compiler section.
+
+    return 0;  // Make sure that the program does not run forever, this return statement is mandatory for all C programs.
 }

@@ -2,13 +2,10 @@
 #include <stdio.h>
 
 int main() {
-    int a = 10;
-    int b = 5 ;
-
-    printf("a + b = %d\n", a+b);
-    printf("a - b = %d\n", a-b);
-    printf("a * b = %d\n", a*b);
-    printf("a / b = %d\n", a/b);
+    int a = 2;
+    int b = 3;
     
+    printf("No spaces: %d\n", a+b);      // no spaces around operator '+'
+    printf("Spaces: %d\n", a + b);      // spaces around operator '+'
     return 0;
 }

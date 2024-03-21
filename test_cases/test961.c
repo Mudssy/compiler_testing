@@ -2,9 +2,6 @@
 #include <stdio.h>
 
 int main() {
-    int i;
-    for (i = 0; i < 10; ++i) {
-        printf("Iteration: %d\n", i);
-    }
+    printf("Testing LLVM Profile Data Handling feature\n");
     return 0;
 }

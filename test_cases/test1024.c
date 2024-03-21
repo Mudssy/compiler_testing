@@ -1,9 +1,9 @@
 
 #include <stdio.h>
 
-#define OUTPUT "This is a test output for clanglibFormat section of the compiler."
+#define PREFIX "Hello"
 
-int main() {
-    printf("%s\n", OUTPUT);
+int main(void) {
+    printf("%s, world!\n", PREFIX);
     return 0;
 }

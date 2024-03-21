@@ -2,14 +2,9 @@
 #include <stdio.h>
 
 int main() {
-    int a = 5;
-    int b = 10;
-
-    auto add = [=](int x) -> int { return x + a; };
-    auto subtract = [&](int x) -> int { return x - b; };
-
-    printf("Add: %d\n", add(3));
-    printf("Subtract: %d\n", subtract(8));
-
+    int a = 10;
+    auto increment_and_print = [a] () mutable { printf("%d\n", ++a); };
+    for(int i=0;i<5;++i)
+        increment_and_print();
     return 0;
 }

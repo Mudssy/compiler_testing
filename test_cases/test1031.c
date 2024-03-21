@@ -1,22 +1,22 @@
 
 #include <stdio.h>
 
+typedef struct {
+    int x;
+} Point;
+
+Point make_point(int x) {
+    Point p = {x};
+    return p;
+}
+
+void print_point(Point *p) {
+    printf("Point: (%d)\n", p->x);
+}
+
 int main() {
-    int result = 0;
-
-    /* Test for brace wrapping in a class-like structure */
-    typedef struct _TestStruct {
-        int x;
-    } TestStruct;
-
-    TestStruct test_instance = {0};
-
-    if (test_instance.x == 0) {
-        result += 1;
-    }
-
-    /* Print the result to stdout */
-    printf("Test Result: %d\n", result);
-
+    Point myPoint = make_point(10);
+    print_point(&myPoint);
+    
     return 0;
 }

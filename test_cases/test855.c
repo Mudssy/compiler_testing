@@ -1,17 +1,26 @@
 
 #include <stdio.h>
 
+int vla_sum(size_t n, int arr[n]) {
+    int sum = 0;
+    for (size_t i = 0; i < n; ++i) {
+        sum += arr[i];
+    }
+    return sum;
+}
+
 int main() {
-    int n = 10;
-    int arr[n];
+    size_t size;
+    printf("Enter the number of elements you want to store: ");
+    scanf("%zu", &size);
     
-    for (int i = 0; i < n; ++i) {
-        arr[i] = i * 2;
+    int array[size];  // VLA
+    printf("Enter %zu integers: ", size);
+    for (size_t i = 0; i < size; ++i) {
+        scanf("%d", &array[i]);
     }
     
-    for (int i = 0; i < n; ++i) {
-        printf("arr[%d] = %d\n", i, arr[i]);
-    }
+    printf("Sum = %d\n", vla_sum(size, array));
     
     return 0;
 }

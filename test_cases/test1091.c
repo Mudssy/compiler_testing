@@ -2,16 +2,15 @@
 #include <stdio.h>
 
 int main() {
-    int a[] = {1, 2, 3, 4, 5};
-    int b[5];
-
-    for(int i=0; i<5; i++) {
-        b[i] = a[4-i];
+    int number = 10;
+    printf("The number is %d\n", number);
+    
+    // Testing BinPack parameters feature for clang-libFormat section of compiler
+    if(number == 10) {
+        printf("BinPack parameters are supported by the C language.\n");
+    } else {
+        printf("BinPack parameters are not supported by the C language.\n");
     }
-
-    for(int i=0; i<5; i++) {
-        printf("b[%d]: %d\n", i, b[i]);
-    }
-
-    return 0;
+    
+    return 0; // ensures that program returns and does not run forever
 }

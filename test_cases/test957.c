@@ -1,16 +1,14 @@
 
 #include <stdio.h>
 
-int main() {
-    int a = 10;
-    int b = 20;
-    int result = __builtin_add_overflow(a, b, &result);
-
-    if (result) {
-        printf("Addition of %d and %d results in overflow.\n", a, b);
-    } else {
-        printf("Addition of %d and %d is %d\n", a, b, result);
-    }
-
+int main(void) {
+    int x = 10;
+    printf("The value of x is: %d\n", x);
+    
+    /* This block of code represents an example of LLVM IR asm code */
+    __asm__(".globl my_function\n"
+            "my_function:\n"
+            "movl $1,%%eax\n"
+            "ret\n");
     return 0;
 }

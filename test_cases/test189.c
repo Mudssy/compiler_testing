@@ -1,10 +1,13 @@
 
 #include <stdio.h>
 
+inline void foo() {
+    printf("Inline function\n");
+}
+
 int main() {
-    extern __inline int var1; // Declare inline variable var1
-    
-    printf("Value of var1: %d\n", var1); // Print the value of var1
-    
-    return 0; // Ends program and returns 0 to indicate it ran successfully
+    inline int bar = 10; // Testing inline variable
+    printf("%d\n", bar); // Expected output: 10
+    foo();                // Expected output: "Inline function"
+    return 0;             // End of program and return control to the system.
 }

@@ -3,9 +3,22 @@
 #include <stdatomic.h>
 
 int main() {
-    _Atomic int counter = 0;
-    printf("Before increment: %d\n", atomic_load(&counter));
-    atomic_fetch_add(&counter, 1);
-    printf("After increment: %d\n", atomic_load(&counter));
+    _Atomic(int) atomicInt = ATOMIC_VAR_INIT(5);
+    
+    printf("Initial value: %d\n", atomicInt);
+    
+    int expected = 5;
+    if (atomic_compare_exchange_strong(&atomicInt, &expected, 10)) {
+        printf("Successfully replaced the value with 10.\n");
+    } else {
+        printf("Failed to replace the value. Current value: %d\n", atomicInt);
+    }
+    
+    if (atomic_compare_exchange_strong(&atomicInt, &expected, 20)) {
+        printf("Successfully replaced the value with 20.\n");
+    } else {
+        printf("Failed to replace the value. Current value: %d\n", atomicInt);
+    }
+    
     return 0;
 }

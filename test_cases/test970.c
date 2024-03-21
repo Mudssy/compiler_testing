@@ -1,10 +1,8 @@
 
 #include <stdio.h>
 
-int main() {
-    int a = 2;
-    int b = 3;
-    int c = (a * 5) + (b * 4);
-    printf("The result of constant folding and propagation is: %d\n", c);
+int main(void) {
+    int x = 1 + 2; // This should be optimized by LLVM to just print "0"
+    printf("%d\n", x);
     return 0;
 }

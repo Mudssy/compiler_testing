@@ -1,12 +1,10 @@
 
-#include <stdio.h>
+#ifdef _MSC_VER
+    #define EXPORT __declspec(dllexport)
+#else
+    #define EXPORT 
+#endif
 
-int __declspec(dllexport) my_function() {
-    printf("Hello from my_function!\n");
-    return 0;
-}
-
-int main() {
-    my_function();
-    return 0;
+EXPORT int main() {
+    return 0; // Program always returns normally.
 }

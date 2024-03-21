@@ -1,9 +1,11 @@
 
 #include <stdio.h>
 
+int add(int a, int b) {
+    return a + b;
+}
+
 int main() {
-    int x = 5;
-    int y = 10;
-    printf("The sum of %d and %d is %d\n", x, y, x + y);
+    printf("The result of adding 5 and 3 is: %d\n", add(5, 3));
     return 0;
 }

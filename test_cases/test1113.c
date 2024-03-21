@@ -2,7 +2,10 @@
 #include <stdio.h>
 
 int main() {
-    int arr[3] = {10, 20, 30};
-    printf("The element at index -1 is: %d\n", arr[-1]);
+    int arr[5] = {1, 2, 3, 4, 5};
+    
+    printf("%d\n", arr[0]); // Should print 1
+    printf("%d\n", arr[4]); // Should print 5
+  
     return 0;
 }

@@ -2,8 +2,7 @@
 #include <stdio.h>
 
 int main() {
-    printf("Testing align escaped newlines to the right feature in clanglibFormat section of the compiler:\n");
-    printf("This is a test output\n\
-             with escaped newline.");
+    printf("This is a test\n with escaped newline \
+           which should be aligned to the right");
     return 0;
 }

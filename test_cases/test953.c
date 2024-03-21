@@ -1,8 +1,8 @@
 
 #include <stdio.h>
-int main() {
-    int x = 10;
-    int y = 5;
-    printf("The result of addition is: %d\n", x + y);
+#include <limits.h>
+int main(void) {
+    int x = INT_MIN;
+    printf("%d is %s\n", x, (x & (1 << ((sizeof(int)*CHAR_BIT) - 1))) ? "signed" : "unsigned");
     return 0;
 }

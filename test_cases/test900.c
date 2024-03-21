@@ -1,20 +1,27 @@
 
 #include <stdio.h>
+#include <xmmintrin.h>  // SSE Intrinsics
 
-int main() {
-    int i;
-    double result[4] = {0};
-    double a[4] = {1, 2, 3, 4};
-    double b[4] = {5, 6, 7, 8};
-
-#pragma clang loop vectorize(enable) interleave_count(4)
-    for (i = 0; i < 4; ++i) {
-        result[i] = a[i] * b[i];
+void compute_sum(float *a, float *b, int size) {
+    __m128 sum = _mm_setzero_ps();  // Initialize the sum vector to zero
+    
+    for (int i = 0; i < size; i += 4) {  // SIMD loop unrolling
+        __m128 data = _mm_loadu_ps(&a[i]);  // Load chunk of data into a SIMD register
+        
+        sum = _mm_add_ps(sum, data);  // Add the data to the sum
     }
     
-    printf("Vectorized and loop transformed output: ");
-    for (i = 0; i < 4; ++i) {
-        printf("%f ", result[i]);
+    _mm_storeu_ps(b, sum);  // Store the final result back in b[]
+}
+
+int main() {
+    float a[4] = {1.0f, 2.0f, 3.0f, 4.0f};
+    float b[4];
+    
+    compute_sum(a, b, sizeof(a)/sizeof(float));
+    
+    for (int i = 0; i < sizeof(b)/sizeof(float); i++) {
+        printf("%f\n", b[i]);  // Should print "10.0"
     }
     
     return 0;

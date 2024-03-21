@@ -1,13 +1,13 @@
 
 #include <stdio.h>
 
+typedef struct {
+    char c;   // sizeof 1 byte
+              // padding added to align int on 4 bytes boundary
+    int i;    
+} MyStruct;   // total size should be 8 bytes on a 32-bit system
+              
 int main() {
-    int a = 10;
-    int b = 20;
-    int c = 30;
-
-    a, b, c = 50, 60, 70;
-
-    printf("a: %d, b: %d, c: %d\n", a, b, c);
+    printf("Size of MyStruct: %lu\n", sizeof(MyStruct));
     return 0;
 }

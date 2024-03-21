@@ -1,30 +1,14 @@
 
 #include <stdio.h>
 
-int firstFunction(int a, int b) {
-    return a * b;
-}
+int foo(void);
+int bar(void);
 
-int secondFunction(int a, int b) {
-    return a / b;
-}
-
-void thirdFunction(int a, int b) {
-    if (a > b) {
-        firstFunction(a, b);
-    } else {
-        secondFunction(a, b);
-    }
-}
-
-int main() {
-    int result1 = firstFunction(5, 3);
-    int result2 = secondFunction(6, 2);
+int main(void) {
+    int result = 0;
     
-    printf("Result of first function: %d\n", result1);
-    printf("Result of second function: %d\n", result2);
+    // Code to be tested goes here
 
-    thirdFunction(result1, result2);
-
+    printf("%d\n", result);
     return 0;
 }

@@ -3,15 +3,11 @@
 
 typedef struct {
     int x;
-} ClassName;
-
-void functionName(ClassName *obj) {
-    printf("Class declaration and function call are working correctly.\n");
-}
+} MyClass;
 
 int main() {
-    ClassName obj;
-    obj.x = 10;
-    functionName(&obj);
-    return 0;
+    MyClass myObject = { .x = 10 };
+    printf("The value of x is: %d\n", myObject.x);
+    
+    return 0; // This line ensures the program does not run forever, returning control to the operating system.
 }

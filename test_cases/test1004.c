@@ -1,16 +1,10 @@
 
 #include <stdio.h>
 
-int main() {
-    int a = 10;
-    int b = 5;
+int main(void) {
+    int x = 0;
+    x += 1;  // This is equivalent to `x = x + 1`
+    printf("%d\n", x);
     
-    printf("Before assignment: a = %d, b = %d\n", a, b);
-    
-    a += b; // Using the assignment operator with '+='
-    b -= a; // Using the assignment operator with '-='
-
-    printf("After assignment: a = %d, b = %d\n", a, b);
-
     return 0;
 }

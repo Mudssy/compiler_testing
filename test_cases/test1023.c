@@ -1,15 +1,13 @@
 
 #include <stdio.h>
 
-#define CONCAT(a, b) a ## b
-#define EXPAND_CONCAT(a, b) CONCAT(a, b)
-
-#define VARIABLE_NAME_EXPANSION_TEST EXPAND_CONCAT(testVar_, __LINE__)
+#define MULTIPLY(a, b) a*b
 
 int main() {
-    int VARIABLE_NAME_EXPANSION_TEST = 42;
-
-    printf("The value of the variable with expanded name is: %d\n", VARIABLE_NAME_EXPANSION_TEST);
-
+    int x = 10;
+    int y = MULTIPLY(x+5, x);  // This should be broken into x+5*x by clang-format
+    
+    printf("Result: %d\n", y);
+    
     return 0;
 }

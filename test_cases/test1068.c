@@ -2,10 +2,13 @@
 #include <stdio.h>
 
 int main() {
-    int a = 10;
-    int b = 20;
+    int x = 10;
+    int y = 20;
     
-    (a > b) ? printf("a is greater than b\n") : printf("b is greater or equal to a\n");
+    // Ternary operator with break after it in a statement.
+    (x > y ? x  /* Breaking here */: y);
+    
+    printf("This code compiles and runs successfully.\n");
 
     return 0;
 }

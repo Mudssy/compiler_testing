@@ -2,14 +2,14 @@
 #include <stdio.h>
 
 int main() {
-    int a = 10;
-    switch (a) {
-        case 5:
-            printf("a is equal to 5\n");
-            break;
-        default:
-            printf("a is not equal to 5\n");
-            break;
+    int i = 0;
+
+    while (1) {
+        i = i + 1;
+        if (i > 5) break;
     }
+
+    printf(i == 6 ? "Success\n" : "Failure\n");
+
     return 0;
 }

@@ -1,9 +1,22 @@
+pp
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
-#include <stdio.h>
+template<typename T>
+void print_vec(const std::vector<T>& vec) {
+    for (const auto& elem : vec) {
+        std::cout << elem << " ";
+    }
+    std::cout << "\n";
+}
 
 int main() {
-    int x = 42;
-    printf("Output based on template declaration breaking feature for the clanglibFormat section of the compiler:\n");
-    printf("Value of x: %d\n", x);
+    std::vector<int> ints = {5, 10, 15};
+    print_vec(ints);
+
+    std::vector<double> doubles = {2.71828, 3.14159, 1.61803};
+    print_vec(doubles);
+
     return 0;
 }

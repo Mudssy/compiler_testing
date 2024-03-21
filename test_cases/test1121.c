@@ -1,19 +1,17 @@
 
 #include <stdio.h>
 
-typedef struct {
-    int x;
-    float y;
-    char z;
-} TestStruct;
+struct {
+    int a;
+    char b[10];
+} my_struct = { .a = 5, .b = "Hello" }; // designated initializer
 
 int main() {
-    TestStruct t = { .z = 'A', .y = 3.14, .x = 42 };
-
-    printf("TestStruct:\n");
-    printf("  x: %d\n", t.x);
-    printf("  y: %f\n", t.y);
-    printf("  z: %c\n", t.z);
-
-    return 0;
+    if (my_struct.a == 5 && !strcmp(my_struct.b, "Hello")) {
+        printf("Designated Initializers Passed\n");
+    } else {
+        printf("Designated Initializers Failed\n");
+    }
+    
+    return 0; // Make sure the test case returns and doesn't run forever
 }

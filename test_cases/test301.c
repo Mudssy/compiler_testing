@@ -1,17 +1,24 @@
 
 #include <stdio.h>
+#define ASM_BLOCK(...) __asm__ (__VA_ARGS__)
 
 int main() {
-    int result;
+    int x = 10;
+    int y = 20;
     
-    __asm__("movl $3, %eax;"   // Move immediate value 3 to register EAX
-            "movl $4, %ecx;"   // Move immediate value 4 to register ECX
-            "addl %ecx, %eax;" // Add value in ECX to EAX (result is stored in EAX)
-            :"=a"(result)      // Output operand: result = EAX
-            :                 // Input operands: none
-            :"%eax", "%ecx");  // Clobbered registers: EAX, ECX
+    printf("Before the inline asm block:\n");
+    printf("x = %d, y = %d\n", x, y);
     
-    printf("The result is %d\n", result);
+    ASM_BLOCK(
+        "movl $30, %%eax;"
+        "movl %%eax, %[result];"
+        : [result] "=r"(x)  // output operand
+        ::               // input operands: none
+        : "%eax"          // clobbered registers
+    );
+    
+    printf("After the inline asm block:\n");
+    printf("x = %d, y = %d\n", x, y);
     
     return 0;
 }

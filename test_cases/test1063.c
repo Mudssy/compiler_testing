@@ -1,13 +1,15 @@
 
 #include <stdio.h>
 
-void function() {
-    printf("This is a function without braces.\n");
-    return;
+void foo() {
+    printf("Inside foo\n");
 }
 
 int main() {
-    function();
-    printf("Braces test passed!\n");
-    return 0;
+    if (1)
+        foo();
+    else {
+        printf("Not inside foo\n");
+        return 0;
+    }
 }

@@ -1,9 +1,17 @@
 
 #include <stdio.h>
+#define STRINGIFY(x) #x
+#define TOSTRING(x) STRINGIFY(x)
 
 int main() {
-    printf("This program tests the CHECK directive feature of the C programming language's FileCheck utility.\n");
-    printf("Here is an example of a string that matches the regular expression: '(hello) \\1'\n");
-    printf("The back-reference '\\1' refers to the first captured group, which in this case is 'hello'.\n");
+    int a = 5;
+    printf("a=%d\n", a);  // CHECK: a={{[0-9]+}}
+  
+    float b = 3.14;
+    printf("b=%f\n", b);  // CHECK: b={{3.14[0-9]*}}
+    
+    char c = 'X';
+    printf("c=%c\n", c);  // CHECK: c=X
+  
     return 0;
 }

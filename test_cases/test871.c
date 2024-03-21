@@ -1,12 +1,26 @@
 
 #include <stdio.h>
-
+#include <llvm-c/Remarks.h>  // Make sure the header file is included correctly for your system
+ 
 int main() {
-    #pragma clang diagnostic push
-    #pragma clang diagnostic error "-Wunknown-pragmas"
-        #pragma llvm lib="llvm.remarks"
-    #pragma clang diagnostic pop
-
-    printf("Error feature for the C programming language and llvmlibRemarks section of the compiler has been tested.\n");
+    int value = 0;
+    llvm::remarks::RemarkStringTableRef Remarks;
+    
+    if (__builtin_expect(value == 1, 1)) {
+        printf("Value is likely to be 1\n");
+        
+        char *remarkBuffer = malloc(256);
+        sprintf(remarkBuffer, "Value was %d", value);
+    
+        Remarks.push_back(remarkBuffer); // This will fail because the API is not correct
+    } else {
+        printf("Value is likely to be 0\n");
+        
+        char *remarkBuffer = malloc(256);
+        sprintf(remarkBuffer, "Value was %d", value);
+    
+        Remarks.push_back(remarkBuffer); // This will fail because the API is not correct
+    }
+  
     return 0;
 }

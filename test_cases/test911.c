@@ -1,18 +1,12 @@
 
 #include <stdio.h>
+#include <llvm-c/Remarks.h> // assuming llvm-c is available for Remarks support
 
 int main() {
-    int a = 10;
-    int b = 20;
-    int max;
-
-    if (a > b) {
-        max = a;
-    } else {
-        max = b;
-    }
-
-    printf("The maximum value is: %d\n", max);
-
+    char PassID[] = "Test";
+    remarks::createPassed(remarks::passArg("test"), PassID);
+    
+    printf("Hello, world!\n");
+    
     return 0;
 }

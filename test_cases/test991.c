@@ -1,17 +1,15 @@
 
 #include <stdio.h>
 
-int add(int a, int b) {
-    int result;
-    result = a + b;
-    return result;
-}
+#define ARRAY_SIZE 1024
 
 int main() {
-    int x, y, z;
-    x = 5;
-    y = 3;
-    z = add(x, y);
-    printf("The sum of %d and %d is: %d\n", x, y, z);
+    int array[ARRAY_SIZE];
+    
+    // Initialize the array using a loop that contains multiple iterations
+    for (int i = 0; i < ARRAY_SIZE; ++i) {
+        array[i] = i * 2;
+    }
+
     return 0;
 }

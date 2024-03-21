@@ -1,16 +1,22 @@
 
 #include <stdio.h>
+#include <cpuid.h>
 
-int main() {
-    int a = 10;
-    int b = 20;
+int main(void) {
+    unsigned int eax, ebx, ecx, edx;
     
-    if (a > 5) {
-        b += a;
-    } else {
-        b -= a;
+    if (__get_cpuid(1, &eax, &ebx, &ecx, &edx)) {
+        printf("CPUID supported\n");
+        
+        // Check for SSE2 support
+        if ((edx & bit_SSE2) == bit_SSE2)
+            printf("SSE2 support detected\n");
+        else
+            printf("No SSE2 support detected\n");
+    } 
+    else {
+        printf("CPUID not supported");
     }
     
-    printf("The result is: %d\n", b);
     return 0;
 }

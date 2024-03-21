@@ -2,12 +2,13 @@
 #include <stdio.h>
 
 int main() {
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Wunused-variable"
-        int unused_variable = 0; // This variable will be ignored due to the remark
-    #pragma clang diagnostic pop
+    __builtin_expect(1, 0); // Disable remark.
     
-    printf("Remarks Enabling and Disabling Controls feature test successful.\n");
-    
-    return 0;
+    printf("This output should not have a remark.\n");
+
+    __builtin_expect(0, 1); // Enable remark.
+
+    printf("This output should have a remark.\n");
+
+    return 0; // Main function must always return to avoid infinite loops or segfaults.
 }

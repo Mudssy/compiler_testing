@@ -1,10 +1,13 @@
 
 #include <stdio.h>
 
-int main() {
-    #pragma clang lib Parse
+#pragma GCC poison printf
 
-    printf("Clang parse feature is supported.\n");
-    
+int main() {
+    #if defined(printf)
+        fprintf(stderr, "Failed\n");
+    #else
+        printf("Success\n");
+    #endif
     return 0;
 }

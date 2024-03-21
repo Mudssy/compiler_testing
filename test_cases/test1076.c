@@ -1,11 +1,15 @@
 
-#include <stdio.h>
+int main() {
+    printf("Start Test Case\n");
+    
+    // Function declaration here, after the type
+    void func();
 
-void function_declaration() {
-    printf("Function declaration without breaking after type.\n");
+    printf("End Test Case\n");
+
+    return 0;
 }
 
-int main() {
-    function_declaration();
-    return 0;
+void func() {
+    printf("Inside function\n");
 }

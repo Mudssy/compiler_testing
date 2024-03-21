@@ -1,8 +1,15 @@
 
 #include <stdio.h>
 
-int main() {
-    char16_t str[] = u"Hello, World!";
-    printf("%ls\n", str);
+int main(void) {
+    // Declare and initialize a wide character string
+    wchar_t str[] = L"Hello, World!";
+    
+    // Print each character in the wide character string to stdout
+    for (wchar_t *p = str; *p != '\0'; ++p) {
+        putwchar(*p);
+        putchar(' ');
+    }
+    
     return 0;
 }

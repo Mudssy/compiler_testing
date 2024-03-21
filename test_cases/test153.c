@@ -1,18 +1,26 @@
 
 #include <stdio.h>
 
-void printMessage() {
-    printf("No overloaded functions detected\n");
+void print(int i){
+    printf("You passed %d\n", i);
 }
 
-// This is the overloaded function
-void printMessage(int num) {
-    __asm__(".symver printMessage,printMessage@GLIBC_2.0"); // This line ensures that each call to printMessage will have different symbol version
-    printf("Overloaded functions detected\n");
+void print(double d){
+    printf("You passed %f\n", d);
 }
 
-int main() {
-    printMessage();  // This should print "No overloaded functions detected"
-    printMessage(1);  // This should print "Overloaded functions detected"
+void print(char *s){
+    printf("You passed '%s'\n", s);
+}
+
+int main(){
+    int i = 42;
+    double d = 3.14;
+    char *s = "Hello, World!";
+    
+    print(i);
+    print(d);
+    print(s);
+    
     return 0;
 }

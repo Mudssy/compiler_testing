@@ -2,9 +2,16 @@
 #include <stdio.h>
 
 int main() {
-    // Inline Assembly Remarks feature for the llvmlibRemarks section of the compiler
-    __asm__("; This is an inline assembly remark");
+    const char **remarks = __llvmlibc_get_remarks();
     
-    printf("Inline Assembly Remarks feature test completed.\n");
+    if (!remarks) {
+        printf("Error getting remarks\n");
+        return 1;
+    }
+
+    for (size_t i = 0; remarks[i]; ++i) {
+        printf("%s\n", remarks[i]);
+    }
+
     return 0;
 }

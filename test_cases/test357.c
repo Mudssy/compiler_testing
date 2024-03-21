@@ -1,32 +1,19 @@
 
 #include <stdio.h>
-#include <immintrin.h> // AVX or later required for Intel intrinsics
+#include <immintrin.h>
 
-// Define the vector type based on the compiler settings
-#if defined(__INTEL_COMPILER) || defined(_MSC_VER)
-    typedef __m256d vec;
-#else
-    #include <xmmintrin.h> // SSE intrinsics for GCC/Clang
-    typedef __m128d vec;
-#endif
+void print_vector(__m256i vect) {
+    float* arr = (float*)&vect;
+    printf("[%.2f, %.2f, %.2f, %.2f]\n", 
+           arr[0], arr[1], arr[2], arr[3]);
+}
 
 int main() {
-    double src[] = { 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8 };
+    __m256i vect = _mm256_setr_epi32(1, 2, 3, 4, 5, 6, 7, 8);
+    __m256i mask = _mm256_setr_epi32(-1, -1, 0, 0, 0, 0, -1, -1);
     
-    // Load the source vector from memory
-    vec vsrc = _mm_loadu_pd(src);
+    vect = _mm256_shuffle_ps(vect, vect, _MM_SHUFFLE(0, 1, 2, 3));
+    vect = _mm256_blendv_epi8(vect, _mm256_setzero_si256(), mask);
     
-    int shuffleMask[] = { 2, 3, 4, 5, 6, 7, 0, 1 };
-    
-    // Perform the perfect shuffle operation using the mask and vector
-    vec vres = _mm_permute2f128_pd(vsrc, vsrc, *(__m128i*)shuffleMask);
-    
-    double res[4];
-    
-    // Store the result to memory
-    _mm_storeu_pd(res, vres);
-    
-    printf("Results: %f, %f\n", res[0], res[1]);
-    
-    return 0;
+    print_vector(vect);
 }

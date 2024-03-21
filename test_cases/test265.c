@@ -2,25 +2,26 @@
 #include <stdio.h>
 
 int main() {
-    FILE *inputFile = fopen("input.txt", "r");
-    if (inputFile == NULL) {
-        printf("Could not open input file\n");
-        return 1;
-    }
-    
-    FILE *outputFile = fopen("output.txt", "w");
-    if (outputFile == NULL) {
-        printf("Could not open output file\n");
-        fclose(inputFile);
-        return 1;
-    }
-    
+    FILE *file;
     char c;
-    while ((c = fgetc(inputFile)) != EOF) {
-        fputc(c, outputFile);
-    }
     
-    fclose(inputFile);
-    fclose(outputFile);
+    // Open in read mode
+    file = fopen("test_file.txt", "r");
+    
+    if (file == NULL) {
+        printf("Cannot open file\n");
+        return 1;
+    }
+
+    printf("Content of the file:\n");
+    
+    // Read character by character and print them out until the end of file
+    while((c = fgetc(file)) != EOF) {
+        printf("%c", c);
+    }
+
+    // Close the file
+    fclose(file);
+
     return 0;
 }

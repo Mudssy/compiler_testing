@@ -1,20 +1,19 @@
 
 #include <stdio.h>
 
+__attribute__((noinline)) void branch_target(int x) {
+    printf("Branch Target %d\n", x);
+}
+
+void indirect_branch(int (*f)(void), int y) {
+    fprintf(stderr, "Indirect Branch %d\n", y);
+    // Call the branch target through function pointer.
+    if (y < 10) f(10);
+    else f(20);
+}
+
 int main() {
-    void *indirect_jump_table[] = {&&label1, &&label2, &&label3};
-    
-    goto *indirect_jump_table[0];
-
-label1:
-    printf("Executing label1\n");
-    return 0;
-
-label2:
-    printf("Executing label2\n");
-    return 0;
-
-label3:
-    printf("Executing label3\n");
+    indirect_branch(branch_target, 5);
+    indirect_branch(branch_target, 15);
     return 0;
 }

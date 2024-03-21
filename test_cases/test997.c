@@ -2,14 +2,15 @@
 #include <stdio.h>
 
 int main() {
-    int x = 10;
+    int x = 10; // Define some variables
     int y = 20;
-    int z = 30;
-
-    // This expression will generate a dead register because the result is not stored anywhere
-    y + z;
-
-    printf("The value of x is: %d\n", x);
-
-    return 0;
+    printf("Before: %d, %d\n", x, y);
+    
+    // Some unnecessary computations to fool the optimizer into eliminating x and y
+    for (int i=0; i<1000000; ++i) {
+        if (i % 2 == 0) x = y * i;
+        else y = x / i;
+    }
+    
+    printf("After: %d, %d\n", x, y); // These variables should have the same value before and after
 }

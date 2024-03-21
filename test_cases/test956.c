@@ -2,13 +2,14 @@
 #include <stdio.h>
 
 int main() {
-    int array[5] = {10, 20, 30, 40, 50};
-    int sum = 0;
+    int i = 5; // Change this value to see different outputs
     
-    for (int i = 0; i < 5; ++i) {
-        sum += array[i];
-    }
-
-    printf("The sum of the array elements is: %d\n", sum);
+    if (i > 0)
+        printf("The number %d is positive.\n", i);
+    else if (i < 0)
+        printf("The number %d is negative.\n", i);
+    else
+        printf("The number %d is zero.\n", i);
+    
     return 0;
 }

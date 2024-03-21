@@ -1,17 +1,18 @@
 
 #include <stdio.h>
 
-int main(void) {
-    int n = 5; // Change this value to test with different lengths
-    int arr[n];
-
-    for (int i = 0; i < n; ++i) {
-        arr[i] = i + 1;
+int main() {
+    int n = 5;
+    int array[n]; // variable length array
+    
+    for(int i=0; i<n; i++) {
+        array[i] = i+1;
     }
 
-    for (int i = 0; i < n; ++i) {
-        printf("arr[%d]: %d\n", i, arr[i]);
+    printf("Variable Length Array: ");
+    for(int j=0; j<n; j++) {
+        printf("%d ",array[j]);
     }
-
-    return 0;
+    
+    return 0; // return a value to end the program properly
 }

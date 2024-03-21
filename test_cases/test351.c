@@ -1,26 +1,36 @@
 
-#include <stdio.h>
-#include <assert.h>
-#include <immintrin.h>  // For the _mm256_permute4x64_epi64 and _mm256_shuffle_epi32 functions.
+#include <stdlib.h> // for rand() and srand()
+#include <time.h>   // for time()
+#include <stdio.h>  // for printf()
 
-// Define a function to print out the elements of an __m256i vector.
-void printVector(__m256i v) {
-    long long* p = (long long*)&v;
-    printf("%lld %lld\n", p[0], p[1]);
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void shuffle(int arr[], int n) {
+    srand(time(NULL)); // Seed the random number generator
+ 
+    for (int i = n-1; i > 0; --i) {
+        int j = rand() % (i+1);
+        
+        swap(&arr[i], &arr[j]);
+    }
+}
+
+void printArray(int arr[], int size){
+    for (int i = 0; i < size; ++i)
+        printf("%d ", arr[i]);
+    printf("\n");
 }
 
 int main() {
-    // Create a __m256i vector with some data.
-    __m256i v = _mm256_setr_epi32(1, 2, 3, 4, 5, 6, 7, 8);
+    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8};
+    int n = sizeof(arr)/sizeof(arr[0]);
     
-    // Shuffle the elements of the vector using _mm256_permute4x64_epi64.
-    __m256i vShuffled = _mm256_permute4x64_epi64(v, 0b111000);
-    
-    // Print out the original and shuffled vectors.
-    printf("Original vector:\n");
-    printVector(v);
-    printf("Shuffled vector:\n");
-    printVector(vShuffled);
-    
+    printArray(arr, n);
+    shuffle(arr, n);
+    printArray(arr, n);
     return 0;
 }

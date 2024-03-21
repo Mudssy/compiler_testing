@@ -2,15 +2,15 @@
 #include <stdio.h>
 
 int main() {
-    int x = 10;
-    if (x > 5) {
-        int y = 20;
-        printf("x is greater than 5\n");
-        printf("y is %d\n", y);
-    } else {
-        int z = 30;
-        printf("x is not greater than 5\n");
-        printf("z is %d\n", z);
+    int x = 1; // This variable has local scope to main function
+    
+    if(x) {
+        int y = 2;  // This variable also has local scope within the if-block
+        
+        printf("Value of y: %d\n", y);  // This will print '2'
     }
-    return 0;
+    
+    printf("Value of x: %d\n", x);  // This will print '1'
+    
+    return 0;  // Returning from main function. No infinite loops here.
 }

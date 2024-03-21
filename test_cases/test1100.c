@@ -2,23 +2,25 @@
 #include <stdio.h>
 
 int main() {
-    int a = 10;
-    const int b = 20;
-    volatile int c = 30;
-    int *ptr_a = &a;
-    const int *ptr_b = &b;
-    volatile int *ptr_c = &c;
+    int num = 10;
+    const int cnum = num;  // declaring a constant integer
+    volatile int vnum = num;  // declaring a volatile integer
     
-    printf("Value of a: %d\n", a);
-    printf("Value of b: %d\n", b);
-    printf("Value of c: %d\n", c);
+    printf("Initial value of num = %d\n", num);
+    printf("Value of constant integer is: %d\n", cnum);
+    printf("Value of volatile integer is: %d\n", vnum);
     
-    *ptr_a = 15;
-    *ptr_c = 35;
+    num = 15;  // Changing the original 'num' variable
+
+    // Trying to change const int variable
+    //cnum = num;  
+    // The above line will raise an error if uncommented. We can't modify a constant variable
     
-    printf("Modified value of a: %d\n", a);
-    printf("Modified value of b: %d\n", b);
-    printf("Modified value of c: %d\n", c);
+    vnum = num;  // However, we are able to modify a volatile variable
+
+    printf("After changing num, the value of num = %d\n", num);
+    printf("After changing num, value of const integer is: %d\n", cnum);
+    printf("After changing num, value of volatile integer is: %d\n", vnum);
     
     return 0;
 }

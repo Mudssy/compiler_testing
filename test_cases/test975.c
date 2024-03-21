@@ -1,23 +1,17 @@
 
 #include <stdio.h>
 
-int global_var = 42;
-
-void function(int *ptr) {
-    *ptr = 13;
-}
-
 int main() {
-    int a = 5, b = 7;
-    printf("Initial values: a = %d, b = %d\n", a, b);
+    int a = 5;
+    int *p1 = &a;
+    int **p2 = &p1;
     
-    if (&a != &b) {
-        function(&a);
-        printf("After function call with 'a': a = %d, b = %d\n", a, b);
-        
-        function(&global_var);
-        printf("After function call with 'global_var': a = %d, global_var = %d\n", a, global_var);
-    }
+    // Test Case: Dereference once.
+    printf("Dereferenced once: %d\n", **p2);
+    
+    // Test Case: Assign to the dereferenced pointer.
+    **p2 = 7;
+    printf("Assigned to dereferenced pointer: %d\n", a);
     
     return 0;
 }

@@ -2,9 +2,9 @@
 #include <stdio.h>
 
 int main() {
-    int arr[10];
-    printf("Size of integer: %zu\n", sizeof(int));
-    printf("Size of array: %zu\n", sizeof(arr));
-    printf("Size of pointer to integer: %zu\n", sizeof(int*));
+    printf("Size of char: %lu\n", sizeof(char));
+    printf("Size of int: %lu\n", sizeof(int));
+    printf("Size of float: %lu\n", sizeof(float));
+    printf("Size of double: %lu\n", sizeof(double));
     return 0;
 }

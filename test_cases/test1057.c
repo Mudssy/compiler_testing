@@ -1,8 +1,14 @@
 
 #include <stdio.h>
 
+struct S {
+    char c;
+    int n alignas(4);  // Align 'n' to multiples of 4 bytes
+};
+
 int main() {
-    alignas(8) int a[4];
-    printf("%lu\n", (long unsigned int)&a[0] % 8);
+    struct S s = {'a', 10};
+    printf("Address of 'c': %p, Address of 'n': %p\n", &s.c, &s.n);
+    
     return 0;
 }

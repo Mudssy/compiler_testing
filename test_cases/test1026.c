@@ -1,11 +1,17 @@
 
 #include <stdio.h>
 
-void clanglibFormatNamespaceFunction() {
-    printf("Output from clanglibFormat Namespace Function\n");
-}
-
 int main() {
-    clanglibFormatNamespaceFunction();
+    printf("Hello, world!\n");
+    
+    // Testing namespaces and indentation
+    namespace {
+        void foo() {
+            printf("\tIndented line in a namespace.\n");
+        }
+    }
+
+    foo();  // Call the function to see if it's indented correctly.
+
     return 0;
 }

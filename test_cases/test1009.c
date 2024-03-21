@@ -1,18 +1,12 @@
 
 #include <stdio.h>
 
-void print_output(int a) {
-    printf("Input: %d\n", a);
-}
+int main(void) {
+    int test_var1 = 5;
+    float test_var2 = 6.7;
 
-int main() {
-    int i = 1;
-    for (int j = 0; j < 20; ++j, ++i) {
-        if (j % 5 == 0 && i <= 8) {
-            print_output(i);
-        } else if (j >= 15 && i <= 12) {
-            print_output(i);
-        }
-    }
-    return 0;
+    printf("test_var1 = %d\n", test_var1);
+    printf("test_var2 = %f\n", test_var2);
+    
+    return 0; // This ensures that the function returns and doesn't run forever
 }

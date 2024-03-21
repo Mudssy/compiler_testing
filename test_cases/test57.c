@@ -1,14 +1,12 @@
 
 #include <stdio.h>
 
-// Define an inline function foo()
-inline void foo() {
-    printf("Hello from inline function\n");
+static inline int square(int n) {
+    return n*n;
 }
 
-int main(void) {
-    // Call the inline function
-    foo();
-
-    return 0;
+int main() {
+    int num = 5;
+    printf("The square of %d is: %d\n", num, square(num));
+    return 0; // Makes sure it doesn't run forever.
 }

@@ -1,12 +1,8 @@
 
 #include <stdio.h>
 
-int main() {
-    int result = 0;
-    if(result == (1 + 2)) {
-        printf("Result is: %d\n", result);
-    } else {
-        printf("No spaces inside brackets feature.\n");
-    }
+int main(void) {
+    int arr[ 5 ] = {1, 2, 3, 4, 5};
+    printf("%d\n", arr[0]); // Expected output: 1
     return 0;
 }

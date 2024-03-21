@@ -1,14 +1,12 @@
 
 #include <stdio.h>
-#include <stdlib.h>
 
-int main(int argc, char *argv[]) {
-    if (argc > 1) {
-        for (int i = 0; i < argc; ++i) {
-            printf("BinPack Arguments: %s\n", argv[i]);
-        }
-    } else {
-        printf("No BinPack Arguments provided.\n");
-    }
+int main() {
+    printf("This is a test to check if the binpack argument feature works in clanglibFormat section of the compiler.\n");
+    
+    // Test BinPack arguments here
+    int x = 5; 
+    printf("The value of x: %d\n", x);
+
     return 0;
 }

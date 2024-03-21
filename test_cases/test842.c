@@ -1,17 +1,11 @@
 
-#include <stdio.h>
-#include <stdatomic.h>
+#include <stdatomic.h> // Provides atomic types and operations 
+#include <stdio.h> 
 
 int main() {
-    _Atomic(int) counter = 0;
+    _Atomic(int) a = 0;
+    atomic_fetch_add(&a, 1); // Atomic increment operation
     
-    // Increment the counter using atomic operations
-    for (int i = 0; i < 1000000; ++i) {
-        atomic_fetch_add(&counter, 1);
-    }
-
-    // Print out the final value of the counter
-    printf("Counter: %d\n", atomic_load(&counter));
-    
+    printf("Value of a after fetch-and-add is: %d\n", a);
     return 0;
 }

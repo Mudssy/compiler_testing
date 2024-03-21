@@ -2,8 +2,11 @@
 #include <stdio.h>
 
 int main() {
-    char identifier[256];
-    snprintf(identifier, 256, "llvmunittests_extended_identifiers_%s", "test_value");
-    printf("The generated extended identifier is: %s\n", identifier);
-    return 0;
+    int $dollar = 1;
+    int at_symbol@ = 2;
+    
+    printf("The value of $dollar is %d\n", $dollar);
+    printf("The value of at_symbol@ is %d\n", at_symbol@);
+
+    return 0; // Make sure program doesn't run forever
 }

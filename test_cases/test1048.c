@@ -1,16 +1,12 @@
 
 #include <stdio.h>
 
-int main() {
-    int i;
-    
-    for (i = 0; i < 10; i++) {
-        if (i % 2 == 0) {
-            printf("Even number: %d\n", i);
-        } else {
-            printf("Odd number: %d\n", i);
-        }
+int main(void) {
+    int i = 1;
+     while (i<=5) 
+   {
+      printf("%d\n", i);
+      ++i;
     }
-    
     return 0;
 }

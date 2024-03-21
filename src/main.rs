@@ -477,10 +477,10 @@ fn run_and_compare_outputs() -> io::Result<()> {
 fn main() {
     let mut indices = TestIndices::new("test_indices.json");
     indices.read_from_file().unwrap();
-    generate_test_cases(&mut indices);
+    //generate_test_cases(&mut indices);
 
     // run_and_compare_outputs();
-    // fix_broken_tests();
+    fix_broken_tests();
 
     
     

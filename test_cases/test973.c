@@ -6,9 +6,6 @@ inline int add(int a, int b) {
 }
 
 int main() {
-    int x = 5;
-    int y = 10;
-    int result = add(x, y);
-    printf("The sum of %d and %d is: %d\n", x, y, result);
+    printf("Result: %d\n", add(2, 3));
     return 0;
 }

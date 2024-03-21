@@ -1,20 +1,15 @@
 
 #include <stdio.h>
-#include <stdalign.h>
 
-_Alignas(16) int x;
-_Alignas(32) char c;
+struct align {
+    char a;
+    int b;
+} __attribute__ ((aligned (16)));
 
-int main() {
-    printf("Size of x: %zu\n", sizeof(x));
-    printf("Address of x: %p\n", (void *)&x);
-    printf("Alignment of x: %zu\n", alignof(decltype(x)));
-
-    printf("\n");
-    
-    printf("Size of c: %zu\n", sizeof(c));
-    printf("Address of c: %p\n", (void *)&c);
-    printf("Alignment of c: %zu\n", alignof(decltype(c)));
+int main(void) {
+    struct align test;
+    printf("Address of 'a' in structure: %p\n", &test.a);
+    printf("Address of 'b' in structure: %p\n", &test.b);
 
     return 0;
 }

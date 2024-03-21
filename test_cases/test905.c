@@ -2,10 +2,24 @@
 #include <stdio.h>
 
 int main() {
-    int array[5] = {10, 20, 30, 40, 50};
-    int i;
-    for (i = 0; i < 5; ++i) {
-        printf("Element %d: %d\n", i, array[i]);
-    }
+    // Create some variables
+    int a = 10;
+    int b = 20;
+
+    printf("Initial values: a = %d, b = %d\n", a, b);
+    
+    // Swap the values using load and store optimizations
+    asm volatile (
+        "movl $30, %%eax;"
+        "movl $40, %%ecx;" 
+        "cmpl $50, %1;"
+        "cmova %2, %0;"
+        : "=r"(a), "=r"(b)
+        : "r"(30), "r"(40)
+        : "%eax", "%ecx"
+    );
+    
+    printf("Post swap values: a = %d, b = %d\n", a, b);
+    
     return 0;
 }

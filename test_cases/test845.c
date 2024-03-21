@@ -1,22 +1,16 @@
 
 #include <stdio.h>
 
+// Declaration for generic function 
+void hello_world(_Generic((0), int: int, double: double)) {
+    _Generic((0),
+             int: ({ printf("Hello\n"); }), // Hello will be printed when the type is integer
+             default: ({ printf("World\n"); })  // World will be printed when the type is not an integer
+            );
+}
+
 int main() {
-    int x = 1;
-    int y = 2;
-    int z = 3;
-    int result;
-
-    switch (x) {
-        case 0:
-            result = y;
-            break;
-        default:
-            result = z;
-            break;
-    }
-
-    printf("%d\n", result);
-
-    return 0;
+    hello_world(0);        // Will print "Hello"
+    hello_world((0.0));    // Will print "World"
+    return 0;              // Make sure the program returns, don't run forever
 }

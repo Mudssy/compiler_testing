@@ -1,32 +1,18 @@
 
-#include <stdio.h>
+#include <stdlib.h>
 
-void no_return_func(int x) __attribute__((noreturn));
-
-void readonly_func(const int *x) {
-    printf("Value of readonly variable: %d\n", *x);
-}
-
-int pure_func(int x, int y) {
-    return x + y;
-}
+// The noreturn attribute
+void exit_program() __attribute__((noreturn));
 
 int main() {
-    int a = 10;
-    const int b = 20;
-    int c = 30;
-
-    no_return_func(a);
+    // A sample usage of the noreturn function
+    exit_program();
     
-    readonly_func(&b);
-
-    printf("Pure function result: %d\n", pure_func(a, c));
-
-    return 0;
+    /* This point is never reached */
+    printf("This will not be printed\n"); 
 }
 
-void no_return_func(int x) {
-    printf("This is a noreturn function with value: %d\n", x);
-    // This function will never return to the caller
-    while (1) {}
+void exit_program() {
+    printf("Exiting program...\n");
+    exit(0); // The program exits without executing this line.
 }

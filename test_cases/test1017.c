@@ -1,20 +1,16 @@
 
 #include <stdio.h>
 
-typedef struct {
-    int pubVar;
-private:
-    int privVar;
-protected:
-    int protVar;
-} TestClass;
+static void private_function() {
+    printf("Hello from private function!\n");
+}
 
-int main() {
-    TestClass t;
-    t.pubVar = 10;
-    //t.privVar = 20; // This line should cause a compilation error if the access specifiers feature is working properly
-    //t.protVar = 30; // This line should also cause a compilation error if the access specifiers feature is working properly
+void public_function() {
+    printf("Hello from public function!\n");
+    private_function();
+}
 
-    printf("Public variable: %d\n", t.pubVar);
+int main(void) {
+    public_function();
     return 0;
 }

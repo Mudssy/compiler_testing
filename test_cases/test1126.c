@@ -1,12 +1,14 @@
 
 #include <stdio.h>
 
-inline int add(int a, int b) {
-    return a + b;
+// This inline function prints hello
+static inline void print_hello(void) {
+    printf("Hello, World!\n");
 }
 
 int main() {
-    int result = add(3, 5);
-    printf("Result: %d\n", result);
+    // Calling the inline function
+    print_hello();
+    
     return 0;
 }

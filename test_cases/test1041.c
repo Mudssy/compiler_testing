@@ -1,9 +1,14 @@
 
 #include <stdio.h>
 
+// Here is a single line comment. It starts with "//" 
 int main() {
-    // This comment should reflow and align properly when formatted by a C compiler.
-    /* And this multi-line comment as well */
-    printf("Hello, world! This program is testing the clanglibFormat section of the compiler.\n");
+    /*
+        And here's a multi-line comment.
+        We can put more text inside them, and they are great for explaining complex sections of code.
+    */
+    
+    printf("Testing comments reflow and alignment.\n");
+    
     return 0;
 }

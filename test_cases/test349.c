@@ -1,15 +1,24 @@
 
 #include <stdio.h>
-#include <immintrin.h> // For AVX2 intrinsics
+
+void __attribute__((noinline, noclone)) do_not_duplicate(int* x) { *x = 4; }
 
 int main() {
-    __m256i x = _mm256_setr_epi32(1, 2, 3, 4, 5, 6, 7, 8);
-    __m256i y = _mm256_permute2x128_si256(x, x, -1); // This is an invalid shuffle mask
-    int* result = (int*)&y;
+    int v0 = -1, v1 = -1, v2 = -1, v3 = -1;
     
-    for(int i = 0; i < 8; ++i) {
-        printf("%d ", result[i]);
+    // Here's the perfect shuffle.  It should succeed at compile-time if this is supported.
+    __builtin_shufflevector(&v0, &v0+4, 0, 1, 2, 3);
+
+    // And here's an invalid shuffle mask that shouldn't be supported by all compilers (including LLVM).
+    int v = 0;
+    try {
+        __builtin_shufflevector(&v0, &v0+4, -1, 2, 3);
+    } catch(...) {
+        do_not_duplicate(&v);
     }
+    
+    if (v != 0) printf("Error handling for invalid shuffle masks failed\n");
+    else         printf("Error handling for invalid shuffle masks passed\n");
     
     return 0;
 }

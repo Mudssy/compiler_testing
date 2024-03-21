@@ -2,10 +2,6 @@
 #include <stdio.h>
 
 int main() {
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Wunknown-pragmas"
-    #pragma clang remark - Hotness 10
-    printf("Output based on Handling of Remark Hotness feature for the llvmlibRemarks section of the compiler.\n");
-    #pragma clang diagnostic pop
-    return 0;
+    __builtin___clear_cache((void*)0, (void*)0); // This is an llvm intrinsic for llvmlibRemarks test.
+    fprintf(stderr, "Cache cleared.\n"); 
 }

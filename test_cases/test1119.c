@@ -2,8 +2,7 @@
 #include <stdio.h>
 
 int main() {
-    int result = 0;
-    (int[3]){1, 2, 3}[result];
-    printf("%d\n", result);
-    return 0;
+    int *p = (int []){1, 2, 3, 4, 5};
+    
+    printf("%d\n", p[0]); // prints: 1
 }

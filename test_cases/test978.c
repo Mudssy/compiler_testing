@@ -1,16 +1,11 @@
 
 #include <stdio.h>
-
-int loop_invariant(int n) {
-    int sum = 0;
-    for (int i = 0; i < n; i++) {
-        sum += i * 2;
-    }
-    return sum;
-}
-
 int main() {
-    int result = loop_invariant(10);
-    printf("Result: %d\n", result);
+    int i, j;
+    for(i = 0; i < 100; i++){
+        printf("Loop %d\n", i);
+        j = i * 2; // this is an invariant expression that can be hoisted out of the loop by LICM
+    }
+    printf("%d\n", j);
     return 0;
 }

@@ -2,15 +2,6 @@
 #include <stdio.h>
 
 int main() {
-    int a = 5;
-    int b = 10;
-
-    printf("Before CHECK-LABEL\n");
-
-// CHECK-LABEL: main_check_label
-// CHECK: Before CHECK-LABEL
-// CHECK-NEXT: After CHECK-LABEL
-    printf("After CHECK-LABEL\n");
-
-    return 0;
+    printf("CHECK-LABEL: my_label\n"); // This will be the label we're checking for
+    printf("Hello, world!\n"); // The actual output that should match our label
 }

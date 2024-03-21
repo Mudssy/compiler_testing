@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 int main() {
-    printf("This is a string\n");
-    printf("that appears on the next line\n");
+    printf("CHECK-NEXT: Hello\n");
+    printf(" World\n");
     return 0;
 }

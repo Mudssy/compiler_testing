@@ -1,8 +1,12 @@
 
+// main.c
 #include <stdio.h>
 
+void __attribute__((noreturn)) myFunction() {
+    printf("This function does not return! If you see this, the compiler supports attribute specifiers!\n");
+}
+
 int main() {
-    int position[][2] = { [0 ... 4] = {0}, };
-    printf("Sizeof position: %zu\n", sizeof(position));
+    myFunction();
     return 0;
 }

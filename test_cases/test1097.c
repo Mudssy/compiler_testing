@@ -1,20 +1,12 @@
 
 #include <stdio.h>
 
-int add(int a, int b) {
-    return a + b;
-}
-
-int subtract(int a, int b) {
-    return a - b;
+int sum(int x, int y) {
+    return x + y;
 }
 
 int main() {
-    int x = 10;
-    int y = 5;
-    
-    printf("Addition: %d\n", add(x, y));
-    printf("Subtraction: %d\n", subtract(x, y));
-
+    int result = sum(3, 4);
+    printf("The sum is: %d\n", result);
     return 0;
 }

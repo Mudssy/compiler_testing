@@ -1,10 +1,7 @@
 
 #include <stdio.h>
-
 int main() {
-    // Spaces before trailing comments feature test for clanglibFormat section of the compiler
-    int a = 5; /* Some comment with spaces */
-    printf("Value of a: %d\n", a); /* Another comment with spaces */
-
+  // This is a trailing comment. It should be separated by a space from the '//' symbols.
+    printf("Test passed\n");
     return 0;
 }

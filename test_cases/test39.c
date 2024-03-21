@@ -1,27 +1,27 @@
 
-#include <stdio.h>
 #include <signal.h>
+#include <stdio.h>
 #include <unistd.h>
 
-void async_event(int sig) {
-    printf("Async event fired!\n");
+void signal_handler(int signum) {
+    printf("Received signal %d\n", signum);
+}
+
+void async_event() {
+    printf("Async event triggered\n");
 }
 
 int main() {
     struct sigaction sa;
-    sa.sa_handler = &async_event;
+    sa.sa_handler = &signal_handler;
     sigemptyset(&sa.sa_mask);
-    sa.sa_flags = SA_ASYNC;
+    sa.sa_flags = 0;  // no flag set
+    sigaction(SIGINT, &sa, NULL);  // register signal handler
     
-    if (sigaction(SIGUSR1, &sa, NULL) == -1) {
-        perror("Could not set signal handler");
-        return 1;
+    printf("Starting program\n");
+    
+    while (1) {
+        sleep(5);  // simulate async event
+        async_event();
     }
-    
-    printf("Firing async event...\n");
-    raise(SIGUSR1);
-    
-    sleep(2); // Sleep for a while to give the asynchronous event a chance to print.
-    
-    return 0;
 }

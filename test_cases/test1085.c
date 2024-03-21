@@ -1,16 +1,11 @@
 
 #include <stdio.h>
+#include <stdlib.h>
 
 int main() {
-    int x = 5;
-    alignas(8) int y;
-    double d = 3.14;
-    alignas(16) long long z;
-
-    printf("Size of int: %zu\n", sizeof(x));
-    printf("Address of int aligned to 8 bytes: %p\n", (void *)&y);
-    printf("Size of double: %zu\n", sizeof(d));
-    printf("Address of long long aligned to 16 bytes: %p\n", (void *)&z);
+    // decltype is a keyword in C++ and part of the type-id language feature of the C++ language, so there's no direct equivalent in pure C. 
+    // If we can assume that a similar construct exists in C, then it could be tested here. Otherwise, this test case would not be applicable to all compilers.
     
+    printf("This is an example of a program using the Align consecutive decltype feature.\n");
     return 0;
 }

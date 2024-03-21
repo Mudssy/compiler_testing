@@ -1,13 +1,22 @@
 
 #include <stdio.h>
+#include <setjmp.h>
+#include <signal.h>
 
-void recursive(int count) {
-    char a[1024*500]; // Allocating large amount of stack memory
-    printf("%d\n",count); 
-    recursive(count+1); // Recursion which might lead to stack overflow
+sigjmp_buf jmp;
+
+void sigfpe() {
+    siglongjmp(jmp, 1);
 }
 
 int main() {
-    recursive(1);
+    signal(SIGSEGV, sigfpe);
+    if (sigsetjmp(jmp, 1)) {
+        printf("Stack Protection Enabled\n");
+    } else {
+        char large_stack[1024*1024];
+        large_stack[1024] = 5; // this should cause a segmentation fault
+        printf("Something went wrong\n"); 
+    }
     return 0;
 }

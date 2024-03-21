@@ -1,13 +1,16 @@
 
 #include <stdio.h>
 
-int main() {
-    int arr[5] = {1, 2, 3, 4, 5};
-    int *ptr = arr;
+void f() { printf("Hello, world!\n"); }
 
-    for (int i = 0; i < 5; ++i) {
-        printf("Element at index %d: %d\n", i, *(ptr + i));
+template<typename T>
+struct S {
+    void g(T t) {
+        t();
     }
+};
 
-    return 0;
+int main() {
+    S<decltype(f)> s;
+    s.g(f);
 }

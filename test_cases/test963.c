@@ -1,15 +1,17 @@
 
 #include <stdio.h>
+#include <typeinfo>
+extern "C" const char* __cxa_demangle(const char*,char*,size_t*,int*);
+
+template<typename T> void printType() {
+    char buffer[1024];
+    size_t length = 1024;
+    int status;
+    if(__cxa_demangle(typeid(T).name(),buffer,&length,&status)) printf("Demangled: %s\n",buffer);
+    else printf("%s\n",typeid(T).name());
+}
 
 int main() {
-    typedef struct {
-        int a;
-        float b;
-    } TestStruct;
-
-    TestStruct my_struct = {42, 3.14};
-
-    printf("TestStruct: %d, %.2f\n", my_struct.a, my_struct.b);
-
+    printType<int>();
     return 0;
 }

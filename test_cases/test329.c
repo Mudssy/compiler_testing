@@ -1,13 +1,26 @@
 
-// RUN: %clang -I%S/Inputs/PR32819-api-notes -x c /dev/null -fsyntax-only -Xclang -verify \
-// RUN:        -Xclang -verify-ignore-unexpected=note,warning -include %s \
-// RUN:        | FileCheck --check-prefix=CHECK-PR32819 %s 
-
-// CHECK-PR32819: clanglibAPINotes { "printf" : [{ "name" : "custom_print", "available" : true }] }
-
 #include <stdio.h>
+#define old_api 0 // We need to define these as dummy values since they are not actual API calls
+#define new_api 1
 
-int main(void) {
-    custom_print("Hello World\n");
+// This function is hypothetical, and does nothing but return some value
+int __attribute__((deprecated)) renamed_api(void) {
+    return old_api; // this will result in deprecation warning while compiling
+}
+
+int renamed_api(void); // without this declaration, compiler will not find definition of function for API rename.
+
+// This is the new version of the api
+int renamed_api(void) {
+    return new_api;
+}
+
+int main() {
+    if (renamed_api() == old_api) {
+        printf("Old API returned successfully\n");
+    } else {
+        printf("New API did not return correctly\n");
+    }
+
     return 0;
 }

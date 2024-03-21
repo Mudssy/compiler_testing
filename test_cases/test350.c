@@ -1,23 +1,28 @@
 
 #include <stdio.h>
-#include <immintrin.h> // Intel intrinsics header file, you may need to install it
+#include <stdlib.h>
 
-void print_vector(__m256 v) {
-    float *ptr = (float*)&v;
-    printf("[%.4f %.4f %.4f %.4f]\n", ptr[0], ptr[1], ptr[2], ptr[3]);
-}
+// Assuming int128 is available, if not you may need to use a custom type or library
+typedef __int128_t mytype; 
 
-int main() {
-    __m256 v1 = _mm256_setr_ps(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0); // Initial vector
-    __m256i shuffleMask = _mm256_setr_epi32(1, 0, 3, 2, 5, 4, 7, 6); // Shuffle mask to swap every two elements in a pair of vectors
+mytype pack(mytype a, mytype b) { return (a << 64) | b; }
+void unpack(mytype x, mytype *a, mytype *b) {*a = x >> 64; *b = x & 0xFFFFFFFFFFFFFFFF;}
+
+int main()
+{
+    mytype x = 1234567890;
+    mytype y = 987654321;
+
+    // Pack x and y into z
+    mytype z = pack(x, y);
     
-    printf("Initial vector: ");
-    print_vector(v1);
+    printf("Packed value: %llx\n", (long long unsigned int)z);
     
-    __m256 v2 = _mm256_permute_ps(v1, shuffleMask); // Perform the perfect shuffle operation
+    // Unpack z to get original values back
+    mytype a, b;
+    unpack(z, &a, &b);
     
-    printf("Shuffled vector: ");
-    print_vector(v2);
+    printf("Unpacked Values: a=%lld, b=%lld\n", (long long)a, (long long)b);
     
     return 0;
 }

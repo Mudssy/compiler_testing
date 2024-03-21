@@ -1,17 +1,22 @@
 
 #include <stdio.h>
 
-int main() {
-    printf("Testing Binary format serialization feature for the LLVM Remarks section of the compiler...\n");
+void __attribute__((weak)) hiddenFunction() {
+    printf("This function should not be called.\n");
+}
 
-    // Your code here to test the feature, replace this line with your actual test case
-    int exampleVariable = 123;
-    
-    if (exampleVariable == 123) {
-        printf("Binary format serialization feature for the LLVM Remarks section of the compiler is supported and working correctly.\n");
+int main(void) {
+    if (__builtin_available(macOS 10.15, *)) {
+        unsigned long features = __llvm_libc_compiler_features();
+        // Check for binary format serialization feature:
+        if ((features & (1 << 16))) {
+            printf("Binary format serialization is supported.\n");
+        } else {
+            printf("Binary format serialization is not supported.\n");
+        }
     } else {
-        printf("Binary format serialization feature for the LLVM Remarks section of the compiler is not supported or not working correctly.\n");
+        printf("The __llvm_libc_compiler_features function is not available on this system.\n");
     }
-    
+
     return 0;
 }

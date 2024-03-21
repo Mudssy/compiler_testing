@@ -2,12 +2,21 @@
 #include <stdio.h>
 
 int main() {
-    int x = 0;
+    int i;
 
-    while (x < 10)
+    for (i = 0; i < 10; i++) {
+        if (i == 5) break;
+        printf("%d\n", i);
+    }
+
+    switch (i) {
+    case 5:
+        printf("Break in loop executed");
         break;
-
-    printf("Value of x: %d\n", x);
+    default:
+        printf("Unexpected behavior");
+        break;
+    }
 
     return 0;
 }

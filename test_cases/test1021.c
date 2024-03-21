@@ -2,14 +2,10 @@
 #include <stdio.h>
 
 int main() {
-    int arr[10];
-    for (int i = 0; i < 10; i++) {
-        arr[i] = i * 2;
-    }
+    int array[2][3] = {{10, 20, 30}, {40, 50, 60}};
     
-    for (int i = 0; i < 10; i++) {
-        printf("arr[%d]: %d\n", i, arr[i]);
-    }
-    
+    // Test libFormat's subscript breaking feature
+    printf("%d", array[1/*a*/][2]); // expected output: 60
+
     return 0;
 }

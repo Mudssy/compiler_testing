@@ -1,18 +1,15 @@
 
 #include <stdio.h>
 
-typedef struct {
-    int x;
-    char y;
-} TestStruct;
+struct my_struct {
+    int a;
+    float b;
+};
 
 int main() {
-    TestStruct test_struct;
-    test_struct.x = 42;
-    test_struct.y = 'A';
+    struct my_struct s = {10, 20.5};
 
-    printf("The value of x is: %d\n", test_struct.x);
-    printf("The value of y is: %c\n", test_struct.y);
+    printf("my_struct: a = %d, b = %f\n", s.a, s.b);
 
     return 0;
 }

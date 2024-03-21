@@ -1,11 +1,9 @@
 
 #include <stdio.h>
-
-int main() {
-    int a = 5;
-    int b = 3;
-    int c = 2;
-    int d = (a + b) * c - a % b;
-    printf("%d\n", d);
+int main(){
+    int a = 10;
+    int b = -5;
+    printf("a + b * 2: %d\n", a + b * 2);
+    printf("(a + b) * 2: %d\n", (a + b) * 2);
     return 0;
 }

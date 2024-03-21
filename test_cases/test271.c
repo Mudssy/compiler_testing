@@ -1,17 +1,16 @@
 
 #include <stdio.h>
-#include <stdlib.h>
-#include "/usr/include/testheader.h"
 
-int main(void) {
-    FILE *fp = fopen("/usr/include/testheader.h", "r");
-    if (fp == NULL) {
-        printf("Failed to open file\n");
-        exit(EXIT_FAILURE);
-    } else {
-        printf("Successfully opened file %s\n", "/usr/include/testheader.h");
-        fclose(fp);
-    }
+int main() {
+    FILE *file = fopen("path/to/your/file", "r");
     
-    return EXIT_SUCCESS;
+    if (file == NULL) {
+        printf("Error opening file\n");
+        return 1; // Return with an error code
+    }
+    else {
+        printf("File successfully included\n");
+        fclose(file);
+        return 0; // Successful execution
+    }
 }

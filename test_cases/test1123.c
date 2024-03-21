@@ -1,10 +1,10 @@
 
 #include <stdio.h>
 
+void __attribute__((constructor)) initLibrary(void) {
+    printf("Hello from library constructor!\n");
+}
+
 int main() {
-    int a __attribute__((unused)) = 0;
-    
-    printf("Attribute syntax feature supported.\n");
-    
     return 0;
 }

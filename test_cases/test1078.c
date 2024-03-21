@@ -1,15 +1,17 @@
 
 #include <stdio.h>
 
+template<typename T>
+T add(T a, T b) {
+    return a + b;
+}
+
 int main() {
-    int arr[5][10];
-    int (*ptr)[10] = &arr[2];
+    int result = add<int>(5, 7);
+    printf("The result is: %d\n", result);
     
-    for (int i = 0; i < 5; ++i) {
-        for (int j = 0; j < 10; ++j) {
-            printf("Value at arr[%d][%d]: %d\n", i, j, (*(ptr - i))[j]);
-        }
-    }
-    
-    return 0;
+    double doubleResult = add<double>(3.2, 4.8);
+    printf("The double result is: %f\n", doubleResult);
+  
+    return 0; // The program will always end here due to the usage of templates in the C++ standard
 }

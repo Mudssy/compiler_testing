@@ -1,12 +1,7 @@
 
-#include <stdio.h>
-
+#include "config.h"
+#define FOO 10
 int main() {
-    int a = 5;
-    int b = 10;
-    int sum = a + b;
-    
-    printf("Sum: %d\n", sum);
-
+    CHECK(FOO == 20);
     return 0;
 }

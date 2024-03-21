@@ -1,23 +1,13 @@
 
 #include <stdio.h>
 
-enum Color {
-    RED = 10,
-    GREEN = 25,
-    BLUE = 42
+enum color {
+    RED,
+    GREEN,
+    BLUE
 };
 
 int main() {
-    enum Color color;
-    
-    color = RED;
-    printf("The value of RED is: %d\n", color);
-
-    color = GREEN;
-    printf("The value of GREEN is: %d\n", color);
-
-    color = BLUE;
-    printf("The value of BLUE is: %d\n", color);
-
+    printf("Enum value: %d\n", RED);
     return 0;
 }

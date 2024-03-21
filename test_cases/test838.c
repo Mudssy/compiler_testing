@@ -1,23 +1,24 @@
 
 #include <stdio.h>
 #include <stdarg.h>
-#include <float.h>
 
-double SumFloats(int count, ...) {
-    va_list ap;
-    double sum = 0.0;
-    int i;
+int addNumbers(int count, ...) {
+    int result = 0;
+    va_list args;
+
+    va_start(args, count);
     
-    va_start(ap, count); /* Initialize the argument list. */
-    for(i = 0; i < count; i++){
-        sum += va_arg(ap, double); /* Get the next argument value. */
+    for (int i = 0; i < count; ++i) {
+        result += va_arg(args, int);
     }
-    va_end(ap);  /* Clean up. */
-    return sum;
+    
+    va_end(args);
+
+    return result;
 }
 
 int main() {
-    printf("%f\n", SumFloats(3, 1.1, 2.2, 3.3));
-    printf("%f\n", SumFloats(5, -1.0, 2.6, 4.7, 8.9));
-    return 0;
+   printf("Sum is: %d\n", addNumbers(4, 25, 20, 15, 30)); // prints "Sum is: 90"
+   printf("Sum is: %d\n", addNumbers(6, 1, 2, 3, 4, 5, 6)); // prints "Sum is: 21"
+   return 0;
 }

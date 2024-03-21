@@ -1,17 +1,23 @@
 
 #include <stdio.h>
 
-typedef struct Base {
-    int a;
-} Base;
+// Define the base class
+typedef struct {
+    int x;
+} BaseClass;
 
-typedef struct Derived {
-    Base base;
-    int b;
-} Derived;
+// Define the derived class, which inherits from BaseClass (this won't compile with -x c)
+typedef struct {
+    BaseClass bc;
+    int y;
+} DerivedClass;
 
 int main() {
-    Derived d = {{{42}}};
-    printf("The value of d.base.a is: %d\n", d.base.a);
+    // Create an instance of the derived class
+    DerivedClass dc = {{1}, 2};
+    
+    // Print out the x and y values from the derived class
+    printf("x: %d, y: %d\n", dc.bc.x, dc.y);
+    
     return 0;
 }

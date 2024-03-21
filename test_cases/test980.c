@@ -1,14 +1,27 @@
 
 #include <stdio.h>
 
-int main() {
-    int x = 0;
-    int y = 0;
-    if (1) {
-        x = 5;
+int testFunction(int x) {
+    if (x > 50) {
+        return 1;
     } else {
-        y = 3;
+        return 2;
     }
-    printf("x: %d, y: %d\n", x, y);
-    return 0;
+}
+
+int main() {
+    int result = testFunction(60); // Change the value of this to control branching.
+
+    switch (result) {
+        case 1:
+            printf("Result is greater than 50\n");
+            break;
+        case 2:
+            printf("Result is less than or equal to 50\n");
+            break;
+        default:
+            printf("Unexpected result\n");
+    }
+
+    return 0; // Returns immediately and does not run forever.
 }

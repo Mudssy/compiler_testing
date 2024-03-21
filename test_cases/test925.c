@@ -2,9 +2,8 @@
 #include <stdio.h>
 
 int main() {
-    printf("Hello, this is a test for CHECK-DAG:\n");
-    printf("String1\n");
-    printf("String2\n");
-    printf("String3\n");
+    printf("Node1\n");
+    printf("Node2\n");
+    printf("Node3\n");
     return 0;
 }

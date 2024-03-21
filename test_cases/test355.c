@@ -1,14 +1,28 @@
 
 #include <stdio.h>
-#include <immintrin.h>  // Required for vector extensions in GCC/Clang
+#include <omp.h>
 
-void print_shuffle(__m256i v1, __m256i v2) {
-    __m256i result = _mm256_permutevar8x32_epi32(v1, v2);
-    int values[8];
+int main() {
+    int num_threads = 4;
+    omp_set_num_threads(num_threads);
+
+    int x[16], i, result[16];
+
+    for (i=0; i<16; i++) {
+        x[i] = i+1;
+    }
     
-    _mm256_storeu_si256((__m256i*)values, result);
-
-    for (int i = 0; i < 8; ++i) {
-        printf("%d ", values[i]);
+    #pragma omp parallel 
+    {
+        int thread_num = omp_get_thread_num();
+        __builtin_prefetch(x, 0, 3);
+        
+        // Perform the broadcast operation using GCC's vector extension.
+        result[thread_num] = x[(thread_num*2)%16];
+    }
+    
+    printf("Broadcasting:\n");
+    for (i=0; i<16; i++) {
+        printf("%d ", result[i]);
     }
 }

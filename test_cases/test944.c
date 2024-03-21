@@ -1,21 +1,18 @@
 
-#include <stdio.h>
+#include <assert.h>
+#define NDEBUG // Make assert active.
 
 int main() {
-    int a = 5;
-    int b = 10;
+    int x = 5;
+    int y = 6;
     
-    if (a && b) {
-        printf("Both a and b are true.\n");
-    } else {
-        printf("At least one of a or b is false.\n");
-    }
-
-    if (!(a || !b)) {
-        printf("!(a || !b) is true.\n");
-    } else {
-        printf("!(a || !b) is false.\n");
-    }
-
-    return 0;
+    assert(x == y);  // This should fail
+    
+    assert(x != y);  // This should pass
+    
+    assert(x < y);   // This should pass
+    
+    assert(x > y);   // This should fail
+    
+    return 0;         // Ends program and returns 0 for success.
 }

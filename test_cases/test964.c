@@ -1,14 +1,16 @@
 
 #include <stdio.h>
 
+void foo() {
+    printf("This function is not covered by tests.\n");
+}
+
 int main() {
-    int x = 0;
-
-    if (x) {
-        printf("x is non-zero\n");
+    int i = 0;
+    ++i; // This line is covered
+    if (i > 5) {
+        printf("This line of code is not reachable.\n");
     } else {
-        printf("x is zero\n");
+        foo(); // This line and function call are not covered
     }
-
-    return 0;
 }

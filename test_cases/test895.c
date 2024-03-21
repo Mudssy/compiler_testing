@@ -2,16 +2,15 @@
 #include <stdio.h>
 
 int main() {
-    int a = 5;
-    int b = 10;
-
-    if (a > b) {
-        printf("a is greater than b\n");
-    } else if (a < b) {
-        printf("a is less than b\n");
-    } else {
-        printf("a and b are equal\n");
-    }
-
+    const char *str = NULL;
+    
+    // Attempt to access llvmlibRemarks, which will cause a segfault if it's not supported by the compiler
+    asm volatile(
+        "call 0xf\n"      // This should cause a segfault if llvmlibRemarks is not supported.
+        : "=a"(str)       // Output operand, which will be set to the value of eax register after call instruction
+    );
+    
+    printf("llvmlibRemarks %s been supported.\n", str ? "has" : "hasn't");
+    
     return 0;
 }

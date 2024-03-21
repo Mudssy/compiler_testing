@@ -1,16 +1,26 @@
 
 #include <stdio.h>
 
-static inline void print_inline() {
-    printf("Inside inline function\n");
+__attribute__((always_inline)) __attribute__((noinline)) 
+void inlineMe(int x) {
+    printf("Hello from inline\n");
 }
 
-void print_normal() {
-    printf("Inside normal function\n");
+static void dontInlineMe() __attribute__((noinline));
+
+static void dontInlineMe()
+{
+   printf("Hello from normal\n");
 }
 
 int main() {
-    print_inline();
-    print_normal();
-    return 0;
+  int test = 1;
+
+  if (__builtin_expect(test, 0)) {
+    inlineMe(2);
+  } else {
+    dontInlineMe();
+  }
+
+  return 0;
 }

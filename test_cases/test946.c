@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 int main() {
-    printf("This is a sample output for the FileCheck command-line arguments feature check.\n");
+    // This is a comment line which contains spaces at the end.      
+    printf("Hello World!\n");
     return 0;
 }

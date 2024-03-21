@@ -1,16 +1,17 @@
 
 #include <stdio.h>
 
-int main() {
-    int result = 0;
-    
-    int add(int a, int b) {
-        return a + b;
+void print_outer() {
+    printf("Printing from the outer function.\n");
+
+    void print_inner() {
+        printf("Printing from the inner function.\n");
     }
     
-    result = add(5, 10);
-    
-    printf("Result: %d\n", result);
-    
+    print_inner();
+}
+
+int main() {
+    print_outer();
     return 0;
 }

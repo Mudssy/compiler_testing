@@ -1,19 +1,25 @@
 
 #include <stdio.h>
 
-typedef struct {
-    int x;
-    int y;
-} Point;
+class MyClass {
+public:
+    MyClass() {}
+    void PublicMethod();
+private:
+    int PrivateVariable;
+    void PrivateMethod();
+};
 
-void setPoint(Point* p, int x, int y) {
-    p->x = x;
-    p->y = y;
+void MyClass::PublicMethod() {
+    printf("This is a public method.\n");
+}
+
+void MyClass::PrivateMethod() {
+    printf("This is a private method.\n");
 }
 
 int main() {
-    Point myPoint;
-    setPoint(&myPoint, 3, 4);
-    printf("Point coords: (%d, %d)\n", myPoint.x, myPoint.y);
+    MyClass mc;
+    mc.PublicMethod();
     return 0;
 }

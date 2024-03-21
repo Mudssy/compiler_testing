@@ -2,11 +2,7 @@
 #include <stdio.h>
 
 int main() {
-    int array[5] = {10, 20, 30, 40, 50};
-    
-    printf("Array element with space before: %d\n", array [2]);
-    printf("Array element with space after : %d\n", array[ 3 ]);
-    printf("Array element without spaces: %d\n", array[4]);
-
+    int a[5] = {1,2,3,4,5};
+    printf("Value at index 0: %d\n", a[0]); // Test spaces around array subscript operators feature of clang-format
     return 0;
 }

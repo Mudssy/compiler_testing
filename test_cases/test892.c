@@ -1,7 +1,7 @@
 
 #include <stdio.h>
 
-int main() {
-    puts("{\"llvmlibRemarks\": [{\"remarks\": \"JSON export feature for the C programming language\"}]}");
+int main(void) {
+    printf("{\"test\": \"This is a test\"}\n");
     return 0;
 }

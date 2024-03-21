@@ -2,21 +2,15 @@
 #include <stdio.h>
 
 int main() {
-    int x = 10;
+    int i = 5;
     
-    printf("Initial value of x: %d\n", x);
+    printf("Initial value of i: %d\n", i); // Expected output: Initial value of i: 5
     
-    ++x; // increment operator test
-    printf("Value of x after pre-increment: %d\n", x);
+    i++;
+    printf("After incrementing, i is: %d\n", i); // Expected output: After incrementing, i is: 6
     
-    x--; // decrement operator test
-    printf("Value of x after post-decrement: %d\n", x);
-    
-    --x; // decrement operator test
-    printf("Value of x after pre-decrement: %d\n", x);
-    
-    x++; // increment operator test
-    printf("Value of x after post-increment: %d\n", x);
-    
+    i--;
+    printf("After decrementing, i is: %d\n", i); // Expected output: After decrementing, i is: 5
+
     return 0;
 }

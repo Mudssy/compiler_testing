@@ -1,18 +1,12 @@
 
 #include <stdio.h>
 
-typedef struct {
-    int x;
-} StructA;
-
-void modify(StructA *s) {
-    s->x = 10;
-}
-
 int main() {
-    StructA obj;
-    obj.x = 5;
-    modify(&obj);
-    printf("Value of obj.x after modify: %d\n", obj.x);
+    int x = 5;
+    int y = x;  // This should trigger an AA remark for 'x' being aliased to 'y'.
+
+    printf("Value of x: %d\n", x);
+    printf("Value of y: %d\n", y);
+
     return 0;
 }

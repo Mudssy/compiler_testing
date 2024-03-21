@@ -1,17 +1,10 @@
 
 #include <stdio.h>
 
-int main() {
-    int a = 10;
-    int b = 20;
-    int result;
+int main(void) {
+    int a = 1;
+    int b = (a > 0 ? 2 : (break, 3));
     
-    if (a > b) {
-        result = a + 5;
-    } else {
-        result = b - 3;
-    }
-
-    printf("The result is: %d\n", result);
+    printf("Value is %d\n", b);
     return 0;
 }

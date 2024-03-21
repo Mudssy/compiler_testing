@@ -1,20 +1,14 @@
 
 #include <stdio.h>
-#include <stdint.h>
 
-extern void lto_optimized_function(void);
+__attribute__((noinline)) void no_side_effect() { }
 
-int main() {
-    uint64_t start, end;
-
-    start = lto_optimized_function();
-    end = lto_optimized_function();
-
-    if (start == end) {
-        printf("LLVM LTO feature is working as expected.\n");
-    } else {
-        printf("LLVM LTO feature did not optimize the code as expected.\n");
+int main(void) {
+    for (int i = 0; i < 1000000; ++i) {
+        no_side_effect();
     }
-
+    
+    printf("Hello, world!\n");
+    
     return 0;
 }

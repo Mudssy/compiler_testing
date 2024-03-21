@@ -1,22 +1,21 @@
 
 #include <stdio.h>
 
-struct TestStruct {
-    int a;
-    float b;
-};
+typedef struct {
+    int x;
+} S;
 
-union TestUnion {
-    char c;
-    double d;
+union U {
+    int y;
 };
 
 int main() {
-    struct TestStruct test_struct = {10, 20.5f};
-    union TestUnion test_union = {'A'};
+    S s = { .x = 10 };
+    union U u;
+    u.y = 20;
     
-    printf("Struct member access: %d, %f\n", test_struct.a, test_struct.b);
-    printf("Union member access: %c, %lf\n", test_union.c, test_union.d);
+    printf("Struct: %d\n", s.x); // Outputs "Struct: 10"
+    printf("Union: %d\n", u.y); // Outputs "Union: 20"
     
     return 0;
 }

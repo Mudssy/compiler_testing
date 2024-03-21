@@ -1,17 +1,21 @@
+pp
+#include <tuple>
+#include <iostream>
 
-#include <stdio.h>
- 
+struct MyStruct { int i; float f; };
+
 int main() {
-    int arr[3] = {1, 2, 3};
-    auto& [a, b, c] = arr;
+    MyStruct s = { 5, 3.2f };
     
-    printf("Initial array: %d, %d, %d\n", a, b, c);
+    // Create tuple of references to the members of 's'
+    auto tpl = std::tie(s.i, s.f);
+
+    // Modify 's.i' and 's.f' through the references in 'tpl'
+    std::get<0>(tpl) = 8;
+    std::get<1>(tpl) = 4.5f;
+
+    // Print out the values to make sure they match what was put into 'tpl'
+    std::cout << "s.i: " << s.i << ", s.f: " << s.f << "\n";
     
-    // Modify the values and print again
-    a = 4;
-    b = 5;
-    c = 6;
-    printf("Modified array: %d, %d, %d\n", arr[0], arr[1], arr[2]);
- 
     return 0;
 }

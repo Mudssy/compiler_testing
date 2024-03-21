@@ -2,9 +2,10 @@
 #include <stdio.h>
 
 int main() {
-    int a = 5;
-    int b = 10;
-    // LLVM Instruction Scheduling feature test case
-    printf("Before optimization: %d + %d = %d\n", a, b, a + b);
+    int sum = 0;
+    for (int i = 1; i <= 1000000; ++i)
+        sum += i;
+    
+    printf("The result is: %d\n", sum);
     return 0;
 }

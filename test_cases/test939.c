@@ -2,6 +2,6 @@
 #include <stdio.h>
 
 int main() {
-    printf("This is a string with a special character: \x41\n");
+    printf("CHECK-NEXT: Hello, world!\n");
     return 0;
 }

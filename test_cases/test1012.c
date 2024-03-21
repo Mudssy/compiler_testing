@@ -1,17 +1,13 @@
 
 #include <stdio.h>
 
-namespace outer {
-    namespace inner {
-        int func() {
-            return 42;
-        }
-    }
+namespace my_namespace {
+    int my_var = 42;  // A variable inside the namespace
 }
 
-using namespace outer::inner;
+using namespace my_namespace;
 
 int main() {
-    printf("The answer is: %d\n", func());
+    printf("Value of my_var = %d\n", my_var);
     return 0;
 }

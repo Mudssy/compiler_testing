@@ -1,25 +1,24 @@
 
 #include <stdio.h>
 
-int foo(int a) {
-    int result;
-
-    if (a > 5) {
-        result = a * 2;
-    } else {
-        result = a + 2;
+void loop_unswitching(int *array) {
+    for (int i = 0; i < 128; ++i) {
+        if (array[i] != i) {
+            printf("Unsuccessful\n");
+            return;
+        }
     }
-
-    return result;
+    
+    printf("Successful\n");
 }
 
 int main() {
-    int i, j;
-
-    for (i = 0; i < 10; i++) {
-        j = foo(i);
-        printf("foo(%d) = %d\n", i, j);
+    int array[128];
+    for (int i = 0; i < 128; ++i) {
+        array[i] = i;
     }
-
+    
+    loop_unswitching(array);
+    
     return 0;
 }

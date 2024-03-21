@@ -1,13 +1,11 @@
 
 #include <stdio.h>
-
 int main() {
-    int x = 10;
-    int y = 20;
-    if (x > y) {
-        printf("x is greater than y\n");
+    int x = 0;
+    if (__builtin_expect(x == 0, 1)) {
+        printf("Zero\n");
     } else {
-        printf("y is greater than or equal to x\n");
+        printf("Not zero\n");
     }
     return 0;
 }
