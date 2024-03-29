@@ -26,10 +26,18 @@
         /* Expanded row style */
         tr.expanded .test-code div.content, tr.expanded .compiler-output div.content { max-height: none; }
     </style>
-    
 </head>
 <body>
     <h1>Compiler Test Report</h1>
+
+    <!-- Toggles for result types -->
+    <div>
+        <label><input type="checkbox" class="result-filter" value="success" checked> Success</label>
+        <label><input type="checkbox" class="result-filter" value="compile-error" checked> Compile Error</label>
+        <label><input type="checkbox" class="result-filter" value="runtime-error" checked> Runtime Error</label>
+        <label><input type="checkbox" class="result-filter" value="discrepancy" checked> Discrepancy</label>
+    </div>
+
     <table>
         <thead>
             <tr>
@@ -51,20 +59,41 @@
     </table>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Select all table rows except the header
-            var rows = document.querySelectorAll("table tbody tr");
-    
+    // Handle row expansion
+    var rows = document.querySelectorAll("table tbody tr");
+    rows.forEach(function(row) {
+        row.addEventListener("mouseover", function() {
+            this.classList.add("expanded"); // Expand row
+        });
+        row.addEventListener("mouseout", function() {
+            this.classList.remove("expanded"); // Collapse row
+        });
+    });
+
+    // Handle result filtering
+    var filters = document.querySelectorAll(".result-filter");
+    filters.forEach(function(filter) {
+        filter.addEventListener("change", function() {
+            var selectedFilters = [];
+            document.querySelectorAll(".result-filter:checked").forEach(function(checkedFilter) {
+                selectedFilters.push(checkedFilter.value);
+            });
             rows.forEach(function(row) {
-                row.addEventListener("mouseover", function() {
-                    this.classList.add("expanded"); // Expand row
-                });
-                row.addEventListener("mouseout", function() {
-                    this.classList.remove("expanded"); // Collapse row
-                });
+                var resultCell = row.querySelector("td.result"); // Target the cell with class 'result'
+                if (resultCell) {
+                    // Check if the result cell has any of the selected result type classes
+                    var hasSelectedResult = selectedFilters.some(filter => resultCell.classList.contains(filter));
+                    if (hasSelectedResult) {
+                        row.style.display = ""; // Show row
+                    } else {
+                        row.style.display = "none"; // Hide row
+                    }
+                }
             });
         });
+    });
+});
     </script>
     
 </body>
 </html>
-

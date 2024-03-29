@@ -513,7 +513,7 @@ fn save_to_file(file_path: &str, lines: &Vec<String>) {
 
 
 
-fn run_and_compare_outputs() {
+fn run_and_compare_outputs(compiler_list: Vec<Compiler>) {
     let test_cases_dir = "./test_cases";
     let timeout_duration = Duration::from_secs(5); // Set the timeout duration to 5 seconds
 
@@ -533,7 +533,6 @@ fn run_and_compare_outputs() {
             .unwrap_or(usize::MAX)
     });
 
-    let compiler_list = vec![Compiler::new("clang"), Compiler::new("gcc")];
 
     let mut tests = Vec::new();
 
@@ -665,9 +664,10 @@ fn read_test_case_content(file_path: &str) -> String {
 fn main() {
     let mut indices = TestIndices::new("test_indices.json");
     indices.read_from_file().unwrap();
-    // generate_test_cases(&mut indices);
+    let compiler_list = vec![Compiler::new("clang"), Compiler::new("gcc")];
+    //generate_test_cases(&mut indices);
 
-    run_and_compare_outputs();
+    run_and_compare_outputs(compiler_list);
     //fix_broken_tests();
     
 
