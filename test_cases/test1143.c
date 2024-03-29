@@ -1,33 +1,20 @@
 
 #include <stdio.h>
 
-int main() {
-    // Anonymous struct
-    struct {
-        int x;
-        int y;
-    } pointOne, pointTwo;
-
-    pointOne.x = 10;
-    pointOne.y = 20;
-
-    pointTwo.x = 30;
-    pointTwo.y = 40;
-
-    printf("Point One: (%d, %d)\n", pointOne.x, pointOne.y);
-    printf("Point Two: (%d, %d)\n", pointTwo.x, pointTwo.y);
-
-    // Anonymous union
-    union {
-        int x;
-        float y;
-    } data;
+int main(void){
+    // Creating an anonymous structure and initializing it with values
+    struct { int a; int b;} s = {1,2};
     
-    data.x = 10;
-    printf("Union integer value: %d\n", data.x);
+    // Print the values of the fields in the structure
+    printf("s.a: %d\n", s.a);
+    printf("s.b: %d\n", s.b);
 
-    data.y = 20.5f;
-    printf("Union floating-point value: %.2f\n", data.y);
+    // Creating an anonymous union and initializing it with a value
+    union { int a; int b;} u = {1};
+    
+    // Print the values of the fields in the union
+    printf("u.a: %d\n", u.a);
+    printf("u.b: %d\n", u.b); 
 
     return 0;
 }

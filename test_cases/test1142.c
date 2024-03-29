@@ -1,7 +1,14 @@
 
-int main() {
-    int π_plus_one = 4; // 'π' is a universal character name.
+#include <stdio.h>
 
-    if (π_plus_one == 2) return -1; // This line should not be executed.
-    else if (π_plus_one == 4) return 0; // This line should be executed.
+int main() {
+    // Declare and initialize variables with universal character names
+    int \u2603 = 5; // Snowman 
+    int \U0001F4A9 = 10; // Pile of poo
+    
+    // Print the values of these variables
+    printf("Value of Snowman is: %d\n", \u2603);
+    printf("Value of Pile of poo is: %d\n", \U0001F4A9);
+    
+    return 0;
 }

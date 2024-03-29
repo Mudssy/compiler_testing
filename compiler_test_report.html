@@ -1,0 +1,2755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compiler Test Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background-color: #f2f2f2; }
+        /* .test-name, .result { max-width: 100px; } */
+
+        .test-code, .compiler-output { padding: 0; } /* Remove padding from the cell itself */
+        .test-code div.content, .compiler-output div.content {
+            white-space: pre-wrap; 
+            word-wrap: break-word; 
+            overflow: hidden;
+            max-height: 50px; /* Initial fixed height */
+            transition: max-height 0.2s ease-out; 
+            padding: 8px; /* Apply padding to the content div instead */
+        }
+        .success { background-color: lightgreen; }
+        .compile-error, .runtime-error { background-color: yellow; }
+        .discrepancy { background-color: red; }
+        /* Expanded row style */
+        tr.expanded .test-code div.content, tr.expanded .compiler-output div.content { max-height: none; }
+    </style>
+    
+</head>
+<body>
+    <h1>Compiler Test Report</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Test File Name</th>
+                <th>Test Code</th>
+                <th>clang</th><th>gcc</th>
+                <!-- Dynamically add a column for each compiler -->
+                <!-- <th>Compiler 1 Output</th>
+                <th>Compiler 2 Output</th> -->
+                <!-- Add more compiler columns as needed -->
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Test Case Loop Start -->
+            <tr>
+        <td class="test-name">./test_cases/test0.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int global_variable = 10;
+
+void printGlobalVariable() {
+    printf("The value of global_variable is %d\n", global_variable);
+}
+
+int main(void) {
+    printGlobalVariable();
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">The value of global_variable is 10
+</div></td><td class="compiler-output"><div class="content">The value of global_variable is 10
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test1.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+int main() {
+    int x = 10; 
+    printf("The value of x is %d\n", x); 
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">The value of x is 10
+</div></td><td class="compiler-output"><div class="content">The value of x is 10
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test2.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+void print_arguments(int arg1, int arg2) {
+    printf("Argument 1 is %d\n", arg1);
+    printf("Argument 2 is %d\n", arg2);
+}
+
+int main() {
+    int num1 = 10;
+    int num2 = 20;
+    
+    print_arguments(num1, num2);
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Argument 1 is 10
+Argument 2 is 20
+</div></td><td class="compiler-output"><div class="content">Argument 1 is 10
+Argument 2 is 20
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test3.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+// Function that returns an integer
+int return_integer() {
+    int a = 5;
+    return a;
+}
+
+int main() {
+    if (return_integer() == 5) 
+        printf("The debug information for function return types is correctly generated\n");
+     else
+        printf("There's an error with the generation of debug information for function return types\n");
+  
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">The debug information for function return types is correctly generated
+</div></td><td class="compiler-output"><div class="content">The debug information for function return types is correctly generated
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test4.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+void foo() {
+    printf("Function 'foo' called\n");
+}
+
+int main(void) {
+    foo();
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Function 'foo' called
+</div></td><td class="compiler-output"><div class="content">Function 'foo' called
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test5.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+struct TestStruct { int a; };
+union TestUnion { int a; float b; };
+enum TestEnum { A = 0, B = 1 };
+
+int main(void) {
+    struct TestStruct ts = { .a = 5 };
+    union TestUnion tu;
+    enum TestEnum te = A;
+    
+    printf("Test Passed\n");
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Test Passed
+</div></td><td class="compiler-output"><div class="content">Test Passed
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test6.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+typedef int MyInt;  // This will generate debug info for the 'MyInt' type
+
+int main() {
+    MyInt myVar = 10;
+    
+    printf("The value of myVar is %d\n", myVar);
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">The value of myVar is 10
+</div></td><td class="compiler-output"><div class="content">The value of myVar is 10
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test7.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int array[3][2] = {{1, 2}, {3, 4}, {5, 6}}; // Create a multi-dimensional array
+
+    for(int i=0; i<3; ++i) {
+        for(int j=0; j<2; ++j) {
+            printf("array[%d][%d] = %d\n", i, j, array[i][j]); // Print out each element in the array
+        }
+    }
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">array[0][0] = 1
+array[0][1] = 2
+array[1][0] = 3
+array[1][1] = 4
+array[2][0] = 5
+array[2][1] = 6
+</div></td><td class="compiler-output"><div class="content">array[0][0] = 1
+array[0][1] = 2
+array[1][0] = 3
+array[1][1] = 4
+array[2][0] = 5
+array[2][1] = 6
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test8.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+#include <iso646.h>  // for "and" operator
+
+int main() {
+    int i = 0;
+    double *ptr1 = &i;  // create an incompatible pointer type
+    char *ptr2 = (char *)&i;  // create a compatible pointer type
+    
+    if(__builtin_types_compatible_p(typeof(*ptr1), typeof(*ptr2))) {
+        printf("Pointers are compatible.\n");
+    } else {
+        printf("Pointers are not compatible.\n");
+    }
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Pointers are not compatible.
+</div></td><td class="compiler-output"><div class="content">Pointers are not compatible.
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test9.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+void print_hello() {
+    printf("Hello, World!\n");
+}
+
+int main(void) {
+    void (*functionPointer)(void);
+    functionPointer = &print_hello;
+    
+    // The debug info should be visible here when the compiler generates it for function pointers.
+    functionPointer();
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Hello, World!
+</div></td><td class="compiler-output"><div class="content">Hello, World!
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test10.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+static inline int add(int num1, int num2) {
+    return num1 + num2;
+}
+
+int main() {
+    printf("Result is : %d", add(5, 3));
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Result is : 8</div></td><td class="compiler-output"><div class="content">Result is : 8</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test11.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+static int staticVar = 10;
+
+static void staticFunction(void) {
+    printf("Inside static function.\n");
+    staticVar++;
+}
+
+int main() {
+    for (int i = 0; i < 5; i++) {
+        printf("Call number: %d\n", i + 1);
+        staticFunction();
+        printf("Static variable value: %d\n\n", staticVar);
+    }
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Call number: 1
+Inside static function.
+Static variable value: 11
+
+Call number: 2
+Inside static function.
+Static variable value: 12
+
+Call number: 3
+Inside static function.
+Static variable value: 13
+
+Call number: 4
+Inside static function.
+Static variable value: 14
+
+Call number: 5
+Inside static function.
+Static variable value: 15
+
+</div></td><td class="compiler-output"><div class="content">Call number: 1
+Inside static function.
+Static variable value: 11
+
+Call number: 2
+Inside static function.
+Static variable value: 12
+
+Call number: 3
+Inside static function.
+Static variable value: 13
+
+Call number: 4
+Inside static function.
+Static variable value: 14
+
+Call number: 5
+Inside static function.
+Static variable value: 15
+
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test12.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    volatile int vi = 10;
+    const int ci = 20;
+    
+    printf("Volatile Variable: %d\n", vi);
+    printf("Const Variable: %d\n", ci);
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Volatile Variable: 10
+Const Variable: 20
+</div></td><td class="compiler-output"><div class="content">Volatile Variable: 10
+Const Variable: 20
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test13.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int a = 10;
+    int b = 20;
+    int c = (a + b) / 2;
+    
+    printf("The value of c is %d\n", c);
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">The value of c is 15
+</div></td><td class="compiler-output"><div class="content">The value of c is 15
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test14.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int x = 5;
+    
+    // Testing if statement
+    if (x > 0) {
+        printf("Value is positive\n");
+    } else {
+        printf("Value is not positive\n");
+    }
+    
+    // Testing switch case 
+    switch(x) {
+        case 1:
+            printf("Case 1\n");
+            break;
+        case 2:
+            printf("Case 2\n");
+            break;
+        default:
+            printf("Default Case\n");
+    }
+    
+    // Testing loop
+    for(int i = 0; i < 5; ++i) {
+        printf("Loop Iteration %d\n", i);
+    }
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Value is positive
+Default Case
+Loop Iteration 0
+Loop Iteration 1
+Loop Iteration 2
+Loop Iteration 3
+Loop Iteration 4
+</div></td><td class="compiler-output"><div class="content">Value is positive
+Default Case
+Loop Iteration 0
+Loop Iteration 1
+Loop Iteration 2
+Loop Iteration 3
+Loop Iteration 4
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test15.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main(void) {
+    printf("This is printed at line %d\n", __LINE__);
+}
+</div></td>
+        <td class="compiler-output"><div class="content">This is printed at line 5
+</div></td><td class="compiler-output"><div class="content">This is printed at line 5
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test16.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main(void) {
+    int x = 10;
+    printf("Variable 'x' is located at memory location %p\n", (void*)&x);
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Variable 'x' is located at memory location 0x7ffd76e430d8
+</div></td><td class="compiler-output"><div class="content">Variable 'x' is located at memory location 0x7ffdd64f3884
+</div></td>
+        <td class="result discrepancy">Discrepancies found: compilers produced differing outputs.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test17.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+typedef int my_int; // This typedef line should be included in the output's debug info 
+
+int main() {
+    my_int a = 10;
+    printf("Value of a: %d\n", a);
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Value of a: 10
+</div></td><td class="compiler-output"><div class="content">Value of a: 10
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test18.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+void foo() __attribute__((always_inline));
+
+void foo() {
+    asm ("mov $60, %eax\n" // syscall number for exit
+         "xor %ebx, %ebx\n" // exit code 0
+         "int $0x80"); // invoke the kernel
+}
+
+void bar() {
+    asm("nop"); // no operation to test loop unrolling
+}
+
+void baz() {
+    int i;
+    for (i = 0; i < 100; ++i) {
+        bar();
+    }
+}
+
+int main() {
+    printf("Hello, world!\n");
+    foo(); // will not return here because of the exit syscall
+    printf("This line will never be reached.\n");
+    baz();
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Hello, world!
+This line will never be reached.
+</div></td><td class="compiler-output"><div class="content">Hello, world!
+This line will never be reached.
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test19.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    printf("This file is %s.\n", __FILE__);
+    printf("This line is on %d.\n", __LINE__);
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">This file is ./test_cases/test19.c.
+This line is on 6.
+</div></td><td class="compiler-output"><div class="content">This file is ./test_cases/test19.c.
+This line is on 6.
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test20.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int i = 10;
+    printf("Value of 'i' is %d\n", i);
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Value of 'i' is 10
+</div></td><td class="compiler-output"><div class="content">Value of 'i' is 10
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test21.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int g_var = 5; // Global Variable
+
+void print() {
+    int f_var = 10; // Function Variable
+
+    printf("Global variable from main function is %d\n", g_var);
+    
+    printf("Inside block\n"); 
+    for(int b_var=15; b_var<20; ++b_var) { // Block Variable
+        printf("Block local variable: %d, Function local variable: %d \n", b_var, f_var);
+        if (b_var < 17) {
+            int b_inner = 50; // Inner Block Variable
+            printf("Inner block local variable: %d\n", b_inner);
+        } else {
+            printf("Outside the inner block scope\n");
+        }
+    }
+    
+    printf("Function ended\n");
+}
+
+int main() {
+    print();
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Global variable from main function is 5
+Inside block
+Block local variable: 15, Function local variable: 10 
+Inner block local variable: 50
+Block local variable: 16, Function local variable: 10 
+Inner block local variable: 50
+Block local variable: 17, Function local variable: 10 
+Outside the inner block scope
+Block local variable: 18, Function local variable: 10 
+Outside the inner block scope
+Block local variable: 19, Function local variable: 10 
+Outside the inner block scope
+Function ended
+</div></td><td class="compiler-output"><div class="content">Global variable from main function is 5
+Inside block
+Block local variable: 15, Function local variable: 10 
+Inner block local variable: 50
+Block local variable: 16, Function local variable: 10 
+Inner block local variable: 50
+Block local variable: 17, Function local variable: 10 
+Outside the inner block scope
+Block local variable: 18, Function local variable: 10 
+Outside the inner block scope
+Block local variable: 19, Function local variable: 10 
+Outside the inner block scope
+Function ended
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test22.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int n = 5;  // Size of the array
+
+    // Allocating memory using malloc
+    int *m = (int*) malloc(n * sizeof(int));
+    if (m == NULL) {
+        printf("Memory allocation failed.\n");
+        exit(1);
+    }
+    
+    for (int i = 0; i < n; ++i) {
+        m[i] = i * 2;
+    }
+
+    // Printing the values in the array using malloc'd memory
+    printf("Values stored using malloc:\n");
+    for(int i=0; i<n; i++){
+        printf("%d ", m[i]);
+    }
+    printf("\n");
+    
+    // Allocating memory using calloc
+    int *c = (int*) calloc(n, sizeof(int));
+    if (c == NULL) {
+        printf("Memory allocation failed.\n");
+        exit(1);
+    }
+
+    for (int i = 0; i < n; ++i) {
+        c[i] = i * 2;
+    }
+    
+    // Printing the values in the array using calloc'd memory
+    printf("Values stored using calloc:\n");
+    for(int i=0; i<n; i++){
+        printf("%d ", c[i]);
+    }
+    printf("\n");
+    
+    // Deallocating memory
+    free(m); 
+    free(c);
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Values stored using malloc:
+0 2 4 6 8 
+Values stored using calloc:
+0 2 4 6 8 
+</div></td><td class="compiler-output"><div class="content">Values stored using malloc:
+0 2 4 6 8 
+Values stored using calloc:
+0 2 4 6 8 
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test23.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main(void) {
+    int i = 5;
+    int arr[i]; // Declare variable length array
+
+    for (int j=0; j<i; ++j) { // Initialize array with some values
+        arr[j] = j * 2;
+    }
+    
+    printf("Array Contents:\n");
+    for(int j=0; j<i; ++j) { // Print out array contents
+        printf("%d ", arr[j]);
+    }
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Array Contents:
+0 2 4 6 8 </div></td><td class="compiler-output"><div class="content">Array Contents:
+0 2 4 6 8 </div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test24.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int arr[3][4] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
+    
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            printf("Element at arr[%d][%d] is %d\n", i, j, arr[i][j]);
+        }
+    }
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Element at arr[0][0] is 1
+Element at arr[0][1] is 2
+Element at arr[0][2] is 3
+Element at arr[0][3] is 4
+Element at arr[1][0] is 5
+Element at arr[1][1] is 6
+Element at arr[1][2] is 7
+Element at arr[1][3] is 8
+Element at arr[2][0] is 9
+Element at arr[2][1] is 10
+Element at arr[2][2] is 11
+Element at arr[2][3] is 12
+</div></td><td class="compiler-output"><div class="content">Element at arr[0][0] is 1
+Element at arr[0][1] is 2
+Element at arr[0][2] is 3
+Element at arr[0][3] is 4
+Element at arr[1][0] is 5
+Element at arr[1][1] is 6
+Element at arr[1][2] is 7
+Element at arr[1][3] is 8
+Element at arr[2][0] is 9
+Element at arr[2][1] is 10
+Element at arr[2][2] is 11
+Element at arr[2][3] is 12
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test25.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+typedef struct {
+    unsigned int field1 : 2;
+    unsigned int field2 : 3;
+} BitFields;
+
+int main() {
+    BitFields bf = {2, 5};
+    
+    printf("Bit Fields:\n");
+    printf("field1: %u\n", bf.field1);
+    printf("field2: %u\n", bf.field2);
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Bit Fields:
+field1: 2
+field2: 5
+</div></td><td class="compiler-output"><div class="content">Bit Fields:
+field1: 2
+field2: 5
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test26.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+typedef enum {
+    ONE = 1,
+    TWO = 2,
+    THREE = 3
+} Numbers;
+
+int main() {
+    Numbers my_number = TWO;
+    
+    switch (my_number) {
+        case ONE: 
+            printf("The number is one\n"); 
+            break;
+        case TWO: 
+            printf("The number is two\n");
+            break;
+        case THREE: 
+            printf("The number is three\n"); 
+            break;
+    }
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">The number is two
+</div></td><td class="compiler-output"><div class="content">The number is two
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test27.c</td>
+        <td class="test-code"><div class="content">
+// Include necessary headers
+#include <stdio.h>
+
+int global_var; // Declaration of variable
+int function();  // Function prototype/declaration
+
+int main() {
+    printf("Hello, world!\n");
+    
+    // Testing if variables and functions can be declared without defining them beforehand
+    int local_var = 10;
+    int result = function();
+
+    printf("Local variable: %d\n", local_var);
+    printf("Function result: %d\n", result);
+    
+    return 0; // Return statement from main function
+}
+
+// Function definition
+int function() {
+    return 15;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Hello, world!
+Local variable: 10
+Function result: 15
+</div></td><td class="compiler-output"><div class="content">Hello, world!
+Local variable: 10
+Function result: 15
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test28.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+// Forward declaration
+void print_message();
+
+int main() {
+    // Use the forward declared function
+    print_message();
+    
+    return 0;
+}
+
+// Implementing the forward declared function
+void print_message() {
+    printf("Compiler supports handling of forward declarations for the llvmlibDebugInfo section.\n");
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Compiler supports handling of forward declarations for the llvmlibDebugInfo section.
+</div></td><td class="compiler-output"><div class="content">Compiler supports handling of forward declarations for the llvmlibDebugInfo section.
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test29.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    #define DEBUG_INFO 1
+    printf("Is Debug Information Supported? ");
+    
+    #if DEBUG_INFO == 1
+        printf("Yes\n");
+    #else
+        printf("No\n");
+    #endif
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Is Debug Information Supported? Yes
+</div></td><td class="compiler-output"><div class="content">Is Debug Information Supported? Yes
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test30.c</td>
+        <td class="test-code"><div class="content">
+#include <stdarg.h>
+#include <stdio.h>
+
+int add_nums(int count,...) {
+    int result = 0;
+    va_list ap;
+    va_start(ap, count); // Requires the last fixed parameter (to get the address)
+    for (int j=0;j<count;++j){
+        result += va_arg(ap, int); //Requires the type to cast to. Increments ap to the next argument.
+    } 
+    va_end(ap); //Clean up the list
+    return result;
+}
+
+int main() {
+   printf("Sum = %d\n", add_nums(4, 25, 25, 50, 100));
+   return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Sum = 200
+</div></td><td class="compiler-output"><div class="content">Sum = 200
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test31.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    printf("Size of char: %zu\n", sizeof(char));
+    printf("Size of short: %zu\n", sizeof(short));
+    printf("Size of int: %zu\n", sizeof(int));
+    printf("Size of long: %zu\n", sizeof(long));
+    printf("Size of float: %zu\n", sizeof(float));
+    printf("Size of double: %zu\n", sizeof(double));
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Size of char: 1
+Size of short: 2
+Size of int: 4
+Size of long: 8
+Size of float: 4
+Size of double: 8
+</div></td><td class="compiler-output"><div class="content">Size of char: 1
+Size of short: 2
+Size of int: 4
+Size of long: 8
+Size of float: 4
+Size of double: 8
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test32.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+};
+
+void inOrderTraversal(struct TreeNode* node) {
+    if (node == NULL) return;
+    
+    inOrderTraversal(node->left);
+    printf("%d ", node->val);  // Print value of node
+    inOrderTraversal(node->right);
+}
+
+int main() {
+    struct TreeNode root, n1, n2, n3;
+    
+    // Construct a binary tree.
+    root.val = 10;
+    root.left = &n1;
+    root.right = &n2;
+    
+    n1.val = 5;
+    n1.left = NULL;
+    n1.right = NULL;
+    
+    n2.val = 15;
+    n2.left = &n3;
+    n2.right = NULL;
+    
+    n3.val = 7;
+    n3.left = NULL;
+    n3.right = NULL;
+    
+    // Print the tree in order.
+    printf("In-order traversal:\n");
+    inOrderTraversal(&root);
+    printf("\n");
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">In-order traversal:
+5 10 7 15 
+</div></td><td class="compiler-output"><div class="content">In-order traversal:
+5 10 7 15 
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test33.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+typedef struct {
+    int type;
+    union {
+        int i;
+        float f;
+    };
+} Number;
+
+int main() {
+    Number num;
+    
+    // Initialize the anonymous union as an integer
+    num.type = 0;
+    num.i = 10;
+    
+    printf("Integer: %d\n", num.i);  // Prints: Integer: 10
+    
+    // Now change the type to float and initialize it
+    num.type = 1;
+    num.f = 20.5;
+    
+    printf("Float: %f\n", num.f);  // Prints: Float: 20.500000
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Integer: 10
+Float: 20.500000
+</div></td><td class="compiler-output"><div class="content">Integer: 10
+Float: 20.500000
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test34.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main(void) {
+    printf("This is file %s\n", __FILE__);
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">This is file ./test_cases/test34.c
+</div></td><td class="compiler-output"><div class="content">This is file ./test_cases/test34.c
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test35.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int x = 1;
+    if (x == 1) {
+        printf("Dead code path taken.\n");
+    } else {
+        printf("Unreachable statement executed.\n");
+    }
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Dead code path taken.
+</div></td><td class="compiler-output"><div class="content">Dead code path taken.
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test36.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    #ifdef __OPTIMIZE__
+        printf("Optimized build\n");
+    #else
+        printf("Debug build\n");
+    #endif
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Debug build
+</div></td><td class="compiler-output"><div class="content">Debug build
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test37.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+// Define a function in an external library (i.e., libTestLib.a)
+int add(int x, int y);
+
+void main() {
+    // Use the function from the static library
+    printf("Static Add: %d\n", add(10, 2));
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Compilation Error: /usr/bin/ld: /tmp/ccYgzNAZ.o: in function `main':
+test37.c:(.text+0x13): undefined reference to `add'
+collect2: error: ld returned 1 exit status
+</div></td><td class="compiler-output"><div class="content">Compilation Error: ./test_cases/test37.c:7:1: warning: return type of 'main' is not 'int' [-Wmain-return-type]
+void main() {
+^
+./test_cases/test37.c:7:1: note: change return type to 'int'
+void main() {
+^~~~
+int
+1 warning generated.
+/usr/bin/ld: /tmp/test37-243490.o: in function `main':
+test37.c:(.text+0xf): undefined reference to `add'
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+</div></td>
+        <td class="result compile-error">Test case must have an error: all compilers failed to compile.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test38.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    printf("Cross-compilation and cross-platform debugging features are supported.\n");
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Cross-compilation and cross-platform debugging features are supported.
+</div></td><td class="compiler-output"><div class="content">Cross-compilation and cross-platform debugging features are supported.
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test39.c</td>
+        <td class="test-code"><div class="content">
+#include <signal.h>
+#include <stdio.h>
+#include <unistd.h>
+
+void signal_handler(int signum) {
+    printf("Received signal %d\n", signum);
+}
+
+void async_event() {
+    printf("Async event triggered\n");
+}
+
+int main() {
+    struct sigaction sa;
+    sa.sa_handler = &signal_handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;  // no flag set
+    sigaction(SIGINT, &sa, NULL);  // register signal handler
+    
+    printf("Starting program\n");
+    
+    while (1) {
+        sleep(5);  // simulate async event
+        async_event();
+    }
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Execution Error: </div></td><td class="compiler-output"><div class="content">Execution Error: </div></td>
+        <td class="result runtime-error">Test case issue: all compilers compiled but failed at runtime.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test40.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+#include <stdlib.h>
+
+__thread int thread_local_var = 10;
+
+int main() {
+    printf("Initial value of thread-local variable: %d\n", thread_local_var);
+    thread_local_var += 5;
+    printf("After modification, value of thread-local variable: %d\n", thread_local_var);
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Initial value of thread-local variable: 10
+After modification, value of thread-local variable: 15
+</div></td><td class="compiler-output"><div class="content">Initial value of thread-local variable: 10
+After modification, value of thread-local variable: 15
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test41.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+#include <pthread.h>
+
+void* print_id(void *vargp) {
+    int id = *((int *) vargp);
+    printf("Thread ID: %d\n", id);
+}
+
+int main() {
+    pthread_t thread1, thread2;
+    int id1 = 1, id2 = 2;
+    
+    pthread_create(&thread1, NULL, print_id, &id1);
+    pthread_create(&thread2, NULL, print_id, &id2);
+    
+    pthread_join(thread1, NULL);
+    pthread_join(thread2, NULL);
+  
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Thread ID: 1
+Thread ID: 2
+</div></td><td class="compiler-output"><div class="content">Thread ID: 1
+Thread ID: 2
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test42.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+void func1() {
+    printf("This is Function 1\n");
+}
+
+void func2(int a) {
+    printf("Function 2 called with argument: %d\n", a);
+}
+
+int main() {
+    int i = 0;
+
+    for(i=0; i<5; i++){
+        if (i%2 == 0)
+            func1();
+        else
+            func2(i);
+    }
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">This is Function 1
+Function 2 called with argument: 1
+This is Function 1
+Function 2 called with argument: 3
+This is Function 1
+</div></td><td class="compiler-output"><div class="content">This is Function 1
+Function 2 called with argument: 1
+This is Function 1
+Function 2 called with argument: 3
+This is Function 1
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test43.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+#include <signal.h>
+#include <setjmp.h>
+
+static jmp_buf jumpBuffer;
+
+void signalHandler(int signum) {
+    printf("Handling signal %d\n", signum);
+    longjmp(jumpBuffer, 1); // Return from the setjmp call in main
+}
+
+int main() {
+    struct sigaction action;
+    action.sa_handler = signalHandler;
+    action.sa_flags = 0;
+    sigemptyset(&action.sa_mask);
+    sigaction(SIGFPE, &action, NULL); // Set up the handler for SIGFPE
+
+    if (setjmp(jumpBuffer) == 0) {
+        int x = 10 / 0; // This will cause a floating point exception
+        printf("After division by zero\n");
+    } else {
+        printf("Recovered from SIGFPE\n");
+    }
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Handling signal 8
+Recovered from SIGFPE
+</div></td><td class="compiler-output"><div class="content">After division by zero
+</div></td>
+        <td class="result discrepancy">Discrepancies found: compilers produced differing outputs.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test44.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+#include <setjmp.h>
+
+static jmp_buf env;
+
+void second(int count) 
+{
+    longjmp(env, count+1);  // jump back to where setjmp was called - making the setjmp return count+1
+}
+
+void first (int count) 
+{
+    if (count == 0) {
+        longjmp(env, 1);  // non-local goto - jump to a previously saved environment from setjmp()
+    } else {
+        printf("count=%d\n", count);  
+        first(count-1);
+    }
+}
+
+int main() 
+{
+    int result;
+    
+    switch (setjmp(env)) {
+    case 0:   // initial setjmp call, returning 0
+        first(10);  
+        break;
+    default:  // a longjmp was performed, returning count+1
+        printf("long jump performed\n");
+        result = -1;
+        break;
+    }
+    
+    printf("result=%d\n", result);
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">count=10
+count=9
+count=8
+count=7
+count=6
+count=5
+count=4
+count=3
+count=2
+count=1
+long jump performed
+result=-1
+</div></td><td class="compiler-output"><div class="content">count=10
+count=9
+count=8
+count=7
+count=6
+count=5
+count=4
+count=3
+count=2
+count=1
+long jump performed
+result=-1
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test45.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+void testFunction() {
+    printf("This is a test function.\n");
+}
+
+int main() {
+    // Call the test function
+    testFunction();
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">This is a test function.
+</div></td><td class="compiler-output"><div class="content">This is a test function.
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test46.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+// Function declaration / prototype
+void foo(void);
+
+int main(void) {
+    printf("Inside main\n");
+    
+    // Calling the function
+    foo();
+    
+    return 0;
+}
+
+void foo(void){
+    printf("Function foo called\n");
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Inside main
+Function foo called
+</div></td><td class="compiler-output"><div class="content">Inside main
+Function foo called
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test47.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int x = 10; // Define the extern variable 'x'
+
+void print_x() {
+    printf("The value of x is %d\n", x);
+}
+
+int main() {
+    print_x();
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">The value of x is 10
+</div></td><td class="compiler-output"><div class="content">The value of x is 10
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test48.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+void counter(int add) {
+    // Static variable used to count the number of times this function is called
+    static int count = 0;
+    count += add;
+    printf("Counter: %d\n", count);
+}
+
+int main() {
+    for (int i=1; i<=5; ++i) {
+        counter(i);
+    }
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Counter: 1
+Counter: 3
+Counter: 6
+Counter: 10
+Counter: 15
+</div></td><td class="compiler-output"><div class="content">Counter: 1
+Counter: 3
+Counter: 6
+Counter: 10
+Counter: 15
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test49.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+// Global Variable Declaration
+int g = 20;
+
+void add(int a, int b) {
+    // Local Variable Declaration
+    int sum = a + b;
+    printf("Sum of %d and %d is %d\n", a, b, sum);
+}
+
+int main() {
+    printf("Global variable: %d\n", g);
+    add(10, 20);
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Global variable: 20
+Sum of 10 and 20 is 30
+</div></td><td class="compiler-output"><div class="content">Global variable: 20
+Sum of 10 and 20 is 30
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test50.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int x = 10; // Declare and initialize a local integer variable
+    
+    printf("Value of x = %d\n", x); // Print the value of the variable
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Value of x = 10
+</div></td><td class="compiler-output"><div class="content">Value of x = 10
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test51.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int number = 10; // an integer variable
+    int *ptr; // declaring a pointer to an integer variable
+    
+    ptr = &number; // storing address of 'number' in the pointer 
+
+    printf("Address stored in pointer is: %p\n", ptr); // printing out the address stored in the pointer using '%p' format specifier.
+    printf("Value pointed to by the pointer is: %d\n", *ptr); // printing out value pointed to by 'ptr' using '*ptr' notation.
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Address stored in pointer is: 0x7ffc2256648c
+Value pointed to by the pointer is: 10
+</div></td><td class="compiler-output"><div class="content">Address stored in pointer is: 0x7ffdf0560b68
+Value pointed to by the pointer is: 10
+</div></td>
+        <td class="result discrepancy">Discrepancies found: compilers produced differing outputs.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test52.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+int main() {
+    int arr[5] = {1, 2, 3, 4, 5};
+    int i;
+    for (i = 0; i < 5; ++i) {
+        if(arr[i] != i + 1){
+            printf("20\n");
+            return 0;
+        }
+    }
+    printf("10\n");
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">10
+</div></td><td class="compiler-output"><div class="content">10
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test53.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+struct Point {
+    int x;
+    int y;
+};
+
+int main() {
+    // Declare and initialize a struct variable
+    struct Point p = { 10, 20 };
+    
+    printf("Point (%d, %d)\n", p.x, p.y);
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Point (10, 20)
+</div></td><td class="compiler-output"><div class="content">Point (10, 20)
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test54.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+union Data {
+   int i;
+   float f;
+};
+
+int main() {
+    union Data data;        
+
+    printf("Memory size occupied by data : %lu\n", sizeof(data));
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Memory size occupied by data : 4
+</div></td><td class="compiler-output"><div class="content">Memory size occupied by data : 4
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test55.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+enum {Mon, Tue, Wed, Thu, Fri, Sat, Sun};
+
+int main() {
+    printf("Monday = %d\n", Mon);
+    printf("Tuesday = %d\n", Tue);
+    printf("Wednesday = %d\n", Wed);
+    printf("Thursday = %d\n", Thu);
+    printf("Friday = %d\n", Fri);
+    printf("Saturday = %d\n", Sat);
+    printf("Sunday = %d\n", Sun);
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Monday = 0
+Tuesday = 1
+Wednesday = 2
+Thursday = 3
+Friday = 4
+Saturday = 5
+Sunday = 6
+</div></td><td class="compiler-output"><div class="content">Monday = 0
+Tuesday = 1
+Wednesday = 2
+Thursday = 3
+Friday = 4
+Saturday = 5
+Sunday = 6
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test56.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+typedef struct {
+    int id;
+    char name[50];
+} Person;
+
+int main() {
+    Person person1 = { 1, "John Doe" };
+    
+    printf("Person ID: %d\n", person1.id);
+    printf("Person Name: %s\n", person1.name);
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Person ID: 1
+Person Name: John Doe
+</div></td><td class="compiler-output"><div class="content">Person ID: 1
+Person Name: John Doe
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test57.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+static inline int square(int n) {
+    return n*n;
+}
+
+int main() {
+    int num = 5;
+    printf("The square of %d is: %d\n", num, square(num));
+    return 0; // Makes sure it doesn't run forever.
+}
+</div></td>
+        <td class="compiler-output"><div class="content">The square of 5 is: 25
+</div></td><td class="compiler-output"><div class="content">The square of 5 is: 25
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test58.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+void fun() {
+    auto int var = 10;
+    printf("Value inside fun(): %d\n", var);
+}
+
+int main() {
+    auto int var = 20;
+    printf("Value in the main function: %d\n", var);
+    fun();
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Value in the main function: 20
+Value inside fun(): 10
+</div></td><td class="compiler-output"><div class="content">Value in the main function: 20
+Value inside fun(): 10
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test59.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    register int x = 5; // Register variable
+    printf("Value of x is : %d\n", x);
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Value of x is : 5
+</div></td><td class="compiler-output"><div class="content">Value of x is : 5
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test60.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int array[5] = {1, 2, 3, 4, 5};
+    const int i = 5; // constant integer expression
+    printf("%d\n", array[i - 6]);
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">5
+</div></td><td class="compiler-output"><div class="content">5
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test61.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int i = 10; // Integer constant
+    
+    printf("%d\n", i);
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">10
+</div></td><td class="compiler-output"><div class="content">10
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test62.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    // Test decimal numbers
+    printf("Decimal: %f\n", 1234567890.0);
+
+    // Test octal numbers
+    printf("Octal: %f\n", 01234567);
+
+    // Test hexadecimal numbers
+    printf("Hexadecimal: %f\n", 0xABCDEF);
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Decimal: 1234567890.000000
+Octal: 1234567890.000000
+Hexadecimal: 1234567890.000000
+</div></td><td class="compiler-output"><div class="content">Decimal: 1234567890.000000
+Octal: 1234567890.000000
+Hexadecimal: 1234567890.000000
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test63.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+int main() {
+    printf("%d\n", '\0');  // Prints: 0 as an integer representation of null character
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">0
+</div></td><td class="compiler-output"><div class="content">0
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test64.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main(void) {
+    // Test case 1: Printing a single word string literal
+    printf("%s\n", "Hello");
+
+    // Test case 2: Printing a multi-word string literal
+    printf("\"%s\"\n", "Multi Word String Literal!");
+    
+    // Test case 3: Converting a single character to string
+    char c = 'A';
+    printf("%c\n", c);
+
+    // Test case 4: Checking if the function handles null strings correctly
+    char* str = NULL;
+    printf("\"%s\"\n", str);
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Hello
+"Multi Word String Literal!"
+A
+"(null)"
+</div></td><td class="compiler-output"><div class="content">Hello
+"Multi Word String Literal!"
+A
+"(null)"
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test65.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+#include <assert.h>
+
+int main() {
+    int a = 10;
+    int b = 20;
+    
+    // Test arithmetic operations.
+    assert(a + b == 30);  // Addition
+    assert(b - a == 10);  // Subtraction
+    assert(a * b == 200);  // Multiplication
+    assert(b / a == 2);   // Division
+    assert(b % a == 0);   // Modulus
+    
+    printf("Test Passed\n");
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Test Passed
+</div></td><td class="compiler-output"><div class="content">Test Passed
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test66.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int a = 10;
+    int b = 20;
+    
+    // Greater than operation 
+    if (a > b) {
+        printf("Greater than test passed.\n");
+    } else {
+        printf("Greater than test failed.\n");
+    }
+
+    // Less than operation 
+    if (a < b) {
+        printf("Less than test passed.\n");
+    } else {
+        printf("Less than test failed.\n");
+    }
+
+    // Greater than or equal to operation 
+    if (b >= a) {
+        printf("Greater than or equal to test passed.\n");
+    } else {
+        printf("Greater than or equal to test failed.\n");
+    }
+    
+    // Less than or equal to operation
+    if (a <= b) {
+        printf("Less than or equal to test passed.\n");
+    } else {
+        printf("Less than or equal to test failed.\n");
+    }
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Greater than test failed.
+Less than test passed.
+Greater than or equal to test passed.
+Less than or equal to test passed.
+</div></td><td class="compiler-output"><div class="content">Greater than test failed.
+Less than test passed.
+Greater than or equal to test passed.
+Less than or equal to test passed.
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test67.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int a = 10;
+    int b = 20;
+    
+    // Using logical operations in if statement 
+    if (a > 5 && b < 30) {
+        printf("Both conditions are true.\n");
+    } else {
+        printf("One or both conditions are false.\n");
+    }
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Both conditions are true.
+</div></td><td class="compiler-output"><div class="content">Both conditions are true.
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test68.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    unsigned int x = 1;
+    unsigned int y = 3;
+    
+    printf("x is %d, y is %d\n", x, y);
+
+    // Bitwise AND operation
+    unsigned int andResult = x & y;
+    printf("Bitwise AND result: %d\n", andResult);
+
+    // Bitwise OR operation
+    unsigned int orResult = x | y;
+    printf("Bitwise OR result: %d\n", orResult);
+
+    // Bitwise XOR operation
+    unsigned int xorResult = x ^ y;
+    printf("Bitwise XOR result: %d\n", xorResult);
+
+    // Bitwise NOT operation for 'x'
+    unsigned int notX = ~x;
+    printf("Bitwise NOT for 'x': %u\n", notX);
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">x is 1, y is 3
+Bitwise AND result: 1
+Bitwise OR result: 3
+Bitwise XOR result: 2
+Bitwise NOT for 'x': 4294967294
+</div></td><td class="compiler-output"><div class="content">x is 1, y is 3
+Bitwise AND result: 1
+Bitwise OR result: 3
+Bitwise XOR result: 2
+Bitwise NOT for 'x': 4294967294
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test69.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int a = 10;
+    int b = 20;
+    printf("Before assignment, value of a: %d\n", a);
+    printf("Before assignment, value of b: %d\n", b);
+
+    a = b + 5; // Testing the assignment operation using the result of an expression
+    printf("After assignment, value of a: %d\n", a);
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Before assignment, value of a: 10
+Before assignment, value of b: 20
+After assignment, value of a: 25
+</div></td><td class="compiler-output"><div class="content">Before assignment, value of a: 10
+Before assignment, value of b: 20
+After assignment, value of a: 25
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test70.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int num = 5;
+    
+    printf("Initial Value: %d\n", num);
+
+    // Testing increment operation
+    num++; 
+    printf("After Increment: %d\n", num);
+
+    // Testing decrement operation
+    num--; 
+    printf("After Decrement: %d\n", num);
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Initial Value: 5
+After Increment: 6
+After Decrement: 5
+</div></td><td class="compiler-output"><div class="content">Initial Value: 5
+After Increment: 6
+After Decrement: 5
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test71.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main(void) {
+    int x = 5;
+    
+    if (x > 4) {
+        printf("True\n");
+    } else {
+        printf("False\n");
+    }
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">True
+</div></td><td class="compiler-output"><div class="content">True
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test72.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int i = 10;
+    float f = 2.5;
+    
+    // Perform implicit type conversion and addition
+    float result = i + f;
+
+    printf("The result of integer %d and float %f added together is: %f\n", i, f, result);
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">The result of integer 10 and float 2.500000 added together is: 12.500000
+</div></td><td class="compiler-output"><div class="content">The result of integer 10 and float 2.500000 added together is: 12.500000
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test73.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    float f = 3.14;
+    int i = (int)f;  // Explicit type cast here
+    printf("The float %f converted to an integer is: %d\n", f, i);
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">The float 3.140000 converted to an integer is: 3
+</div></td><td class="compiler-output"><div class="content">The float 3.140000 converted to an integer is: 3
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test74.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int x = 10, y = 20;
+
+    if (x > y) {
+        printf("x is greater than y\n");
+    } else {
+        printf("y is greater than or equal to x\n");
+    }
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">y is greater than or equal to x
+</div></td><td class="compiler-output"><div class="content">y is greater than or equal to x
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test75.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int x = 10;
+    printf("Value of x before modification: %d\n", x);
+    x = (x + 5, x - 2, x * 3); // This line uses the expression statements feature
+    printf("Value of x after modification: %d\n", x);
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Value of x before modification: 10
+Value of x after modification: 30
+</div></td><td class="compiler-output"><div class="content">Value of x before modification: 10
+Value of x after modification: 30
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test76.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int x = 10;
+    
+    if (x > 5) {
+        printf("Value of x is greater than 5\n");
+    } else {
+        printf("Value of x is not greater than 5\n");
+    }
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Value of x is greater than 5
+</div></td><td class="compiler-output"><div class="content">Value of x is greater than 5
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test77.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int condition = 1; // Change this value to experiment with different outputs 
+    
+    if (condition) {
+        printf("Condition is true\n");
+    } else {
+        printf("Condition is false\n");
+    }
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Condition is true
+</div></td><td class="compiler-output"><div class="content">Condition is true
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test78.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int i = 0;  // Change this value to see different outcomes
+    switch(i) {
+        case 0:
+        case 1:
+            printf("Hello world\n");
+            break;
+        default:
+            printf("Not hello world\n");
+    }
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Hello world
+</div></td><td class="compiler-output"><div class="content">Hello world
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test79.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int num = 2;
+    
+    switch(num) {
+        case 1:
+            printf("Number is one\n");
+            break;
+            
+        case 2:
+            printf("Number is two\n");
+            break;
+        
+        default:
+            printf("Number is not one or two\n");
+    }
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Number is two
+</div></td><td class="compiler-output"><div class="content">Number is two
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test80.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    printf("Before default case\n");
+    int i = 2;
+    switch(i) {
+        case 1:
+            printf("Case 1\n");
+            break;
+        default:
+            printf("Default case\n");
+    }
+    printf("After default case\n");
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Before default case
+Default case
+After default case
+</div></td><td class="compiler-output"><div class="content">Before default case
+Default case
+After default case
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test81.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+int main() {
+    int i = 1;
+    while (i <= 5) {
+        printf("%d ", i);
+        i++;
+    }
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">1 2 3 4 5 </div></td><td class="compiler-output"><div class="content">1 2 3 4 5 </div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test82.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int i = 0;
+
+    do {
+        printf("Hello World\n");
+        i++;
+    } while (i < 5);
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Hello World
+Hello World
+Hello World
+Hello World
+Hello World
+</div></td><td class="compiler-output"><div class="content">Hello World
+Hello World
+Hello World
+Hello World
+Hello World
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test83.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int i;
+    
+    printf("Numbers from 0 to 9:\n");
+
+    for(i = 0; i < 10; i++) {
+        printf("%d\n", i);
+    }
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Numbers from 0 to 9:
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+</div></td><td class="compiler-output"><div class="content">Numbers from 0 to 9:
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test84.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int i;
+    
+    for(i = 0; i < 10; i++) {
+        if (i == 5) {
+            break;  // Breaks from the loop
+        }
+        
+        printf("%d\n", i);
+    }
+  
+    printf("Loop break\n");  // This is printed when 'break' statement breaks from the loop
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">0
+1
+2
+3
+4
+Loop break
+</div></td><td class="compiler-output"><div class="content">0
+1
+2
+3
+4
+Loop break
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test85.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int i;
+    for (i = 0; i < 10; i++) {
+        if (i == 5) continue; // this will skip printing "i=5" but it will still increment the value of 'i' to 6.
+        
+        printf("i = %d\n", i);
+    }
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">i = 0
+i = 1
+i = 2
+i = 3
+i = 4
+i = 6
+i = 7
+i = 8
+i = 9
+</div></td><td class="compiler-output"><div class="content">i = 0
+i = 1
+i = 2
+i = 3
+i = 4
+i = 6
+i = 7
+i = 8
+i = 9
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test86.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int x = 1;
+
+    if (x != 1) goto exit;
+
+    printf("Hello World\n");
+
+exit:  // This is the label for the 'goto' statement
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Hello World
+</div></td><td class="compiler-output"><div class="content">Hello World
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test87.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int x = 0; // assigning value to x
+
+    if (x) 
+        goto label1; // using goto to skip the else block
+    else {
+label2:
+        printf("This is label2\n");
+        return 0;
+    }
+    
+    label1:
+        printf("This is label1\n");
+        return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">This is label2
+</div></td><td class="compiler-output"><div class="content">This is label2
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test88.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+void print_message() {
+    printf("Hello from inside a function!\n");
+}
+
+int main() {
+    print_message();
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Hello from inside a function!
+</div></td><td class="compiler-output"><div class="content">Hello from inside a function!
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test89.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+void test_argument(int a, int* b) {
+    *b = htons(*b);
+    printf("%d\n", a + *b);  // This line is needed for the output to be different based on the endianness of the system.
+}
+
+int main() {
+    unsigned short x = 0x1234;
+    int y = 5;
+    test_argument(y, &x);
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">341015
+</div></td><td class="compiler-output"><div class="content">13335
+</div></td>
+        <td class="result discrepancy">Discrepancies found: compilers produced differing outputs.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test90.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int result = testReturn();
+    printf("The value returned from testReturn(): %d\n", result);
+    return 0;
+}
+
+int testReturn() {
+    int a = 5, b = 10;
+    if (a > b) {
+        return a;
+    } else {
+        return b;
+    }
+}
+</div></td>
+        <td class="compiler-output"><div class="content">The value returned from testReturn(): 10
+</div></td><td class="compiler-output"><div class="content">The value returned from testReturn(): 10
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test91.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int arr[5] = {1, 2, 3, 4, 5};
+
+    printf("First element: %d\n", arr[0]); // Outputs: First element: 1
+    printf("Second element: %d\n", arr[1]); // Outputs: Second element: 2
+    printf("Third element: %d\n", arr[2]); // Outputs: Third element: 3
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">First element: 1
+Second element: 2
+Third element: 3
+</div></td><td class="compiler-output"><div class="content">First element: 1
+Second element: 2
+Third element: 3
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test92.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int a = 5;
+    int *ptr = &a;
+    
+    if (*ptr == 5) {
+        printf("Success\n");
+    } else {
+        printf("Failure\n");
+    }
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Success
+</div></td><td class="compiler-output"><div class="content">Success
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test93.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int x = 10;
+    printf("The value of x is %d\n", x);
+    
+    // Using & to get the address of x
+    int *ptr = &x;
+    
+    printf("The address of x is %p\n", (void*)ptr);
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">The value of x is 10
+The address of x is 0x7ffc839149e8
+</div></td><td class="compiler-output"><div class="content">The value of x is 10
+The address of x is 0x7fffd14650ac
+</div></td>
+        <td class="result discrepancy">Discrepancies found: compilers produced differing outputs.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test94.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int a;
+    printf("Size of integer: %zu\n", sizeof(a));
+    
+    char b;
+    printf("Size of character: %zu\n", sizeof(b));
+    
+    float c;
+    printf("Size of float: %zu\n", sizeof(c));
+    
+    double d;
+    printf("Size of double: %zu\n", sizeof(d));
+    
+    short e;
+    printf("Size of short integer: %zu\n", sizeof(e));
+    
+    long f;
+    printf("Size of long integer: %zu\n", sizeof(f));
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Size of integer: 4
+Size of character: 1
+Size of float: 4
+Size of double: 8
+Size of short integer: 2
+Size of long integer: 8
+</div></td><td class="compiler-output"><div class="content">Size of integer: 4
+Size of character: 1
+Size of float: 4
+Size of double: 8
+Size of short integer: 2
+Size of long integer: 8
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test95.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+int main() {
+    int arr[5] = {1, 2, 3, 4, 5};
+    int *ptr = arr;
+    
+    printf("Value at ptr is %d\n", *ptr);
+    
+    ptr++;
+    printf("Value at ptr after incrementing is %d\n", *ptr);
+    
+    ptr--;
+    printf("Value at ptr after decrementing is %d\n", *ptr);
+    
+    int *ptr2 = ptr + 2;
+    printf("Value at ptr2 is %d\n", *ptr2);
+    
+    ptr2 -= 3;
+    printf("Value at ptr2 after subtracting 3 is %d\n", *ptr2);
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Value at ptr is 1
+Value at ptr after incrementing is 2
+Value at ptr after decrementing is 1
+Value at ptr2 is 3
+Value at ptr2 after subtracting 3 is 32765
+</div></td><td class="compiler-output"><div class="content">Value at ptr is 1
+Value at ptr after incrementing is 2
+Value at ptr after decrementing is 1
+Value at ptr2 is 3
+Value at ptr2 after subtracting 3 is 32767
+</div></td>
+        <td class="result discrepancy">Discrepancies found: compilers produced differing outputs.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test96.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+struct Point {
+    int x;
+    int y;
+};
+
+int main() {
+    struct Point p1 = { .x = 5, .y = 6 };
+    
+    printf("Point p1 coordinates are (%d, %d)\n", p1.x, p1.y);
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Point p1 coordinates are (5, 6)
+</div></td><td class="compiler-output"><div class="content">Point p1 coordinates are (5, 6)
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test97.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+struct Point {
+    int x;
+    int y;
+};
+
+int main() {
+    struct Point p = {1, 2};
+    struct Point *ptr_p = &p;
+    
+    printf("x: %d\n", ptr_p->x); // Accessing member using pointer
+    printf("y: %d\n", (*ptr_p).y); // Another way to access member using pointer
+
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">x: 1
+y: 2
+</div></td><td class="compiler-output"><div class="content">x: 1
+y: 2
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test98.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+union Data {
+    int i;
+    float f;
+};
+
+int main() {
+   union Data data;
+
+   printf("Memory size occupied by data : %lu\n", sizeof(data));
+   
+   return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Memory size occupied by data : 4
+</div></td><td class="compiler-output"><div class="content">Memory size occupied by data : 4
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr><tr>
+        <td class="test-name">./test_cases/test99.c</td>
+        <td class="test-code"><div class="content">
+#include <stdio.h>
+
+typedef enum {
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY,
+    THURSDAY,
+    FRIDAY,
+    SATURDAY,
+    SUNDAY
+} DayOfWeek;
+
+const char* day_to_string(DayOfWeek d) {
+    switch (d) {
+        case MONDAY: return "Monday";
+        case TUESDAY: return "Tuesday";
+        case WEDNESDAY: return "Wednesday";
+        case THURSDAY: return "Thursday";
+        case FRIDAY: return "Friday";
+        case SATURDAY: return "Saturday";
+        case SUNDAY: return "Sunday";
+    }
+}
+
+int main() {
+    DayOfWeek today = MONDAY;
+    printf("Today is %s.\n", day_to_string(today));
+    
+    return 0;
+}
+</div></td>
+        <td class="compiler-output"><div class="content">Today is Monday.
+</div></td><td class="compiler-output"><div class="content">Today is Monday.
+</div></td>
+        <td class="result success">Test case passed: all compilers produced the same output.</td>
+    </tr>
+            <!-- Test Case Loop End -->
+        </tbody>
+    </table>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Select all table rows except the header
+            var rows = document.querySelectorAll("table tbody tr");
+    
+            rows.forEach(function(row) {
+                row.addEventListener("mouseover", function() {
+                    this.classList.add("expanded"); // Expand row
+                });
+                row.addEventListener("mouseout", function() {
+                    this.classList.remove("expanded"); // Collapse row
+                });
+            });
+        });
+    </script>
+    
+</body>
+</html>
+

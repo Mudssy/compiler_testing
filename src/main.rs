@@ -3,6 +3,7 @@ use llama_cpp_rs::{
     LLama,
 };
 use std::fs;
+use std::fmt;
 
 extern crate walkdir;
 use walkdir::WalkDir;
@@ -12,6 +13,7 @@ use std::process::{Command, Output};
 use std::time::Duration;
 
 use serde::{Serialize, Deserialize};
+use std::collections::HashMap;
 
 #[derive(Serialize, Deserialize, Debug)]
 struct TestIndices {
@@ -64,6 +66,160 @@ impl TestIndices {
         self.current_test_run_index += 1;
     }
 } 
+#[derive(PartialEq)]
+enum TestResult{
+    Success(String),
+    CompileError(String),
+    RuntimeError(String),
+    Discrepancy(String),
+}
+// Implementing fmt::Display for CompilerError
+impl fmt::Display for CompilerError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            CompilerError::CompilationError(msg) => write!(f, "Compilation Error: {}", msg),
+            CompilerError::ExecutionError(msg) => write!(f, "Execution Error: {}", msg),
+            CompilerError::IOError(err) => write!(f, "IO Error: {}", err),
+        }
+    }
+}
+
+struct Test{
+    file_path: String,
+    outputs: HashMap<Compiler, Result<String, CompilerError>>,
+    result: Option<TestResult>,
+}
+
+impl Test{
+    fn new(file_path: &str) -> Self{
+        Self{
+            file_path: file_path.to_string(),
+            outputs: HashMap::new(),
+            result: None,
+        }
+    }
+    fn run_test_on_compilers(&mut self, compilers: &Vec<Compiler>, timeout: Duration){
+        let mut outputs = HashMap::new();
+        for compiler in compilers {
+            // Clone the entire compiler struct to use as the key
+            let compiler_clone = compiler.clone();
+    
+            // Compile and run the program, capturing the result
+            let output = compiler.compile_and_run_program_with_timeout(&self.file_path, timeout);
+    
+            // Insert the result into the HashMap with the cloned compiler as the key
+            outputs.insert(compiler_clone, output);
+        }
+        self.outputs = outputs;
+    }
+    fn analyze_test_results(&mut self){
+        let mut all_successful = true;
+        let mut all_compile_errors = true;
+        let mut all_runtime_errors = true;
+        let mut output_set = std::collections::HashSet::new();
+    
+        for output in self.outputs.values() {
+            match output {
+                Ok(output) => {
+                    all_compile_errors = false;
+                    all_runtime_errors = false;
+                    output_set.insert(output.trim()); // Trim to ensure whitespace doesn't cause false discrepancies
+                },
+                Err(CompilerError::CompilationError(_)) => {
+                    all_successful = false;
+                    all_runtime_errors = false;
+                },
+                Err(CompilerError::ExecutionError(_)) => {
+                    all_successful = false;
+                    all_compile_errors = false;
+                },
+                Err(CompilerError::IOError(_)) => panic!("IO error occurred while running compilers."),
+            }
+        }
+    
+        if all_successful && output_set.len() == 1 {
+            self.result = Some(TestResult::Success("Test case passed: all compilers produced the same output.".to_string()));
+        } else if all_compile_errors {
+            self.result = Some(TestResult::CompileError("Test case must have an error: all compilers failed to compile.".to_string()));
+        } else if all_runtime_errors {
+            self.result = Some(TestResult::RuntimeError("Test case issue: all compilers compiled but failed at runtime.".to_string()));
+        } else if output_set.len() > 1 {
+            self.result = Some(TestResult::Discrepancy("Discrepancies found: compilers produced differing outputs.".to_string()));
+        } else {
+            self.result = Some(TestResult::Discrepancy("Mixed results: some compilers succeeded, others failed in various ways.".to_string()));
+        }
+    }
+    
+}
+
+
+#[derive(Debug)]
+enum CompilerError {
+    CompilationError(String),
+    ExecutionError(String),
+    IOError(io::Error),
+}
+
+impl From<io::Error> for CompilerError {
+    fn from(err: io::Error) -> Self {
+        CompilerError::IOError(err)
+    }
+}
+#[derive(Clone, Debug, Hash, PartialEq, Eq)]
+struct Compiler {
+    name: String,
+}
+
+impl Compiler {
+    fn new(name: &str) -> Self {
+        Self {
+            name: name.to_string(),
+        }
+    }
+}
+
+
+impl Compiler {
+    fn compile_program(&self, file_path: &str, output_path: &str) -> Result<(), CompilerError> {
+        let compile_output = Command::new(&self.name)
+            .arg(file_path)
+            .arg("-o")
+            .arg(output_path)
+            .output()?;
+
+        if compile_output.status.success() {
+            Ok(())
+        } else {
+            Err(CompilerError::CompilationError(
+                String::from_utf8_lossy(&compile_output.stderr).into_owned(),
+            ))
+        }
+    }
+
+    fn run_program_with_timeout(&self, executable_path: &str, timeout: Duration) -> Result<String, CompilerError> {
+        let run_output = Command::new("timeout")
+            .arg(format!("{}", timeout.as_secs()))
+            .arg(executable_path)
+            .output()?;
+
+        if run_output.status.success() {
+            Ok(String::from_utf8_lossy(&run_output.stdout).into_owned())
+        } else {
+            Err(CompilerError::ExecutionError(
+                String::from_utf8_lossy(&run_output.stderr).into_owned(),
+            ))
+        }
+    }
+
+    fn compile_and_run_program_with_timeout(&self, file_path: &str, timeout: Duration) -> Result<String, CompilerError> {
+        let output_path = "./a.out"; // Consider making this configurable or using a temporary file
+
+        self.compile_program(file_path, output_path)?;
+
+        self.run_program_with_timeout(output_path, timeout)
+    }
+}
+
 
 
 struct LLM{
@@ -100,16 +256,35 @@ impl LLM{
             ).unwrap()
                                                                         
     }
+    fn predict_options() -> PredictOptions{
+        PredictOptions {
+            // token_callback: Some(Box::new(|token| {
+            //     print!("{}", token.clone());
+    
+            //     true
+            // })),
+            m_map: false,
+            threads: 14,
+            debug_mode:false,
+            tokens: 500,
+            prompt_cache_all: false,
+    
+    
+    
+            ..Default::default()
+        }
+    }
+    fn model_options() -> ModelOptions{
+        ModelOptions{
+            f16_memory: false,
+            m_map: false,
+            
+            ..Default::default()
+        }
+    }
+    
 }
 
-fn create_model_options() -> ModelOptions{
-    ModelOptions{
-        f16_memory: false,
-        m_map: false,
-        
-        ..Default::default()
-    }
-}
 
 fn list_feature_files() -> Vec<String> {
     let mut paths = Vec::new();
@@ -163,44 +338,6 @@ fn remove_extension(filename: &str) -> String{
     filename_no_extension
 }
 
-fn read_current_feature_index() -> usize{
-    let contents = fs::read_to_string("./current_feature_index.txt").expect("should read file");
-    let index: usize = contents.parse().unwrap();
-    index
-}
-
-fn set_current_feature_index(index: usize){
-    fs::write("./current_feature_index.txt", index.to_string()).expect("should write file");
-}
-fn read_current_test_improve_index() -> usize{
-    let contents = fs::read_to_string("./current_test_improve_index.txt").expect("should read file");
-    let index: usize = contents.parse().unwrap();
-    index
-}
-
-
-fn set_current_test_improve_index(index: usize){
-    fs::write("./current_test_improve_index.txt", index.to_string()).expect("should write file");
-}
-
-fn create_predict_options() -> PredictOptions{
-    PredictOptions {
-        // token_callback: Some(Box::new(|token| {
-        //     print!("{}", token.clone());
-
-        //     true
-        // })),
-        m_map: false,
-        threads: 14,
-        debug_mode:false,
-        tokens: 500,
-        prompt_cache_all: false,
-
-
-
-        ..Default::default()
-    }
-}
 
 fn generate_prompt(compiler_section: &str, feature_to_test: &str) -> String{
     format!("I want to test different sections of compilers for the C programming language.
@@ -275,8 +412,8 @@ fn save_test_case(test_count: usize, code: &str){
 fn generate_test_cases(test_indices: &mut TestIndices){
     let generator = LLM::new(
         "./models/deepseek-coder/deepseek-coder-33b-instruct.Q4_K_M.gguf",
-        create_model_options(),
-        create_predict_options(),
+        LLM::model_options(),
+        LLM::predict_options(),
         "./models/deepseek-coder/prompt-template-begin.txt",
         "./models/deepseek-coder/prompt-template-end.txt",
     );
@@ -287,7 +424,7 @@ fn generate_test_cases(test_indices: &mut TestIndices){
     let all_features = get_all_features();
     for i in current_feature_index..all_features.len(){
         let feature = &all_features[i];
-        let out = generator.generate_output(generate_prompt(&feature.0, &feature.1), create_predict_options());
+        let out = generator.generate_output(generate_prompt(&feature.0, &feature.1), LLM::predict_options());
         println!("Section: {}, Feature: {}", &feature.0, &feature.1);
         println!("{}", &out);
         match extract_code_block(&out) {
@@ -309,8 +446,8 @@ fn fix_broken_tests(){
 
     let generator = LLM::new(
         "./models/deepseek-coder/deepseek-coder-33b-instruct.Q4_K_M.gguf",
-        create_model_options(),
-        create_predict_options(),
+        LLM::model_options(),
+        LLM::predict_options(),
         "./models/deepseek-coder/prompt-template-begin.txt",
         "./models/deepseek-coder/prompt-template-end.txt",
     );
@@ -321,7 +458,7 @@ fn fix_broken_tests(){
         println!("Test number: {}", test_number);
         let feature = &all_features[test_number];
         let test_to_improve = read_test_case(test_number);
-        let out = generator.generate_output(generate_prompt(&feature.0, &feature.1), create_predict_options());
+        let out = generator.generate_output(generate_prompt(&feature.0, &feature.1), LLM::predict_options());
         println!("Section: {}, Feature: {}", &feature.0, &feature.1);
         println!("{}", &out);
         match extract_code_block(&out) {
@@ -337,8 +474,8 @@ fn fix_broken_tests(){
 fn improve_test_cases(test_indices: &mut TestIndices){
     let generator = LLM::new(
         "./models/deepseek-coder/deepseek-coder-33b-instruct.Q4_K_M.gguf",
-        create_model_options(),
-        create_predict_options(),
+        LLM::model_options(),
+        LLM::predict_options(),
         "./models/deepseek-coder/prompt-template-begin.txt",
         "./models/deepseek-coder/prompt-template-end.txt",
     );
@@ -348,7 +485,7 @@ fn improve_test_cases(test_indices: &mut TestIndices){
     for i in current_test_improve_index..all_features.len(){
         let feature = &all_features[i];
         let test_to_improve = read_test_case(i);
-        let out = generator.generate_output(generate_improve_prompt(&feature.0, &feature.1,&test_to_improve), create_predict_options());
+        let out = generator.generate_output(generate_improve_prompt(&feature.0, &feature.1,&test_to_improve), LLM::predict_options());
         println!("Section: {}, Feature: {}", &feature.0, &feature.1);
         println!("{}", &out);
         match extract_code_block(&out) {
@@ -363,124 +500,176 @@ fn improve_test_cases(test_indices: &mut TestIndices){
 
 }
 
-fn compile_and_run_program_with_timeout(file_path: &str, compiler_name: &str, timeout: Duration) -> Result<String, io::Error> {
-    // Compile the program with the specified compiler and a timeout
-    let compile_output = Command::new("timeout")
-        .arg(format!("{}", timeout.as_secs()))
-        .arg(compiler_name)
-        .arg(file_path)
-        .output()?;
+// Function to save contents of a vector to a file
+fn save_to_file(file_path: &str, lines: &Vec<String>) {
+    let mut file = File::create(file_path)
+        .expect("Unable to create file");
 
-    // Check if the compilation was successful
-    if compile_output.status.success() {
-        // Assuming the compiled output is an executable named a.out in the current directory
-        // Run the compiled program with a timeout
-        let run_output = Command::new("timeout")
-            .arg(format!("{}", timeout.as_secs()))
-            .arg("./a.out") // Change this if the output executable has a different name
-            .output()?;
-
-        if run_output.status.success() {
-            // If the program ran successfully, return its standard output
-            Ok(String::from_utf8_lossy(&run_output.stdout).to_string())
-        } else {
-            // If the program execution failed, return its standard error
-            Err(io::Error::new(io::ErrorKind::Other, String::from_utf8_lossy(&run_output.stderr).to_string()))
-        }
-    } else {
-        // If compilation failed, return the error message
-        Err(io::Error::new(io::ErrorKind::Other, String::from_utf8_lossy(&compile_output.stderr).to_string()))
+    for line in lines {
+        writeln!(file, "{}", line)
+            .expect("Unable to write data to file");
     }
 }
 
-fn run_and_compare_outputs() -> io::Result<()> {
+
+
+fn run_and_compare_outputs() {
     let test_cases_dir = "./test_cases";
-    let mut differing_outputs = Vec::new();
-    let mut error_on_both = Vec::new();
-    let timeout_duration = Duration::from_secs(5); // Set the timeout duration to 15 seconds
+    let timeout_duration = Duration::from_secs(5); // Set the timeout duration to 5 seconds
 
     // List all test case files in the directory
-    let mut test_files = fs::read_dir(test_cases_dir)?
-        .filter_map(|entry| entry.ok())
-        .filter(|entry| entry.path().is_file())
-        .map(|entry| entry.path())
+    let test_files = fs::read_dir(test_cases_dir)
+        .expect("Failed to read test cases directory") // Proper error handling for directory reading
+        .filter_map(|entry| entry.ok()) // Filter out Err values and unwrap Ok values
+        .filter(|entry| entry.path().is_file()) // Ensure the entry is a file
         .collect::<Vec<_>>();
 
-    test_files.sort_by(|a, b| {
-        // Extract the file stem (name without extension) and convert to a string
-        let a_stem = a.file_stem().and_then(|s| s.to_str()).unwrap_or("");
-        let b_stem = b.file_stem().and_then(|s| s.to_str()).unwrap_or("");
-    
-        // Extract the numerical part from the file stem
-        let a_num: usize = a_stem.trim_start_matches("test").parse().unwrap_or(usize::MAX);
-        let b_num: usize = b_stem.trim_start_matches("test").parse().unwrap_or(usize::MAX);
-    
-        // Compare the numerical parts
-        a_num.cmp(&b_num)
+    // Sort the test files by their numeric order if they follow a "test[number].extension" format
+    let mut test_files_sorted = test_files;
+    test_files_sorted.sort_by_key(|dir_entry| {
+        dir_entry.path().file_stem()
+            .and_then(|stem| stem.to_str())
+            .and_then(|stem_str| stem_str.trim_start_matches("test").parse::<usize>().ok())
+            .unwrap_or(usize::MAX)
     });
 
+    let compiler_list = vec![Compiler::new("clang"), Compiler::new("gcc")];
 
-    for file_path in test_files {
-        let file_path_str = file_path.to_str().unwrap_or_default();
+    let mut tests = Vec::new();
 
-        // Compile and run the program using clang with a timeout
-        let clang_output = compile_and_run_program_with_timeout(file_path_str, "clang", timeout_duration);
+    let mut test_error = Vec::new();
+    let mut differing_outputs = Vec::new();
 
-        // Compile and run the program using gcc with a timeout
-        let gcc_output = compile_and_run_program_with_timeout(file_path_str, "gcc", timeout_duration);
+    //limit the test files sorted to 10 for testing
+    let test_files_sorted = &test_files_sorted[..100.min(test_files_sorted.len())];
 
-        // Compare the outputs from clang and gcc
-        match (clang_output, gcc_output) {
-            (Ok(clang_out), Ok(gcc_out)) => {
-                if clang_out != gcc_out {
-                    println!("Differing outputs found for test case: {}", file_path_str);
-                    differing_outputs.push(file_path_str.to_string());
-                }
-                else{
-                    println!("correct {}", file_path_str);
-                }
+    for dir_entry in test_files_sorted {
+        let file_path = dir_entry.path();
+        let file_path_str = file_path.to_str().unwrap_or_default(); // Convert the path to a string for display and use
+
+        let mut test = Test::new(file_path_str);
+
+        test.run_test_on_compilers(&compiler_list, timeout_duration);
+        test.analyze_test_results();
+        let analysis = test.result.as_ref().unwrap();
+
+        match analysis {
+            TestResult::Success(message) => {
+                println!("{}: {}", file_path_str, message);
             },
-            (Err(e), Ok(gcc_out)) => {
-                println!("Error on Clang for test case {}", file_path_str);
+            TestResult::CompileError(message) => {
+                println!("{}: {}", file_path_str, message);
+                test_error.push(file_path_str.to_string());
+
+            },
+            TestResult::RuntimeError(message) => {
+                println!("{}: {}", file_path_str, message);
+                test_error.push(file_path_str.to_string());
+            },
+            TestResult::Discrepancy(message) => {
+                println!("{}: {}", file_path_str, message);
                 differing_outputs.push(file_path_str.to_string());
-            }
-            (Ok(clang), Err(e)) => {
-                println!("Error on GCC for test case {}", file_path_str);
-                differing_outputs.push(file_path_str.to_string());
-            }
-            _ =>{
-                println!("error on both");
-                error_on_both.push(file_path_str.to_string());
-
-            }
+            },
         }
+        tests.push(test);
     }
 
-    // Optional: Save the details of the differing outputs to a file
-    if !differing_outputs.is_empty() {
-        let mut file = File::create("differing_outputs.txt")?;
-        for path in differing_outputs {
-            writeln!(file, "{}", path)?;
-        }
-    }
-    if !error_on_both.is_empty() {
-        let mut file = File::create("error_on_both.txt")?;
-        for path in error_on_both {
-            writeln!(file, "{}", path)?;
-        }
-    }
+    //save the test error files to a file
+    let error_file = "./error_on_both.txt";
+    let differing_file = "./differing_outputs.txt";
+
+    save_to_file(error_file, &test_error);
+    save_to_file(differing_file, &differing_outputs);
+
+    create_report(tests, compiler_list);  
 
 
-    Ok(())
 }
+
+fn create_report(tests: Vec<Test>, compiler_list: Vec<Compiler>) {
+    // Path to the HTML template
+    let template_path = "report_template.html";
+    // Read the HTML template
+    let mut template_html = fs::read_to_string(template_path)
+        .expect("Failed to read HTML template");
+
+    // String to store the final report HTML
+    let mut final_report_html = String::new();
+
+    let mut compiler_name_html = String::new();
+    for compiler in &compiler_list {
+        compiler_name_html += &format!("<th>{}</th>", compiler.name);
+    }
+
+    template_html = template_html.replace("{{compiler_names}}", &compiler_name_html);
+
+    let mut tests_html = String::new();
+
+
+    for test in tests {
+        // match &test.result {
+        //     Some(TestResult::Success(_)) => {
+        //         continue;
+        //     }
+        //     _ => {;}
+        // }
+        
+        let mut compiler_outputs_html = String::new();
+        for (compiler, output) in &test.outputs {
+            let output_str = match output {
+                Ok(output) => output.to_string(),
+                Err(err) => err.to_string(),
+            };
+            compiler_outputs_html += &format!("<td class=\"compiler-output\"><div class=\"content\">{}</div></td>", output_str);
+        }
+
+        let mut result_str = "Unknown Result";
+        let mut result_class = "unknown";
+        match &test.result {
+            Some(TestResult::Success(message)) => {result_str = message; result_class = "success";},
+            Some(TestResult::CompileError(message)) => {result_str = message; result_class = "compile-error";},
+            Some(TestResult::RuntimeError(message)) => {result_str = message; result_class = "runtime-error";},
+            Some(TestResult::Discrepancy(message)) => {result_str = message; result_class = "discrepancy";},
+            None => {result_str = "Unknown Result"; result_class = "unknown";},
+        }
+        
+        
+       
+        let test_html = format!("<tr>
+        <td class=\"test-name\">{test_case_name}</td>
+        <td class=\"test-code\"><div class=\"content\">{test_code}</div></td>
+        {compiler_outputs}
+        <td class=\"result {result_type}\">{test_result}</td>
+    </tr>", test_case_name = test.file_path, 
+            test_code = read_test_case_content(&test.file_path), 
+            compiler_outputs = compiler_outputs_html,
+            result_type = result_class,
+            test_result = result_str);
+        // Append this test's HTML to the final report
+        tests_html += &test_html;
+    }
+    template_html = template_html.replace("{{tests}}", &tests_html);
+
+    // Save the final report HTML to a file
+    fs::write("compiler_test_report.html", template_html)
+        .expect("Failed to write HTML report");
+}
+
+// Helper function to read test case content
+fn read_test_case_content(file_path: &str) -> String {
+    fs::read_to_string(file_path).unwrap_or_else(|_| "Error reading test case".to_string())
+}
+
+
 
 fn main() {
     let mut indices = TestIndices::new("test_indices.json");
     indices.read_from_file().unwrap();
-    //generate_test_cases(&mut indices);
+    // generate_test_cases(&mut indices);
 
-    // run_and_compare_outputs();
-    fix_broken_tests();
+    run_and_compare_outputs();
+    //fix_broken_tests();
+    
 
     
     

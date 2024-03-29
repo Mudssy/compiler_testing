@@ -2,17 +2,15 @@
 #include <stdio.h>
 
 typedef union {
-    int x;
-    double y;
-} my_union;
+    int i;
+    float f;
+} num;
 
 int main() {
-    my_union u = { .y = 3.14 };
+    num value = { .f = 1.23 }; // This is a transparent union, you can access the floating point directly.
     
-    printf("The size of the union is: %lu\n", sizeof(u));
-    printf("The value stored in the union is: %f\n", u.y);
-    printf("The address of x: %p\n", &u.x);
-    printf("The address of y: %p\n", &u.y);
-    
+    printf("Value as an integer: %d\n", value.i);
+    printf("Value as a float: %f\n", value.f);
+
     return 0;
 }

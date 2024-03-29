@@ -1,11 +1,15 @@
 
-#include <stdio.h>
+#ifdef _MSC_VER
+    #define DLL_EXPORT __declspec(dllexport)
+#else 
+    #define DLL_EXPORT 
+#endif
+
+DLL_EXPORT void testFunction() {
+    printf("Test function called successfully\n");
+}
 
 int main() {
-    #ifdef _MSC_VER
-        printf("Hello from MSVC!\n");
-    #else
-        printf("Not MSVC!\n");
-    #endif
+    testFunction();
     return 0;
 }
