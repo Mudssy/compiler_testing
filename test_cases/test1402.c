@@ -1,18 +1,21 @@
 
 #include <stdio.h>
 
-int foo() {
-  // This section should be covered by the llvm profiling data
-  printf("Covered\n");
-  return 0;
+// Function to check if a number is odd or even
+int is_even(int n) {
+    return !(n & 1);
 }
 
-void bar() {
-  // This section should not be covered by the llvm profiling data
-  printf("Not Covered\n");
-}
+// Main function
+int main() {
+    int num = 7;
+    
+    // Check if the number is even and print result
+    if (is_even(num)) {
+        printf("%d is even\n", num);
+    } else {
+        printf("%d is odd\n", num);
+    }
 
-int main(int argc, char **argv) {
-  foo();
-  return 0;
+    return 0;
 }

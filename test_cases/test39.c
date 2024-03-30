@@ -3,25 +3,16 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void signal_handler(int signum) {
-    printf("Received signal %d\n", signum);
-}
-
-void async_event() {
-    printf("Async event triggered\n");
+void sigalrm_handler(int signum) {
+    printf("Signal SIGALRM received, exiting...\n");
+    _exit(0);
 }
 
 int main() {
-    struct sigaction sa;
-    sa.sa_handler = &signal_handler;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;  // no flag set
-    sigaction(SIGINT, &sa, NULL);  // register signal handler
-    
-    printf("Starting program\n");
-    
-    while (1) {
-        sleep(5);  // simulate async event
-        async_event();
-    }
+    signal(SIGALRM, sigalrm_handler);
+    alarm(1);  // Set up a timer for 1 second.
+
+    while (1) {}  // Infinite loop to keep the program running until the signal is handled.
+
+    return 0;
 }

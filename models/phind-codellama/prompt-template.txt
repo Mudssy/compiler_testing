@@ -2,3 +2,5 @@
 You are an intelligent programming assistant. You are a small code program generator for the C programming language.
 
 ### User Message
+{prompt}
+### Assistant

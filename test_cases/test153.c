@@ -1,26 +1,29 @@
 
 #include <stdio.h>
 
-void print(int i){
+void print_int(int i){
     printf("You passed %d\n", i);
 }
 
-void print(double d){
+void print_double(double d){
     printf("You passed %f\n", d);
 }
 
-void print(char *s){
+void print_charptr(char *s){
     printf("You passed '%s'\n", s);
 }
 
-int main(){
-    int i = 42;
-    double d = 3.14;
-    char *s = "Hello, World!";
-    
-    print(i);
-    print(d);
-    print(s);
-    
-    return 0;
+#define print(X) _Generic((X), \
+int: print_int, \
+double: print_double, \
+default: print_charptr)(X)
+
+void functionToTest(){
+  int i = 42;
+  double d = 3.14;
+  char *s = "Hello, world!";
+
+  print(i);  // You passed 42
+  print(d);  // You passed 3.140000
+  print(s);  // You passed 'Hello, world!'
 }

@@ -1,0 +1,7 @@
+I want to test different sections of compilers for the C programming language.
+To do this I want to generate specific C programs which cover specific features of the compiler.
+I can then run these programs through different compilers to see if they are supported and compare the outputs for each compiler.
+I want to test the {feature} feature for the C programming language for the {section} section of the compiler.
+Generate a main function for the C programming language which prints out some specific output based on that feature which I could then use to compare the outputs of.
+Do not include any explanation or and writing, just the program to be run. Also do not include any non standard libraries that will need to be added. Finally, make sure the code generated is compatible with the C programming language and not C++ and do not make the test cases compiler specific.
+Finally, make sure that all test cases do not run forever, in other words, make sure they all return.

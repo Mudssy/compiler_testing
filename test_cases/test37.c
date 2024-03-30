@@ -1,10 +1,14 @@
 
 #include <stdio.h>
 
-// Define a function in an external library (i.e., libTestLib.a)
-int add(int x, int y);
+// Define a function from an external library.
+void hello_from_library(); // declaration
 
-void main() {
-    // Use the function from the static library
-    printf("Static Add: %d\n", add(10, 2));
+int main() {
+    printf("Inside main, calling hello_from_library:\n");
+    
+    // Call the function.
+    hello_from_library(); 
+
+    return 0;
 }

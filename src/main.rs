@@ -226,12 +226,11 @@ struct LLM{
     model: LLama,
     model_options: ModelOptions,
     predict_options: PredictOptions,
-    prompt_template_begin: String,
-    prompt_template_end: String,
+    prompt_template: String,
 }
 
 impl LLM{
-    fn new(model_path: &str, model_options: ModelOptions, predict_options: PredictOptions, prompt_begin_path: &str, prompt_end_path: &str) -> Self{
+    fn new(model_path: &str, model_options: ModelOptions, predict_options: PredictOptions, prompt_path: &str) -> Self{
         let model = LLama::new(
             model_path.into(),
             &model_options,
@@ -241,16 +240,17 @@ impl LLM{
             model,
             model_options,
             predict_options,
-            prompt_template_begin: fs::read_to_string(prompt_begin_path).expect("should read beginning of prompt"),
-            prompt_template_end: fs::read_to_string(prompt_end_path).expect("should read end of prompt"),
+            prompt_template: fs::read_to_string(prompt_path).expect("should read beginning of prompt"),
+            
             
         }
     }
 
     fn generate_output(&self, prompt: String, predict_options: PredictOptions) -> String{
+        //println!("{}",self.prompt_template.replace("{prompt}", &prompt));
         self.model
             .predict(
-                format!("{}\n{}\n{}",self.prompt_template_begin,prompt,self.prompt_template_end),
+                self.prompt_template.replace("{prompt}", &prompt),
                 predict_options,
 
             ).unwrap()
@@ -339,39 +339,30 @@ fn remove_extension(filename: &str) -> String{
 }
 
 
-fn generate_prompt(compiler_section: &str, feature_to_test: &str) -> String{
-    format!("I want to test different sections of compilers for the C programming language.
-    To do this I want to generate specific C programs which cover specific features of the compiler.
-    I can then run these programs through different compilers to see if they are supported and compare the outputs for each compiler.
-    I want to test the {} feature for the C programming language for the {} section of the compiler.
-    Generate a main function for the C programming language which prints out some specific output based on that feature which I could then use to compare the outputs of.
-    Do not include any explanation or and writing, just the program to be run. Also do not include any non standard libraries that will need to be added. Finally, make sure the code generated is compatible with the C programming language and not C++ and do not make the test cases compiler specific.
-    Finally, make sure that all test cases do not run forever, in other words, make sure they all return.",feature_to_test,compiler_section)
+fn create_test_prompt(compiler_section: &str, feature_to_test: &str) -> String{
+    //load prompt from the prompts/create_test.txt file
+    let prompt = fs::read_to_string("./prompts/create_test.txt").expect("should read beginning of prompt");
+    let prompt = prompt.replace("{section}", compiler_section);
+    let prompt = prompt.replace("{feature}", feature_to_test);
+    prompt
     
 }
 
-fn generate_improve_prompt(compiler_section: &str,feature_to_test: &str, test_to_improve: &str) -> String{
-    format!("I want to test different sections of compilers for the C programming language.
-    To do this I want to generate specific C programs which cover specific features of the compiler.
-    I can then run these programs through different compilers to see if they are supported and compare the outputs for each compiler.
-    I want to test the {} feature for the C programming language for the {} section of the compiler.
-    Here is my test case: {}
-    Improve or fix this test case in order to make it more relevent in testing the feature and fix any syntax or logical issues.
-    Do not include any explanation or and writing, just the program to be run. Also do not include any non standard libraries that will need to be added. Finally, make sure the code generated is compatible with the C programming language and not C++ and do not make the test cases compiler specific.
-    ",test_to_improve,feature_to_test,compiler_section)
+fn create_improve_prompt(compiler_section: &str,feature_to_test: &str, test_to_improve: &str) -> String{
+    let prompt = fs::read_to_string("./prompts/improve_test.txt").expect("should read beginning of prompt");
+    let prompt = prompt.replace("{section}", compiler_section);
+    let prompt = prompt.replace("{feature}", feature_to_test);
+    let prompt = prompt.replace("{test}", test_to_improve);
+    prompt
     
 }
 
-fn generate_fix_prompt(compiler_section: &str,feature_to_test: &str, test_to_improve: &str) -> String{
-    format!("I want to test different sections of compilers for the C programming language.
-    To do this I want to generate specific C programs which cover specific features of the compiler.
-    I can then run these programs through different compilers to see if they are supported and compare the outputs for each compiler.
-    I want to test the {} feature for the C programming language for the {} section of the compiler.
-    Here is my test case: {}
-    When the test case is run, it returns an error or does not return the expected output.
-    Improve or fix this test case in order to make it more relevent in testing the feature and fix any syntax or logical issues.
-    Do not include any explanation or and writing, just the program to be run. Also do not include any non standard libraries that will need to be added. Finally, make sure the code generated is compatible with the C programming language and not C++ and do not make the test cases compiler specific.
-    ",test_to_improve,feature_to_test,compiler_section)
+fn create_fix_prompt(compiler_section: &str,feature_to_test: &str, test_to_improve: &str) -> String{
+    let prompt = fs::read_to_string("./prompts/fix_test.txt").expect("should read beginning of prompt");
+    let prompt = prompt.replace("{section}", compiler_section);
+    let prompt = prompt.replace("{feature}", feature_to_test);
+    let prompt = prompt.replace("{test}", test_to_improve);
+    prompt
     
 }
 fn extract_code_block(input: &str) -> Option<&str> {
@@ -414,8 +405,8 @@ fn generate_test_cases(test_indices: &mut TestIndices){
         "./models/deepseek-coder/deepseek-coder-33b-instruct.Q4_K_M.gguf",
         LLM::model_options(),
         LLM::predict_options(),
-        "./models/deepseek-coder/prompt-template-begin.txt",
-        "./models/deepseek-coder/prompt-template-end.txt",
+        "./models/deepseek-coder/prompt-template.txt",
+        
     );
     
     let feature_paths = list_feature_files();
@@ -424,7 +415,7 @@ fn generate_test_cases(test_indices: &mut TestIndices){
     let all_features = get_all_features();
     for i in current_feature_index..all_features.len(){
         let feature = &all_features[i];
-        let out = generator.generate_output(generate_prompt(&feature.0, &feature.1), LLM::predict_options());
+        let out = generator.generate_output(create_test_prompt(&feature.0, &feature.1), LLM::predict_options());
         println!("Section: {}, Feature: {}", &feature.0, &feature.1);
         println!("{}", &out);
         match extract_code_block(&out) {
@@ -448,8 +439,8 @@ fn fix_broken_tests(){
         "./models/deepseek-coder/deepseek-coder-33b-instruct.Q4_K_M.gguf",
         LLM::model_options(),
         LLM::predict_options(),
-        "./models/deepseek-coder/prompt-template-begin.txt",
-        "./models/deepseek-coder/prompt-template-end.txt",
+        "./models/deepseek-coder/prompt-template.txt",
+        
     );
     let all_features = get_all_features();
 
@@ -458,7 +449,7 @@ fn fix_broken_tests(){
         println!("Test number: {}", test_number);
         let feature = &all_features[test_number];
         let test_to_improve = read_test_case(test_number);
-        let out = generator.generate_output(generate_prompt(&feature.0, &feature.1), LLM::predict_options());
+        let out = generator.generate_output(create_fix_prompt(&feature.0, &feature.1, &test_to_improve), LLM::predict_options());
         println!("Section: {}, Feature: {}", &feature.0, &feature.1);
         println!("{}", &out);
         match extract_code_block(&out) {
@@ -476,8 +467,8 @@ fn improve_test_cases(test_indices: &mut TestIndices){
         "./models/deepseek-coder/deepseek-coder-33b-instruct.Q4_K_M.gguf",
         LLM::model_options(),
         LLM::predict_options(),
-        "./models/deepseek-coder/prompt-template-begin.txt",
-        "./models/deepseek-coder/prompt-template-end.txt",
+        "./models/deepseek-coder/prompt-template.txt",
+        
     );
 
     let current_test_improve_index = test_indices.current_test_improve_index;
@@ -485,7 +476,7 @@ fn improve_test_cases(test_indices: &mut TestIndices){
     for i in current_test_improve_index..all_features.len(){
         let feature = &all_features[i];
         let test_to_improve = read_test_case(i);
-        let out = generator.generate_output(generate_improve_prompt(&feature.0, &feature.1,&test_to_improve), LLM::predict_options());
+        let out = generator.generate_output(create_improve_prompt(&feature.0, &feature.1,&test_to_improve), LLM::predict_options());
         println!("Section: {}, Feature: {}", &feature.0, &feature.1);
         println!("{}", &out);
         match extract_code_block(&out) {
@@ -515,7 +506,7 @@ fn save_to_file(file_path: &str, lines: &Vec<String>) {
 
 fn run_and_compare_outputs(compiler_list: Vec<Compiler>) {
     let test_cases_dir = "./test_cases";
-    let timeout_duration = Duration::from_secs(5); // Set the timeout duration to 5 seconds
+    let timeout_duration = Duration::from_secs(7); // Set the timeout duration to 5 seconds
 
     // List all test case files in the directory
     let test_files = fs::read_dir(test_cases_dir)
@@ -540,7 +531,7 @@ fn run_and_compare_outputs(compiler_list: Vec<Compiler>) {
     let mut differing_outputs = Vec::new();
 
     //limit the test files sorted to 10 for testing
-    let test_files_sorted = &test_files_sorted[..100.min(test_files_sorted.len())];
+    // let test_files_sorted = &test_files_sorted[..100.min(test_files_sorted.len())];
 
     for dir_entry in test_files_sorted {
         let file_path = dir_entry.path();
@@ -606,13 +597,6 @@ fn create_report(tests: Vec<Test>, compiler_list: Vec<Compiler>) {
 
 
     for test in tests {
-        // match &test.result {
-        //     Some(TestResult::Success(_)) => {
-        //         continue;
-        //     }
-        //     _ => {;}
-        // }
-        
         let mut compiler_outputs_html = String::new();
         for (compiler, output) in &test.outputs {
             let output_str = match output {
@@ -633,10 +617,11 @@ fn create_report(tests: Vec<Test>, compiler_list: Vec<Compiler>) {
         }
         
         
+
        
         let test_html = format!("<tr>
         <td class=\"test-name\">{test_case_name}</td>
-        <td class=\"test-code\"><div class=\"content\">{test_code}</div></td>
+        <td class=\"test-code\"><div class=\"content\"><pre>{test_code}</pre></div></td>
         {compiler_outputs}
         <td class=\"result {result_type}\">{test_result}</td>
     </tr>", test_case_name = test.file_path, 
@@ -665,10 +650,10 @@ fn main() {
     let mut indices = TestIndices::new("test_indices.json");
     indices.read_from_file().unwrap();
     let compiler_list = vec![Compiler::new("clang"), Compiler::new("gcc")];
-    //generate_test_cases(&mut indices);
+    // generate_test_cases(&mut indices);
 
     run_and_compare_outputs(compiler_list);
-    //fix_broken_tests();
+    // fix_broken_tests();
     
 
     
