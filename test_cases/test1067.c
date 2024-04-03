@@ -3,8 +3,12 @@
 
 int main(void) {
     int a = 1;
-    int b = (a > 0 ? 2 : (break, 3));
     
-    printf("Value is %d\n", b);
+    if (a > 0) {
+        printf("Value is %d\n", 2);
+    } else {
+        printf("Value is %d\n", 3);
+    }
+    
     return 0;
 }

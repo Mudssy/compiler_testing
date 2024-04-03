@@ -1,25 +1,35 @@
 
 #include <stdio.h>
+#include <dlfcn.h>
 
 int main() {
     void* lib = dlopen("libdl.so", RTLD_LAZY);
+    
     if (!lib) {
-        printf("Symbol versioning is not supported.\n");
+        printf("%s\n", dlerror());
         return 0;
     }
     
-    const char *error = dlerror();
-    if (error != NULL) {
-        printf("%s\n", error);
-        return 0;
-    }
-
     void* sym = dlsym(lib, "dlopen");
+    
     if (!sym) {
-        printf("Symbol versioning is not supported.\n");
+        printf("%s\n", dlerror());
         return 0;
     }
     
-    printf("Symbol versioning is supported.\n");
+    int (*func)(const char*, int) = (int (*)(const char*, int)) sym;
+    
+    void* handle = func("libdl.so", RTLD_LAZY);
+    
+    if (!handle) {
+        printf("%s\n", dlerror());
+        return 0;
+    }
+    
+    printf("Opened library successfully!\n");
+    
+    dlclose(lib);
+    dlclose(handle);
+   
     return 0;
 }

@@ -1,22 +1,24 @@
 
 #include <stdio.h>
 
-int main(void) {
-    int num = 5; // Change this value to test different cases
+void func1(void) { printf("Function 1\n"); }
+void func2(void) { printf("Function 2\n"); }
+void func3(void) { printf("Function 3\n"); }
+
+int main() {
+    int value = 0; // Change this to test different values
     
-    switch (num % 4) {
-        case 0:
-            printf("Num is divisible by 4\n");
-            break;
-        case 1:
-            printf("Num is 1 more than a multiple of 4\n");
-            break;
-        case 2:
-            printf("Num is 2 more than a multiple of 4\n");
-            break;
-        case 3:
-            printf("Num is 3 more than a multiple of 4\n");
-            break;
+    if (__builtin_expect(value == 0, 1)) {
+        __builtin_branch_weight(1);
+        func1();
+    } else if (__builtin_expect(value == 1, 2)) {
+        __builtin_branch_weight(2);
+        func2();
+    } else if (__builtin_expect(value == 2, 3)) {
+        __builtin_branch_weight(3);
+        func3();
+    } else {
+        printf("Invalid value\n");
     }
     
     return 0;

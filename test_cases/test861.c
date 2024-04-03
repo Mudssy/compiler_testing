@@ -1,23 +1,28 @@
 
 #include <stdio.h>
 
+// Your functions declarations here...
 void __llvm_profile_initialize_file(void);
-void __llvm_profile_set_filename(char *);
-void __llvm_profile_write_buffer(char *);
+void __llvm_profile_set_filename(const char *Name);
+int __llvm_profile_write_buffer(char **BufferPtr);
 
-int main() {
-    // initialize the profile file name with a string 
-    char fileName[] = "program.profraw";
+void test() {
+    // Test initialization function.
     __llvm_profile_initialize_file();
     
-    // set the filename to program.profraw
+    const char* fileName = "test";
+    // Test setting the filename.
     __llvm_profile_set_filename(fileName);
-    
-    // write out the profile data
-    char buffer[8192];
-    __llvm_profile_write_buffer(buffer);
 
-    printf("Profile data written to %s\n", fileName);
+    char *bufferPtr;
+    int bufferSize;
     
-    return 0;
+    // Test writing to buffer and getting its size.
+    bufferSize = __llvm_profile_write_buffer(&bufferPtr);
+    if (bufferSize < 0) {
+        printf("Error: Could not write instrumentation data!\n");
+        return;
+    }
+
+    // Here, you can handle the contents of `bufferPtr` and `bufferSize`...
 }

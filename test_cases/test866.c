@@ -3,21 +3,19 @@
 #include "llvm-c/Remarks.h"
 #include "llvm-c/Core.h"
 
-void onremark(char *Pass, char *Name, char *Function, enum RemarkType Type, void *UserData) {
-    printf("Pass: %s\n", Pass);
-    printf("Name: %s\n", Name);
-    printf("Function: %s\n", Function);
-    printf("Type: %d\n", (int)Type);
+// Callback function to process remarks
+void print_remark(const char *pass, const char *msg, void *userdata) {
+    printf("Pass: %s\nMessage: %s\n", pass, msg);
 }
 
 int main() {
-    LLVMInitializeRemarkDiagnostic();
-    LLVMPassRegistryRef Registry = LLVMCreatePassRegistry();
-    LLVMSetGlobalContext(LLVMContextCreate());
+    // Initialize the remark registry. This function needs to be called only once.
+    LLVMInitRemarkRegistry();
     
-    LLVMRegisterRemarkCallback(onremark, NULL);
-
-    // Compile or optimize your code here...
-
+    // Setup a callback for processing remarks
+    LLVMSetRemarkCallback(print_remark, NULL);
+    
+    // The code here should generate some remarks to process by your print_remark() function...
+    // For the sake of this example, let's just return 0.
     return 0;
 }

@@ -1,26 +1,19 @@
 
+#include <sanitizer/common_interface_defs.h>
 #include <stdio.h>
-#include <signal.h>
 
-void handler(int signum) {
-    void *arr[10];
-    int size;
-    size = __sanitizer_get_shadow_call_stack(__builtin_frame_address(0), arr, 10);
-
-    for (int i = 0; i < size ; ++i) {
-        printf("%p ", arr[i]);
-    }
-    printf("\n");
+void __attribute__((noinline)) foo(int depth) {
+  if (depth > 0)
+    foo(depth - 1);
 }
 
 int main() {
-    struct sigaction sa = {};
-    sa.sa_handler = &handler;
-    sa.sa_flags = SA_NODEFER;
-    if (sigaction(SIGUSR1, &sa, NULL) == -1) return 0;
-
-    // Trigger a signal
-    raise(SIGUSR1);
-
-    return 0;
+  u32 callstack[100];
+  int size = __sanitizer_get_shadow_call_stack(callstack, sizeof(callstack)/sizeof(*callstack));
+  
+  printf("Call stack (%d frames):\n", size);
+  for (int i = 0; i < size; ++i)
+    printf("#%2d %p\n", i, __builtin_return_address(callstack[i] - 1));
+  
+  return 0;
 }

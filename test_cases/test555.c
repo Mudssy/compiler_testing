@@ -2,22 +2,13 @@
 #include <stdio.h>
 #include <omp.h>
 
+void test(int first, int last) {
+    #pragma omp parallel for default(none), shared(first, last), schedule(static)
+    for (int i = first; i <= last; ++i)
+        printf("%d\n", i);
+}
+
 int main() {
-    int nthreads, tid;
-    
-    /* This is a pragma for OpenMP, it's not standard C but widely used */
-    #pragma omp parallel private(nthreads, tid)
-    {
-        // Get the thread id 
-        tid = omp_get_thread_num();
-        printf("Hello from thread %d\n", tid);
-        
-        if (tid == 0)  // This part is only executed by the master thread
-        {
-            nthreads = omp_get_num_threads();
-            printf("Number of threads: %d\n", nthreads);
-        }
-    }  /* All threads join back to the main process */
-    
+    test(1, 20);
     return 0;
 }

@@ -1,5 +1,4 @@
 
-// main.c
 #include <stdio.h>
 
 void __attribute__((noreturn)) myFunction() {

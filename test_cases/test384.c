@@ -1,8 +1,10 @@
 
-#include <stdio.h>
+// File 1
+int ext_var = 5; // Definition of external variable
 
-extern int ext_var; // Declaration of external variable
-int main() {
-    printf("Value of externally defined variable: %d\n", ext_var);
-    return 0;
+// File 2
+#include <stdio.h>
+extern int ext_var;
+void main() {
+    printf("%d", ext_var); // Print the value of external variable
 }

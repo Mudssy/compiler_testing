@@ -13,12 +13,16 @@ int main() {
     char buffer[SIZE];
     size_t readSize;
     
-    while((readSize = fread(buffer, sizeof(char), SIZE - 1, file)) > 0) {
+    while((readSize = fread(buffer, 1, SIZE - 1, file)) > 0) {
         buffer[readSize] = 0; // Null terminate the string
         printf("%s", buffer);
+    
+        if (ferror(file)) {
+            printf("Error reading from file\n");
+            return 1;
+        }
     }
 
     fclose(file);
-
     return 0;
 }

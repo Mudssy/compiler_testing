@@ -6,15 +6,14 @@ int main() {
     
     // Test pointer arithmetic
     int *ptr = &x;
-    printf("Value of ptr before incrementing: %d\n", *ptr);
-    ptr++;  // This might be allowed or not, depending on the compiler
-    printf("Value of ptr after incrementing: %d\n", *ptr);
+    printf("Address of x: %p\n", ptr);
     
-    // Test reference arithmetic
-    int &ref = x;
-    printf("Value of ref before incrementing: %d\n", ref);
-    ref++;  // This might be allowed or not, depending on the compiler
-    printf("Value of ref after incrementing: %d\n", ref);
+    // Increment the pointer value by 4 (assuming sizeof(int) == 4, which is typically true on most systems).
+    for(int i = 0; i < 4; ++i){
+        ptr++;
+    }
+
+    printf("Address of x after incrementing: %p\n", ptr);
     
     return 0;
 }

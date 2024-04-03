@@ -2,11 +2,12 @@
 #include <stdio.h>
 
 void __attribute__((noinline)) test_function() {
-    asm volatile (""); // Empty instruction to enforce memory access order.
+    asm volatile (""); 
 }
 
+int _Builtin_expect(test_function(), 0);  // Added declaration for Builtin_expect function
+
 int main(void) {
-    __builtin_expect(test_function(), 0); // This tells the compiler that this function call might not return
     printf("Hello, World!\n");
     return 0;
 }

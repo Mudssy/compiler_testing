@@ -7,13 +7,16 @@ __attribute__((noinline)) void branch_target(int x) {
 
 void indirect_branch(int (*f)(void), int y) {
     fprintf(stderr, "Indirect Branch %d\n", y);
-    // Call the branch target through function pointer.
-    if (y < 10) f(10);
-    else f(20);
+    
+    if (y < 10) 
+        f(10);
+    else 
+        f(20);
 }
 
 int main() {
-    indirect_branch(branch_target, 5);
-    indirect_branch(branch_target, 15);
+    indirect_branch(&branch_target, 5);
+    indirect_branch(&branch_target, 15);
+    
     return 0;
 }

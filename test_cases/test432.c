@@ -4,14 +4,14 @@
     #include <omp.h>
 #endif
 
-int main(void) {
-    printf("OpenMP Specification: %d\n", _OPENMP);  // If compiler supports OpenMP, this should print the version number
-    
-    #pragma omp parallel
+int main() {
+    int n = 10;
+    omp_set_num_threads(4); // sets the number of threads to use
+
+    #pragma omp parallel 
     {
-        int ID = omp_get_thread_num();
-        printf("Hello from thread %d\n", ID);
-    }
-    
-    return 0;
+        for (int i=0; i<n; i++) {
+            printf("Thread %d is running iteration %d\n", omp_get_thread_num(), i);
+         }
+     }
 }

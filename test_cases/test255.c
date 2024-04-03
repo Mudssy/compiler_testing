@@ -1,13 +1,10 @@
 
 #include <stdio.h>
 
-namespace Outer {
-    namespace Inner {
-        const char* message = "World";
-    }
-}
+typedef enum { Outer_Inner } Namespace;
+char *message = "World";
 
 int main() {
-    printf("Hello, %s!\n", Outer::Inner::message);
+    printf("Hello, %s!\n", message);
     return 0;
 }

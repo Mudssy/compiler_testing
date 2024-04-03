@@ -2,12 +2,12 @@
 #include <stdio.h>
 
 void test_goto() {
-    int num = 10;
 label:
+    int num = 10;
     printf("Number is %d\n", num);
 }
 
 int main(void) {
-    goto label;
+    test_goto();
     return 0;
 }

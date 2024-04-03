@@ -1,18 +1,28 @@
 
 #include <stdio.h>
+#include "llvm-c/Core.h"  //LLVM core C API
+#include "llvm-c/TargetMachine.h"  //LLVM target machine C API
 
 int main() {
-    // Assume we're given some LLVM IR code as string input for verification.
-    const char* irCode = "define i32 @main() {\nentry:\n  %1 = alloca i32\n  ret i32 0\n}";
+    const char* irCode = "define i32 @main() { ret i32 0 }";
+    LLVMModuleRef module;
     
-    // Here, you'd call the LLVM IR Verifier function on this code. This is a general placeholder.
-    int result = verifyIRCode(irCode);
-    
-    if (result == 1) {
-        printf("LLVM IR Code verified successfully.\n");
-    } else {
-        printf("Error: LLVM IR Code verification failed.\n");
+    if (LLVMParseIRInContext(LLVMGetGlobalContext(), &module, irCode, NULL, 0)) {
+        printf("Failed to parse IR\n");
+        return -1;
     }
+
+    char* errorMessage = LLVMVerifyModule(module, LLVMAbortProcessAction, NULL);
+    
+    if (errorMessage) {
+        fprintf(stderr, "Error: %s\n", errorMessage);
+        LLVMDisposeMessage(errorMessage);
+        return -1;
+    } else {
+        printf("IR is valid\n");
+    }
+
+    LLVMDisposeModule(module);
     
     return 0;
 }

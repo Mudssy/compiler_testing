@@ -4,13 +4,12 @@
 int main() {
     int num = 5;
     
-    try {
-        // Test out of bounds array access
-        int array[2] = {0, 1};
+    // Test out of bounds array access
+    int array[2] = {0, 1};
+    if(num < 2) {
         printf("%d\n", array[num]);
-        
-    } catch (ArrayIndexOutOfBoundsException e) {
-        printf("Caught ArrayIndexOutOfBoundsException: %s\n", e.getMessage());
+    } else {
+        fprintf(stderr, "ArrayIndexOutOfBoundsException: %s\n", "Index is out of bounds");
     }
     
     return 0;

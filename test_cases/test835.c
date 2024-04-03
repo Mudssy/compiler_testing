@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+#include <errno.h> // Include errno for perror error checking
 
 int main(void) {
     FILE *file;
@@ -9,9 +10,9 @@ int main(void) {
         perror("Error when opening the file");
         return 1;
     }
-
+  
     // Rest of your program...
-
+  
     fclose(file);
     
     return 0;

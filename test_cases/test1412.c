@@ -1,21 +1,22 @@
 
 #include <stdio.h>
 
-void __llvmlibProfileFuncEntry(void *);
-void __llvmlibProfileFuncExit(void *);
+__attribute__((noinline)) int count_function(int x) {
+    return x;
+}
 
-int foo() {
-    void* FuncAddr = (void*)foo; // Get function address
-    printf("Entering foo\n");
-    __llvmlibProfileFuncEntry(FuncAddr); 
-
-    printf("Inside foo\n");
-    
-    printf("Exiting foo\n");
-    __llvmlibProfileFuncExit(FuncAddr);
+void inline_decision(int y) {
+    if (count_function(__builtin_return_address(0)) == __LINE__) {
+        printf("Inline decision taken for value: %d\n", y);
+    } else {
+        printf("No inline decision taken for value: %d\n", y);
+    }
 }
 
 int main() {
-    foo();
+    int x = 5;
+    
+    inline_decision(x);
+    
     return 0;
 }

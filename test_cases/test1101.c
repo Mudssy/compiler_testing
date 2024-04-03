@@ -1,25 +1,29 @@
 
 #include <stdio.h>
 
-int global_var;   // This variable has external linkage by default
-static int file_scope_var = 20;    // This variable has internal linkage
+// File scope variable.
+int file_scope_var = 10;  
 
-void func(void) {
-    static int func_scope_var = 30;     // This variable retains its value across function calls, but is only visible in this function.
-    printf("%d\n", func_scope_var++);   // Outputs 30 then increments to 31 on the next call.
+// Static variable. It's value is maintained between function calls.
+static int static_var = 20; 
+
+// External variable, defined somewhere else (not in this .c file) and brought into this scope via an extern declaration.
+extern int external_var;
+
+void doSomething() {
+    // Access a 'file scope' variable.
+    printf("%d\n", file_scope_var);  
+
+    // Access a  static variable. It's value is maintained between function calls.
+    printf("%d\n", static_var++);    
+
+    // Access an external variable.
+    printf("%d\n", external_var);      
 }
 
-int main(void) {
-    static int main_scope_var = 40;     // This variable retains its value across function calls, but is only visible in this function.
-    extern int external_var;             // A declaration for an entity defined elsewhere.
+int main() {
+    doSomething();
+    doSomething();  // Second call to demonstrate how static variables maintain state.
 
-    printf("%d\n", global_var);          // Outputs 0 (the default value of a global or static variable)
-    printf("%d\n", file_scope_var);      // Outputs 20
-    printf("%d\n", main_scope_var++);    // Outputs 40 then increments to 41 on the next call.
-    printf("%d\n", external_var);        // This is undefined behavior if this variable hasn't been defined elsewhere in the program.
-
-    func();      // Call function
-    func();      // Call again (notice that 'func_scope_var' retains its value)
-
-    return 0;    
+    return 0;
 }

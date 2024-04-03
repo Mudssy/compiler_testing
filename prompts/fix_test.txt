@@ -1,7 +1,6 @@
-I want to test different sections of compilers for the C programming language.
-I want to test the {feature} feature for the C programming language for the {section} section of the compiler.
+I want to test the {feature} feature for the C programming language.
 Here is my test case: {test}
 When the test case is run, it returns an error or does not return the expected output.
 Fix this test case in order to fix any syntax,logical and run-time issues.
 Do not include any explanation or and writing, just the program to be run. Also do not include any non standard libraries that will need to be added. 
-Finally, make sure the code generated is compatible with the C programming language and not C++ and do not make the test cases compiler specific.
+Finally, make sure the code generated is compatible with the C programming language and not C++. The test case should not be compiler specific.

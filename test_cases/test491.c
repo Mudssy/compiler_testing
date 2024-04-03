@@ -19,3 +19,21 @@ int main() {
     
     return 0;
 }
+
+int test_1() {
+    int x = 5; // Change this to any number you like.
+    if (x == 5) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+int test_2() {
+    int x = 7; // Change this to any number you like.
+    if (x == 7) {
+        return 1;
+    } else {
+        return 0;
+    }
+}

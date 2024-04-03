@@ -1,15 +1,18 @@
 
 #include <stdlib.h>
-#include <stdio.h>
+#include <assert.h>
+#include <stdint.h>  // for uintptr_t
 
-void check_cfi(int target) {
-    // If the target address is not part of the __cfi_check function, abort() will be called.
-    void (*funcptr)(void) = (void(*)(void))&__cfi_check;
-    funcptr();
+typedef void(*func_ptr)();
+
+void function() {
+    exit(0); // Exit successfully
 }
 
-int main(void) {
-    int target = 0xdeadbeef;  // This is the address we want to check for CFI.
-    check_cfi(target);
-    return EXIT_SUCCESS;
+int main() {
+    func_ptr ptr = &function;
+    
+    assert((uintptr_t)(&ptr) == (uintptr_t)(&function));
+    /* Assert that the pointer to the function is equal to 
+       the address of the function itself. */
 }

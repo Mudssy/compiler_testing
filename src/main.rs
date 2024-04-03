@@ -264,10 +264,10 @@ impl LLM{
             //     true
             // })),
             m_map: false,
-            threads: 14,
+            threads: 16,
             debug_mode:false,
             tokens: 500,
-            prompt_cache_all: false,
+            prompt_cache_all: true,
     
     
     
@@ -357,9 +357,9 @@ fn create_improve_prompt(compiler_section: &str,feature_to_test: &str, test_to_i
     
 }
 
-fn create_fix_prompt(compiler_section: &str,feature_to_test: &str, test_to_improve: &str) -> String{
+fn create_fix_prompt(feature_to_test: &str, test_to_improve: &str) -> String{
     let prompt = fs::read_to_string("./prompts/fix_test.txt").expect("should read beginning of prompt");
-    let prompt = prompt.replace("{section}", compiler_section);
+    //let prompt = prompt.replace("{section}", compiler_section);
     let prompt = prompt.replace("{feature}", feature_to_test);
     let prompt = prompt.replace("{test}", test_to_improve);
     prompt
@@ -430,8 +430,7 @@ fn generate_test_cases(test_indices: &mut TestIndices){
 
 }
 
-fn fix_broken_tests(){
-    let error_file = "./error_on_both.txt";
+fn fix_broken_tests(error_file: &str){
     let paths = fs::read_to_string(error_file).expect("Failed to read error file");
     let paths: Vec<&str> = paths.lines().collect();
 
@@ -449,7 +448,7 @@ fn fix_broken_tests(){
         println!("Test number: {}", test_number);
         let feature = &all_features[test_number];
         let test_to_improve = read_test_case(test_number);
-        let out = generator.generate_output(create_fix_prompt(&feature.0, &feature.1, &test_to_improve), LLM::predict_options());
+        let out = generator.generate_output(create_fix_prompt(&feature.1, &test_to_improve), LLM::predict_options());
         println!("Section: {}, Feature: {}", &feature.0, &feature.1);
         println!("{}", &out);
         match extract_code_block(&out) {
@@ -576,6 +575,7 @@ fn run_and_compare_outputs(compiler_list: Vec<Compiler>) {
 
 }
 
+
 fn create_report(tests: Vec<Test>, compiler_list: Vec<Compiler>) {
     // Path to the HTML template
     let template_path = "report_template.html";
@@ -595,6 +595,12 @@ fn create_report(tests: Vec<Test>, compiler_list: Vec<Compiler>) {
 
     let mut tests_html = String::new();
 
+    let success_count = 0;
+    let compile_error_count = 0;
+    let runtime_error_count = 0;
+    let discrepancy_count = 0;
+
+
 
     for test in tests {
         let mut compiler_outputs_html = String::new();
@@ -609,10 +615,10 @@ fn create_report(tests: Vec<Test>, compiler_list: Vec<Compiler>) {
         let mut result_str = "Unknown Result";
         let mut result_class = "unknown";
         match &test.result {
-            Some(TestResult::Success(message)) => {result_str = message; result_class = "success";},
-            Some(TestResult::CompileError(message)) => {result_str = message; result_class = "compile-error";},
-            Some(TestResult::RuntimeError(message)) => {result_str = message; result_class = "runtime-error";},
-            Some(TestResult::Discrepancy(message)) => {result_str = message; result_class = "discrepancy";},
+            Some(TestResult::Success(message)) => {result_str = message; result_class = "success"; success_count += 1;},
+            Some(TestResult::CompileError(message)) => {result_str = message; result_class = "compile-error"; compile_error_count += 1;},
+            Some(TestResult::RuntimeError(message)) => {result_str = message; result_class = "runtime-error"; runtime_error_count += 1;},
+            Some(TestResult::Discrepancy(message)) => {result_str = message; result_class = "discrepancy"; discrepancy_count += 1;},
             None => {result_str = "Unknown Result"; result_class = "unknown";},
         }
         
@@ -646,18 +652,46 @@ fn read_test_case_content(file_path: &str) -> String {
 
 
 
+use std::env;
+
 fn main() {
-    let mut indices = TestIndices::new("test_indices.json");
-    indices.read_from_file().unwrap();
-    let compiler_list = vec![Compiler::new("clang"), Compiler::new("gcc")];
-    // generate_test_cases(&mut indices);
+    let args: Vec<String> = env::args().collect();
 
-    run_and_compare_outputs(compiler_list);
-    // fix_broken_tests();
-    
+    if args.len() < 2 {
+        println!("Usage: cargo run [command]");
+        println!("Commands:");
+        println!("  generate_test_cases");
+        println!("  fix_broken_tests");
+        println!("  improve_test_cases");
+        println!("  run_and_compare_outputs");
+        return;
+    }
 
-    
-    
-
+    match args[1].as_str() {
+        "generate_test_cases" => {
+            let mut indices = TestIndices::new("test_indices.json");
+            indices.read_from_file().expect("Failed to read test indices file");
+            generate_test_cases(&mut indices);
+        },
+        "fix_broken_tests" => {
+            fix_broken_tests("error_on_both.txt");
+        },
+        "improve_test_cases" => {
+            let mut indices = TestIndices::new("test_indices.json");
+            indices.read_from_file().expect("Failed to read test indices file");
+            improve_test_cases(&mut indices);
+        },
+        "run_and_compare_outputs" => {
+            let compiler_list = vec![Compiler::new("clang"), Compiler::new("gcc")];
+            run_and_compare_outputs(compiler_list);
+        },
+        _ => {
+            println!("Invalid command. Use one of the following:");
+            println!("  generate_test_cases");
+            println!("  fix_broken_tests");
+            println!("  improve_test_cases");
+            println!("  run_and_compare_outputs");
+        }
+    }
 }
 

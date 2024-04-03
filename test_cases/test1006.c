@@ -1,28 +1,32 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdalign.h>
+#include <stdint.h>
 
 int main() {
-    void *p1 = malloc(1024);
-    _Alignas(64) char a[1024];
+    int a1 = 0, a2 = 0; // Variable declarations
     
-    if (!p1 || ((uintptr_t) p1 % alignof(max_align_t)) != 0 || ((uintptr_t) a % alignof(max_align_t)) != 0) {
-        printf("Alignment not achieved\n");
-        return 0; // Exit program if alignment not satisfied
+    void *p1 = malloc(sizeof(a1));  // Allocate memory for first variable
+    if (p1 == NULL) { 
+        printf("Memory allocation failed\n");
+        return -1; // Exit program if memory allocation fails
     }
     
-    void *p2 = p1 + 512 + alignof(long long);
-    _Alignas(alignof(int)) char a2[4];
-    
-    if (((uintptr_t)p2 % alignof(a2)) != 0) {
-        printf("Second alignment not achieved\n");
-        return 0; // Exit program if second alignment not satisfied
+    void *p2 = malloc(sizeof(a2));  // Allocate memory for second variable
+    if (p2 == NULL) { 
+        printf("Memory allocation failed\n");
+        free(p1);
+        return -1; // Exit program if memory allocation fails
     }
-
-    printf("Alignment achieved for both variables\n");
     
-    free(p1);
+    *(int*) p1 = a1; // Assign value to first variable
+    *(int*) p2 = a2; // Assign value to second variable
     
-    return 0;
+    printf("a1: %d\n", *(int*) p1);  // Print the first variable
+    printf("a2: %d\n", *(int*) p2);  // Print the second variable
+    
+    free(p1); // Free memory allocated for first variable
+    free(p2); // Free memory allocated for second variable
+    
+    return 0; 
 }

@@ -1,25 +1,31 @@
 
 #include <stdio.h>
 
-class MyClass {
-public:
-    MyClass() {}
-    void PublicMethod();
-private:
+typedef struct MyClass {
     int PrivateVariable;
-    void PrivateMethod();
-};
+    void (*PublicMethod)();
+    void (*PrivateMethod)();
+} MyClass;
 
-void MyClass::PublicMethod() {
+void PublicMethod() {
     printf("This is a public method.\n");
 }
 
-void MyClass::PrivateMethod() {
+void PrivateMethod() {
     printf("This is a private method.\n");
 }
 
+MyClass init_MyClass() {
+    MyClass mc = {.PublicMethod=&PublicMethod, .PrivateMethod=&PrivateMethod};
+    return mc;
+}
+
 int main() {
-    MyClass mc;
+    MyClass mc = init_MyClass();
+    
     mc.PublicMethod();
+    // Trying to access private method directly will give an error because C does not support private members
+    // mc.PrivateMethod(); 
+
     return 0;
 }

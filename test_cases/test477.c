@@ -1,40 +1,18 @@
 
-#include <stdarg.h>
-#define _Vectorcall_ __attribute__((vectorcall))
+#include <stdint.h>
 
-void vectorCallFunc() {}
-
-typedef void(*Vectorcall)(void);
-
-int _Vectorcall_ vectorcall_add(double a, double b) {
-    return a + b;
-}
-
-void _Vectorcall_ myVectorCallFunction(char *str, ...) {
-    va_list argp;
-    va_start(argp, str);
-
-    char* s = str;
-    while (s != NULL) {
-        printf("%s\n", s);
-        s = va_arg(argp, char *);
-    }
-    
-    va_end(argp);
-}
+int myCallFunction(__m256i ctx); // For AVX2
+// or
+int myCallFunction(__m128i ctx); // For SSE2
 
 int main() {
-    Vectorcall fptr = vectorCallFunc;
-    void (*fptr2)(void) = &vectorCallFunc;
+    __m256i avx_ctx;  // For AVX2
+    // or
+    __m128i sse_ctx;  // For SSE2
 
-    // Call the function through function pointer.
-    (fptr)();
-    (*fptr2)();
-    
-    int a = 10, b = 5;
-    printf("%d\n", vectorcall_add(a, b)); // prints 15
-  
-    myVectorCallFunction("Hello", "World!", NULL);
+    int result = myCallFunction(avx_ctx); // For AVX2
+    // or
+    int result = myCallFunction(sse_ctx); // For SSE2
 
-    return 0;
+    return result;
 }

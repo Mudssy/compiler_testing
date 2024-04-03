@@ -1,15 +1,15 @@
 
 #include <stdio.h>
-#include <llvm/Remarks/RemarkFormat.h> // include necessary header files
+#include <llvm/Remarks/RemarkFormat.h> 
 
 int main() {
-    const char *RemarkFormat = llvm::remarks::getYAMLRemarksVersionString(); // try to get remark format
+    std::string RemarkFormat = llvm::remarks::getYAMLRemarksVersionString(); 
     
-    if (RemarkFormat != NULL) {  // feature is available
+    if (!RemarkFormat.empty())  {  
         printf("Hello World\n");
-    } else {                    // feature not available
+    } else {                     
         printf("Feature not available\n");
     }
 
-    return 0;                   // make sure it returns
+    return 0;                     
 }

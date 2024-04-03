@@ -1,11 +1,8 @@
 
 #include <stdio.h>
-
 int main() {
     printf("Executing __builtin_trap().\n");
-    __builtin_trap();
-    
-    // This code will never be reached as the program will terminate above due to trap operation.
-    printf("This line should not be printed because of undefined behavior after using __builtin_trap()!\n");
+    __builtin_trap(); // This statement stops further execution of your program and you can debug it using a debugger.
+    printf("This won't get printed since the execution is stopped due to trap instruction.\n");
     return 0;
 }

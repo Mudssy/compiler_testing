@@ -3,14 +3,13 @@
 
 void f() { printf("Hello, world!\n"); }
 
-template<typename T>
+typedef void (*FuncPtr)(); // Define Function Pointer type
+
 struct S {
-    void g(T t) {
-        t();
-    }
+    FuncPtr func; 
 };
 
 int main() {
-    S<decltype(f)> s;
-    s.g(f);
+    struct S s = {f}; 
+    (s.func)(); 
 }

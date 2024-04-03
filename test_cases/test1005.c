@@ -1,11 +1,12 @@
 
 #include <stdio.h>
 
-auto function() -> void {
-    printf("This program uses trailing return type breaking feature for the C programming language.\n");
+void function() {
+    printf("This program does not use trailing return type breaking feature for the C programming language.\n");
 }
 
 int main() {
-    function();
+    void (*fun)() = &function; // declare a function pointer to function 'function'
+    fun(); // call the function through the pointer
     return 0;
 }

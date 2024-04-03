@@ -1,31 +1,28 @@
 
-#include <llvm-c/Remarks.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <llvm/Support/raw_ostream.h>
+#include <llvm/Remarks/RemarkParser.h>
 
-static void handleRemark(const char *remark, void *data) {
-    printf("Remark: %s\n", remark);
-}
+using namespace llvm;
 
-int main() {
-    llvm::remarks::Parser Parser = llvm::remarks::createParser();
-    
-    // Add your own parsing logic here to add remarks
-    const char *str1 = "Hello from Remark 1";
-    const char *str2 = "Hello from Remark 2";
-    Parser.addRemark(str1, strlen(str1));
-    Parser.addRemark(str2, strlen(str2));
-    
-    llvm::remarks::ParsedStringBuffer RspBuf;
-    RspBuf = Parser.parse();
-    
-    while (true) {
-        char *remark = RspBuf.getNextStr(RspBuf);
-        if (!remark) break;
-        
-        // Process this remark
-        handleRemark(remark, NULL);
+struct RemarkBuffer {
+    std::vector<remarks::Remark *> remarks;
+};
+
+void handleRemark(const char *buf, void *data) {
+    auto rbuf = static_cast<RemarkBuffer *>(data);
+    auto remarkParserOrErr = remarks::parseWithBlockSeparator("\n", buf);
+    if (!remarkParserOrErr) {
+        llvm::errs() << "Error parsing the string to a remark: " 
+                     << toString(remarkParserOrErr.takeError()) << "\n";
+        return;
     }
-    
-    return 0;
+    remarks::RemarkParser &remarkParser = *remarkParserOrErr;
+    for (remarks::ParsedBinary *buf : remarkParser) {
+        if (!buf->First || !buf->Second) {
+            continue;
+        }
+        rbuf->remarks.push_back(buf->First);
+        rbuf->remarks.insert(rbuf->remarks.end(), buf->Second->begin(), 
+                             buf->Second->end());
+    }
 }

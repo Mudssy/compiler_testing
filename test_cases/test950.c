@@ -1,19 +1,12 @@
 
-#include "llvm/Support/FileCheck.h" // Assume llvm headers are available for compilation
+#include <gtest/gtest.h>
 
-int main() {
-  int a = 5;
-  if (a == 5) printf("Value of A is 5\n");
-  
-  FILE *f = fopen("output", "w+");
-  fprintf(f, "Value of A: %d", a); // This line will be checked in FileCheck test
-  fclose(f);
-  
-  if (__llvm_libc::FileCheck("Value of A: 5", "output") != 0) {
-    printf("Test failed!\n");
-    return -1;
-  }
-    
-  printf("Test passed!\n");
-  return 0;
+TEST(MyTestCaseName, MyTestName) {
+    int a = 5;
+    ASSERT_EQ(a, 5);
+}
+
+int main(int argc, char **argv) {
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
 }

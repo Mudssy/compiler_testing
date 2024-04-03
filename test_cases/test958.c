@@ -1,34 +1,26 @@
 
-#include <stdio.h>
 #include <llvm-c/Disassembler.h>
 #include <llvm-c/Target.h>
+#include <stdio.h>
 
-int main() {
-    LLVMInitializeAllTargetInfos();
-    LLVMInitializeAllTargets();
-    LLVMInitializeAllTargetMCs();
-    LLVMInitializeAllAsmPrinters();
-    
-    const char *triple = "x86_64-pc-linux-gnu"; // replace with your target triple
-    char error[128];
+void disassemble(const char *triple, const void *code, size_t codeSize) {
     LLVMTargetRef target;
     LLVMTargetMachineRef machine;
-    LLVMCreateDisasmCPUFeatures(triple, &error);
-    
-    if (LLVMGetTargetFromTriple(triple, &target, NULL)) {
+    char* error = NULL;
+
+    if (LLVMGetTargetFromTriple(triple, &target, &error)) {
         fprintf(stderr, "Error getting the target: %s\n", error);
-        return 1;
+        return;
     }
 
-    LLVMStyle style = LLVMDisasm_Att;
-    
-    if (LLVMCreateTargetMachine(target, triple, "", "", style, LLVMCodeGenLevelDefault, "", &machine)) {
-        fprintf(stderr, "Error creating the target machine: %s\n", error);
-        return 1;
+    LLVMStyle style = LLVMDisasm_AttachSymbolNameToAddress ? 0 : 2; // The result is not assembly but a human readable output.
+    char* disassembleOutput;
+    size_t length = LLVMDisasmInstruction(machine, (uint8_t*)code, codeSize, 0, style, &disassembleOutput, &error);
+
+    if (!length) {
+        fprintf(stderr, "Error disassembling: %s\n", error);
+        return;
     }
 
-    // TODO: Implement your disassembling logic here using `LLVMDisasmInstruction` function.
-    
-    LLVMDisposeTargetMachine(machine);
-    return 0;
+    printf("%s\n", disassembleOutput);
 }

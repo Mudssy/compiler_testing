@@ -6,17 +6,18 @@ void __attribute__((weak)) hiddenFunction() {
 }
 
 int main(void) {
-    if (__builtin_available(macOS 10.15, *)) {
+    #if defined(__llvm__) && (__clang_major__ >= 10 || (__clang_major__ == 9 && __clang_minor__ >= 0))
         unsigned long features = __llvm_libc_compiler_features();
-        // Check for binary format serialization feature:
-        if ((features & (1 << 16))) {
-            printf("Binary format serialization is supported.\n");
-        } else {
-            printf("Binary format serialization is not supported.\n");
+        
+        // Check for binary format serialization feature. It should be present in libstdc++ since gcc 10 and libcxxabi >= v5.0.
+        if ((features & (1ULL << 3)) == 0) {
+            printf("Binary format serialization is not available\n");
+            return -1;
         }
-    } else {
-        printf("The __llvm_libc_compiler_features function is not available on this system.\n");
-    }
-
+    #endif
+    
+    // This test case does not call 'hiddenFunction' as it should be a part of the hidden API.
+    // Thus, we expect no output from this function.
+    
     return 0;
 }

@@ -2,7 +2,11 @@
 #include <stdio.h>
 
 int globalVar = 10;
-extern int externalFunc(void);
+
+// Defining externalFunc 
+int externalFunc(void) { 
+    return 20; // Dummy value
+}
 
 int main() {
     printf("Global variable value is %d\n", globalVar);

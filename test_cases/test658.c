@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+#include <pthread.h>
 
 // Global variable
 int global = 10;
@@ -14,13 +15,17 @@ void *threadFunction(void* arg) {
 int main() {
     
     // Create two threads
-    pthread_t tid1, tid2;
-    pthread_create(&tid1, NULL, threadFunction, NULL);
-    pthread_create(&tid2, NULL, threadFunction, NULL);
+    pthread_t thread1;
+    pthread_create(&thread1, NULL, &threadFunction, NULL);
 
-    // Join the threads
-    pthread_join(tid1, NULL);
-    pthread_join(tid2, NULL);
+    pthread_t thread2;
+    pthread_create(&thread2, NULL, &threadFunction, NULL);
+
+    printf("Inside main function - Global: %d\n", global++);
     
+    // Join both threads to wait them
+    pthread_join(thread1, NULL);
+    pthread_join(thread2, NULL);
+
     return 0;
 }

@@ -6,9 +6,9 @@ int main() {
 
 start_loop:
     printf("Iteration %d\n", i);
-    if (i < 10) {
+    if (++i < 10) {
         goto start_loop;
-    }
+     }
 
     return 0;
 }

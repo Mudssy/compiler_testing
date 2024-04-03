@@ -1,6 +1,5 @@
 
 #include <stdio.h>
-#include <unistd.h>
 #include <errno.h>
 #include <string.h>
 
@@ -13,6 +12,7 @@ int main() {
         
         return 1; // Return an error code
     }
+    fclose(fp);
     
     return 0; // Return successful exit code
 }

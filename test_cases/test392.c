@@ -1,14 +1,24 @@
 
 #include <stdio.h>
 
-// Let's say we want to test this header file
-#include "test_header.h"
+int testFunction() {
+    return 42; // replace this with actual implementation
+}
 
+// Include the header file you want to test
+#ifndef TEST_HEADER_H
+#define TEST_HEADER_H
+
+// Define your functions here
+int testFunction();
+
+#endif /* TEST_HEADER_H */
+
+
+/* Main function: call testFunction and print result. */
 int main() {
-    // Test the function defined in test_header.h
     int result = testFunction();
     
-    // Print out the result
     printf("The result is: %d\n", result);
     
     return 0;

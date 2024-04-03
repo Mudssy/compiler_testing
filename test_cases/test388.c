@@ -1,7 +1,7 @@
 
 #include <stdio.h>
 
-inline int add_numbers(int a, int b) {
+static int add_numbers(int a, int b) {
     return a + b;
 }
 

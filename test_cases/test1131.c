@@ -1,13 +1,16 @@
 
 #include <stdio.h>
-#include <stdnoreturn.h>
 
-void my_function(char *msg) noreturn {
+static void my_function(char *msg) {
     puts(msg);
 }
 
 int main() {
-    my_function("Hello World");
+    if (printf("Test message\n")) {}
+    else {}
+    
+    printf("Hello World");
+    my_function("This should not be displayed");
 
     return 0;
 }

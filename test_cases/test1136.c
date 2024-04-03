@@ -1,15 +1,12 @@
 
 #include <stdio.h>
 
-int main(void) {
-    char arr[10] = "abcdefghi";
-    __builtin___clear_cache((void*)arr, (void*)(arr+9)); // clear cache for next prefetch operation
+int main() {
+    int arr[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
     
-    if(__builtin_prefetch(&arr[5], 0 /* read */, 3 /* temporal locality */)) {
-        printf("Prefetch successful\n");
-    } else {
-        printf("Prefetch failed\n");
+    for (int i = 0; i < 10; ++i) {
+        __builtin_prefetch(arr + i, 0);
+        printf("%d\n", arr[i]);
     }
-
     return 0;
 }

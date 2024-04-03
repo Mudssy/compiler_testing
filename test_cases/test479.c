@@ -1,13 +1,12 @@
 
 #include <stdio.h>
 
-__attribute__((regparm(3)))  // The number inside the parentheses is how many parameters should be passed in registers.
-void testFunction(__reg_unused int a, __reg_unused int b, int c) {
-    printf("Value of C: %d\n", c);
+__attribute__((regparm(3))) 
+int sum(int a, int b) {
+    // Addition logic goes here
 }
 
 int main() {
-    // Test with some numbers to demonstrate the regparm attribute.
-    testFunction(1, 2, 3);
-    return 0;  // Make sure your program returns a value.
+   printf("%d", sum(4,5)); 
+   return 0;
 }

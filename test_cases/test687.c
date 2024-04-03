@@ -1,15 +1,15 @@
 
 #include <stdio.h>
 
-// The lambda function to print a greeting
-void (*greet)(const char *) = (void(*)(const char *))(void(*)());
+// Declare a function pointer type for functions that take a const char* and return void
+typedef void (*greet_func)(const char *);
+
+void greet(const char *name) { printf("Hello, %s!\n", name); }
 
 int main() {
-    // Assign the lambda function to print "Hello, World!"
-    greet = (void(*)(const char *)) ^ void(char *name) { printf("Hello, %s!\n", name); };
+    // Create a function pointer and assign the address of greet to it
+    greet_func greetPointer = &greet;
     
-    // Call the lambda function with our name as an argument
-    greet("World");
-    
-    return 0;
+    // Call the function through the function pointer
+    (*greetPointer)("John Doe");  // Outputs: Hello, John Doe!
 }

@@ -1,12 +1,19 @@
 
 #include <stdio.h>
-_Noreturn void func(void) {
-    printf("This function never returns! Exit program!\n");
+#include <setjmp.h>
+#include <stdlib.h>
+ 
+static jmp_buf exitJmpEnv;
+ 
+void func(void) {
+    longjmp(exitJmpEnv,1);
 }
-
+ 
 int main() {
-    printf("Starting the main function\n");
-    func();
-    printf("The control will never reach here because 'func' does not return.\n");
-    return 0;
+   if (setjmp(exitJmpEnv) == 0) {
+       func(); // calls function that will never return.
+   } else {
+      printf("This print statement will never be reached.\n");
+   }
+   return EXIT_SUCCESS;
 }

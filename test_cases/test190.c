@@ -1,21 +1,15 @@
-pp
-#include <tuple>
-#include <iostream>
 
-struct MyStruct { int i; float f; };
+#include <stdio.h>
+
+typedef struct { int *i; float *f;} MyStruct;
 
 int main() {
-    MyStruct s = { 5, 3.2f };
-    
-    // Create tuple of references to the members of 's'
-    auto tpl = std::tie(s.i, s.f);
+    int i = 5, fi = 8;
+    float f = 3.2f, ff = 4.5f;
+    MyStruct s = { &i, &f }, fs = { &fi, &ff };
 
-    // Modify 's.i' and 's.f' through the references in 'tpl'
-    std::get<0>(tpl) = 8;
-    std::get<1>(tpl) = 4.5f;
-
-    // Print out the values to make sure they match what was put into 'tpl'
-    std::cout << "s.i: " << s.i << ", s.f: " << s.f << "\n";
+    printf("MyStruct s: {%d, %.1f}\n", *s.i, *s.f);
+    printf("MyStruct fs: {%d, %.1f}\n", *fs.i, *fs.f);
     
     return 0;
 }

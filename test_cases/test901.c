@@ -9,10 +9,10 @@ void print_loop(int i) {
 int main() {
     int loop_size = 10; // This value should be a multiple of the number of available cores for effective testing.
     
-    #pragma omp parallel for schedule(static)
-    for (int i=0; i<loop_size; i++){
+    #pragma omp parallel for schedule(static) num_threads(4) 
+    for (int i=0; i<loop_size; ++i){
         print_loop(i);
     }
-
+  
     return 0;
 }

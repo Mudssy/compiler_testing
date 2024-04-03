@@ -1,18 +1,15 @@
 
 #include <stdio.h>
 
-void handler(const char *RemarkType, const char *RemarkArgs, void *UserData) {
-    printf("Remark: %s\n", RemarkArgs);
+int add(int x, int y) {
+    return x + y;
 }
 
 int main() {
-    __builtin_debugtrap(handler, NULL);
+    int x = 5;
+    int y = 7;
     
-    // Test cases go here
-    int a = 10;
-    int b = 20;
-    int sum = a + b;  // This line generates a remark about the addition operation
-    printf("Sum: %d\n", sum);
+    printf("The sum of %d and %d is %d\n", x, y, add(x, y));
     
     return 0;
 }

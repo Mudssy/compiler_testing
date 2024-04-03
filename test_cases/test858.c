@@ -1,17 +1,23 @@
 
 #include <stdio.h>
+#include <inttypes.h>
+
+void swap(uint8_t *a, uint8_t *b)
+{
+    asm ( "mov %rdi, %rax\n" // move value of a into rax
+          "mov %rsi, %rdi\n" // move value of b into rdi
+          "mov %rax, %rsi\n" // move value of a back to b (swap) 
+        : "=r"(a), "=r"(b)
+        : "%rax", "%rdi" );
+}
 
 int main() {
-    const char *message = "Hello from inline assembly!";
+    uint8_t a = 0x12;
+    uint8_t b = 0x34;
     
-    asm("mov $4, %eax\n"  // write syscall number for sys_write (4) to eax
-        "mov $1, %ebx\n"  // write file descriptor 1 (stdout) to ebx
-        "lea message(%rip), %ecx\n"  // load address of message into ecx
-        "mov $20, %edx\n"  // length of string is 20 chars
-        "int $0x80\n"  // perform syscall
-        : // no output operands
-        : // no input operands
-    );
+    printf("Before Swap: a = %" PRIu8 ", b = %" PRIu8 "\n", a, b);
+    swap(&a, &b);
+    printf("After Swap: a = %" PRIu8 ", b = %" PRIu8 "\n", a, b);
     
     return 0;
 }

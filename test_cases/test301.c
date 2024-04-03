@@ -11,10 +11,10 @@ int main() {
     
     ASM_BLOCK(
         "movl $30, %%eax;"
-        "movl %%eax, %[result];"
-        : [result] "=r"(x)  // output operand
-        ::               // input operands: none
-        : "%eax"          // clobbered registers
+        "movl %%eax, %[y];"
+        : [y] "=r"(y)
+        : 
+        : "%eax"
     );
     
     printf("After the inline asm block:\n");

@@ -7,9 +7,8 @@ struct S { char c[N]; };
 int main() {
     printf("Testing Penalty for breaking before first template parameter feature.\n");
 
-    S<char, -1> s; // This should give a compile-time error with -Wno-invalid-offsetof.
+    // Here we make the value of N a positive number (1).
+    S<char, 1> s; // This should compile with -Wno-invalid-offsetof.
 
-    printf("Penalty for breaking before first template parameter feature test passed.\n");
-    
-    return 0;
+    printf("Penalty for breaking before first template parameter feature: %s\n", s.c);
 }

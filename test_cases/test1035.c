@@ -1,11 +1,17 @@
 
 #include <stdio.h>
 
+typedef void (*Lambda)(const char*);
+
+void lambda(const char* str) {
+    printf("Lambda function called from %s\n", str);
+}
+
 int main() {
-    auto lambda = [](const char* str) -> void { printf("Lambda function called from %s\n", str); };
+    Lambda f = &lambda;
     
     // Call the lambda function with __func__
-    lambda(__func__);
+    (*f)(__func__);
 
     return 0;
 }

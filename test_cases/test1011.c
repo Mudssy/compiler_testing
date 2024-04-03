@@ -1,22 +1,33 @@
-pp
-#include <iostream>
-#include <vector>
-#include <algorithm>
 
-template<typename T>
-void print_vec(const std::vector<T>& vec) {
-    for (const auto& elem : vec) {
-        std::cout << elem << " ";
+#include <stdio.h>
+
+void print_vec(const void* vec, size_t count, size_t size) {
+    const char *ptr = (const char*)vec; // this is fine as long as vec points to a proper object type
+    
+    for(size_t i = 0; i < count; ++i) {
+        switch(size) {
+            case sizeof(int): {// braces added here to define a new scope 
+                int value = *((int*)(ptr + i * size)); // directly assign the dereferenced pointer to an integer variable
+                printf("%d ", value); 
+                break;
+            }
+            case sizeof(float): {
+                float value = *((float*)(ptr + i * size)); // directly assign the dereferenced pointer to a float variable
+                printf("%.2f ", value); 
+                break;
+            }
+            // add other cases as needed...
+        }
     }
-    std::cout << "\n";
+    printf("\n");
 }
 
 int main() {
-    std::vector<int> ints = {5, 10, 15};
-    print_vec(ints);
-
-    std::vector<double> doubles = {2.71828, 3.14159, 1.61803};
-    print_vec(doubles);
-
+    int ivec[] = {1, 2, 3};
+    float fvec[] = {1.0f, 2.0f, 3.0f};
+    
+    print_vec(ivec, sizeof(ivec) / sizeof(*ivec), sizeof(*ivec)); // no need to pass the element size explicitly
+    print_vec(fvec, sizeof(fvec) / sizeof(*fvec), sizeof(*fvec)); 
+    
     return 0;
 }

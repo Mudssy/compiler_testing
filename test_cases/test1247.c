@@ -9,7 +9,8 @@ int main() {
         printf("Invalid input\n");
     } else {
         double result = asin(x);
-        printf("The arc sine of %f is: %f\n", x, result);
+        printf("The arc sine of %f is: %f radians or %f degrees.\n", 
+               x, result, result * (180.0 / M_PI));
     }
 
     return 0;

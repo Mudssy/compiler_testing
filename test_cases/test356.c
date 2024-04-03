@@ -1,29 +1,17 @@
 
 #include <stdio.h>
-#include <omp.h>
+#include <omp.h> // OpenMP library for parallel programming
 
 int main() {
-    int i, arr[10];
+    int i;
     
-    // Initialize array with values from 0 to 9
-    for(i=0; i<10; ++i) {
-        arr[i] = i;
-    }
-
-    #pragma omp parallel num_threads(2) shared(arr)
+    #pragma omp parallel num_threads(4) shared(i)  // Create a team of threads to execute the loop in parallel
     {
-        int id = omp_get_thread_num();
-        
-        // Perform a shuffle operation and check if the original order is preserved
-        #pragma omp for ordered schedule(static,1) nowait
-        for (i = 0; i < 10; ++i){
-            int temp = arr[i];
-            #pragma omp ordered
-            { 
-                printf("Thread %d: arr[%d] = %d\n", id, i, temp);
-                
-                // Wait for all threads to finish printing before continuing
-                #pragma omp barrier
+        #pragma omp for schedule(static) ordered  // Distribute iterations of loop among threads and preserve order
+        for (i = 0; i < 16; ++i) {
+            #pragma omp ordered  
+            {  // Ordered block, will wait until previous operation in the same "ordered" construct has completed before execution.
+                printf("Thread %d is printing iteration number %d\n", omp_get_thread_num(), i);
             }
         }
     }

@@ -1,8 +1,14 @@
 
-#include <stdio.h>
-#include "test_header.h"
+#ifndef TEST_HEADER_H
+#define TEST_HEADER_H
 
-int main() {
-    printf("This is the main function of the test program\n");
-    return 0;
+#include <stdio.h>
+
+void hello(); // forward declaration
+
+#endif
+
+// Implementation in a separate .c file
+void hello() {
+    printf("Hello, World!\n");
 }

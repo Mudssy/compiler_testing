@@ -1,8 +1,15 @@
 
 #include <stdio.h>
 
-const char *__llvm_profile_get_filename(void);
+void (*fptr)();
+
+void function() {
+    printf("Hello from the function!\n");
+}
 
 int main() {
-    printf("%s\n", __llvm_profile_get_filename());
+    fptr = &function; // Indirect call
+    fptr(); // Call through pointer, should be profiled
+    
+    return 0; // Make sure it returns to end the program and avoid infinite loop
 }

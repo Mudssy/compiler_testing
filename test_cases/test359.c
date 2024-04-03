@@ -1,15 +1,23 @@
 
 #include <stdio.h>
-#include <immintrin.h>
+#include <immintrin.h>  // AVX intrinsics library
 
-void print_array(__m256i array) {
-    long* values = (long*)&array;
-    printf("%ld %ld\n", values[0], values[1]);
+void testFunction() {
+    __attribute__((aligned(32))) float result[8];
+    
+    __m256 avec = _mm256_set1_ps(0);   // Replace underscores with correct variable names
+    __m256 bvec = _mm256_set1_ps(7);
+
+    for (int i = 0; i < 8; i++) {
+        avec = _mm256_add_ps(avec, _mm256_set1_ps(i));
+    }
+    
+    bvec = _mm256_div_ps(bvec, avec);  // Correct the division of vectors
+    _mm256_storeu_ps(&result[0], bvec);   // Store result in aligned memory location 
 }
 
 int main() {
-    __m256i input  = _mm256_setr_epi64x(1, 2, 3, 4);
-    __m256i output = _mm256_permute4x64_epi64(input, (int)_MM_SHUFFLE(0, 1, 2, 3));
+    testFunction();
     
-    print_array(output);
+    return 0;
 }

@@ -1,26 +1,20 @@
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-// Struct representing a large struct that should fail to allocate 
-typedef struct {
-    char data[1024*1024]; // Large amount of data, this will likely cause stack overflows
-} LargeStruct;
-
-int main() {
-    int i;
-    LargeStruct *arr = malloc(sizeof(LargeStruct) * 2); // Try to allocate 2^31 registers
-
-    if (arr == NULL) { // Check if allocation failed
-        printf("Failed to allocate memory\n");
-        return 0; // Exit program without running into an infinite loop in case of failure
+int main(void) {
+    int *lstruct = malloc(10 * sizeof(*lstruct));  // Allocate memory for an array of 10 integers
+    if (lstruct == NULL) {  // Check if allocation was successful
+        printf("Allocation failed\n");
+        return -1;
     }
 
-    for (i = 0; i < 2; i++) { // Fill allocated array with data, this will likely cause stack overflows
-        memset(arr + i, 'A', sizeof(LargeStruct));
-    }
+    memset(lstruct, 0, 10 * sizeof(*lstruct));  // Set all elements of the array to 0
 
-    printf("Success\n"); // Print success message in case of allocation succeeded
-    
-    while(1); // Infinite loop to keep the program running after successful allocation
+    while (1) { /* Infinite loop to keep the program running after successful allocation */ }
+
+    free(lstruct);  // Don't forget to free allocated memory when you are done with it
+
+    return 0;
 }

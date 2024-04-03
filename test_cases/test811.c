@@ -5,22 +5,21 @@ int main() {
     FILE *file = fopen("sample_file.txt", "r");
     
     if (file == NULL) {
-        printf("Error opening file\n");
+        printf("Could not open file\n");
         return 1;
     }
-
-    int line = 0;
-    int ch;
-
-    while ((ch = fgetc(file)) != EOF) {
-        if (ch == '\n') {
-            line++;
+    
+    int count = 0;
+    while (!feof(file)) {
+        int ch = fgetc(file);
+        if(ch == '\n'){
+            count++;
         }
     }
-    
-    printf("Total lines in the file: %d\n", line);
-    
+
     fclose(file);
 
+    printf("Line Count : %d\n", count);
+    
     return 0;
 }

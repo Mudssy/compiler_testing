@@ -31,6 +31,15 @@
 <body>
     <h1>Compiler Test Report</h1>
 
+    <!-- Statistics Section -->
+    <div id="statistics">
+        <p><strong>Statistics:</strong></p>
+        <p>Compile Errors: <span id="compile-errors-count">0</span></p>
+        <p>Runtime Errors: <span id="runtime-errors-count">0</span></p>
+        <p>Successes: <span id="successes-count">0</span></p>
+        <p>Discrepancies: <span id="discrepancies-count">0</span></p>
+    </div>
+
     <!-- Toggles for result types -->
     <div>
         <label><input type="checkbox" class="result-filter" value="success" checked> Success</label>
@@ -70,6 +79,20 @@
             this.classList.remove("expanded"); // Collapse row
         });
     });
+    function updateStatistics() {
+        var compileErrors = document.querySelectorAll('td.result.compile-error').length;
+        var runtimeErrors = document.querySelectorAll('td.result.runtime-error').length;
+        var successes = document.querySelectorAll('td.result.success').length;
+        var discrepancies = document.querySelectorAll('td.result.discrepancy').length;
+
+        document.getElementById('compile-errors-count').textContent = compileErrors;
+        document.getElementById('runtime-errors-count').textContent = runtimeErrors;
+        document.getElementById('successes-count').textContent = successes;
+        document.getElementById('discrepancies-count').textContent = discrepancies;
+    }
+
+    // Initial calculation
+    updateStatistics();
 
     // Handle result filtering
     var filters = document.querySelectorAll(".result-filter");
@@ -91,6 +114,7 @@
                     }
                 }
             });
+            
         });
     });
 });

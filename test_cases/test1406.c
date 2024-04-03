@@ -1,16 +1,21 @@
 
 #include <stdio.h>
 
-__attribute__((noinline)) int branchy(int x, int y) {
-  if (x < y) {
-    return 1;
-  } else {
-    __builtin_expect(x > y, 0);
-    return 2;
-  }
-}
+void foo(int);
 
 int main() {
-  for (int i = 0; i < 1000; ++i) printf("%d ", branchy(i % 5, i % 7));
-  return 0;
+    int value = 5;
+
+    if (__builtin_expect((value == 1), 0))
+        foo(value);
+    else if (__builtin_expect((value == 2), 0))
+        foo(value * 2);
+    else if (__builtin_expect((value == 3), 5)) // This branch is expected to be taken more often
+        foo(value * value);
+    else if (__builtin_expect((value == 4), 1)) // This branch is expected to be taken less often
+        foo(value + 2);
+    else {
+        __builtin_assume(value != 5);
+        foo(value - 2);
+    }
 }

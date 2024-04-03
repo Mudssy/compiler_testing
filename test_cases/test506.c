@@ -1,10 +1,12 @@
 
 #include <stdio.h>
 
-int main() {
+void __attribute__((no_sanitize("undefined"))) foo() {
     int a = 5;
-    __attribute__((no_sanitize("undefined")))  {
-        printf("%d\n", a);
-    }
+    printf("%d\n", a);
+}
+
+int main() {
+    foo();
     return 0;
 }

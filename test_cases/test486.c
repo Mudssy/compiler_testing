@@ -1,10 +1,13 @@
 
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#include <stdio.h>
 
-__attribute__((error("This function is deprecated"))) 
-void foo(void) {}
+void foo(void) { }
 
-int main(void) {
-    foo(); // This will always cause an error to be emitted.
+int main(void) 
+{
+    foo(); // Calling deprecated function to suppress warning
+    
+    #pragma GCC error "This function is deprecated"
+    
     return 0;
 }

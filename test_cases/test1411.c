@@ -1,11 +1,15 @@
 
 #include <stdio.h>
 
-__attribute__((noinline)) void my_func(void) {
-    printf("Hello from my_func!\n");
-}
+__attribute__((noinline)) void foo() { printf("Hello, World!\n"); }
 
-int main() {
-    my_func();
+int main(void) 
+{
+    int i;
+    for (i = 0; i < 10; ++i) 
+    {
+        foo();
+    }
+    
     return 0;
 }

@@ -1,22 +1,24 @@
 
 #include <stdio.h>
 #include <assert.h>
+#include <math.h>  // To use fabs() function
 
 int main() {
-    // Test basic addition, subtraction, multiplication and division
-    float a = 2.0f;
-    assert(a + 3.0f == 5.0f);
-    assert(a - 1.0f == 1.0f);
-    assert(a * 4.0f == 8.0f);
-    assert(a / 2.0f == 1.0f);
+    float a = 10.0f;
+    float b = 0.0f;
+    assert(a != 0.0f);  // Check if the divisor is not zero
+    
+    float result = a / b;
+    const float epsilon = 0.0001f;  // Tolerance for floating point comparison
+    assert(!isnan(result));  // Ensure the result is not NaN (Not a Number)
 
-    // Test precision for very small numbers
-    float b = 1e-5f;
-    assert((b + 1e-6f) - b == 1e-6f);
-
-    // Test division by zero (results in NaN, no assertion needed)
-    a = 0.0f;
-    printf("%f\n", a / 0.0f);
-
+    if (!(fabs(result - 10.0f) <= epsilon)) {
+        printf("Result is incorrect");
+        return 1;
+    } else {
+        printf("The test case passed\n");
+        printf("Expected output: %f, Actual Output: %f", a/b, result);
+    }
+    
     return 0;
 }

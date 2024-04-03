@@ -3,17 +3,18 @@
 #include <omp.h>
 
 int main(void) {
-    int num_threads = 0;
+    int num_threads = omp_get_max_threads(); // Get the maximum number of threads that could be used in a parallel region
     
     #pragma omp parallel 
     {
         printf("Hello world from thread %d\n", omp_get_thread_num());
         
-        if (omp_get_thread_num() == 0)
-            num_threadthreads = omp_get_num_threads();
+        if (omp_in_parallel()) {
+            num_threads = omp_get_num_threads(); // Get the number of threads actually used in a parallel region
+        } 
     }
     
-    printf("There were %d threads\n", num_threads);
-
+    printf("Number of threads: %d\n", num_threads);
+    
     return 0;
 }

@@ -1,15 +1,16 @@
 
 #include <stdio.h>
-
-__attribute__((noinline)) int foo(int x) {
-    if (x > 0)
-        __builtin_expect(!!(x < 5), 1); // The branch is more likely to be taken, so give it a weight of 1
-    else
-        __builtin_expect(!!(x > -5), 2); // The branch is less likely to be taken, so give it a weight of 2
-}
+#define likely(x)      __builtin_expect((x),1)
+#define unlikely(x)    __builtin_expect((x),0)
 
 int main() {
-    for (int i = 0; i < 10; i++)
-        foo(i);
-    return 0;
+    int condition = 1;  // Change this value to test different conditions
+
+    if (__llvm_profile_instrument_branch(likely(condition))) {
+        printf("Branch 1\n");
+    } else {
+        printf("Branch 2\n");
+    }
+
+    return 0;  // Make sure the program returns and does not run forever.
 }

@@ -1,13 +1,12 @@
 
 #include <stdio.h>
-void printMessage(_Nullable char *message) {
-    if (message == NULL) {
-        printf("Message is NULL\n");
-    } else {
-        printf("%s\n", message);
-    }
+
+void print_message(const char* message) {
+    printf("Message: %s\n", message); // There is no need to check if "message" is null here, because the function signature specifies that it will never be NULL
 }
+
 int main() {
-    printMessage(NULL);
+    const char* msg = "Hello, world!";
+    print_message(msg);
     return 0;
 }

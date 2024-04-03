@@ -2,15 +2,16 @@
 #include <stdio.h>
 
 int main() {
-    const char *str = NULL;
+    int result;
     
-    // Attempt to access llvmlibRemarks, which will cause a segfault if it's not supported by the compiler
-    asm volatile(
-        "call 0xf\n"      // This should cause a segfault if llvmlibRemarks is not supported.
-        : "=a"(str)       // Output operand, which will be set to the value of eax register after call instruction
+    __asm__(
+        ".intel_syntax noprefix \n"  // Switch to Intel syntax, no prefixes
+        "call $0xf\n"                // Call an address that should cause a segfault if it's not supported.
+        : "=a"(result)               // Output operand, which will be set to the value of eax register after call instruction
+        :: "%eax"                    // Clobbered registers
     );
     
-    printf("llvmlibRemarks %s been supported.\n", str ? "has" : "hasn't");
+    printf("llvmlibRemarks %s been supported.\n", result ? "has" : "has not");
     
     return 0;
 }

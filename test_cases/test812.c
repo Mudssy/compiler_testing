@@ -2,10 +2,10 @@
 #include <stdio.h>
 
 int main() {
-    if (__builtin_trap()) { // This will always trigger a compiler error
-        printf("Error!\n");
-    } else {
-        printf("No error detected!\n");
-    }
+    if (1) {  // This will always be true so no compiler errors will occur
+        printf("No Error Detected!\n");
+     } else {
+        printf("Error! \n");
+     }
     return 0;
 }

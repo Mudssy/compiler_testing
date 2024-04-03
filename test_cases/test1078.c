@@ -1,17 +1,24 @@
 
 #include <stdio.h>
 
-template<typename T>
-T add(T a, T b) {
+// Function to add two integers
+int add_int(int a, int b) {
+    return a + b;
+}
+
+// Function to add two doubles
+double add_double(double a, double b) {
     return a + b;
 }
 
 int main() {
-    int result = add<int>(5, 7);
+    // Use the integer adder
+    int result = add_int(5, 7);
     printf("The result is: %d\n", result);
     
-    double doubleResult = add<double>(3.2, 4.8);
-    printf("The double result is: %f\n", doubleResult);
-  
-    return 0; // The program will always end here due to the usage of templates in the C++ standard
+    // Use the double adder
+    double result_double = add_double(5.2, 7.3);
+    printf("The result is: %f\n", result_double);
+    
+    return 0;
 }

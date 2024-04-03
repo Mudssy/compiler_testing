@@ -3,23 +3,25 @@
 #include <stdlib.h>
 
 int main() {
-    FILE *fp = fopen("test_file", "r"); // Open a file
+    FILE *fp = fopen("test_file", "r"); // Open a file in read mode
     
     if (fp == NULL) { 
         printf("Error opening the file.\n");
         return -1;
     }
     
-    int pos = ftell(fp); // Get current position in file stream
-
-    if (pos < 0) {
-        printf("ftell returned a negative value. This is unexpected.\n");
-        fclose(fp);
+    fseek(fp, 0, SEEK_END); // Move to the end of the file
+    
+    long size = ftell(fp); // Get the current file position
+    
+    if (size == -1L) {
+        printf("Error getting the file size.\n");
         return -1;
     }
-
-    printf("%d\n", pos); // Print the current position
     
-    fclose(fp);
+    printf("Size: %ld\n", size);
+    
+    fclose(fp); // Close the file
+    
     return 0;
 }

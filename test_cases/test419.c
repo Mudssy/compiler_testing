@@ -1,18 +1,20 @@
 
 #include <stdio.h>
 
-int main() {
-    const int array[10] = {0}; // create an array of size 10 and initialize all elements to zero
-    
-    for(int i = 0; i < 10; ++i) {
-        printf("%d ", array[i]); // print the initial values
+void modifyArray(int* array) {
+    for (int i = 0; i < 10; ++i) {
+        array[i] = i+1; // assign value from 1 to 10 to the elements of array
     }
-    
-    array[5] = 7; // attempt to change a value in the array, this should cause an error if const is supported
+}
 
-    for(int i = 0; i < 10; ++i) {
-        printf("%d ", array[i]); // print the values again
-    }
+int main() {
+    int array[10] = {0}; // create an array of size 10 and initialize all elements to zero
     
+    modifyArray(array);
+
+    for (int i = 0; i < 10; ++i) {
+        printf("%d ", array[i]); // print the values of array after modification
+    }
+
     return 0;
 }

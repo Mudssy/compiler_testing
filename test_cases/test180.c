@@ -1,30 +1,18 @@
 
 #include <stdio.h>
+#include <assert.h>
 
-void foo() noexcept {
-    // This code should never throw an exception
+void* myFunction(void* ptr) noexcept {  // Adding the 'noexcept' specification.
+    if (ptr == NULL) {
+        fprintf(stderr, "Invalid argument.\n");
+        return NULL;    // returns null on failure
+     }
+     // Your function logic here...
 }
 
-void bar() {
-    // This code could potentially throw an exception
-}
-
-int main(void) {
-    try {
-        printf("Calling foo...\n");
-        foo();
-        printf("No exception thrown from foo.\n");
-    } catch (...) {
-        printf("Exception thrown from foo.\n");
-    }
-    
-    try {
-        printf("\nCalling bar...\n");
-        bar();
-        printf("No exception thrown from bar.\n");
-    } catch (...) {
-        printf("Exception thrown from bar.\n");
-    }
-    
+int main() noexcept {  // Adding the 'noexcept' specification.
+    void* result = myFunction(NULL);
+    assert(result != NULL && "Error: Expected non-null pointer.");
+    printf("Test passed!\n");
     return 0;
 }

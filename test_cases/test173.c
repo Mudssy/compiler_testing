@@ -1,11 +1,18 @@
-pp
+
 #include <stdio.h>
 
-template<typename T, typename U> struct is_same { static const bool value = false; };
-template<typename T> struct is_same<T, T> { static const bool value = true; };
+int is_same(void* x, void* y) {
+    // Check if the values point to same location in memory
+    if (x == y) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
 
 int main() {
-    printf("%d\n", is_same<int, int>::value); // Should print 1 (true)
-    printf("%d\n", is_same<int, float>::value); // Should print 0 (false)
+    int a = 1; char b = 'x';
+    printf("%d\n", is_same((void*)&a, (void*)&a)); // prints 1
+    printf("%d\n", is_same((void*)&b, (void*)&b)); // prints 1
     return 0;
 }

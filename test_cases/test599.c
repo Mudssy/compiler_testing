@@ -1,7 +1,7 @@
 
 #include <stdio.h>
 
-inline int add(int a, int b) {  // Inline function
+static inline int add(int a, int b) {  // Inline function in C99
     return a + b;
 }
 

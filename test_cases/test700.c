@@ -1,20 +1,26 @@
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <omp.h>
+#include <pthread.h>
+
+#define NUM_THREADS 5
+
+void *print_hello(void *threadid) {
+    long tid;
+    tid = (long)threadid;
+    printf("Hello from thread %ld\n", tid);
+    pthread_exit(NULL);
+}
 
 int main() {
-    int num_threads, tid;
-
-    #pragma omp parallel private(tid) shared(num_threads)
-    {
-        tid = omp_get_thread_num();
-        if (tid == 0) {
-            num_threads = omp_get_num_threads();
-            printf("Number of threads: %d\n", num_threads);
+    pthread_t threads[NUM_THREADS];
+    int rc, t;
+    for(t=0; t<NUM_THREADS; t++) {
+        printf("In main: creating thread %d\n", t);
+        rc = pthread_create(&threads[t], NULL, print_hello, (void *)t);
+        if (rc) {
+            printf("ERROR; return code from pthread_create() is %d\n", rc);
+            exit(-1);
         }
-        printf("Hello from thread: %d\n", tid);
     }
-
-    return EXIT_SUCCESS;
+    pthread_exit(NULL);
 }

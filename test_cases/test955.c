@@ -5,16 +5,17 @@
 #include <llvm-c/BitWriter.h>
 
 int main(void) {
+    LLVMContextRef context = LLVMContextCreate();
     LLVMModuleRef module = LLVMModuleCreateWithName("test_module");
     
-    // Create a function type taking an integer as argument and returning an integer
-    LLVMTypeRef intTy = LLVMInt32Type();
-    LLVMTypeRef funcTy = LLVMFunctionType(intTy, &intTy, 1, 0);
+    // Create the return type: int
+    LLVMTypeRef intTy = LLVMInt32TypeInContext(context);
 
-    // Define a basic block inside the function with the name "entry"
-    LLVMBasicBlockRef bb = LLVMAppendBasicBlock(module, "entry");
-
-    // Create an instruction of type return which returns constant integer value 5.
+    // Create a basic block and insert it into the function
+    LLVMBasicBlockRef entryBB = LLVMAppendBasicBlock(module, "entry");
+    LLVMPositionBuilderAtEnd(builder, entryBB);
+    
+    // Create a return instruction with value 5
     LLVMValueRef returnInst = LLVMConstInt(intTy, 5, 0);
 
     // Insert the return instruction into the entry basic block

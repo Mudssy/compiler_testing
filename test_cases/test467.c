@@ -1,10 +1,10 @@
 
 #include <stdio.h>
+#include <stdarg.h> // This library contains va_list, va_start, va_end etc.
+
+void print_formatted(const char *fmt, ...) __attribute__((format(printf, 1, 2)));
 
 int main(void) {
-    __attribute__((format_arg(1)))
-    void print_formatted(const char *fmt, ...);
-
     print_formatted("This is a test string: %s\n", "Hello, World!");
     return 0;
 }

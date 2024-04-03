@@ -1,20 +1,16 @@
 
 #include <stdio.h>
 
-int noreturn __attribute__((noreturn)) func() {
-    printf("Function with noreturn attribute called\n");
+void noreturn_test(void) __attribute__((noreturn));
+const int const_test = 1;
+
+int main() {
+    printf("Testing 'noreturn' attribute\n");
+    noreturn_test();  // this line will never return, because of the attribute.
+    printf("This line will not be printed.\n");
+    return 0;
 }
 
-int const_func() __attribute__((const)) {
-    printf("Const function called\n");
-    return 10;
-}
-
-int main(void) {
-    // This will cause a compile-time error if the noreturn attribute is not handled correctly.
-    func();
-    
-    // This also will cause a compile-time error if the const attribute is not handled correctly.
-    int result = const_func();
-    printf("Result: %d\n", result);
+void noreturn_test(void) {
+    printf("Inside 'noreturn' function\n");
 }

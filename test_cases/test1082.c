@@ -1,13 +1,9 @@
 
 #include <stdio.h>
+#include <stdalign.h>  // This library provides alignof() function.
 
 int main() {
-    typedef struct { char x; long long y; } foo;
-    printf("Maximum alignment requirement of any scalar type: %zu\n", _Alignof(max_align_t));
-    
-    // Here we align our 'foo' struct to the maximum allowed alignment
-    alignas(_Alignof(max_align_t)) foo var;
-    printf("Alignment requirement of the struct: %zu\n", _Alignof(var));
-    
+    typedef struct foo_struct { char x; long long y; } foo;  // Avoid using system-reserved names (like 'foo') for type names.
+    printf("%zu %zu\n", sizeof(foo), _Alignof(foo));  // C standard doesn't support alignof in size_t, use the equivalent _Alignof() macro instead.
     return 0;
 }

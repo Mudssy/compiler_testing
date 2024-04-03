@@ -1,13 +1,16 @@
 
 #include <stdio.h>
-#include <assert.h>
+#ifdef _PROFILE // Check if profiling is enabled 
+    #include "profiling_instr.c"
+#endif
 
-int main() {
-    // This test case will fail if llvm_remarks not supported, so we can detect it
-    int result = __llvm_profile_get_num_reports();
+int main(void) {
+    int num_reports = 0; // Default value in case of absence of profile library
     
-    printf("YAML export feature for the C programming language:\n");
-    printf("\tNumber of reports: %d\n", result);
-    
+    #ifdef _PROFILE
+        num_reports = __llvm_profile_get_num_reports();
+    #endif
+
+    printf("Number of reports: %d\n", num_reports);
     return 0;
 }

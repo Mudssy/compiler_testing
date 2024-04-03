@@ -1,18 +1,19 @@
 
 #include <stdio.h>
-#include <sanitizer/shadow_call_stack.h>
+#include <sanitizer/asan_interface.h>
 
-void test() {
-    printf("This is a test.\n");
-}
+int main(void) {
+  __asan_init();
 
-int main(int argc, char **argv) {
-    void *top;
-    if (__sanitizer_get_total_unique_caller_callee_pairs(&top)) {
-        ((void (*)(void))((uintptr_t)top + sizeof(uintptr_t)))();
-    } else {
-        printf("No caller-callee pairs found.\n");
-    }
+  int arr[] = {1, 2, 3};
 
-    return 0;
+  // Test case for heap buffer overflow
+  int *heapArr = (int*)malloc(sizeof(int) * 2);
+  heapArr[2] = 0;
+  
+  // Test case for stack buffer overflow
+  int stackArr[2];
+  stackArr[2] = 0;
+  
+  return 0;
 }

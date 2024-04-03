@@ -14,12 +14,11 @@ void print_values() {
 }
 
 int main() {
-    // Initialize global variables
-    x = 10;
-    y = 20;
-    z = 30;
+    // Local variable definition
+    int a = 10;
+    static int b = 20;
     
     print_values();
 
-    return 0; // Make sure the program returns at some point.
+    return 0;
 }

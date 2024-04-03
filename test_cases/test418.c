@@ -5,16 +5,13 @@
 int main() {
     int x = 10;
     
-    printf("Assertion Test\n");
+    printf("Assertion Test 1\n");
+    assert(x == 5); // This will fail because 10 is not equal to 5
+    printf("Test 1 Failed\n\n"); // Assertions are disabled, this won't be executed
 
-    // Test 1: Assert that a condition is true, should pass.
-    assert(x == 10);
-    printf("Test 1 passed.\n");
-    
-    // Test 2: Assert that a condition is false, should fail and abort the program.
-    assert(x != 10);
-    // This line shouldn't be executed if the previous assertion fails.
-    printf("Test 2 passed.\n");
+    printf("Assertion Test 2\n");
+    assert(x > 3); // This will pass because 10 is greater than 3
+    printf("Test 2 Passed\n\n"); // Assertions are disabled, this won't be executed
 
     return 0;
 }

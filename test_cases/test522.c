@@ -1,18 +1,11 @@
 
 #include <stdio.h>
 
-// Assume that 'm' is defined in another module
-import m;  // Module import
+// Assume 'mfoo' is in another module, so we declare it here
+void mfoo(); 
 
-int main(void) {
-    // Use a function from the imported module
-    int result = m$foo();  
-    
-    if (result == 42) {
-        printf("Module Import and Export are working with clanginclude.\n");
-    } else {
-        printf("Module Import and Export do not seem to be working with clanginclude.\n");
-    }
-    
-    return 0; // Make sure the program returns, don't run forever.
+int main(){
+    printf("Hello, World!\n"); // call to own function
+    mfoo(); // call imported module's function
+    return 0;
 }

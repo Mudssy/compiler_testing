@@ -1,19 +1,31 @@
 
 #include <stdio.h>
-#include <immintrin.h>
+#include <xmmintrin.h>  // AVX/SSE Extensions
 
-void print_vector(__m256i vect) {
-    float* arr = (float*)&vect;
-    printf("[%.2f, %.2f, %.2f, %.2f]\n", 
-           arr[0], arr[1], arr[2], arr[3]);
+void print_vector(__m256 vector) {
+    float* values = (float*)&vector;
+    for(int i=0; i<8; ++i){
+        printf("%f ", values[i]);
+    }
 }
 
+__m256 _mm256_cmp_ps(__m256 a, __m256 b, int op) {
+    return _mm256_castsi256_ps(_mm256_set1_epi32(op));  // Placeholder implementation
+}
+
+#define _CMP_EQ_OQ 0
+
 int main() {
-    __m256i vect = _mm256_setr_epi32(1, 2, 3, 4, 5, 6, 7, 8);
-    __m256i mask = _mm256_setr_epi32(-1, -1, 0, 0, 0, 0, -1, -1);
+    __m256 vect = _mm256_setr_ps(8.f, 6.f, -1.f, 3.f, 7.f, -2.f, 9.f, -4.f);
     
-    vect = _mm256_shuffle_ps(vect, vect, _MM_SHUFFLE(0, 1, 2, 3));
-    vect = _mm256_blendv_epi8(vect, _mm256_setzero_si256(), mask);
+    print_vector(vect);  // Print original vector
+    printf("\n");
     
-    print_vector(vect);
+    __m256 zeroVector = _mm256_setzero_ps();
+    vect = _mm256_cmp_ps(_mm256_sub_ps(vect, zeroVector), _mm256_set1_ps(-0.f), _CMP_EQ_OQ);
+    
+    print_vector(vect);  // Print new vector
+    printf("\n");
+    
+    return 0;
 }

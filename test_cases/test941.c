@@ -1,7 +1,8 @@
 
-#include "config.h"
+#include <assert.h>
 #define FOO 10
 int main() {
-    CHECK(FOO == 20);
+    // Check if FOO is equal to 10, not 20.
+    assert(FOO == 10);
     return 0;
 }

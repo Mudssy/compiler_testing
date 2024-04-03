@@ -5,13 +5,13 @@ int main() {
     printf("Hello, world!\n");
     
     // Testing namespaces and indentation
-    namespace {
+    #if 0
         void foo() {
             printf("\tIndented line in a namespace.\n");
         }
-    }
-
-    foo();  // Call the function to see if it's indented correctly.
+    #else
+        #error "Unexpected level of indentation"
+    #endif
 
     return 0;
 }
