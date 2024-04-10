@@ -1,28 +1,33 @@
 
 #include <stdio.h>
+#include <stdlib.h>  // for malloc and free functions
 
 int main() {
-    FILE *fileIn = fopen("input.txt", "r"); // Open the input file for reading
+    FILE *fileIn = fopen("input.txt", "r"); 
     if (fileIn == NULL) {
-        printf("Unable to open input file\n");
-        return 1;
+        printf("Unable to open file\n");
+        return -1; 
     }
     
-    FILE *fileOut = fopen("output.txt", "w"); // Open the output file for writing
-    if (fileOut == NULL) {
-        printf("Unable to open output file\n");
-        return 2;
-    }
-
-    char line[100];
+    char *buffer = malloc(sizeof(char) * 256); // assuming each line has at most 255 characters. 
+                                            // Adjust this if needed.
+    int count = 0, i;
     
-    while(fgets(line, sizeof(line), fileIn)) { // Read the line from input file
-        fputs(line, fileOut); // Write the line to output file
+    while (fgets(buffer, 256, fileIn)) {
+        for (i = 0; buffer[i] != '\n'; ++i) 
+            printf("%c", buffer[i]);
+        ++count;
     }
     
-    fclose(fileIn); 
-    fclose(fileOut);
-
-    printf("Operation successful\n");
-    return 0;
+    fclose(fileIn);
+    free(buffer); // Don't forget to free the memory occupied by buffer.
+    
+    if (count == 0) {
+        printf("File is empty\n");
+        return -1; 
+    }
+    else {
+        printf("\nOperation successful\n");
+        return 0; 
+    }
 }

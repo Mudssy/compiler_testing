@@ -1,6 +1,7 @@
 
-#include <stdio.h>
 #include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>  // necessary for the exit(0) call
 
 int main(void) {
     int x = 10;

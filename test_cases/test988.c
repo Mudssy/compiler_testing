@@ -5,7 +5,7 @@ __attribute__((noinline)) void branch_target(int x) {
     printf("Branch Target %d\n", x);
 }
 
-void indirect_branch(int (*f)(void), int y) {
+void indirect_branch(int (*f)(int), int y) {
     fprintf(stderr, "Indirect Branch %d\n", y);
     
     if (y < 10) 

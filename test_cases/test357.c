@@ -1,31 +1,23 @@
 
 #include <stdio.h>
-#include <xmmintrin.h>  // AVX/SSE Extensions
+#include <xmmintrin.h>  // This is for _mm256 intrinsics
 
-void print_vector(__m256 vector) {
-    float* values = (float*)&vector;
-    for(int i=0; i<8; ++i){
-        printf("%f ", values[i]);
-    }
+void print_vector(__m256 vect) {  // Function to print vector elements
+    float* f = (float*)&vect;
+    printf("%.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f\n",
+           f[0], f[1], f[2], f[3], f[4], f[5], f[6], f[7]);
 }
-
-__m256 _mm256_cmp_ps(__m256 a, __m256 b, int op) {
-    return _mm256_castsi256_ps(_mm256_set1_epi32(op));  // Placeholder implementation
-}
-
-#define _CMP_EQ_OQ 0
 
 int main() {
-    __m256 vect = _mm256_setr_ps(8.f, 6.f, -1.f, 3.f, 7.f, -2.f, 9.f, -4.f);
+    __m256 vectorA, vectorB; // 8-bit vectors with AVX
+
+    float av[] = {1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f}; // Vector A values
+    vectorA = _mm256_loadu_ps(av);
+    print_vector(vectorA);
     
-    print_vector(vect);  // Print original vector
-    printf("\n");
-    
-    __m256 zeroVector = _mm256_setzero_ps();
-    vect = _mm256_cmp_ps(_mm256_sub_ps(vect, zeroVector), _mm256_set1_ps(-0.f), _CMP_EQ_OQ);
-    
-    print_vector(vect);  // Print new vector
-    printf("\n");
-    
+    float bv[] = {8.0f, 7.0f, 6.0f, 5.0f, 4.0f, 3.0f, 2.0f, 1.0f}; // Vector B values
+    vectorB = _mm256_loadu_ps(bv);
+    print_vector(vectorB);
+
     return 0;
 }

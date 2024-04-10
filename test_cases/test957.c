@@ -4,7 +4,7 @@
 int my_function(void) {
     int x = -1; // Start with an invalid value
     
-    __asm__ volatile (
+    asm volatile (
         "movl $65535, %%eax\n"
         : "=a"(x)
         :: 

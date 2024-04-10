@@ -2,17 +2,17 @@
 #include <stdio.h>
 #include <assert.h>
 
-void* myFunction(void* ptr) noexcept {  // Adding the 'noexcept' specification.
+void* myFunction(char* ptr) noexcept {  // Changed the argument type from void* to char*.
     if (ptr == NULL) {
-        fprintf(stderr, "Invalid argument.\n");
-        return NULL;    // returns null on failure
+        printf("Invalid argument.\n");  // Changed fprintf to printf.
+        return NULL;       // returns null on failure
      }
-     // Your function logic here...
+        // Your function logic here...
 }
 
-int main() noexcept {  // Adding the 'noexcept' specification.
-    void* result = myFunction(NULL);
-    assert(result != NULL && "Error: Expected non-null pointer.");
-    printf("Test passed!\n");
-    return 0;
+int main() noexcept {
+    char* test = "abc";
+    void* result = myFunction(test);
+    assert(result != NULL);  // Test the return value for null.
+    printf("Test passed.\n"); // Changed fprintf to printf.
 }

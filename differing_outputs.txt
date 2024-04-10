@@ -54,6 +54,7 @@
 ./test_cases/test504.c
 ./test_cases/test505.c
 ./test_cases/test510.c
+./test_cases/test511.c
 ./test_cases/test519.c
 ./test_cases/test521.c
 ./test_cases/test532.c
@@ -69,8 +70,8 @@
 ./test_cases/test610.c
 ./test_cases/test636.c
 ./test_cases/test644.c
+./test_cases/test649.c
 ./test_cases/test653.c
-./test_cases/test658.c
 ./test_cases/test686.c
 ./test_cases/test702.c
 ./test_cases/test713.c
@@ -101,6 +102,7 @@
 ./test_cases/test1007.c
 ./test_cases/test1056.c
 ./test_cases/test1059.c
+./test_cases/test1122.c
 ./test_cases/test1128.c
 ./test_cases/test1180.c
 ./test_cases/test1269.c

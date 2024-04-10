@@ -3,12 +3,14 @@
 #include <fenv.h>
 
 int main(void) {
-    feraiseexcept(FE_ALL_EXCEPT); // Set all exceptions to be raised
+    feclearexcept(FE_ALL_EXCEPT); // Clear all exceptions
+
+    feraiseexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW | FE_UNDERFLOW); // Set all exceptions to be raised
     
-    if (fetestexcept(FE_DIVBYZERO)) printf("Division by zero exception detected.\n");
-    if (fetestexcept(FE_INVALID)) printf("Invalid operation exception detected.\n");
-    if (fetestexcept(FE_OVERFLOW)) printf("Overflow exception detected.\n");
-    if (fetestexcept(FE_UNDERFLOW)) printf("Underflow exception detected.\n");
+    if (fetestexcept(FE_DIVBYZERO)) printf("Divide-by-zero exception\n");
+    if (fetestexcept(FE_INVALID)) printf("Invalid operation exception\n");
+    if (fetestexcept(FE_OVERFLOW)) printf("Overflow exception\n");
+    if (fetestexcept(FE_UNDERFLOW)) printf("Underflow exception\n");
     
-    return 0; // Program ran successfully
+    return 0;
 }

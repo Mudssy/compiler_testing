@@ -1,20 +1,23 @@
 
 #include <stdio.h>
 #include <fenv.h>
+#pragma STDC FENV_ACCESS ON
 
-int main(void) {
-    feclearexcept(FE_ALL_EXCEPT);
-    
-    // Set up floating-point exceptions
-    fesetround(FE_TOWARDZERO);
-    feraiseexcept(FE_UNDERFLOW | FE_INEXACT);
+void except_handler(int signum) {
+    printf("Floating point exception occured\n");
+}
 
-    printf("Testing feholdexcept feature for usrinclude section of the compiler.\n");
+int main() {
+    fexcept_t except;
     
-    // Perform a floating-point operation that can trigger an underflow exception
-    float x = 1.0f;
-    float y = x / 2.0f;
-    printf("Result: %f\n", y);
+    feraiseexcept(FE_DIVBYZERO);  // Raises a floating-point divide by zero exception
+
+    fegetexceptflag(&except, FE_ALL_EXCEPT);
+    if (except.divbyzero) {  
+        printf("Divide by Zero Exception Occurred\n");
+    } else {
+         printf("No Floating point exception occured\n");
+    }
     
     return 0;
 }

@@ -1,26 +1,18 @@
 pp
 #include <stdio.h>
 #include <typeinfo>
-#include <stdlib.h>
+#include <string.h>
 extern "C" const char* __cxa_demangle(const char*,char*,size_t*,int*);
 
 void printType() {
     char buffer[1024];
-    size_t length = sizeof(buffer); // correct the size of the buffer
+    size_t length = 1024;
     int status;
-    
-    const char* mangledName = typeid(int).name();
-    const char* demangledName = __cxa_demangle(mangledName, buffer, &length, &status);
-    
-    if (status == 0) {
-        printf("Type: %s\n", demangledName);
+    std::string s = typeid(*this).name();
+    const char* mangledName = &s[0];
+    if (__cxa_demangle(mangledName, buffer, &length, &status)) {
+        printf("%s\n", buffer);
     } else {
-        fprintf(stderr, "Could not demangle type name.\n");
-        exit(EXIT_FAILURE);
+        printf("Error: Unable to demangle the name '%s'\n", mangledName);
     }
-}
-
-int main() {
-    printType();
-    return 0;
 }

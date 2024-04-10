@@ -1,14 +1,12 @@
 
 #include <stdio.h>
 
-// Using the _Generic keyword to choose the appropriate function based on the type of expression
-void print_generic(int x) { printf("It's an integer\n"); }
-void print_generic(double x) { printf("It's a float\n"); }
-
-#define print_generic(X) _Generic((X), int: print_generic, double: print_generic)(X)
+// Removed unnecessary macro usage
 
 int main() {
-    print_generic(5);       // Output: It's an integer
-    print_generic(5.0f);    // Output: It's a float
-    return 0;
+    int x = 5;
+    double y = 5.0f;
+
+    printf("%s\n", _Generic((x), int:"It's an integer", default:"It's not a number")); // Output: It's an integer
+    printf("%s\n", _Generic((y), double:"It's a float", default:"It's not a number")); // Output: It's a float
 }

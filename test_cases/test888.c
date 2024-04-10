@@ -1,28 +1,24 @@
 
-#include <llvm/Support/raw_ostream.h>
-#include <llvm/Remarks/RemarkParser.h>
+#include <stdlib.h>
+#include <string.h>
+#include <vector>
+using namespace std;
 
-using namespace llvm;
-
-struct RemarkBuffer {
-    std::vector<remarks::Remark *> remarks;
+struct Buffer {
+    int* First;
+    vector<int*>* Second;
 };
 
-void handleRemark(const char *buf, void *data) {
-    auto rbuf = static_cast<RemarkBuffer *>(data);
-    auto remarkParserOrErr = remarks::parseWithBlockSeparator("\n", buf);
-    if (!remarkParserOrErr) {
-        llvm::errs() << "Error parsing the string to a remark: " 
-                     << toString(remarkParserOrErr.takeError()) << "\n";
-        return;
-    }
-    remarks::RemarkParser &remarkParser = *remarkParserOrErr;
-    for (remarks::ParsedBinary *buf : remarkParser) {
+struct RemarkBuffer {
+    vector<int*> remarks;
+};
+
+void parseRemarks(Buffer *buf, RemarkBuffer *rbuf) {
         if (!buf->First || !buf->Second) {
-            continue;
-        }
+            return;
+         }
         rbuf->remarks.push_back(buf->First);
-        rbuf->remarks.insert(rbuf->remarks.end(), buf->Second->begin(), 
-                             buf->Second->end());
-    }
+        for (int i = 0; i < buf->Second->size(); ++i) {
+          rbuf->remarks.push_back((*buf->Second)[i]);
+        }
 }

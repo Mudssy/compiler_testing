@@ -15,7 +15,12 @@ int main() {
     // ... Your application code here ...
 
     // Write PGO data to a file named default.profraw in the current directory
-    __llvm_profile_write_file();
-
+    int Ret = __llvm_profile_write_file();
+    if (Ret) {
+        fprintf(stderr, "Error: Failed to write profiling data!\n");
+        return Ret;
+    }
+    
+    printf("Done running program\n");
     return 0;
 }

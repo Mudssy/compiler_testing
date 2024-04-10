@@ -1,12 +1,13 @@
 
-#include<stdio.h>
+#include <stdio.h>
 
 int main() {
     printf("Testing Labels...\n");
     
-here:  // Label definition
-    printf("Printed from label.\n");
-    goto here; // Jump to label 'here'
+    // Using while loop for initialization of labels in C
+    while(1) { 
+        printf("Printed from label.\n");
+    }
 
     return 0;
 }

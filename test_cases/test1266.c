@@ -4,10 +4,11 @@
 
 int main() {
     double param, result;
-    param = 30.0;
+    
+    param = 30.0 * M_PI / 180.0;  // convert degrees to radians
     result = tan(param);
     
-    printf("The tangent of %f is %f degrees\n", param, result);
+    printf("The tangent of %f is %f\n", param, result);
   
     return 0;
 }

@@ -6,14 +6,18 @@ int main() {
     fexcept_t flagp;
 
     // Set exception trapping masks and clear all exception flags
-    fexcept_t excepts = FE_ALL_EXCEPT & ~FE_INEXACT;
+    fexcept_t excepts = FE_ALL_EXCEPT & ~FE_INVALID;
     fesetexceptflag(&excepts, FE_ALL_EXCEPT);
+    
+    // Test divide by zero to trigger a floating point exception
+    float a = 1.0f, b = 0.0f, result;
+    result = a / b; 
 
-    if(fegetexceptflag(&flagp, FE_ALL_EXCEPT) == 0 && flagp != 0) {
-        printf("Exception flags not properly cleared\n");
-    } else {
-        printf("All exception flags are properly cleared\n");
+    // Check if any exceptions have been set
+    fegetexceptflag(&flagp, FE_ALL_EXCEPT);
+    if (flagp & FE_DIVBYZERO) {
+        printf("Division by zero exception raised\n");
     }
-
+    
     return 0;
 }

@@ -6,16 +6,13 @@ void func2(void) { printf("Function 2\n"); }
 void func3(void) { printf("Function 3\n"); }
 
 int main() {
-    int value = 0; // Change this to test different values
+    int value = 0; // Change this to the test case you want to use
     
-    if (__builtin_expect(value == 0, 1)) {
-        __builtin_branch_weight(1);
+    if (value == 1) {
         func1();
-    } else if (__builtin_expect(value == 1, 2)) {
-        __builtin_branch_weight(2);
+    } else if (value == 2) {
         func2();
-    } else if (__builtin_expect(value == 2, 3)) {
-        __builtin_branch_weight(3);
+    } else if (value == 3) {
         func3();
     } else {
         printf("Invalid value\n");

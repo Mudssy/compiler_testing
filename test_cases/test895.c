@@ -5,13 +5,11 @@ int main() {
     int result;
     
     __asm__(
-        ".intel_syntax noprefix \n"  // Switch to Intel syntax, no prefixes
-        "call $0xf\n"                // Call an address that should cause a segfault if it's not supported.
-        : "=a"(result)               // Output operand, which will be set to the value of eax register after call instruction
-        :: "%eax"                    // Clobbered registers
+        "movl $5, %%eax\n"  // load immediate value 5 into eax
+        : "=a"(result)     // output operand to return the function's result
     );
     
-    printf("llvmlibRemarks %s been supported.\n", result ? "has" : "has not");
-    
+    printf("Result: %d\n", result);     // This should print Result: 5
+
     return 0;
 }

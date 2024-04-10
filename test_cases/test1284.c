@@ -1,34 +1,30 @@
 
 #include <stdarg.h>
-#include <stdio.h>
 
-int add(int count, ...) {
-    va_list ap;
-    int i, sum = 0;
-
-    va_start(ap, count); /* Initialize the argument list. */
-    for(i = 0; i < count; i++)
-        sum += va_arg(ap, int); /* Get the next argument value. */
-    va_end(ap); /* Clean up. */
-
-    return sum;
-}
-
-int add_using_va_copy(int count, ...) {
+int sum_half(int count, ...) {
+    int sum = 0;
     va_list ap, copy;
-    int i, sum = 0;
+    int i;
+    
+    va_start(ap, count);
+    va_copy(copy, ap);
 
-    va_start(ap, count); /* Initialize the argument list. */
-    va_copy(copy, ap); /* Make a copy of the argument list. */
+    // To handle the case of odd number of arguments.
+    if (count % 2 != 0) {
+        sum += va_arg(ap, int);
+        --count;
+    }
 
-    for(i = 0; i < count/2; i++)
-        sum += va_arg(ap, int); /* Get half the arguments. */
-
-    for(i = count/2; i < count; i++)
-        sum += va_arg(copy, int); /* Get the remaining arguments. */
-
-    va_end(ap); /* Clean up. */
-    va_end(copy); /* Clean up. */
-
+    for(i = 0; i < count / 2; ++i){
+        int first = va_arg(ap, int);
+        int second = va_arg(copy, int);
+        
+        // To handle the case of passing a float value when int is expected.
+        sum += (int)(first * 0.5 + second * 0.5);
+    }
+    
+    va_end(ap);
+    va_end(copy);
+    
     return sum;
 }

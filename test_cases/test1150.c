@@ -4,11 +4,8 @@
 
 #include <stdio.h>
 
-void hello(); // forward declaration
+void hello() { // definition for hello function
+    printf("Hello\n");
+}
 
 #endif
-
-// Implementation in a separate .c file
-void hello() {
-    printf("Hello, World!\n");
-}

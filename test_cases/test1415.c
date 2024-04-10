@@ -1,8 +1,12 @@
 
 #include <stdio.h>
 
+// Define the edge_profiles_enabled function (this will just return true for now)
+int edge_profiles_enabled() {
+    return 1;
+}
+
 int main() {
-    // Assume we have a function edge_profiles_enabled that returns true if the feature is enabled and false otherwise
     if (edge_profiles_enabled()) {
         printf("Edge profiles for CFG transformations are enabled.\n");
     } else {

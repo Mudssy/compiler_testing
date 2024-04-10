@@ -2,35 +2,34 @@
 #include <stdio.h>
 #include <dlfcn.h>
 
-typedef void (*func)();  // Define type for dlopen/dlsym functions
+// Function pointer type for dlopen_and_close function
+typedef void (*dlopen_and_close_func)();
 
 int main(void) {
-    void *handle;
-    char *error;
-    func dlopen_and_close;
-
     // Open the shared library
-    handle = dlopen("./libtest.so", RTLD_LAZY);
+    void *handle = dlopen("./libshared.so", RTLD_LAZY);
+    
     if (!handle) {
         fprintf(stderr, "dlopen failed: %s\n", dlerror());
-        return 1;   // Return non-zero to indicate an error occurred.
+        return 1; // Return non-zero to indicate error
     }
-
-    // Clear any existing error
-    dlerror();
-
-    // Get the function address from the library
-    *(void **) (&dlopen_and_close) = dlsym(handle, "dlopen_and_close");
-    if ((error = dlerror()) != NULL)  {
-        fprintf(stderr, "dlsym failed: %s\n", error);
-        return 1;   // Return non-zero to indicate an error occurred.
+    
+    // Get the address of the function we want to call
+    dlopen_and_close_func func = (dlopen_and_close_func)dlsym(handle, "dlopen_and_close");
+    
+    if (!func) {
+        fprintf(stderr, "dlsym failed: %s\n", dlerror());
+        return 1; // Return non-zero to indicate error
     }
-
-    // Call the function in the library and check the return value
-    (*dlopen_and_close)();
-
+    
+    // Call the function
+    func();
+    
     // Close the shared library
-    dlclose(handle);
-
-    return 0;   // Return zero to indicate success.
+    if (dlclose(handle) < 0) {
+        fprintf(stderr, "dlclose failed: %s\n", dlerror());
+        return 1; // Return non-zero to indicate error
+    }
+    
+    return 0;
 }

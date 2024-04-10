@@ -1,22 +1,28 @@
+++
+#include "clang-c/Index.h"
 
-#include <stdio.h>
-#include <clang-c/Index.h>  // Make sure this is a valid path to the header file for clang-c library.
+// Include other necessary libraries...
 
-int main(void) {
+CXChildVisitResult visitor(CXCursor cursor, CXClientData client_data) {
+    // Handle the cursor...
+}
+
+int main() {
     CXIndex idx = clang_createIndex(0, 1);
     
-    const char *args[] = { "-I.", "/usr/include" };
-    CXTranslationUnit tu = clang_parseTranslationUnit(idx, "test.c", args, sizeof(args) / sizeof(*args), NULL, 0, CXTranslationUnit_None);
+    const char* args[] = { "-I", "/usr/include", "-I", "/another/include" };
+    CXTranslationUnit tu = clang_parseTranslationUnit(idx, "source.c", args, 4, NULL, 0, CXTranslationUnit_None);
     
-    if (tu == NULL) {
-        printf("Failed to parse translation unit! Did you forget to include the right headers?\n");
-        return 1;
+    if (tu) {
+        // Visit the translation unit...
+        clang_visitChildren(clang_getTranslationUnitCursor(tu), visitor, NULL);
+        
+        // Clean up...
+        clang_disposeTranslationUnit(tu);
+    } else {
+        printf("Failed to parse source file.\n");
     }
     
-    CXCursor cursor = clang_getTranslationUnitCursor(tu);
-    clang_visitChildren(cursor, visitor, NULL);
-    
-    clang_disposeTranslationUnit(tu);
     clang_disposeIndex(idx);
     
     return 0;

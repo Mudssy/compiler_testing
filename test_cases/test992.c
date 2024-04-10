@@ -1,20 +1,21 @@
 
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#define NUM_ELEMENTS 100
 
-int main(void) {
-    int *lstruct = malloc(10 * sizeof(*lstruct));  // Allocate memory for an array of 10 integers
-    if (lstruct == NULL) {  // Check if allocation was successful
-        printf("Allocation failed\n");
-        return -1;
+int main() {
+    int *arr = (int*) malloc(NUM_ELEMENTS * sizeof(int)); // memory allocation and typecasting
+    
+    if (arr == NULL) { // check for successful memory allocation
+        printf("Memory not allocated.\n");
+        exit(0); 
+    } else { 
+        for (size_t i = 0; i < NUM_ELEMENTS; ++i){ // setting elements to zero
+            arr[i] = 0;
+        }
+
+        // free memory
+        free(arr);
     }
-
-    memset(lstruct, 0, 10 * sizeof(*lstruct));  // Set all elements of the array to 0
-
-    while (1) { /* Infinite loop to keep the program running after successful allocation */ }
-
-    free(lstruct);  // Don't forget to free allocated memory when you are done with it
-
+    
     return 0;
 }

@@ -11,7 +11,7 @@ int main() {
     
     printf("Try to stop the program by pressing Ctrl+C...\n");
 
-    while(1) {} // Infinite loop to keep the program running
+    while(1){} // Infinite loop to keep the program running
 
     return 0; // This line will never be reached as the above while loop is infinite
 }

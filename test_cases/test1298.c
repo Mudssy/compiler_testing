@@ -1,46 +1,27 @@
 
 #include <stdio.h>
-#include <fenv.h>
-
+#ifdef __STDC_IEC_559__
+    #include <fenv.h>
+#else
+    #pragma STDC FENV_ACCESS ON
+#endif
+    
 int main() {
-    feraiseexcept(FE_ALL_EXCEPT);  // raise all floating-point exceptions
+    int currentRound = fegetround();
     
-    int currentRounding = fegetround();  // get the current rounding mode
-
+    // print the current rounding mode
     printf("Current rounding mode: ");
-    switch (currentRounding) {
-        case FE_TONEAREST:
-            printf("FE_TONEAREST\n");
+    switch (currentRound) {
+        case FE_TONEAREST:  printf("To nearest\n"); break;
+        case FE_DOWNWARD:   printf("Downward\n"); break;
+        case FE_UPWARD:     printf("Upward\n"); break;
+        case FE_TOWARDZERO: printf("Toward zero\n"); break;
+        
+#ifdef __STDC_IEC_559__
+        default:
+            printf("Unknown rounding mode\n"); 
             break;
-        case FE_DOWNWARD:
-            printf("FE_DOWNWARD\n");
-            break;
-        case FE_UPWARD:
-            printf("FE_UPWARD\n");
-            break;
-        case FE_TOWARDZERO:
-            printf("FE_TOWARDZERO\n");
-            break;
-    }
-    
-    fesetround(FE_DOWNWARD);  // set the rounding mode to downward
-
-    currentRounding = fegetround();
-
-    printf("New rounding mode: ");
-    switch (currentRounding) {
-        case FE_TONEAREST:
-            printf("FE_TONEAREST\n");
-            break;
-        case FE_DOWNWARD:
-            printf("FE_DOWNWARD\n");
-            break;
-        case FE_UPWARD:
-            printf("FE_UPWARD\n");
-            break;
-        case FE_TOWARDZERO:
-            printf("FE_TOWARDZERO\n");
-            break;
+#endif    
     }
     
     return 0;

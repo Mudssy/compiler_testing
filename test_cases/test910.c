@@ -1,33 +1,30 @@
 
-#include <llvm-c/Remarks.h>
 #include <stdio.h>
-#include <string.h>
+#include <LLVMRemarkParser/LLVMRemarkParser.h>
 
 int main() {
-    // Create a parser
     LLVMRemarkParserRef parser = LLVMCreateRemarkParser();
     
-    // Define the remarks
-    char *remarks[] = {
-        "remark type: remark",
-        "pass: module-inline",
-        "function: f",
-        "type: 3fooi (i32)",
-        0
-    };
+    bool hasError = false;
+    char *remark;  // Assuming the remark should be a string for simplicity.
     
-    for (int i = 0; remarks[i] != 0; ++i) {
+    while (/* Remarks are available */) {
+        remark = /* Get next remark */;
+        
         if (!LLVMRemarkParserHasError(parser)) {
-            LLVMParseRemark(parser, remarks[i], strlen(remarks[i]));
-        } else {
-            printf("Error parsing remark: %s\n", LLVMGetLastError());
-            return 1; // Exit with an error status code
+            hasError = true;
+            break;  // Exit from the loop and continue with error handling
         }
     }
     
-    // Cleanup and memory management
-    LLVMDisposeRemarkParser(parser);
+    LLVMRemarkParserDispose(parser);
     
-    printf("All remarks parsed successfully!\n");
-    return 0;
+    if (hasError) {
+        printf("Encountered an error: %s\n", LLVMRemarkParserGetErrorMessage(parser));
+        return -1;  // Return an error code indicating something went wrong.
+    } else {
+        printf("No errors encountered.\n");
+    }
+    
+    return 0;  // Return a successful execution status code.
 }

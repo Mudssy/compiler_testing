@@ -3,15 +3,21 @@
 #include <stdint.h>
 
 void __attribute__((noinline)) print_pd(uint64_t pd) {
-    for (size_t i = 0; i < 8 * sizeof(pd); ++i)
-        putchar('0' + !!(pd & 1ULL << i));
+    for (size_t i = 0; i < 8 * sizeof(uint64_t); ++i) {
+        printf("%c", (pd & 1) ? '*' : '.');
+        pd >>= 1;
+    }
 }
 
-int main() {
-    uint64_t pd = __builtin_pdsad((uint64_t)(void *)&main, (uint64_t)(void *)"test");
-    printf("Scalable Profile Data: ");
-    print_pd(pd);
-    putchar('\n');
-    
-    return 0;
+void __attribute__((noinline)) foo() {}
+
+int main(void) {
+    for (size_t i = 0; i < 128; ++i) {
+        uint64_t pd = __builtin_profile_data();
+        if (pd != 0) {
+            print_pd(pd);
+            printf("\n");
+        }
+        foo();
+    }
 }

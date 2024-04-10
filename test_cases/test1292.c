@@ -3,15 +3,16 @@
 #include <stdio.h>
 
 int main() {
-    feclearexcept(FE_ALL_EXCEPT);
-    
-    /* This line will raise a division by zero exception */
-    int result = 10 / 0;
+    feclearexcept(FE_ALL_EXCEPT); // Clear all floating-point exception flags
 
-    if (fetestexcept(FE_DIVBYZERO)) {
-        printf("Exception(s) occurred.\n");
+    float a = 10.0;
+    float b = -5.0;
+    float c = a / b;
+
+    if (fetestexcept(FE_OVERFLOW)) {
+        printf("Overflow detected\n");
     } else {
-        printf("No exceptions set.\n");
+        printf("Result: %f\n", c);
     }
     
     return 0;

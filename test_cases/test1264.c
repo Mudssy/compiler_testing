@@ -1,9 +1,9 @@
 
-#include <math.h>
 #include <stdio.h>
+#include <math.h> // Needed to use the sinh function
 
 int main() {
-    double value = 0.5; // you can change this to any other number for testing
-    printf("The hyperbolic sine of %lf is %lf\n", value, sinh(value));
+    double value = 0.5;
+    printf("The hyperbolic sine of %lf is %lf\n", value, sinh(value)); 
     return 0;
 }

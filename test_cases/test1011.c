@@ -1,33 +1,29 @@
 
 #include <stdio.h>
 
-void print_vec(const void* vec, size_t count, size_t size) {
-    const char *ptr = (const char*)vec; // this is fine as long as vec points to a proper object type
-    
-    for(size_t i = 0; i < count; ++i) {
-        switch(size) {
-            case sizeof(int): {// braces added here to define a new scope 
-                int value = *((int*)(ptr + i * size)); // directly assign the dereferenced pointer to an integer variable
-                printf("%d ", value); 
+void print_vec(const void *array, size_t nmemb, size_t size) { // Function to print any type of arrays
+    const char *p = (const char *)array;
+    for (size_t i = 0; i < nmemb; ++i) {
+        switch (size) {
+            case sizeof(int):
+                printf("%d ", *((int*)p));  // Printing integer elements
                 break;
-            }
-            case sizeof(float): {
-                float value = *((float*)(ptr + i * size)); // directly assign the dereferenced pointer to a float variable
-                printf("%.2f ", value); 
+            case sizeof(float):
+                printf("%.1f ", *((float*)p));  // Printing float elements
                 break;
-            }
-            // add other cases as needed...
         }
+        p += size;
     }
-    printf("\n");
 }
 
-int main() {
-    int ivec[] = {1, 2, 3};
-    float fvec[] = {1.0f, 2.0f, 3.0f};
+int main(void) {
+    int int_array[] = {1, 2, 3, 4, 5};
+    print_vec(int_array, sizeof(int_array)/sizeof(*int_array), sizeof(*int_array));
     
-    print_vec(ivec, sizeof(ivec) / sizeof(*ivec), sizeof(*ivec)); // no need to pass the element size explicitly
-    print_vec(fvec, sizeof(fvec) / sizeof(*fvec), sizeof(*fvec)); 
+    printf("\n");
+    
+    float float_array[] = {1.0f, 2.0f, 3.0f, 4.0f, 5.0f};
+    print_vec(float_array, sizeof(float_array)/sizeof(*float_array), sizeof(*float_array));
     
     return 0;
 }

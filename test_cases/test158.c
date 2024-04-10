@@ -9,6 +9,6 @@ void add(add_func f) {
 }
 
 int main() {
-    add((add_func)([](int a, int b) -> int { return a + b; })); // Passing lambda as parameter to function that accepts function pointer. Cast it to our defined type
+    add((add_func)([](int a, int b) -> int { return a + b; })); // Passing lambda as an argument
     return 0;
 }

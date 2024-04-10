@@ -1,6 +1,6 @@
 
 #include <stdio.h>
-#include <errno.h> // Include errno for perror error checking
+#include <errno.h> 
 
 int main(void) {
     FILE *file;

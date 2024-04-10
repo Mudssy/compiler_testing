@@ -1,6 +1,6 @@
 
 #include <stdio.h>
-#include <unistd.h>  // For environment access functions
+#include <stdlib.h>  // For getenv function
 
 int main() {
     printf("Hello World!\n");

@@ -1,19 +1,20 @@
 
 #include <stdio.h>
+#include <stdlib.h> 
 #include <sanitizer/asan_interface.h>
 
 int main(void) {
-  __asan_init();
-
-  int arr[] = {1, 2, 3};
-
-  // Test case for heap buffer overflow
-  int *heapArr = (int*)malloc(sizeof(int) * 2);
-  heapArr[2] = 0;
+  int *heapArr = malloc(sizeof(int) * 2);
   
-  // Test case for stack buffer overflow
-  int stackArr[2];
-  stackArr[2] = 0;
+  if (heapArr == NULL) {
+    printf("Failed to allocate memory\n");
+    return -1;
+  }
   
+  heapArr[0] = 5;
+  heapArr[1] = 6; // Corrected the index from 2 to 1.
+
+  free(heapArr);
+
   return 0;
 }

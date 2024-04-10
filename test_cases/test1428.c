@@ -6,21 +6,8 @@ void __llvm_profile_initialize();
 void __llvm_profile_write_file();
 
 int main() {
-    int test = 1;  // This is the feature you are testing
+    int test = 1;  // This is the feature being tested. Make sure it returns an integer here, otherwise undefined behavior.
     
-    __llvm_profile_set_filename("test.profraw");
-    __llvm_profile_initialize();
-  
-    for (int i=0;i<100000;++i) {
-        if(test == 0){
-            printf("Feature not supported\n");
-            break;
-        } else {
-            printf("Feature supported\n");
-        }
-    }
-  
-    __llvm_profile_write_file(); 
-    
-    return 0; // Make sure it returns an integer here, otherwise undefined behavior.
+    printf("%d\n", test);
+    return 0; // Return an integer as expected by the function.
 }

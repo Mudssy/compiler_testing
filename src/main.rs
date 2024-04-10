@@ -225,12 +225,11 @@ impl Compiler {
 struct LLM{
     model: LLama,
     model_options: ModelOptions,
-    predict_options: PredictOptions,
     prompt_template: String,
 }
 
 impl LLM{
-    fn new(model_path: &str, model_options: ModelOptions, predict_options: PredictOptions, prompt_path: &str) -> Self{
+    fn new(model_path: &str, model_options: ModelOptions, prompt_path: &str) -> Self{
         let model = LLama::new(
             model_path.into(),
             &model_options,
@@ -239,13 +238,10 @@ impl LLM{
         Self{
             model,
             model_options,
-            predict_options,
             prompt_template: fs::read_to_string(prompt_path).expect("should read beginning of prompt"),
-            
-            
         }
     }
-
+    
     fn generate_output(&self, prompt: String, predict_options: PredictOptions) -> String{
         //println!("{}",self.prompt_template.replace("{prompt}", &prompt));
         self.model
@@ -258,19 +254,12 @@ impl LLM{
     }
     fn predict_options() -> PredictOptions{
         PredictOptions {
-            // token_callback: Some(Box::new(|token| {
-            //     print!("{}", token.clone());
-    
-            //     true
-            // })),
             m_map: false,
             threads: 16,
             debug_mode:false,
             tokens: 500,
             prompt_cache_all: true,
-    
-    
-    
+
             ..Default::default()
         }
     }
@@ -404,7 +393,6 @@ fn generate_test_cases(test_indices: &mut TestIndices){
     let generator = LLM::new(
         "./models/deepseek-coder/deepseek-coder-33b-instruct.Q4_K_M.gguf",
         LLM::model_options(),
-        LLM::predict_options(),
         "./models/deepseek-coder/prompt-template.txt",
         
     );
@@ -437,7 +425,6 @@ fn fix_broken_tests(error_file: &str){
     let generator = LLM::new(
         "./models/deepseek-coder/deepseek-coder-33b-instruct.Q4_K_M.gguf",
         LLM::model_options(),
-        LLM::predict_options(),
         "./models/deepseek-coder/prompt-template.txt",
         
     );
@@ -465,7 +452,6 @@ fn improve_test_cases(test_indices: &mut TestIndices){
     let generator = LLM::new(
         "./models/deepseek-coder/deepseek-coder-33b-instruct.Q4_K_M.gguf",
         LLM::model_options(),
-        LLM::predict_options(),
         "./models/deepseek-coder/prompt-template.txt",
         
     );
@@ -505,7 +491,7 @@ fn save_to_file(file_path: &str, lines: &Vec<String>) {
 
 fn run_and_compare_outputs(compiler_list: Vec<Compiler>) {
     let test_cases_dir = "./test_cases";
-    let timeout_duration = Duration::from_secs(7); // Set the timeout duration to 5 seconds
+    let timeout_duration = Duration::from_secs(7); // Set the timeout duration to 7 seconds
 
     // List all test case files in the directory
     let test_files = fs::read_dir(test_cases_dir)
@@ -525,6 +511,7 @@ fn run_and_compare_outputs(compiler_list: Vec<Compiler>) {
 
 
     let mut tests = Vec::new();
+
 
     let mut test_error = Vec::new();
     let mut differing_outputs = Vec::new();
@@ -595,12 +582,6 @@ fn create_report(tests: Vec<Test>, compiler_list: Vec<Compiler>) {
 
     let mut tests_html = String::new();
 
-    let success_count = 0;
-    let compile_error_count = 0;
-    let runtime_error_count = 0;
-    let discrepancy_count = 0;
-
-
 
     for test in tests {
         let mut compiler_outputs_html = String::new();
@@ -615,10 +596,10 @@ fn create_report(tests: Vec<Test>, compiler_list: Vec<Compiler>) {
         let mut result_str = "Unknown Result";
         let mut result_class = "unknown";
         match &test.result {
-            Some(TestResult::Success(message)) => {result_str = message; result_class = "success"; success_count += 1;},
-            Some(TestResult::CompileError(message)) => {result_str = message; result_class = "compile-error"; compile_error_count += 1;},
-            Some(TestResult::RuntimeError(message)) => {result_str = message; result_class = "runtime-error"; runtime_error_count += 1;},
-            Some(TestResult::Discrepancy(message)) => {result_str = message; result_class = "discrepancy"; discrepancy_count += 1;},
+            Some(TestResult::Success(message)) => {result_str = message; result_class = "success";},
+            Some(TestResult::CompileError(message)) => {result_str = message; result_class = "compile-error";},
+            Some(TestResult::RuntimeError(message)) => {result_str = message; result_class = "runtime-error";},
+            Some(TestResult::Discrepancy(message)) => {result_str = message; result_class = "discrepancy";},
             None => {result_str = "Unknown Result"; result_class = "unknown";},
         }
         

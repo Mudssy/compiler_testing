@@ -1,36 +1,25 @@
 
 #include <stdio.h>
-#include <string.h>
-#include <math.h>
 
 int main() {
-    // Use string functions from the <string.h> library
-    char str1[20] = "Hello";
-    char str2[20] = "World";
-    char str3[20];
-    int len;
+    int a = 5, b = 2; // Variables Initialization
+    double z = pow(a, b);  
     
-    // Copy str1 into str3
-    strcpy(str3, str1);
-    printf("strcpy(str3, str1): %s\n", str3);
+    printf("%d^%d is %f\n", a, b, z);  // Correctly formatted string using 'printf'
+
+    if (z > 10) {   // Checking if power of a and b is greater than 10
+        printf("Result is more than 10.\n");
+    }
     
-    // Concatenate str1 and str2
-    strcat(str1, str2);
-    printf("strcat(str1, str2): %s\n", str1);
+    int arr[] = {5, 6, 7, 8, 9};
     
-    len = strlen(str1);
-    printf("strlen(str1): %d\n", len);
-    
-    // Use math functions from the <math.h> library
-    double x = 3.0;
-    double y, z;
-    int a = 5, b = 2;
-    
-    y = sqrt(x);  // Square root
-    printf("sqrt(%lf) = %lf\n", x, y);
-    
-    z = pow(a, b);  // Power
-    printf("%d^%d = %lf\n", a, b, z);
+    for(int i = 0; i < sizeof(arr)/sizeof(arr[0]); ++i) {   // Loop over the array
+        if (arr[i] % 2 == 1) {  // Checking whether the number is odd or not
+            printf("Odd number found: %d\n", arr[i]);
+        } else {
+            printf("%d is even.\n", arr[i]);
+        }
+    }
     
     return 0;
 }

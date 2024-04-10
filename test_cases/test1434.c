@@ -8,13 +8,13 @@ __attribute__((noinline)) void foo() {
 }
 
 int main() {
-    // Start profiling
+     // Start profiling
     __llvmlibProfileData("start");
-    
-    for (int i = 0; i < 10000000; ++i) {
+
+    for (long long int i = 0; i < 10000000LL; ++i) {
         foo();
     }
-    
+
     // End profiling and print results to stdout
     __llvmlibProfileData("stop");
     

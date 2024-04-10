@@ -6,7 +6,7 @@ const int const_test = 1;
 
 int main() {
     printf("Testing 'noreturn' attribute\n");
-    noreturn_test();  // this line will never return, because of the attribute.
+    noreturn_test();   // this line will never return, because of the attribute.
     printf("This line will not be printed.\n");
     return 0;
 }

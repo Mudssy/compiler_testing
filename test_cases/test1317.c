@@ -1,12 +1,9 @@
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <clog.h>
-
 int main() {
-    clog_info("This is an info message");
-    clog_warn("This is a warning message");
-    clog_error("This is an error message");
+    printf("INFO: %s\n", "This is an info message");
+    printf("WARN: %s\n", "This is a warning message");
+    printf("ERROR: %s\n", "This is an error message");
     
     return 0;
 }

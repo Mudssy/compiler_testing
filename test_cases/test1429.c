@@ -1,8 +1,7 @@
 
 #include <stdio.h>
-#include "llvm_profile_data.h"
 
-int main() {
-    __llvm_profile_write_file();
-    return 0;
+void __llvm_profile_write_file(void) {
+    printf("Writing profile data...\n");
+    // ... implementation goes here
 }

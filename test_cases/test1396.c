@@ -6,15 +6,13 @@ void __attribute__((noinline)) foo() {
 }
 
 int main() {
-    // Start profiling
-    void *__llvm_profile_begin_ext(void*, size_t);
-    void *Start = __llvm_profile_begin_ext((void*)"foo", 3);
+    void* (*__llvm_profile_begin_ext)(void*, size_t);
+    void *Start = ((void*(*)(void*,size_t))&__llvm_profile_begin_ext)("foo", 3);
     
     foo();
     
-    // Stop profiling and merge the profile data
-    void __llvm_profile_end_ext(void*, size_t, void*, size_t);
-    __llvm_profile_end_ext((void*)"foo", 3, Start, 0);
+    void __(*__llvm_profile_end_ext)(void*, size_t, void*, size_t);
+    ((void(*)(void*,size_t,void*,size_t))&__llvm_profile_end_ext)("foo", 3, Start, 3);
     
     return 0;
 }

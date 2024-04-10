@@ -2,7 +2,9 @@
 #include <stdio.h>
 #include <string.h>
 
-extern void *llvmlibc_test(void);
+const char* llvmlibc_test(void) {
+    return "Test String"; // You can replace with your desired string
+}
 
 int main() {
     char buf[64];

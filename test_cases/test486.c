@@ -7,7 +7,7 @@ int main(void)
 {
     foo(); // Calling deprecated function to suppress warning
     
-    #pragma GCC error "This function is deprecated"
+    _Pragma("GCC error \"This function is deprecated\"")
     
     return 0;
 }

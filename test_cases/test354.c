@@ -1,18 +1,17 @@
 
+#include <immintrin.h>
 #include <stdio.h>
-#include <immintrin.h>  // AVX/AVX2 intrinsics 
 
-void print_vector(__m256 vect){
-    float *p = (float*)&vect;
-    printf("%.17g %.17g %.17g %.17g\n", p[3], p[2], p[1], p[0]);   // print in reverse order to match the printed permutation of AVX intrinsics
+void print_vector(__m128 vec) {
+    float* f = (float*)&vec;
+    printf("%f, %f, %f, %f\n", f[0], f[1], f[2], f[3]);
 }
 
 int main() {
-    __m256 vec = _mm256_set_ps(4.f, 3.f, 2.f, 1.f);   // initialize vector
-    __m256i permutation = _mm256_set1_epi32(0x39);   // set the permutation
-    __m256 perm = _mm256_permutevar8x32_ps(vec, permutation);  // apply permutation
+    __m128 vec = _mm_setr_ps(1.f, 2.f, 3.f, 4.f); // vector with 4 floats (vec is 128 bit wide)
+    print_vector(vec);
 
-    print_vector(perm);
-    
-    return 0;
+    __m128i shuffle_mask = _mm_setr_epi32(0, 1, 2, 3); // shuffle mask - doesn't change anything
+    vec = _mm_permutevar_ps(vec, shuffle_mask); // permute vec with shuffle_mask
+    print_vector(vec);
 }

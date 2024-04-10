@@ -2,23 +2,18 @@
 #include <stdio.h>
 
 // Global variables declaration
-int x;
-static int y;
-extern int z; // Assume this is defined somewhere else
+int x = 5; // Assign a value to avoid garbage output of uninitialized variable
+static int y = 10; 
+extern int z; // Assume this is defined somewhere else and assign a value
 
 void print_values() {
     printf("Global values:\n");
     printf("x = %d\n", x);
     printf("y = %d\n", y);
-    printf("z = %d\n", z);
+    printf("z = %d\n", z); // Assume that 'extern int z' is defined somewhere else
 }
 
 int main() {
-    // Local variable definition
-    int a = 10;
-    static int b = 20;
-    
     print_values();
-
     return 0;
 }

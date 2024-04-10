@@ -1,14 +1,23 @@
 
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 
 int main() {
-    double x = -1.0;  // The argument should be in the range of [-1, 1]
-    double result = cacosh(x);  // Calculate the hyperbolic cosine of a number
+    double x, y;
+    printf("Enter two numbers:\n");
     
-    if (isnan(result)) {  // Check if result is not a number
-        printf("NaN");  // Print NaN if the function is unsupported
+    if(scanf("%lf %lf", &x, &y) != 2){
+        fprintf(stderr, "Invalid input\n");
+        return 1; // Returning non-zero indicates an error in Unix systems.
     }
-    
-    return 0;
+
+    printf("The results are:\n");
+    if (x >= y) {
+        printf("%lf\n", cosh(2*y));
+    } else {
+        printf("%lf\n", log(x+y));
+    }
+
+    return 0; // Returning zero indicates successful execution.
 }

@@ -4,18 +4,22 @@
 #include "llvm-c/Core.h"
 
 // Callback function to process remarks
-void print_remark(const char *pass, const char *msg, void *userdata) {
-    printf("Pass: %s\nMessage: %s\n", pass, msg);
+void process_remark(char *remark, void *callback_data) {
+    printf("%s\n", remark);
 }
 
 int main() {
-    // Initialize the remark registry. This function needs to be called only once.
+    // Initialize the LLVM's global state for remark processing
+    LLVMLinkInMCJIT();
+    LLVMInitializeNativeTarget();
+    LLVMInitializeNativeAsmPrinter();
+    LLVMInitializeNativeAsmParser();
     LLVMInitRemarkRegistry();
     
-    // Setup a callback for processing remarks
-    LLVMSetRemarkCallback(print_remark, NULL);
+    // Setup a callback to process remarks
+    LLVMSetRemarksCallback(process_remark, NULL);
     
-    // The code here should generate some remarks to process by your print_remark() function...
-    // For the sake of this example, let's just return 0.
+    // TODO: Insert code that generates and processes remarks here.
+    
     return 0;
 }

@@ -1,5 +1,7 @@
 
 #include <assert.h>
+#include <stdio.h>
+
 int main(){
     int x = -1;  // Assume this x is your assumption.
     assert(x>=0);  // If it's not true, program will stop here.

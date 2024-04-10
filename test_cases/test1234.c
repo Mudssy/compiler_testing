@@ -4,7 +4,7 @@
 
 int main() {
     printf("Testing Abort Feature\n");
-    abort();
-    printf("This line should not be printed.\n");
+    abort(); // No need to call exit function after calling abort as it immediately terminates the program.
+    printf("This line should not be printed.\n"); 
     return 0;
 }

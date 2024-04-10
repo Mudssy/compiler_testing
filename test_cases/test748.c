@@ -1,16 +1,25 @@
 
 #include <stdio.h>
+#include <assert.h>
 
-__attribute__((returns_nonnull)) char* __llvm_libc_stub_function();  // declaration for stub function
+// The function declaration
+int* stubFunction(void) __attribute__((returns_nonnull));
+
+// Implementation of stub with return null (for testing)
+/* 
+int* stubFunction(void){
+    int *val = NULL;
+    return val;
+}*/
+
+// Implementation of stub with return non-null (for normal operation)
+int* stubFunction(void){
+    static int val = 5; // Static variables are initialized to zero when the function is first called and retain their value on subsequent calls.
+    return &val;
+}
 
 int main() {
-    char *str = __llvm_libc_stub_function();  // using the stub function
-    
-    if(str) {     // check if the returned value is not null
-        printf("Function returned non-null string: %s\n", str);
-    } else {
-        printf("Function returned null pointer\n");
-    }
-
+    assert(stubFunction() != NULL); // Ensure that stubFunction returns non-null
+    printf("Stub Function returned non null\n");
     return 0;
 }

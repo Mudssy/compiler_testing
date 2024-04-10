@@ -3,15 +3,28 @@
 #include <stdlib.h>  // Include stdlib for malloc()
 
 int main() {
-    int value = 0;  // Initialize value to be zero
+    int value = 0;  // Initialize value
+
+    printf("Enter an integer: ");
+    scanf("%d", &value);
     
-    if (__builtin_expect(value == 0, 1)) {
-        char* remarkBuffer = (char*)malloc(sizeof(char) * 256);  // Allocate memory dynamically for remarkBuffer
+    if(value >= 1) {  // Check if the input is valid
+        // Since there's no C++ vector equivalent, we will use a simple array.
+        int *remarks = malloc(sizeof(int) * value);  // Allocate memory for 'value' integers
         
-        sprintf(remarkBuffer, "Value was %d", value);  // Correct syntax to use the correct printf function
-    
-        Remarks.push_back(remarkBuffer); // This will fail because the API is not correct in your case. You need to modify this part based on your actual program
+        for (int i = 0; i < value; ++i) {
+            remarks[i] = i + 1;  // Fill the array
+        }
+
+        printf("The Remarks are: ");
+        for (int j = 0; j < value; ++j) {
+            printf("%d ", remarks[j]);
+        }
+        
+        free(remarks);   // Don't forget to free memory after use!
+    } else {
+        printf("Invalid Input");
     }
-  
+    
     return 0;
 }

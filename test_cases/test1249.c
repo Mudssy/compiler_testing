@@ -1,6 +1,6 @@
 
-#include <math.h>
 #include <stdio.h>
+#include <math.h>
 
 int main() {
     double x = 10.0;

@@ -3,7 +3,7 @@
 #include <math.h>
 
 int main() {
-    double num = 3.14; // You can replace this with any number you want to test
-    printf("Ceil of %lf is %lf\n", num, ceil(num));
+    double num = 3.14; 
+    printf("Ceiling of %lf is %.0lf\n", num, ceil(num));
     return 0;
 }

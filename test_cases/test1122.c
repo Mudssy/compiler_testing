@@ -1,7 +1,7 @@
 
 #include <stdio.h>
 
-void __attribute__((noreturn)) myFunction() {
+void myFunction() __attribute__((noreturn)) {
     printf("This function does not return! If you see this, the compiler supports attribute specifiers!\n");
 }
 

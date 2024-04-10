@@ -1,20 +1,21 @@
 
-#include <immintrin.h>
-#include <stdio.h>
+#include <immintrin.h> // AVX intrinsics library
+#include <stdio.h> 
+#include <random>
+#include <time.h>  
 
-__m256 rand_vector(__m256i seed) { 
-    __m256 res = _mm256_cvtepi32_ps(seed); // Convert integers to floats
-    return res;
-}
+float f[8];
 
-int main() {
-    __m256i seed = _mm256_setr_epi32(0, 1, 2, 3, 4, 5, 6, 7); // Set initial vector values
-    __m256 randNumbers = rand_vector(seed); // Generate random numbers using AVX instructions
+void generate_floats(__m256* random) {
+    std::mt19937 generator(time(0)); // Mersenne Twister generator for randomness
+    std::uniform_int_distribution<int> distribution(-INT_MAX, INT_MAX); // Range of 4-bit integer values
     
-    float* f = (float*)&randNumbers; // Convert AVX register to array of floats
-    printf("Random Numbers: ");
-    for(int i = 0; i < 8; i++) {
-        printf("%f ", f[i]);
+    int seed[8]; // Seed vector
+    for (int i = 0; i < 8; ++i) {
+        seed[i] = distribution(generator);
     }
-    return 0;
+
+    __m256i seed_vector = _mm256_setr_epi32(seed[0], seed[1], seed[2], seed[3], seed[4], seed[5], seed[6], seed[7]); // Load the seed into a 256-bit vector
+    
+    *random = _mm256_cvtepi32_ps(seed_vector); // Convert the integer values to floats
 }

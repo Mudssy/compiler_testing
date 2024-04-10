@@ -1,15 +1,16 @@
 
 #include <stdio.h>
-#include "profile_rt.h"
 
-__attribute__((noinline)) void foo() { printf("Hello, World!\n"); }
+void __attribute__((noinline)) foo() { printf("Hello, World!\n"); }
 
 int main(void) {
-  __llvm_profile_init_counters();
+  void *__llvm_profile_begin_data();
   
   for (int i = 0; i < 10000000; ++i) {
     foo();
   }
 
+  void *__llvm_profile_end_data();
+  
   return 0;
 }

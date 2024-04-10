@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <complex.h>
+#include <math.h>
 
 int main() {
     double complex z1 = 1.0 + 3.0 * I; // Declare and initialize a complex number

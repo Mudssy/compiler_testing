@@ -12,14 +12,14 @@ int main() {
         fprintf(stderr, "%s\n", dlerror());
         return 1;
     }
-
+    
     cosine = dlsym(handle, "cos");
     error = dlerror();
     if (error != NULL) {
         fprintf(stderr, "%s\n", error);
         return 1;
     }
-
+    
     printf("%f\n", (*cosine)(2.0));
     dlclose(handle);
     return 0;

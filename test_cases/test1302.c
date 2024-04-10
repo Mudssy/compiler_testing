@@ -3,27 +3,29 @@
 #include <fenv.h>
 
 int main() {
-    fenv_t env;
-    int excepts = FE_DIVBYZERO | FE_INVALID;
+    fexcept_t flag, newFlag;
     
-    // Save the current floating-point environment
-    if (fegetenv(&env) != 0) {
-        printf("Could not save current floating-point environment.\n");
-        return 1;
-    }
-
-    // Change the floating-point environment and raise exceptions specified by 'excepts'
-    fesetexceptflag(&excepts, FE_ALL_EXCEPT);
+    /* Save the current floating-point environment. */
+    fegetenv(&flag);
     
-    printf("FE_DIVBYZERO and FE_INVALID exceptions have been raised.\n");
-
-    // Restore previous floating-point environment
-    if (feupdateenv(&env) != 0) {
-        printf("Could not restore previous floating-point environment.\n");
-        return 1;
+    // Do something that may cause a floating point exception ...
+    int x = 10 / 0;  // This will trigger division by zero exception
+    
+    /* Test for FE_DIVBYZERO exception */
+    if(fetestexcept(FE_DIVBYZERO)) {
+        printf("Division by Zero Exception Occurred\n");
+        
+        /* Clear the floating point status flags */
+        feclearexcept(FE_ALL_EXCEPT); 
     }
-
-    printf("The floating-point exceptions have been restored to their original state.\n");
+    
+    // Perform some operations that may cause exceptions here...
+    
+    /* Save the current environment, which is now without any exception. */
+    fegetenv(&newFlag);
+    
+    /* Update the current environment with newFlag (now without any exception) */
+    fesetenv(&flag);
     
     return 0;
 }

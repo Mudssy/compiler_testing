@@ -12,16 +12,11 @@ int main() {
     
     fseek(fp, 0, SEEK_END); // Move to the end of the file
     
-    long size = ftell(fp); // Get the current file position
+    long fileSize = ftell(fp); // Get the position (which is the size)
     
-    if (size == -1L) {
-        printf("Error getting the file size.\n");
-        return -1;
-    }
+    printf("The size of the file is %ld bytes.\n", fileSize);
     
-    printf("Size: %ld\n", size);
-    
-    fclose(fp); // Close the file
+    fclose(fp); 
     
     return 0;
 }
