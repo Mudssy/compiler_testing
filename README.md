@@ -52,3 +52,7 @@ Replace `<mechanism>` with one of the available mechanisms as per the main file'
 - `run_and_compare_outputs`: Compiles and runs the test cases using the specified compilers, comparing their outputs to identify discrepancies or errors.
 
 Ensure that you have properly set up the required directories and files as per the instructions above before running any of these mechanisms.
+
+## Viewing Test Results
+
+After running the mechanisms, a report named `compiler_test_report.html` will be generated and saved in the root directory of the project. You can open this HTML file using any web browser to view a detailed report of the test results, including success, failures, and discrepancies among different compilers.
