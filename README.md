@@ -6,8 +6,9 @@ This tool is designed for testing compilers by generating, running, and comparin
 
 To get started with this tool, you need to clone the repository including its submodules. Use the following command:
 
+```bash
 git clone --recurse-submodules <repository-url>
-
+```
 
 Replace `<repository-url>` with the actual URL of the GitHub repository.
 
@@ -38,9 +39,9 @@ This command compiles the program in release mode, optimizing the binary for per
 ## Running the Tool
 
 After compilation, you can run the tool using the following command:
-
+```bash
 ./target/release/compiler_testing <mechanism>
-
+```
 Replace `<mechanism>` with one of the available mechanisms as per the main file's instructions, such as `generate_test_cases`, `fix_broken_tests`, `improve_test_cases`, or `run_and_compare_outputs`.
 
 ### Available Mechanisms
