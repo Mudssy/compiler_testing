@@ -31,9 +31,9 @@ Machine learning models used for generating test cases should be placed in the `
 ## Compilation
 
 To compile the program, navigate to the root directory of the cloned repository and run:
-
+```bash
 cargo build --release
-
+```
 This command compiles the program in release mode, optimizing the binary for performance.
 
 ## Running the Tool
