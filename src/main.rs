@@ -244,18 +244,22 @@ impl LLM{
     
     fn generate_output(&self, prompt: String, predict_options: PredictOptions) -> String{
         //println!("{}",self.prompt_template.replace("{prompt}", &prompt));
-        self.model
+        let out = self.model
             .predict(
                 self.prompt_template.replace("{prompt}", &prompt),
                 predict_options,
 
-            ).unwrap()
+            );
+        match out {
+            Ok(output) => output,
+            Err(err) => format!("Error: {}", err),
+        }
                                                                         
     }
     fn predict_options() -> PredictOptions{
         PredictOptions {
             m_map: false,
-            threads: 16,
+            threads: 12,
             debug_mode:false,
             tokens: 500,
             prompt_cache_all: true,
