@@ -3,7 +3,7 @@
 
 __attribute__((noinline))
 void my_function() {
-    for (int i = 0; i < 10000000; ++i) {}
+    for (int i = 0; i < 100; ++i) {}
 }
 
 int main() {

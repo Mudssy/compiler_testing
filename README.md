@@ -55,4 +55,7 @@ Ensure that you have properly set up the required directories and files as per t
 
 ## Viewing Test Results
 
-After running the mechanisms, a report named `compiler_test_report.html` will be generated and saved in the root directory of the project. You can open this HTML file using any web browser to view a detailed report of the test results, including success, failures, and discrepancies among different compilers.
+After running the mechanisms, a report named `compiler_test_report.html` will be generated and saved in the root directory of the project. You can open this HTML file using any web browser to view a detailed report of the test results, including success, failures, and discrepancies among different compilers. Currently, the report stores the result of running this program to test GCC and Clang.
+
+## Problems
+On some systems, when running cargo build --release, cargo has issues in building llama.cpp. A solution is to go into rust-llama.cpp and runn cargo build --release from there and then move the llama.cpp from target/release/build/llama_cpp_rs into the corresponding folder in this project directory.

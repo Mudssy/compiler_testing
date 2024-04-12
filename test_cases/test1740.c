@@ -1,24 +1,19 @@
 
 #include <stdio.h>
 
-void print_const(const int arg) {
-    printf("The value of the const integer: %d\n", arg);
+void test_const() {
+    const int a = 10;
+    printf("Value of constant 'a': %d\n", a);
 }
 
-int main() {
-    volatile int x = 10;
-    const int y = 20;
-    
-    // Try to modify a const variable which will cause undefined behavior
-    // (This line is to be used for testing purposes only)
-    // int *z = &y;
-    // *z = 30;
-    
-    print_const(y);
-  
-    // Try to use volatile variable
-    x++;
-    printf("The value of the volatile integer: %d\n", x);
+void test_volatile() {
+    volatile int b = 20;
+    // Uncomment the below line to see how changing 'b' will stop compiler optimization.
+    // printf("Volatile: %d\n", b); 
+}
 
+int main(void) {
+    test_const();
+    test_volatile();
     return 0;
 }

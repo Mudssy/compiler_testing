@@ -5,9 +5,9 @@ int main() {
     printf("Testing Labels...\n");
     
     // Using while loop for initialization of labels in C
-    while(1) { 
+    start_loop: 
         printf("Printed from label.\n");
-    }
+        goto start_loop;
 
     return 0;
 }

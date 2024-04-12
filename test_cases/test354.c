@@ -8,10 +8,8 @@ void print_vector(__m128 vec) {
 }
 
 int main() {
-    __m128 vec = _mm_setr_ps(1.f, 2.f, 3.f, 4.f); // vector with 4 floats (vec is 128 bit wide)
-    print_vector(vec);
-
-    __m128i shuffle_mask = _mm_setr_epi32(0, 1, 2, 3); // shuffle mask - doesn't change anything
+    __m128 vec = _mm_setr_ps(1.0f, 2.0f, 3.0f, 4.0f); // initialize a vector with four floats
+    int shuffle_mask = _MM_SHUFFLE(3,2,1,0); // mask to permute elements in the vector
     vec = _mm_permutevar_ps(vec, shuffle_mask); // permute vec with shuffle_mask
     print_vector(vec);
 }

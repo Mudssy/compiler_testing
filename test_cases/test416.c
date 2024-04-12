@@ -9,10 +9,13 @@ int main() {
     if (file == NULL) {
         printf("Could not open file.\n");
         return 1;
-    }
+     }
 
-    fgets(buffer, sizeof(buffer), file);
-    printf("First line of the file: %s\n", buffer);
+    if(fgets(buffer, sizeof(buffer), file) != NULL){
+        printf("First line of the file: %s\n", buffer);
+     } else {
+         printf("File is empty or an error occurred while reading.\n");
+     }
 
     fclose(file);
     return 0;
